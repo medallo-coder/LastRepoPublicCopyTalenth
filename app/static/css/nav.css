@@ -1,0 +1,586 @@
+@font-face {
+    font-family: 'Oswald Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 200 700;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/oswald:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
+}
+
+/*-----------------------------------------------
+ Estilos RESET Y FUENTE
+-----------------------------------------------*/
+
+ * {
+    box-sizing: border-box;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500; 
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+  }
+
+/*-----------------------------------------------
+ Estilos para header
+-----------------------------------------------*/
+
+.header_nav {
+    background-color: #F8F8F8;
+    height: 80px;
+    width: 100%;
+    border-bottom: 2px solid #828282;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 15px;
+    flex-wrap: nowrap;
+    z-index: 1;
+}
+
+/* Menú hamburguesa */
+.menu {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    top: 25px;
+    left: 20px;
+    z-index: 9999;
+    background-color: transparent;
+    margin-left: -6px;
+}
+
+/* Barras del menú */
+.bar {
+    height: 3px;
+    width: 30px;
+    background-color: black;
+    transition: 200ms ease-in-out;
+}
+
+.menu.active .bar:nth-last-child(1) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+.menu.active .bar:nth-last-child(2) {
+    opacity: 0;
+}
+.menu.active .bar:nth-last-child(3) {
+    transform: translateY(11px) rotate(45deg);
+}
+
+/*-----------------------------------------------
+ Estilos para logo
+-----------------------------------------------*/
+
+.link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logo {
+    height: 40px;
+    margin-left: 20px;
+}
+.logo-text h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #3eaeb1;
+    margin: 0;
+}
+.azul {
+    color: black;
+}
+
+.left-group{
+    display: flex;
+    margin-left: 10px;
+}
+
+/*-----------------------------------------------
+ Estilos para buscador
+-----------------------------------------------*/
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+/* BUSCADOR */
+.buscador {
+    position: relative;
+    width: 430px;
+    min-width: 300px;
+    max-width: 430px;
+}
+
+.inputBuscador {
+    width: 100%;
+    padding: 8px 40px 8px 15px;
+    font-size: 15px;
+    border: 2px solid black;
+    border-radius: 50px;
+}
+.inputBuscador::placeholder {
+    font-weight: bold;
+    color: 666666;
+}
+.search {
+    position: absolute;
+    right: 10px;
+    top: 1px;
+}
+.btnsearch {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.btnsearch i{
+    font-size: 25px;
+    margin-right: 5px;
+}
+
+/*-----------------------------------------------
+ Estilos para botones
+-----------------------------------------------*/
+
+.ulregistro {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+.btreg, .btini, .btcerrar{
+    text-decoration: none;
+    border: 2px solid #3EAEB1;
+    border-radius: 50px;
+    padding: 5px 28px;
+    font-size: 16px;
+    font-weight: bold;
+    white-space: nowrap;
+    min-width: 120px;
+    text-align: center;
+}
+.btcerrar {
+    background-color: #3EAEB1;
+    color: white;
+}
+.btreg {
+    background-color: #ffffff;
+    color: #3EAEB1;
+}
+.btini {
+    background-color: #3EAEB1;
+    color: white;
+}
+.btreg:hover {
+    background-color: #3EAEB1;
+    color: white;
+}
+.btcerrar:hover {
+    background-color: white;
+    color: #3EAEB1;
+}
+.btini:hover {
+    background-color: white;
+    color: #3EAEB1;
+}
+
+/*-----------------------------------------------
+ Estilos para favorito
+-----------------------------------------------*/
+
+.ulfavorito {
+    margin-left: -20px;
+    margin-right: 10px;
+}
+.estrella {
+    font-size: 40px;
+    color: black;
+    top: 55px;
+}
+
+/*-----------------------------------------------
+ Estilos para sidebar
+-----------------------------------------------*/
+
+.sidebar {
+    border-right: 1px solid black;
+    width: 0px;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    overflow-y: auto;
+    background-color: #E7E7E7;
+    transition: width 0.5s ease;
+}
+
+.sidebar.click {
+    width: 300px;
+    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.4);
+    z-index: 100;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: white;
+    color: black;
+}
+.sidebar a:hover {
+    border: 2px solid black;
+    color: #3EAEB1;
+}
+
+/*-----------------------------------------------
+ Estilos para header sidebar
+-----------------------------------------------*/
+
+.header-side {
+    background-color: #F8F8F8;
+    height: auto;
+    padding: 20px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    text-align: right;
+}
+
+.header-side h1 {
+    font-size: 37px;
+    margin-bottom: 5px;
+    padding-top: 40px;
+}
+
+.header-side h2 {
+    font-size: 33px;
+    display: inline;
+}
+
+.header-side .H2E- {
+    margin-right: 5px;
+}
+
+.header-side .H2FLASH {
+    margin-left: -6px;
+}
+
+/* Estilo general para íconos */
+.nav_link {
+    padding-left: 0;
+    margin-left: 0;
+}
+.nav_link li {
+    padding-left: 0;
+    margin-left: 0;
+}
+.nav_link i {
+    font-size: 25px;
+}
+
+/* Estilo general de enlaces del sidebar */
+.sidebar a {
+    padding: 10px 10px 10px 10px;
+    margin-left: 0;
+    font-size: 20px;
+    justify-content: flex-start;
+}
+
+/* Línea divisoria para separar "Cerrar Sesión" */
+.cerrar-li {
+    border-top: 1px solid #666666;
+    padding-top: 2px;
+}
+
+/* Botón que se comporta como enlace */
+.cerrar-form {
+    display: flex;
+    align-items: center;
+}
+
+.cerrar-form button {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin-left: 13px;
+    text-decoration: none;
+    width: 100%;
+}
+
+.cerrar-form button i {
+    font-size: 25px;
+    margin-right: 8px;
+}
+
+.cerrar-form button span {
+    vertical-align: middle;
+    font-size: 20px;
+    color: black;
+}
+
+/* Hover opcional para mantener estilo con los otros ítems */
+.cerrar-form button:hover span,
+.cerrar-form button:hover i {
+    color: #3eaeb1; /* Cambia por el color principal de tu sitio */
+}
+
+
+/* Ocultar botones del menú lateral en desktop */
+.ulregistro-mobile {
+    display: none;
+}
+
+/*sol icono*/
+.bi-brightness-high-fill {
+  font-size: 42px;
+  position: absolute;
+  bottom: 4px;
+  left: 246px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/*luna icono*/
+.bi-moon-fill{
+  font-size: 32px;
+  position: absolute;
+  bottom: 10px;
+  left: 255px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+/*-----------------------------------------------
+ MODO OSCURO
+-----------------------------------------------*/
+
+.dark-mode {
+  background-color: #121212 !important;
+  color: #fff !important;
+}
+
+.dark-mode header,
+.dark-mode nav,
+.dark-mode .sidebar,
+.dark-mode .header,
+.dark-mode .header-right,
+.dark-mode .ulregistro,
+.dark-mode .ulfavorito,
+.dark-mode .ulregistro-mobile,
+.dark-mode .btreg,
+.dark-mode .btini,
+.dark-mode .btcerrar {
+  background-color: #121212 !important;
+  color: #fff !important;
+}
+
+.dark-mode a,
+.dark-mode a span,
+.dark-mode i,
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode h4,
+.dark-mode h5,
+.dark-mode h6,
+.dark-mode p,
+.dark-mode input,
+.dark-mode input::placeholder,
+.dark-mode button{
+  color: #fff !important;
+}
+
+
+/* Modo oscuro para el menú lateral */
+.dark-mode .bar {
+    background-color: white;
+}
+
+.dark-mode input {
+  background-color: #222 !important;
+  border-color: #444 !important;
+}
+
+.dark-mode .btnsearch {
+  color: #fff !important;
+}
+
+.dark-mode .favorito {
+  color: #fff !important;
+}
+
+.dark-mode .header-side{
+    background-color: #121212;
+}
+
+.dark-mode .sidebar .nav_link li a{
+    background-color: #212529;
+}
+
+
+/*-----------------------------------------------
+ Responsive movil
+-----------------------------------------------*/
+
+@media (max-width: 768px) {
+    .ulregistro-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .ulregistro-mobile a {
+        font-size: 16px;
+        padding: 8px 20px;
+        border: 2px solid #3EAEB1;
+        border-radius: 50px;
+        text-align: center;
+        width: 80%;
+        max-width: 250px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .ulregistro-mobile .btreg {
+        background-color: white;
+        color: #3EAEB1;
+    }
+
+    .ulregistro-mobile .btini {
+        background-color: #3EAEB1;
+        color: white;
+    }
+
+    .ulregistro-mobile .btreg:hover {
+        background-color: #3EAEB1;
+        color: white;
+    }
+
+    .ulregistro-mobile .btini:hover {
+        background-color: white;
+        color: #3EAEB1;
+    }
+
+    .header {
+        flex-wrap: nowrap;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 15px;
+        height: auto;
+        gap: 10px;
+    }
+
+    .logo-text {
+        display: none;
+    }
+
+    .left-group {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-left: 2px;
+    }
+
+    .header-right {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        min-width: 0;
+    }
+
+    .buscador {
+        flex-grow: 1;
+        max-width: 100%;
+        min-width: 0;
+        margin-right: -30px;
+    }
+
+    .inputBuscador {
+        width: 100%;
+        font-size: 14px;
+        padding: 6px 38px 6px 12px;
+        border: 2px solid black;
+    }
+
+    .ulregistro, .ulfavorito {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 11px;
+    }
+
+    .btreg, .btini {
+        padding: 5px 10px;
+        font-size: 15px;
+        white-space: nowrap;
+    }
+
+    .estrella {
+        font-size: 36px;
+    }
+}
+
+/* Oculta los botones originales del header en móvil */
+@media (max-width: 768px) {
+    .ulregistro {
+        display: none;
+    }
+
+    .menu-mobile-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 20px;
+    }
+
+    .menu-mobile-buttons .btreg,
+    .menu-mobile-buttons .btini {
+        border: 2px solid #3EAEB1;
+        border-radius: 50px;
+        padding: 5px 20px;
+        font-size: 16px;
+        text-align: center;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .menu-mobile-buttons .btreg {
+        background-color: white;
+        color: #3EAEB1;
+    }
+
+    .menu-mobile-buttons .btini {
+        background-color: #3EAEB1;
+        color: white;
+    }
+}

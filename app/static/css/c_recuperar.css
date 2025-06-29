@@ -1,0 +1,220 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Oswald Variable';
+}
+/* oswald-latin-wght-normal */
+@font-face {
+    font-family: 'Oswald Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 200 700;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/oswald:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+  }
+
+body {
+    background: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-right: 68px;
+    max-width: 900px;
+    position: relative;
+    text-align: center;
+}
+
+.contenedor{
+    display: flex;
+    padding: 20px;
+    width: 450px;
+    justify-content: space-between;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.bt-registro{
+  margin-left: 65px;
+}
+
+.bt-iniciarsesion{
+  margin-right: 30px;
+}
+
+.logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    display: flex; /* Usamos flexbox para alinear los elementos */
+    align-items: center; /* Alineamos los elementos verticalmente */
+}
+
+.logo img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.logo span {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+.register-form {
+    background: rgba(255, 255, 255, 0.4);
+    padding: 16px;
+    width: 450px;
+    height: 380px;
+    border-radius: 50px;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register-form h1 {
+    color: #3eaeb1;
+    margin-bottom: 20px;
+    font-size: 35px;
+}
+
+
+.inp-contraseña {
+    display: flex;
+    align-items: center;
+    background: #d9d9d9;
+    margin-bottom: 20px;
+    padding: 5px;
+    width: 380px;
+    border-radius: 5px;
+}
+.inp-pasw-icon{
+    margin: 5px 10px 0px 5px;
+
+}
+.bt-login {
+  width: 170px;
+  height: 60px;
+  font-size: 20px;
+  margin-top: 25px;
+}
+
+.inp-contraseña input {
+    border: none;
+    outline: none;
+    background: none;
+    width: 100%;
+    font-size: 20px;
+}
+input::placeholder {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+button {
+    background: #d9d9d9;
+    color: #333;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+.bt-recuperar-pasword {
+    color: #000000;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.bt-recuperar-pasword:hover {
+    color: #3eaeb1;
+    text-decoration: none;
+}
+
+
+  /* Media Queries para celulares */
+@media (max-width: 480px) {
+    .contenedor {
+        font-size: 18px;
+    }
+
+    .register-form h1 {
+        font-size: 26px;
+    }
+
+    .register-form {
+         width: 370px;
+         height: 360px;
+         margin-top: 70px;
+         margin-left: 75px;
+    }
+
+    .inp-contraseña input {
+        font-size: 14px;
+        padding: 6px; /* Ajuste del padding */
+    }
+
+    .inp-contraseña{
+        width: 300px;
+    }
+
+    button.bt-enviar {
+        font-size: 16px;
+        width: 80%; /* Ajuste del ancho */
+        margin: 20px auto 10px; /* Centrado y márgenes */
+        margin-bottom: 22px;
+        display: block; /* Asegura el centrado */
+        height: 40px; /* Ajuste de la altura */
+    }
+
+    .bt-recuperar-pasword {
+        font-size: 15px;
+        margin-left: 6px; /*para centrarlo*/
+    }
+
+}
+
+/* Reducir aún más los campos de entrada en pantallas muy pequeñas */
+@media (max-width: 391px) {
+    .register-form {
+        width: 336px;
+        height: 352px;
+        margin-top: 130px;
+        margin-bottom: 50px;
+    }
+
+    .inp-contraseña input {
+        font-size: 14px;
+        padding: 6px; /* Ajuste del padding */
+    }
+
+    .inp-contraseña{
+        width: 305pxpx;
+    }
+
+    button.bt-enviar{
+        margin-bottom: 20px;
+    }
+
+    .bt-recuperar-pasword {
+        font-size: 14px;
+        margin-left: 10px; /*para centrarlo*/
+    }
+}

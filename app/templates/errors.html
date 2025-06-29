@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensajes Dinámicos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/errors.css') }}">
+</head>
+<body>
+    <!-- Bloque de mensajes dinámicos con estilo -->
+<div class="messages-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+
+    
+
+    <!-- Mensajes flotantes (desaparecen automáticamente) -->
+    <script src="{{ url_for('static', filename='js/errors.js') }}"></script>
+</body>
+</html>

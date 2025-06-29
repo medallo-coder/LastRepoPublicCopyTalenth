@@ -1,0 +1,515 @@
+/* Establece el comportamiento del box model para todos los elementos */
+* {
+  box-sizing: border-box; /* Hace que el ancho y alto incluyan padding y border */
+  margin: 0; /* Elimina el margen por defecto */
+  padding: 0; /* Elimina el padding por defecto */
+}
+
+/* Estilos generales para el body */
+body {
+  background-color: #f8f8f8; /* Color de fondo de la página */
+  display: flex; /* Usamos Flexbox para distribuir los elementos */
+  flex-direction: column; /* Organiza los elementos de manera vertical */
+  align-items: center; /* Centra los elementos horizontalmente */
+  min-height: 100vh; /* Asegura que la altura mínima sea 100% de la pantalla */
+  padding: 2.5rem 0; /* Espaciado arriba y abajo */
+  font-family: sans-serif; /* Define la fuente general */
+}
+
+/*-----------------------------------------------
+  Estilos para la navegación
+-----------------------------------------------*/
+
+/* Estilos para el cuadro de contenido */
+.cuadro  {
+  width: 70%; /* Define el ancho del cuadro */
+  background-color: white; /* Fondo blanco */
+  border: 1px solid #d1d5db; /* Borde gris claro */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  margin-bottom: 1.5rem; /* Margen debajo */
+}
+
+/* Estilo para un cuadro con bordes redondeados */
+.redondo {
+  height: 5rem; /* Define la altura del cuadro */
+  border-radius: 2rem; /* Bordes redondeados */
+  border: 1px solid #6b7280; /* Borde gris oscuro */
+  display: flex; /* Usamos flexbox */
+  justify-content: center; /* Centra el contenido horizontalmente */
+  align-items: center; /* Centra el contenido verticalmente */
+}
+
+/* Estilos para las pestañas de navegación */
+.tabs {
+  display: flex; /* Usamos flexbox */
+  gap: 8rem; /* Espacio entre las pestañas */
+}
+
+
+/* Estilo para cada pestaña */
+.tab {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: black;
+  transition: color 0.3s ease;
+  text-decoration: none;
+  position: relative; /* para posicionar el pseudo-elemento */
+}
+
+
+/* Subrayado animado con ::after */
+.tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px; /* espacio justo debajo del texto */
+  height: 2px;
+  width: 0;
+  background-color: #3EAEB1;
+  transition: width 0.3s ease;
+}
+
+/* Al pasar el mouse, el subrayado se expande */
+.tab:hover::after {
+  width: 100%;
+}
+
+
+/* Estilo cuando una pestaña está activa */
+.tab.active {
+  color: #3EAEB1;
+}
+
+
+/*-----------------------------------------------
+  Estilos donde van las publciaciones
+-----------------------------------------------*/
+
+ .contenedor {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      width: 70%; 
+    }
+
+
+    .add-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 300px;
+      cursor: pointer;
+       width: 250px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 10px;
+      flex: 0 0 175px; /*modificar ancho y alto  */
+    }
+
+ 
+.mensaje-publica {
+  font-family: 'Oswald', sans-serif; 
+  font-weight: 500;
+  display: flex;
+  flex-direction: column; /* Para que los textos queden uno abajo de otro */
+  justify-content: center;
+  align-items: center; /* Centrar horizontalmente */
+  font-size: 1.8rem;
+  color: rgba(102, 102, 102, 0.4);
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  z-index: 1;
+  pointer-events: none;
+  text-align: center; /* Para que el texto dentro de cada p quede centrado */
+  gap: 0.3rem; /* espacio entre líneas */
+  margin: 0; /* quitar márgenes por defecto de p */
+  padding: 0;
+}
+
+.mensaje-publica p {
+  margin: 0;
+  padding: 0;
+}
+
+.add-button {
+    background-color: #3EAEB1;
+    color: white;
+    border: none;
+    font-size: 32px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+ /*-----------------------------------------------
+  Estilos para tarjetas
+  -----------------------------------------------*/
+.image-price-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.estrellasTarjetas {
+  display: flex;
+  justify-content: left;
+  font-size: 1rem;
+  color: #3EAEB1;
+  gap: 0.1rem;
+  margin-top: 5px;
+}
+
+.nombre {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: black;
+}
+
+.profesion {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: black;
+  margin-top: 5px;
+  margin-bottom: 4px;
+}
+
+.descripcion-titulo {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.7);
+  margin: 2px 0;
+}
+
+.descripcion-texto {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: black;
+  margin: 0 0 4px;
+  white-space: normal;          /* ✅ permite saltos */
+  word-break: break-word;       /* ✅ rompe palabras largas */
+  overflow-wrap: break-word;    /* ✅ también para compatibilidad */
+  min-height: 60px;             /* fuerza espacio aunque esté vacía */
+  display: block;
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+.price {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  color: #666666;
+  font-size: 12px;
+}
+
+.slider-container {
+  position: relative;
+}
+
+.slider {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.slider::-webkit-scrollbar {
+  display: none;
+}
+
+.card-tarjeta {
+  background-color: #fff;
+  flex: 0 0 350px;
+  border-radius: 12px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  display: flex;
+  gap: 15px;
+  align-items: stretch;       /* ✅ fuerza misma altura entre imagen y contenido */
+  height: 300px;
+  box-sizing: border-box;
+  overflow: hidden;
+  justify-content: space-between;
+}
+
+.card-tarjeta img {
+  width: 100px;
+  height: 100px;
+  background-color: #ccc;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  flex-grow: 1;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-button-container {
+  position: relative;
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.menu-completo {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  width: 120px;
+  background-color: #F8F8F8;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 7px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  color: black;
+}
+
+.menu-completo button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 6px 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
+}
+
+.menu-completo button span {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.menu-completo button:hover {
+  color: #3EAEB1;
+}
+
+.menu-completo i {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.cerrar-menu {
+  position: absolute;
+  top: -5px;
+  right: -89px;
+  font-size: 25px;
+  color: #000000;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.cerrar-menu:hover {
+  color: #3eaeb1;
+}
+
+.hidden {
+  display: none;
+}
+
+/*-----------------------------------------------
+  Estilos para el modal oculto formularios
+-----------------------------------------------*/
+
+/* Modal oculto por defecto */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  z-index: 9999;
+}
+
+.modal:not(.hidden) {
+  display: flex;
+}
+
+/* Contenedor del modal */
+.modal-content {
+  position: relative;
+  width: 45%; /* Ancho más estrecho (ajústalo a tu gusto) */
+  max-width: 450px; /* Máximo ancho */
+  height: auto; /* Altura automática según el contenido */
+  max-height: 100vh; /* La altura máxima será el 90% de la altura de la ventana */
+  border-radius: 12px;
+  background-color: white; /* Fondo blanco para el contenido */
+  overflow-y: auto; /* Permite desplazamiento si el contenido es muy largo */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
+
+
+/* Botón de cerrar */
+.close-button {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 22px;
+  color: #000000;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.close-button:hover {
+  color: #3eaeb1;
+}
+
+/*-----------------------------------------------
+  Estilos para formulario modal de nueva publicación
+-----------------------------------------------*/
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none; /* Mostrar con JS */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 20px;
+  width: 400px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.modal-content h2 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #3eaeb1;
+}
+
+.modal-content label {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 1rem;
+  color: #333;
+}
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 1rem; /* Tamaño de la fuente */
+  font-family: 'Oswald', sans-serif; /* Fuente Oswald */
+  font-weight: 700; /* Peso de la fuente */
+  border: 1px solid #d1d5db; /* Borde gris claro */
+  border-radius: 10px; /* Bordes redondeados */
+  background-color: #d9d9d9; /* Color de fondo */
+  color: rgba(0, 0, 0, 0.7); /* Color del texto */
+}
+
+.modal-content input::placeholder,
+.modal-content textarea::placeholder {
+  color: #999;
+  font-weight: 400;
+}
+
+.modal-content select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background-color: #d9d9d9;
+  color: rgba(0, 0, 0, 0.7); /* color similar a los inputs */
+  appearance: none; /* quita estilo por defecto del sistema */
+}
+
+select:invalid {
+  color: #999; /* color más claro estilo placeholder */
+}
+
+/* Para que las opciones normales no hereden el gris */
+select option {
+  color: black;
+}
+
+
+
+
+/* Estilo para los botones del formulario */
+.botones {
+  display: flex; /* Flexbox para centrar los botones */
+  justify-content: center; /* Centrado horizontal */
+  gap: 1rem; /* Espacio entre los botones */
+  margin-top: 3rem; /* Margen superior */
+}
+
+.botones button {
+  padding: 0.4rem 3rem; /* Padding más grande para botones */
+  font-size: 1rem; /* Tamaño de la fuente */
+  font-family: 'Oswald', sans-serif; /* Fuente Oswald */
+  font-weight: 500; /* Peso de la fuente medium */
+  background-color: #3eaeb1; /* Fondo azul */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 25px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor */
+  transition: background-color 0.3s; /* Transición suave para el cambio de color */
+}
+
+.botones button[type="button"] {
+  background-color: #f8f8f8; /* Fondo gris claro para el botón "Cancelar" */
+  color: black; /* Color negro para el texto */
+  border: 1px solid #E5E5E5; /* Borde gris claro */
+}
+
+/* Efecto hover para los botones */
+.botones button:hover {
+  opacity: 0.8; /* Desvanecimiento al pasar el mouse */
+}

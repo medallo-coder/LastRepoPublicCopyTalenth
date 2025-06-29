@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Contraseña - ContrataYA!</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/26ZkKCPm/Vector.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/recuperar.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+</head>
+<body>
+    <div class="logo">
+        <!-- Ícono Vector.svg -->
+        <img src="{{ url_for('static', filename='images/Vector.svg') }}" alt="Logo">
+        <!-- Texto ContrataYA! -->
+        <span><span style="color: black;">Contrata</span><span style="color: #3eaeb1;">YA!</span></span>
+    </div>
+
+    <!-- Mostrar mensajes flash -->
+    {% include 'errors.html' %}
+
+    <div class="container">
+        <div class="contenedor">
+            <div class="register-form">
+                <h1>Elige una nueva contraseña</h1>
+                <br>
+                <form method="post">
+                    <div class="inp-contraseña">
+                        <span class="inp-pasw-icon">
+                            <i>
+                                <img src="{{ url_for('static', filename='images/contraseña.svg') }}" width="30" height="30">
+                            </i>
+                        </span>
+                        <input type="password" name="contraseña" placeholder="Nueva Contraseña" id="pass1" required>
+                        <i class="bi bi-eye-fill toggle-pass"></i>
+                    </div>
+                    <div class="inp-contraseña">
+                        <span class="inp-pasw-icon">
+                            <i>
+                                <img src="{{ url_for('static', filename='images/contraseña.svg') }}" width="30" height="30">
+                            </i>
+                        </span>
+                        <input type="password" name="contraseña2" placeholder="Repetir Contraseña" id="pass2" required>
+                        <i class="bi bi-eye-fill toggle-pass"></i>
+                    </div>
+
+                    <button type="submit" class="bt-">Cambiar</button>
+                    <br>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/ocultar_contraseña.js') }}"></script>
+</body>
+</html>

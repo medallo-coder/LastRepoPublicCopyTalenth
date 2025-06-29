@@ -1,0 +1,1405 @@
+/* Establece el comportamiento del box model para todos los elementos */
+* {
+    box-sizing: border-box; /* Hace que el ancho y alto incluyan padding y border */
+    margin: 0; /* Elimina el margen por defecto */
+    padding: 0; /* Elimina el padding por defecto */
+  }
+  
+  /* Estilos generales para el body */
+  .cliente {
+    background-color: #f8f8f8; /* Color de fondo de la página */
+    display: flex; /* Usamos Flexbox para distribuir los elementos */
+    flex-direction: column; /* Organiza los elementos de manera vertical */
+    align-items: center; /* Centra los elementos horizontalmente */
+    min-height: 100vh; /* Asegura que la altura mínima sea 100% de la pantalla */
+    padding: 2.5rem 0; /* Espaciado arriba y abajo */
+    font-family: sans-serif; /* Define la fuente general */
+  }
+  
+  /*-----------------------------------------------
+    Estilos para la navegación
+  -----------------------------------------------*/
+  
+  /* Estilos para el cuadro de contenido */
+  .cuadro {
+    width: 70%; /* Define el ancho del cuadro */
+    background-color: white; /* Fondo blanco */
+    border: 1px solid #d1d5db; /* Borde gris claro */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    margin-bottom: 1.5rem; /* Margen debajo */
+  }
+  
+  /* Estilo para un cuadro con bordes redondeados */
+  .redondo {
+    height: 5rem; /* Define la altura del cuadro */
+    border-radius: 2rem; /* Bordes redondeados */
+    border: 1px solid #6b7280; /* Borde gris oscuro */
+    display: flex; /* Usamos flexbox */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+  }
+  
+  /* Estilos para las pestañas de navegación */
+  .tabs {
+    display: flex; /* Usamos flexbox */
+    gap: 8rem; /* Espacio entre las pestañas */
+  }
+  
+  
+/* Estilo para cada pestaña */
+.tab {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: black;
+  transition: color 0.3s ease;
+  text-decoration: none;
+  position: relative; /* para posicionar el pseudo-elemento */
+}
+
+
+/* Subrayado animado con ::after */
+.tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px; /* espacio justo debajo del texto */
+  height: 2px;
+  width: 0;
+  background-color: #3EAEB1;
+  transition: width 0.3s ease;
+}
+
+/* Al pasar el mouse, el subrayado se expande */
+.tab:hover::after {
+  width: 100%;
+}
+
+
+/* Estilo cuando una pestaña está activa */
+.tab.active {
+  color: #3EAEB1;
+}
+  
+  
+  /*-----------------------------------------------
+    Estilos para contenedor con información principal 
+  -----------------------------------------------*/
+  
+  /* Estilo para un cuadro grande con contenido centrado */
+  .grande {
+    width: 70%; /* Ancho de la caja */
+    height: 20rem; /* Altura ajustada */
+    background-color: white; /* Fondo blanco */
+    border: 1px solid #6b7280; /* Borde gris oscuro */
+    border-radius: 1rem; /* Bordes redondeados */
+    display: flex; /* Flexbox para centrar el contenido */
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    position: relative; /* Posición relativa para colocar un icono en la esquina */
+  }
+  
+  /* Estilo para el título */
+  .titulo-principal {
+    font-family: 'Oswald', sans-serif; /* Fuente específica para el título */
+    font-weight: 700; /* Negrita */
+    font-size: 2.2rem; /* Tamaño de la fuente */
+    color: black; /* Color del texto */
+    text-align: center; /* Alineación centrada */
+  }
+  
+  /* Contenedor de contenido centrado */
+  .contenido-grande {
+    display: flex; /* Flexbox para centrar el contenido */
+    flex-direction: column; /* Organiza los elementos de manera vertical */
+    align-items: center; /* Centra los elementos horizontalmente */
+    justify-content: center; /* Centra los elementos verticalmente */
+    width: 100%; /* Ancho completo */
+  }
+  
+  /* Estilo para el círculo con icono */
+  .contenedor-circulo {
+    margin-top: 1rem; /* Margen superior */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+  }
+  
+  .circulo-icono {
+    width: 8rem; /* Ancho del círculo */
+    height: 8rem; /* Altura del círculo */
+    border: 1px solid #374151; /* Borde gris oscuro */
+    background-color: white; /* Fondo blanco */
+    border-radius: 50%; /* Hacemos un círculo */
+    display: flex; /* Flexbox para centrar el icono dentro */
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+  }
+  
+  .circulo-icono i {
+    font-size: 6rem; /* Tamaño del icono */
+    color: #3EAEB1;
+  }
+  
+  /* Estilo para las estrellas (calificación) */
+  .estrellas {
+    display: flex; /* Flexbox para alinear las estrellas */
+    justify-content: center; /* Centrado horizontal */
+    margin-top: 0.5rem; /* Margen superior */
+    font-size: 1.5rem; /* Tamaño de fuente para las estrellas */
+    color: #3EAEB1;
+    gap: 0.3rem; /* Espacio entre las estrellas */
+  }
+  
+  /* Estilo para la sección de contacto */
+  .contacto {
+    display: flex; /* Flexbox para organizar los íconos */
+    justify-content: space-around; /* Espacio alrededor de los íconos */
+    margin-top: 10px; /* Margen superior */
+    gap: 30px; /* Espacio entre los íconos */
+  }
+  
+  /* Estilo para los íconos de contacto (email y teléfono) */
+  .email {
+    display: flex; /* Flexbox para centrar los elementos */
+    align-items: center; /* Centra verticalmente */
+    font-size: 20px; /* Tamaño de fuente */
+    font-family: 'Oswald', sans-serif; /* Fuente Oswald */
+    font-weight: 400; /* Peso de la fuente regular */
+  }
+  
+  
+  /* Estilo para el ícono de lápiz */
+  .icono-lapiz {
+    position: absolute; /* Posición absoluta para colocar el ícono en la esquina */
+    top: 1rem; /* Distancia desde la parte superior */
+    right: 1rem; /* Distancia desde la derecha */
+    font-size: 2rem; /* Tamaño del ícono */
+    color: #3eaeb1; /* Color azul */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    transition: color 0.3s; /* Transición de color */
+  }
+  
+  /* Efecto hover para el ícono de lápiz */
+  .icono-lapiz:hover {
+    color: #292929; /* Cambia el color al pasar el mouse */
+  }
+  
+  /*-----------------------------------------------
+    Estilos para las columnas información principal
+  -----------------------------------------------*/
+  
+  /* Estilo para el contenedor de información principal */
+  .contenedor-columnas {
+    width: 70%; /* Ancho del contenedor */
+    display: flex; /* Flexbox para distribuir las columnas */
+    gap: 1.5rem; /* Espacio entre las columnas */
+  }
+  
+  /*-----------------------------------------------
+    Estilos para la editar información principal
+  -----------------------------------------------*/
+  
+  /* Estilos para el formulario superpuesto */
+  .formulario-editar {
+    position: fixed; /* Fijo en la pantalla */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ocupa toda la pantalla */
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+    display: none; /* Inicialmente oculto */
+    justify-content: center; /* Centrado horizontal y vertical */
+    align-items: center;
+    z-index: 1000; /* Asegura que el formulario esté por encima de todo */
+  }
+  
+  /* Contenedor del formulario */
+  .formulario-contenido {
+    background-color: white; /* Fondo blanco */
+    padding: 2rem; /* Espaciado interno */
+    border-radius: 20px; /* Bordes redondeados */
+    width: 400px; /* Ancho fijo */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+  }
+  
+  /* Título del formulario "Editar contacto" */
+  .formulario-contenido h2 {
+    font-family: 'Oswald', sans-serif; /* Fuente Oswald */
+    font-weight: 700; /* Negrita */
+    font-size: 2rem; /* Tamaño de fuente */
+    margin-bottom: 3rem; /* Espacio debajo del título */
+    text-align: center; /* Alineación centrada */
+    color: #3eaeb1; /* Color azul */
+  }
+  
+  /* Estilos para los campos del formulario */
+  .campo {
+    margin-bottom: 1.5rem; /* Espacio debajo de cada campo */
+  }
+  
+  .campo input {
+    width: 100%; /* Ancho completo */
+    padding: 0.8rem; /* Espaciado interno */
+    font-size: 1rem; /* Tamaño de la fuente */
+    font-family: 'Oswald', sans-serif; /* Fuente Oswald */
+    font-weight: 700; /* Peso de la fuente regular */
+    border: 1px solid #d1d5db; /* Borde gris claro */
+    border-radius: 10px; /* Bordes redondeados */
+    background-color: #d9d9d9; /* Color de fondo de los inputs */
+    color: rgba(0, 0, 0, 0.7); /* Color del texto */
+  }
+  
+/* Estilo para los botones del formulario */
+.botones {
+  display: flex; /* Flexbox para centrar los botones */
+  justify-content: center; /* Centrado horizontal */
+  gap: 1rem; /* Espacio entre los botones */
+  margin-top: 3rem; /* Margen superior */
+}
+
+.botones button {
+  padding: 0.4rem 3rem; /* Padding más grande para botones */
+  font-size: 1rem; /* Tamaño de la fuente */
+  font-family: 'Oswald', sans-serif; /* Fuente Oswald */
+  font-weight: 500; /* Peso de la fuente medium */
+  background-color: #3eaeb1; /* Fondo azul */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 25px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor */
+  transition: background-color 0.3s; /* Transición suave para el cambio de color */
+}
+
+.botones button[type="button"] {
+  background-color: #f8f8f8; /* Fondo gris claro para el botón "Cancelar" */
+  color: black; /* Color negro para el texto */
+  border: 1px solid #E5E5E5; /* Borde gris claro */
+}
+
+/* Efecto hover para los botones */
+.botones button:hover {
+  opacity: 0.8; /* Desvanecimiento al pasar el mouse */
+}
+  
+  
+  /*-----------------------------------------------
+    Estilos para contenedor de la izquierda
+  -----------------------------------------------*/
+  
+  /* Estilo para la columna izquierda */
+  .columna-izquierda {
+    flex: 2; /* Ocupa el doble de espacio que la columna derecha */
+    height: 32rem; /* Altura ajustada */
+    background-color: white; /* Fondo blanco */
+    border: 1px solid #6b7280; /* Borde gris oscuro */
+    border-radius: 1rem; /* Bordes redondeados */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    margin-bottom: 1.5rem; /* Margen debajo */
+  
+  }
+
+  
+  /*-----------------------------------------------
+    Estilos para ubicacion
+  -----------------------------------------------*/
+  
+  .titulo-ubicacion {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700; /* Bold */
+    font-size: 1.5rem;
+    margin: 20px 0 1rem;
+    padding: 0 25px;
+  }
+  
+  .cali {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500; /* Medium */
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .barrio {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300; /* Light */
+    margin: 0;
+    font-size: 1.2rem;
+    padding: 0 50px;
+    margin-bottom: 1rem;
+  }
+
+  .añadir-ubicacion {
+    color: #3eaeb1;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 25px; /* Espaciado adicional a los lados para mayor separación */
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    transition: color 0.3s;
+  }
+  
+  .añadir-ubicacion:hover {
+    color: #2d8284;
+  }
+  
+  /*-----------------------------------------------
+  Estilos para formulario añadir barrio
+-----------------------------------------------*/
+
+  .formulario-ubicacion {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .formulario-ubicacion-contenido {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 20px;
+    width: 400px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .formulario-ubicacion-contenido h2 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #3eaeb1;
+  }
+  
+  .ubicacionicon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    margin: 0;
+  }
+  
+  .iconos {
+    display: flex;
+    gap: 10px;
+    transform: translateX(30px); /* Mueve los íconos 30px a la derecha */
+  }
+  
+  #lapizubicacion,
+  .bi-trash {
+    font-size: 1.7rem;
+    color: #3eaeb1;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  #lapizubicacion:hover,
+  .bi-trash:hover {
+    color: #292929;
+  }
+  
+/*-----------------------------------------------
+  Estilos para formulario editar barrio
+-----------------------------------------------*/
+  
+  /* Formulario emergente para editar barrio */
+.formulario-ubicacion-editar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .formulario-editar-ubicacion-contenido {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 20px;
+    width: 400px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .formulario-editar-ubicacion-contenido h2 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #3eaeb1;
+  }
+  
+  
+  /*-----------------------------------------------
+    Estilos para empresa
+  -----------------------------------------------*/
+ 
+
+  .titulo-empresa {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    padding: 0 25px;
+}
+
+  .empresa-registrada{
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700; /* Bold */
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      padding: 0 25px;
+      display: none;
+        
+  }
+
+  .nombre_empresa {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  .direccion {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    margin: 0;
+    font-size: 1.2rem;
+    padding: 0 50px;
+  }
+
+  .añadir-empresa {
+    color: #3eaeb1;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 25px;
+    margin-top: 1rem;
+    transition: color 0.3s;
+  }
+
+  .añadir-empresa:hover {
+    color: #2d8284;
+  }
+
+  .empresaicon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    margin: 0;
+  }
+
+  #lapizempresa,
+  .bi-trash {
+    font-size: 1.7rem;
+    color: #3eaeb1;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  #lapizempresa:hover,
+  .bi-trash:hover {
+    color: #292929;
+  }
+
+  .formulario-empresa,
+  .formulario-editar-empresa {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .formulario-empresa-contenido,
+  .formulario-editar-empresa-contenido {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 20px;
+    width: 400px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .formulario-empresa-contenido h2,
+  .formulario-editar-empresa-contenido h2 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #3eaeb1;
+  }
+
+  .campo {
+    margin-bottom: 1rem;
+  }
+
+  .campo input {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  /*-----------------------------------------------
+    Estilos para contenedor de te podria interesar 
+  -----------------------------------------------*/
+  
+  /* Estilo para el contenedor con el título y las tarjetas */
+  .contenedor {
+    width: 70%; /* Ancho del contenedor */
+    height: 27rem; /* Altura ajustada */
+    background-color: white; /* Fondo blanco */
+    border: 1px solid #6b7280; /* Borde gris oscuro */
+    border-radius: 1rem; /* Bordes redondeados */
+    display: flex; /* Flexbox para centrar el contenido */
+    flex-direction: column; /* Colocar el contenido en una columna (título + slider) */
+    position: relative; /* Posición relativa para iconos u otros elementos */
+    overflow: hidden; /* Ocultar el desbordamiento */
+    padding: 20px; /* Espaciado interno */
+    
+  }
+  
+  .titulo-interes {
+  font-family: 'Oswald', sans-serif;
+    font-weight: 700; /* Bold */
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #3EAEB1;
+    padding: 0 0px; /* Espaciado adicional a los lados para mayor separación */
+  }
+  
+  .image-price-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente */
+    justify-content: center;
+  }
+  
+  
+/* Estilo para las estrellas (calificación) */
+.estrellasTarjetas {
+  display: flex; /* Flexbox para alinear las estrellas */
+  justify-content: left; /* Centrado horizontal */
+  font-size: 1rem; /* Tamaño de fuente para las estrellas */
+  color: #3EAEB1; /* Color azul */
+  gap: 0.1rem; /* Espacio entre las estrellas */
+} 
+
+.nombre {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500; /* Medium */
+  font-size: 20px;
+  color: black;
+}
+
+.profesion {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400; /* Regular */
+  font-size: 16px;
+  color: black;
+  margin-top: 10px;
+  }
+
+.descripcion-titulo {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400; /* Regular */
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.7); /* Negro al 70% */
+  margin: 4px 0 2px;
+}
+
+.descripcion-texto {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: black;
+  margin: 0;
+}
+
+.ver-mas {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  color: #3EAEB1;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 2px;
+  margin-bottom: 10px; /* espacio entre Ver más y el botón */
+}
+
+
+ 
+.price {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500; /* Medium */
+  color: #666666;
+  font-size: 12px;
+
+  }
+  
+  
+  .slider-container {
+  position: relative;
+  }
+  
+  .slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 20px;
+  padding-bottom: 20px;
+  }
+  
+  .slider::-webkit-scrollbar {
+  display: none;
+  }
+  
+  .card {
+  background-color: #fff;
+  flex: 0 0 370px;
+  border-radius: 12px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  display: flex;
+  gap: 15px;
+  align-items: center; 
+  overflow: hidden; /* para evitar que contenido extra agrande la tarjeta */
+
+  }
+  
+  
+  .card img {
+  width: 100px;
+  height: 100px;
+  background-color: #ccc;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  }
+
+  /* Contenedor del botón en el modal */
+.boton-container {
+  display: flex; /* Usa Flexbox para centrar el contenido */
+  justify-content: center; /* Centra el botón horizontalmente */
+  margin-top: 8px; /* Añadir margen superior para separar la descripción */
+}
+
+/* Estilo del botón */
+.contact-button {
+  background-color: white;
+  border: 3px solid #3EAEB1;
+  color: black;
+  padding: 6px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600; /* Medium */
+}
+
+.contact-button:hover {
+  background-color: #3EAEB1;
+  color: #ffffff; /* Cambia el color del texto si deseas */
+}
+
+/* Asegura que los contenidos dentro de .card-content estén en columna */
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+ 
+  .arrows {
+  display: flex;
+  gap: 60px; /* Separación entre flechas */
+  justify-content: center;
+  align-items: center;
+  }
+  
+  .arrow-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  }
+  
+  .arrow-btn svg {
+  transition: transform 0.3s ease;
+  }
+  
+  .arrow-btn:hover svg {
+  transform: scale(1.1);
+  }
+  
+  
+  .card-content {
+    position: relative;
+  }
+  
+  /* Contenedor de nombre y botón menú */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Botón del menú */
+  .menu-button-container {
+    position: relative;
+  }
+  
+  .menu-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  /* Menú desplegable */
+  .dropdown-menu {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    right: 0;
+    top: 30px;
+    width: 120px;
+    background-color: #F8F8F8;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    font-family: 'Oswald', sans-serif; /* Fuente Oswald */
+    font-weight: 500; /* Oswald Medium */
+    color: black; /* Color de la letra en negro */
+  }
+  
+  
+  .dropdown-menu button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 6px 8px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 14px;
+  }
+
+  .dropdown-menu button span {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500; /* Medium */
+    font-size: 14px;
+  }
+  
+  
+  .dropdown-menu button:hover {
+    color: #3EAEB1;
+  }
+  
+  .dropdown-menu i {
+    margin-right: 8px;
+    font-size: 16px;
+  }
+  
+ .hidden {
+  visibility: hidden; /* Se asegura de que el espacio se mantenga aunque el "Ver más" no sea visible */
+}
+
+  
+
+/*-----------------------------------------------
+  Estilos para el modal oculto 
+-----------------------------------------------*/
+/* Modal oculto por defecto */
+/* Modal oculto por defecto */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  z-index: 9999;
+}
+
+.modal:not(.hidden) {
+  display: flex;
+}
+
+/* Contenedor del modal */
+.modal-content {
+  position: relative;
+  width: 45%; /* Ancho más estrecho (ajústalo a tu gusto) */
+  max-width: 450px; /* Máximo ancho */
+  height: auto; /* Altura automática según el contenido */
+  max-height: 100vh; /* La altura máxima será el 90% de la altura de la ventana */
+  border-radius: 12px;
+  background-color: white; /* Fondo blanco para el contenido */
+  overflow-y: auto; /* Permite desplazamiento si el contenido es muy largo */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
+
+
+/* Botón de cerrar */
+.close-button {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 22px;
+  color: #000000;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.close-button:hover {
+  color: #3eaeb1;
+}
+/*------- Estilos para pantallas más pequeñas (móviles) -------*/
+@media (max-width: 768px) {
+    body {
+        padding: 1rem 0;
+    }
+
+    .cuadro,
+    .grande,
+    .contenedor,
+    .contenedor-columnas {
+        width: 95%;
+        margin-bottom: 1rem;
+    }
+
+    .redondo {
+        height: 3.5rem;
+    }
+
+    .tabs {
+        gap: 1rem;
+        padding: 0 0.5rem;
+    }
+
+    .tab {
+        font-size: 1rem;
+    }
+
+    .grande {
+        height: auto;
+        padding: 0.5rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .titulo-principal {
+        font-size: 1.5rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .contenedor-circulo {
+        margin-top: 0.3rem;
+    }
+
+    .circulo-icono {
+        width: 5rem;
+        height: 5rem;
+    }
+
+    .circulo-icono i {
+        font-size: 3rem;
+    }
+
+    .estrellas {
+        font-size: 1rem;
+        gap: 0.1rem;
+    }
+
+    .contacto {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
+        margin-top: 0.3rem;
+    }
+
+    .contacto .email,
+    .contacto .telefono {
+        font-size: 0.9rem;
+    }
+
+    .contacto i {
+        font-size: 1.1rem;
+        margin-right: 0.2rem;
+    }
+
+    .icono-lapiz {
+        top: 0.3rem;
+        right: 0.3rem;
+        font-size: 1.2rem;
+    }
+
+    .contenedor-columnas {
+        flex-direction: column;
+        gap: 0.7rem;
+    }
+
+    .columna-izquierda {
+        height: auto;
+        padding: 0.7rem;
+    }
+
+    .titulo-ubicacion,
+  .titulo-empresa { /* Aplicamos estilos a ambos títulos */
+    font-size: 1.1rem;
+    margin: 0.7rem 0 0.3rem;
+    padding-left: 20px; /* Añadimos un padding izquierdo consistente */
+  }
+
+  .cali,
+  .barrio,
+  .añadir-ubicacion,
+  .direccion,
+  .añadir-empresa {
+    font-size: 0.9rem;
+    padding-left: 20px; /* Aumentamos el padding izquierdo para la información */
+  }
+
+  .ubicacionicon,
+  .empresaicon { /* Podemos agregar una clase para el icono de empresa si no existe */
+    padding: 0 0.5rem;
+    margin: 0.3rem 0;
+    /* Alineamos verticalmente el icono con el texto */
+    display: flex;
+    align-items: center;
+  }
+  .empresa-registrada{
+    font-size: 1.1rem;
+    margin: 0.7rem 0 0.3rem;
+    margin-left: 10px; /* Añadimos un padding izquierdo consistente */
+  }
+  .nombre_empresa{
+    padding-left: 10px;
+    font-size: 0.9rem;
+  }
+
+  .cali,
+  .empresa-registrada {
+    padding-left: 10px; /* Aseguramos la misma indentación para la primera línea */
+  }
+
+  .iconos {
+    gap: 3px;
+    transform: translateX(5px);
+  }
+
+  #lapizubicacion,
+  .bi-trash,
+  #lapizempresa {
+    font-size: 1.1rem;
+  }
+
+    .formulario-ubicacion-contenido,
+    .formulario-editar-ubicacion-contenido,
+    .formulario-empresa-contenido,
+    .formulario-editar-empresa-contenido,
+    .formulario-contenido {
+        padding: 1rem;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 300px;
+    }
+
+    .formulario-ubicacion-contenido h2,
+    .formulario-editar-ubicacion-contenido h2,
+    .formulario-empresa-contenido h2,
+    .formulario-editar-empresa-contenido h2,
+    .formulario-contenido h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    .campo {
+        margin-bottom: 0.8rem;
+    }
+
+    .campo input {
+        font-size: 0.9rem;
+        padding: 0.6rem;
+        border-radius: 8px;
+    }
+
+    .botones {
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+        flex-direction: column; /* Apila los botones en pantallas pequeñas */
+        align-items: stretch; /* Estira los botones para ocupar el ancho */
+    }
+
+    .botones button {
+        padding: 0.4rem 1rem;
+        font-size: 0.9rem;
+        border-radius: 20px;
+    }
+
+    .contenedor {
+        width: 95%;
+        height: auto;
+        padding: 15px;
+    }
+
+    .titulo-interes {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+
+    .slider {
+        gap: 10px;
+        padding-bottom: 15px;
+    }
+
+    .card {
+        flex: 0 0 280px;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .card img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .nombre {
+        font-size: 16px;
+    }
+
+    .profesion {
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .descripcion-titulo,
+    .descripcion-texto,
+    .ver-mas,
+    .price {
+        font-size: 0.8rem;
+    }
+
+    .estrellasTarjetas {
+        font-size: 0.8rem;
+    }
+
+    .menu-button {
+        font-size: 1.5rem;
+    }
+
+    .dropdown-menu {
+        width: 100px;
+        top: 25px;
+        padding: 5px;
+        border-radius: 6px;
+    }
+
+    .dropdown-menu button,
+    .dropdown-menu button span,
+    .dropdown-menu i {
+        font-size: 12px;
+    }
+
+    .arrows {
+        gap: 30px;
+    }
+
+    .arrow-btn svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .modal-content {
+        width: 80%;
+        max-width: 350px;
+    }
+
+    .close-button {
+        top: 8px;
+        right: 10px;
+        font-size: 18px;
+    }
+}
+
+/* Estilos para tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .cuadro,
+    .grande,
+    .contenedor,
+    .contenedor-columnas {
+        width: 85%;
+    }
+
+    .tabs {
+        gap: 4rem;
+    }
+
+    .tab {
+        font-size: 1.3rem;
+    }
+
+    .grande {
+        height: auto;
+        padding: 1.5rem;
+    }
+
+    .titulo-principal {
+        font-size: 2rem;
+    }
+
+    .circulo-icono {
+        width: 7rem;
+        height: 7rem;
+    }
+
+    .circulo-icono i {
+        font-size: 5rem;
+    }
+
+    .estrellas {
+        font-size: 1.3rem;
+    }
+
+    .contacto {
+        gap: 1rem;
+    }
+
+    .contacto .email,
+    .contacto .telefono {
+        font-size: 1.1rem;
+    }
+
+    .contacto i {
+        font-size: 1.3rem;
+    }
+
+    .icono-lapiz {
+        top: 0.7rem;
+        right: 0.7rem;
+        font-size: 1.7rem;
+    }
+
+    .contenedor-columnas {
+        flex-direction: row;
+        gap: 1rem;
+    }
+
+    .columna-izquierda {
+        padding: 1rem;
+    }
+
+    .titulo-ubicacion {
+        font-size: 1.4rem;
+        margin: 1rem 0 0.5rem;
+    }
+
+    .cali,
+    .barrio,
+    .añadir-ubicacion,
+    .titulo-empresa,
+    .empresa-registrada,
+    .añadir-empresa {
+        font-size: 1.1rem;
+    }
+    .barrio{
+      
+      padding-left: 25px;
+    }
+    .nombre_empresa{
+    margin-left: -20px;
+    font-size: 1.2rem;
+  }
+
+    .direccion{
+      padding-left: 25px;
+    }
+
+    .cali{
+      padding-left: 10px;
+    }
+
+    .ubicacionicon {
+        padding: 0 1rem;
+    }
+
+    #lapizubicacion,
+    .bi-trash,
+    #lapizempresa {
+        font-size: 1.5rem;
+    }
+
+    .formulario-ubicacion-contenido,
+    .formulario-editar-ubicacion-contenido,
+    .formulario-empresa-contenido,
+    .formulario-editar-empresa-contenido,
+    .formulario-contenido {
+        padding: 1.5rem;
+        border-radius: 15px;
+        width: 70%;
+        max-width: 400px;
+    }
+
+    .formulario-ubicacion-contenido h2,
+    .formulario-editar-ubicacion-contenido h2,
+    .formulario-empresa-contenido h2,
+    .formulario-editar-empresa-contenido h2,
+    .formulario-contenido h2 {
+        font-size: 1.7rem;
+        margin-bottom: 1.3rem;
+    }
+
+    .campo {
+        margin-bottom: 1rem;
+    }
+
+    .campo input {
+        font-size: 1rem;
+        padding: 0.7rem;
+        border-radius: 10px;
+    }
+
+    .botones {
+        gap: 0.7rem;
+        margin-top: 2rem;
+        flex-direction: row; /* Vuelve a la disposición horizontal en tablets */
+        justify-content: center;
+    }
+
+    .botones button {
+        padding: 0.4rem 2rem;
+        font-size: 1rem;
+    }
+
+    .contenedor {
+        width: 85%;
+        height: auto;
+        padding: 20px;
+    }
+
+    .titulo-interes {
+        font-size: 1.7rem;
+        margin-bottom: 18px;
+    }
+
+    .card {
+        flex: 0 0 320px;
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .card img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .nombre {
+        font-size: 18px;
+    }
+
+    .profesion {
+        font-size: 14px;
+        margin-top: 7px;
+    }
+
+    .descripcion-titulo,
+    .descripcion-texto,
+    .ver-mas,
+    .price {
+        font-size: 0.9rem;
+    }
+
+    .estrellasTarjetas {
+        font-size: 0.9rem;
+    }
+
+    .menu-button {
+        font-size: 2rem;
+    }
+
+    .dropdown-menu {
+        width: 110px;
+        top: 28px;
+        padding: 7px;
+        border-radius: 7px;
+    }
+
+    .dropdown-menu button,
+    .dropdown-menu button span,
+    .dropdown-menu i {
+        font-size: 13px;
+    }
+
+    .arrows {
+        gap: 45px;
+    }
+
+    .arrow-btn svg {
+        width: 35px;
+        height: 35px;
+    }
+
+    .modal-content {
+        width: 70%;
+        max-width: 500px;
+    }
+
+    .close-button {
+        top: 10px;
+        right: 12px;
+        font-size: 20px;
+    }
+}
+
+
+/* Para pantallas de escritorio grandes (si es necesario ajustes específicos) */
+@media (min-width: 1201px) {
+  .cuadro {
+    width: 70%; /* Mantiene el ancho original */
+  }
+
+  .grande {
+    width: 76; /* Mantiene el ancho original */
+  }
+
+  .contenedor-columnas {
+    width: 70%; /* Mantiene el ancho original */
+    flex-direction: row; /* Asegura la disposición horizontal */
+  }
+
+  .columna-izquierda {
+    flex: 2; /* Mantiene la proporción */
+  }
+
+  .columna-derecha {
+    flex: 1; /* Mantiene la proporción */
+  }
+
+  .cuadro-pequeno {
+    width: 100%; /* Ocupa todo el ancho de la columna derecha */
+  }
+
+  /* Aquí podrías añadir ajustes para fuentes más grandes o espaciados si lo deseas en escritorios muy grandes */
+}
