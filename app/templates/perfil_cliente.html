@@ -33,7 +33,7 @@
     </div>
     
 
-{% set imagen_url = url_for('static', filename='uploads/' ~ foto_perfil) if foto_perfil else '' %}
+{% set imagen_url = url_for('web.perfil_foto', filename=foto_perfil) if foto_perfil else '' %}
 
 <div class="contenedor-circulo" onclick="document.getElementById('fileInput').click()">
   <div class="circulo-icono" id="preview"

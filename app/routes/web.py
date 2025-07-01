@@ -6,8 +6,9 @@ from app.services.perfil_experto import actualizar_perfil_experto_service, actua
 from app.services.perfil_experto import eliminar_idioma, eliminar_aptitud,eliminar_estudios,editar_estudios,actualizar_experiencia,eliminar_experiencia,editar_experiencia
 from app.services.perfil_experto import actualizar_perfil_experto_service5,eliminar_descripcion,editar_descripcion, subir_foto_perfil_service_experto
 from app.services.rol_service import verificar_rol, cambiar_rol_a_experto_service, cambiar_rol_a_cliente_service
-from app.services.mis_publicaciones import crear_publicacion_service, eliminar_publicacion_service, editar_publicacion_service
+from app.services.mis_publicaciones import obtener_mis_publicaciones_service, obtener_categorias_service, obtener_subcategorias_service, obtener_publicacion_por_id_service, guardar_mi_publicacion_service, eliminar_publicacion_service
 from app.services.jwt_service import verificar_token
+from flask import send_from_directory
 
 from app.models import Usuario  # Importa el modelo de Usuario
 from werkzeug.utils import secure_filename
@@ -21,15 +22,19 @@ from flask_login import login_required, current_user, login_user
 # Define el Blueprint para las rutas web
 web = Blueprint('web', __name__)
 
+from app.services.publi_recientes import obtener_publicaciones_recientes_service
+
 @web.route('/')
 def inicio():
+    publicaciones = obtener_publicaciones_recientes_service()
+    primer_nombre = ""
+
     auth_result = verificar_autenticacion_service()
     if auth_result.get("authenticated"):
         datos_usuario = obtener_datos_usuario_service()
         primer_nombre = datos_usuario.get("primer_nombre", "").title()
-        return render_template('inicio.html', primer_nombre=primer_nombre)
-    else:
-        return render_template('index.html')
+
+    return render_template('inicio.html', primer_nombre=primer_nombre, publicaciones=publicaciones)
 
 
 # Ruta para registrarse (Formulario web)
@@ -229,6 +234,11 @@ def perfil_cliente():
         foto_perfil=datos.get("foto_perfil", "")
     )
     
+@web.route('/uploads/perfiles/<filename>')
+def perfil_foto(filename):
+    carpeta = os.path.join(current_app.root_path, 'uploads', 'perfiles')
+    return send_from_directory(carpeta, filename)
+
 
 # Ruta para visualizar el perfil del experto
 @web.route('/perfil_experto', methods=['GET', 'POST'])
@@ -403,105 +413,90 @@ def perfil_general():
 
 from app.models import Categorias  # Adjust path if needed
 from app.models import Subcategorias, Publicaciones, Perfiles  # Adjust path if needed
+  
 
 
-# Ruta para publicaciones del experto
-@web.route('/mis-publicaciones', methods=['GET', 'POST'])
+
+
+@web.route('/mis-publicaciones')
 def mis_publicaciones():
-    if request.method == 'POST':
-        if request.is_json:
-            data = request.get_json()
-            resultado = crear_publicacion_service(data)
-            return jsonify(resultado)
-        return jsonify({"success": False, "message": "Formato de datos incorrecto"})
+    usuario_id = obtener_usuario_id_autenticado()
 
-    # --- GET ---
-    token = session.get("jwt")
-    usuario_id = None
-    publicaciones_usuario = []
-    nombre_usuario = ""
+    if not usuario_id:
+        flash("Debes iniciar sesión para ver tus publicaciones", "warning")
+        return redirect(url_for('web.login'))  # o la ruta de tu login
 
-    if token:
-        resultado = verificar_token(token)
-        if resultado["valid"]:
-            usuario_id = resultado["payload"].get("usuario_id")
-
-            # Obtener nombre del perfil
-            perfil = Perfiles.query.filter_by(id_usuario=usuario_id).first()
-            if perfil:
-                nombre_usuario = f"{perfil.primer_nombre} {perfil.primer_apellido}"
-
-            # Obtener publicaciones del usuario
-            # Obtener publicaciones del usuario y convertirlas a dicts para el frontend
-            publicaciones_query = Publicaciones.query.filter_by(usuario_id=usuario_id).all()
-            publicaciones_usuario = [
-                {
-                    "publicacion_id": pub.publicacion_id,  # 👈 AGREGA ESTA LÍNEA
-                    "titulo": pub.titulo,
-                    "precio": pub.precio,
-                    "descripcion_publicacion": pub.descripcion_publicacion,
-                    "foto": perfil.foto_perfil if perfil else "default.png",
-                    "categoria_id": pub.categoria_id,  
-                    "subcategoria_id": pub.subcategoria_id
-                }
-                for pub in publicaciones_query
-            ]
-
-
-    # Categorías y subcategorías
-    categorias = Categorias.query.all()
-    subcategorias = Subcategorias.query.all()
-    subcategorias_json = [
-        {
-            "subcategoria_id": sub.subcategoria_id,
-            "nombre_subcategoria": sub.nombre_subcategoria,
-            "categoria_id": sub.categoria_id
-        }
-        for sub in subcategorias
-    ]
+    publicaciones = obtener_mis_publicaciones_service(usuario_id)
+    categorias = obtener_categorias_service()
+    subcategorias = obtener_subcategorias_service()
 
     return render_template(
-        "mis_publi.html",
+        'mis_publicaciones.html',
+        publicaciones=publicaciones,
         categorias=categorias,
         subcategorias=subcategorias,
-        subcategorias_json=subcategorias_json,
-        publicaciones=publicaciones_usuario,
-        nombre_usuario=nombre_usuario
+        publicacion=None
     )
 
-@web.route('/mis-publicaciones/<int:publicacion_id>', methods=['PUT'])
-def editar_publicacion(publicacion_id):
-    token = session.get("jwt")
-    if not token:
-        return jsonify({"success": False, "message": "No autorizado"}), 401
+@web.route('/mis-publicaciones/guardar', methods=['POST'])
+def guardar_mi_publicacion():
+    usuario_id = obtener_usuario_id_autenticado()
+    if not usuario_id:
+        flash("Debes iniciar sesión para realizar esta acción", "warning")
+        return redirect(url_for('web.login'))  # Ajusta tu ruta
 
-    resultado = verificar_token(token)
-    if not resultado["valid"]:
-        return jsonify({"success": False, "message": "Token inválido"}), 403
+    data = dict(request.form)
+    data['usuario_id'] = usuario_id
 
-    usuario_id = resultado["payload"].get("usuario_id")
+    resultado = guardar_mi_publicacion_service(data)
+    flash(resultado['message'], 'success' if resultado['success'] else 'danger')
+    return redirect(url_for('web.mis_publicaciones'))
 
-    if not request.is_json:
-        return jsonify({"success": False, "message": "Datos en formato inválido"}), 400
+@web.route('/mis-publicaciones/editar/<int:publicacion_id>')
+def editar_mi_publicacion(publicacion_id):
+    usuario_id = obtener_usuario_id_autenticado()
+    if not usuario_id:
+        flash("Debes iniciar sesión para editar tus publicaciones", "warning")
+        return redirect(url_for('web.login'))
 
-    data = request.get_json()
+    publicaciones = obtener_mis_publicaciones_service(usuario_id)
+    categorias = obtener_categorias_service()
+    subcategorias = obtener_subcategorias_service()
+    publicacion = obtener_publicacion_por_id_service(publicacion_id)
 
-    # Llama al servicio para editar
-    resultado = editar_publicacion_service(publicacion_id, usuario_id, data)
-    return jsonify(resultado)
+    # Valida que la publicación sea del usuario autenticado
+    if not publicacion or publicacion.usuario_id != usuario_id:
+        flash("No tienes permiso para editar esta publicación", "danger")
+        return redirect(url_for('web.mis_publicaciones'))
+
+    return render_template(
+        'mis_publicaciones.html',
+        publicaciones=publicaciones,
+        categorias=categorias,
+        subcategorias=subcategorias,
+        publicacion=publicacion
+    )
 
 
-# Ruta para eliminar publicaciones del experto
-@web.route('/mis-publicaciones/<int:publicacion_id>', methods=['DELETE'])
-def eliminar_publicacion(publicacion_id):
-    token = session.get("jwt")
-    if not token:
-        return jsonify({"success": False, "message": "No autorizado"}), 401
 
-    resultado = verificar_token(token)
-    if not resultado["valid"]:
-        return jsonify({"success": False, "message": "Token inválido"}), 403
+@web.route('/mis-publicaciones/eliminar/<int:publicacion_id>')
+def eliminar_mi_publicacion(publicacion_id):
+    usuario_id = obtener_usuario_id_autenticado()
+    if not usuario_id:
+        flash("Debes iniciar sesión para eliminar publicaciones", "warning")
+        return redirect(url_for('web.login'))
 
-    usuario_id = resultado["payload"].get("usuario_id")
-    response = eliminar_publicacion_service(publicacion_id, usuario_id)
-    return jsonify(response)
+    publicacion = obtener_publicacion_por_id_service(publicacion_id)
+    
+    if not publicacion:
+        flash("La publicación no existe", "danger")
+        return redirect(url_for('web.mis_publicaciones'))
+
+    if publicacion.usuario_id != usuario_id:
+        flash("No tienes permiso para eliminar esta publicación", "danger")
+        return redirect(url_for('web.mis_publicaciones'))
+
+    resultado = eliminar_publicacion_service(publicacion_id)
+    flash(resultado['message'], 'success' if resultado['success'] else 'danger')
+
+    return redirect(url_for('web.mis_publicaciones'))

@@ -318,6 +318,46 @@
 </div> <!-- fin contenedor -->
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Carrucel SERVICIOS DESTACADOS -->
 <div class="contenedor-destacados">
   <h2 class="titulo-interes">Servicios destacados</h2>
@@ -325,60 +365,21 @@
   <div class="slider-container">
     <div class="slider" id="slider">
 
-      <!-- Tarjeta 1 -->
-      <div class="card-tarjeta">
-        <div class="image-price-container">
-          <img src="angie.jpg" alt="Foto" />
-          <p class="price">COP 30.000/h</p>
-        </div>
-
-        <div class="card-content">
-          <div class="header">
-            <h3 class="nombre">Claudia Henao</h3>
-
-            <!-- Menú -->
-            <div class="menu-button-container">
-              <button class="menu-button">
-                <i class="bi bi-three-dots"></i>
-              </button>
-              <div class="menu-completo">
-                <button><i class="bi bi-person-fill"></i><span>Ver perfil</span></button>
-                <button><i class="bi bi-bookmark-check"></i><span>Guardar</span></button>
-                <button><i class="bi bi-exclamation-circle"></i><span>Reportar</span></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="estrellasTarjetas">
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-          </div>
-
-          <p class="profesion"><strong>Fotógrafa</strong></p>
-          <p class="descripcion-titulo">Descripción:</p>
-          <p class="descripcion descripcion-texto">
-            Con una combinación de técnica, creatividad y un profundo respeto por el instante, capturo momentos que narran historias inolvidables para toda la vida...
-          </p>
-          <span class="ver-mas hidden">Ver más</span>
-
-          <div class="boton-container">
-            <button class="contact-button">Contactar experto</button>
-          </div>
-        </div>
-      </div> <!-- fin tarjeta -->
-
 
       <!-- Tarjeta 1 -->
+      {% for pub in publicaciones %}
       <div class="card-tarjeta">
         <div class="image-price-container">
-          <img src="angie.jpg" alt="Foto" />
-          <p class="price">COP 30.000/h</p>
+          {% if pub.usuario.perfiles.foto_perfil %}
+            <img src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" alt="Foto de perfil" />
+          {% endif %}
+
+          <p class="price">COP {{ pub.precio }}/h</p>
         </div>
 
         <div class="card-content">
           <div class="header">
-            <h3 class="nombre">Claudia Henao</h3>
+            <h3 class="nombre">{{ pub.usuario.perfiles.primer_nombre }} {{ pub.usuario.perfiles.primer_apellido }}</h3>
 
             <!-- Menú -->
             <div class="menu-button-container">
@@ -399,10 +400,10 @@
             <i class="bi bi-star-fill"></i>
           </div>
 
-          <p class="profesion"><strong>Fotógrafa</strong></p>
+          <p class="profesion"><strong><strong>{{ pub.categoria.nombre if pub.categoria else 'Sin categoría' }}</strong></strong></p>
           <p class="descripcion-titulo">Descripción:</p>
           <p class="descripcion descripcion-texto">
-            Con una combinación de técnica, creatividad y un profundo respeto por el instante, capturo momentos que narran historias inolvidables para toda la vida...
+             {{ pub.descripcion_publicacion }}
           </p>
           <span class="ver-mas hidden">Ver más</span>
 
@@ -411,229 +412,15 @@
           </div>
         </div>
       </div> <!-- fin tarjeta -->
-
-
-       <!-- Tarjeta 1 -->
-      <div class="card-tarjeta">
-        <div class="image-price-container">
-          <img src="angie.jpg" alt="Foto" />
-          <p class="price">COP 30.000/h</p>
-        </div>
-
-        <div class="card-content">
-          <div class="header">
-            <h3 class="nombre">Claudia Henao</h3>
-
-            <!-- Menú -->
-            <div class="menu-button-container">
-              <button class="menu-button">
-                <i class="bi bi-three-dots"></i>
-              </button>
-              <div class="menu-completo">
-                <button><i class="bi bi-person-fill"></i><span>Ver perfil</span></button>
-                <button><i class="bi bi-bookmark-check"></i><span>Guardar</span></button>
-                <button><i class="bi bi-exclamation-circle"></i><span>Reportar</span></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="estrellasTarjetas">
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-          </div>
-
-          <p class="profesion"><strong>Fotógrafa</strong></p>
-          <p class="descripcion-titulo">Descripción:</p>
-          <p class="descripcion descripcion-texto">
-            Con una combinación de técnica, creatividad y un profundo respeto por el instante, capturo momentos que narran historias inolvidables para toda la vida...
-          </p>
-          <span class="ver-mas hidden">Ver más</span>
-
-          <div class="boton-container">
-            <button class="contact-button">Contactar experto</button>
-          </div>
-        </div>
-      </div> <!-- fin tarjeta -->
-
-
-      <!-- Tarjeta 1 -->
-      <div class="card-tarjeta">
-        <div class="image-price-container">
-          <img src="angie.jpg" alt="Foto" />
-          <p class="price">COP 30.000/h</p>
-        </div>
-
-        <div class="card-content">
-          <div class="header">
-            <h3 class="nombre">Claudia Henao</h3>
-
-            <!-- Menú -->
-            <div class="menu-button-container">
-              <button class="menu-button">
-                <i class="bi bi-three-dots"></i>
-              </button>
-              <div class="menu-completo">
-                <button><i class="bi bi-person-fill"></i><span>Ver perfil</span></button>
-                <button><i class="bi bi-bookmark-check"></i><span>Guardar</span></button>
-                <button><i class="bi bi-exclamation-circle"></i><span>Reportar</span></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="estrellasTarjetas">
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-          </div>
-
-          <p class="profesion"><strong>Fotógrafa</strong></p>
-          <p class="descripcion-titulo">Descripción:</p>
-          <p class="descripcion descripcion-texto">
-            Con una combinación de técnica, creatividad y un profundo respeto por el instante, capturo momentos que narran historias inolvidables para toda la vida...
-          </p>
-          <span class="ver-mas hidden">Ver más</span>
-
-          <div class="boton-container">
-            <button class="contact-button">Contactar experto</button>
-          </div>
-        </div>
-      </div> <!-- fin tarjeta -->
-
-
-       <!-- Tarjeta 1 -->
-      <div class="card-tarjeta">
-        <div class="image-price-container">
-          <img src="angie.jpg" alt="Foto" />
-          <p class="price">COP 30.000/h</p>
-        </div>
-
-        <div class="card-content">
-          <div class="header">
-            <h3 class="nombre">Claudia Henao</h3>
-
-            <!-- Menú -->
-            <div class="menu-button-container">
-              <button class="menu-button">
-                <i class="bi bi-three-dots"></i>
-              </button>
-              <div class="menu-completo">
-                <button><i class="bi bi-person-fill"></i><span>Ver perfil</span></button>
-                <button><i class="bi bi-bookmark-check"></i><span>Guardar</span></button>
-                <button><i class="bi bi-exclamation-circle"></i><span>Reportar</span></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="estrellasTarjetas">
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-          </div>
-
-          <p class="profesion"><strong>Fotógrafa</strong></p>
-          <p class="descripcion-titulo">Descripción:</p>
-          <p class="descripcion descripcion-texto">
-            Con una combinación de técnica, creatividad y un profundo respeto por el instante, capturo momentos que narran historias inolvidables para toda la vida...
-          </p>
-          <span class="ver-mas hidden">Ver más</span>
-
-          <div class="boton-container">
-            <button class="contact-button">Contactar experto</button>
-          </div>
-        </div>
-      </div> <!-- fin tarjeta -->
-
-
-       <!-- Tarjeta 1 -->
-      <div class="card-tarjeta">
-        <div class="image-price-container">
-          <img src="angie.jpg" alt="Foto" />
-          <p class="price">COP 30.000/h</p>
-        </div>
-
-        <div class="card-content">
-          <div class="header">
-            <h3 class="nombre">Claudia Henao</h3>
-
-            <!-- Menú -->
-            <div class="menu-button-container">
-              <button class="menu-button">
-                <i class="bi bi-three-dots"></i>
-              </button>
-              <div class="menu-completo">
-                <button><i class="bi bi-person-fill"></i><span>Ver perfil</span></button>
-                <button><i class="bi bi-bookmark-check"></i><span>Guardar</span></button>
-                <button><i class="bi bi-exclamation-circle"></i><span>Reportar</span></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="estrellasTarjetas">
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-          </div>
-
-          <p class="profesion"><strong>Fotógrafa</strong></p>
-          <p class="descripcion-titulo">Descripción:</p>
-          <p class="descripcion descripcion-texto">
-            Con una combinación de técnica, creatividad y un profundo respeto por el instante, capturo momentos que narran historias inolvidables para toda la vida...
-          </p>
-          <span class="ver-mas hidden">Ver más</span>
-
-          <div class="boton-container">
-            <button class="contact-button">Contactar experto</button>
-          </div>
-        </div>
-      </div> <!-- fin tarjeta -->
-
-
-       <!-- Tarjeta 1 -->
-      <div class="card-tarjeta">
-        <div class="image-price-container">
-          <img src="angie.jpg" alt="Foto" />
-          <p class="price">COP 30.000/h</p>
-        </div>
-
-        <div class="card-content">
-          <div class="header">
-            <h3 class="nombre">Claudia Henao</h3>
-
-            <!-- Menú -->
-            <div class="menu-button-container">
-              <button class="menu-button">
-                <i class="bi bi-three-dots"></i>
-              </button>
-              <div class="menu-completo">
-                <button><i class="bi bi-person-fill"></i><span>Ver perfil</span></button>
-                <button><i class="bi bi-bookmark-check"></i><span>Guardar</span></button>
-                <button><i class="bi bi-exclamation-circle"></i><span>Reportar</span></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="estrellasTarjetas">
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-          </div>
-
-          <p class="profesion"><strong>Fotógrafa</strong></p>
-          <p class="descripcion-titulo">Descripción:</p>
-          <p class="descripcion descripcion-texto">
-            Con una combinación de técnica, creatividad y un profundo respeto por el instante, capturo momentos que narran historias inolvidables para toda la vida...
-          </p>
-          <span class="ver-mas hidden">Ver más</span>
-
-          <div class="boton-container">
-            <button class="contact-button">Contactar experto</button>
-          </div>
-        </div>
-      </div> <!-- fin tarjeta -->
-
+      {% endfor %}
     </div> <!-- fin slider -->
   </div> <!-- fin slider-container -->
+
+
+
+
+
+
    <!-- Flechas -->
     <div class="arrows">
       <button class="arrow-btn" id="arrowDestacadosLeft">
@@ -654,6 +441,36 @@
     </div>
 
 </div> <!-- fin contenedor -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   </div>
 
