@@ -12,7 +12,7 @@ class Experiencias(db.Model):
     fecha_inicio_experiencia = db.Column(db.Date, nullable=True)
     fecha_fin_experiencia = db.Column(db.Date, nullable=True)
 
-    perfil = db.relationship('Perfiles', back_populates='experiencias', passive_deletes=True)
+    perfil = db.relationship('perfiles', back_populates='experiencias', passive_deletes=True)
     
     def __repr__(self):
         return f"<Experiencia {self.id_experiencia}>"

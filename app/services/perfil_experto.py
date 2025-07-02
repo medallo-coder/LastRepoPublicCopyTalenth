@@ -1,7 +1,7 @@
 from flask import session,  current_app
 from app.services.jwt_service import verificar_token
 from app.models.usuario import Usuario
-from app.models.perfiles import Perfiles
+from app.models.perfiles import perfiles
 from app.models.idiomas import Idiomas
 from app.models.aptitudes import Aptitudes
 from app.extensions import db
@@ -32,7 +32,7 @@ def actualizar_perfil_experto_service(data, campos=None):
 
     usuario_id = resultado_token["payload"].get("usuario_id")
 
-    perfil=Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil=perfiles.query.filter_by(id_usuario=usuario_id).first()
 
     if not perfil:
         return {"success": False, "message": "Usuario no encontrado."}
@@ -47,7 +47,7 @@ def actualizar_perfil_experto_service(data, campos=None):
 
     try:
         db.session.commit()
-        return {"success": True, "message": "Perfil actualizado correctamente."}
+        return {"success": True, "message": "perfil actualizado correctamente."}
     except Exception as e:
         db.session.rollback()
         return {"success": False, "message": f"Error al actualizar perfil: {str(e)}"}
@@ -63,10 +63,10 @@ def actualizar_perfil_experto_service2(data, campos=None):
 
     usuario_id = resultado_token["payload"].get("usuario_id")
 
-    perfil = Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil = perfiles.query.filter_by(id_usuario=usuario_id).first()
     
     if not perfil:
-        return {"success": False, "message": "Perfil  no encontrado."}
+        return {"success": False, "message": "perfil  no encontrado."}
 
     
     nombre_idioma = data.get('nombre_idioma')
@@ -108,7 +108,7 @@ def actualizar_perfil_experto_service3(data, campos= None ):
 
     usuario_id = resultado_token["payload"].get("usuario_id")
 
-    perfil=Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil=perfiles.query.filter_by(id_usuario=usuario_id).first()
 
     
 
@@ -144,7 +144,7 @@ def actualizar_perfil_experto_service4(data, campos= None ):
 
     usuario_id = resultado_token["payload"].get("usuario_id")
 
-    perfil=Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil=perfiles.query.filter_by(id_usuario=usuario_id).first()
 
     
 
@@ -193,7 +193,7 @@ def eliminar_idioma(data):
 
     usuario_id = resultado_token["payload"].get("usuario_id")
 
-    perfil=Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil=perfiles.query.filter_by(id_usuario=usuario_id).first()
 
     
 
@@ -230,7 +230,7 @@ def eliminar_aptitud(data):
 
     usuario_id = resultado_token["payload"].get("usuario_id")
 
-    perfil=Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil=perfiles.query.filter_by(id_usuario=usuario_id).first()
 
     
 
@@ -266,7 +266,7 @@ def eliminar_estudios(data):
 
     usuario_id = resultado_token["payload"].get("usuario_id")
 
-    perfil=Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil=perfiles.query.filter_by(id_usuario=usuario_id).first()
 
     
 
@@ -303,7 +303,7 @@ def editar_estudios(data):
 
     usuario_id = resultado_token["payload"].get("usuario_id")
 
-    perfil=Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil=perfiles.query.filter_by(id_usuario=usuario_id).first()
 
     
 
@@ -352,7 +352,7 @@ def actualizar_experiencia(data):
 
     usuario_id = resultado_token["payload"].get("usuario_id")
 
-    perfil=Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil=perfiles.query.filter_by(id_usuario=usuario_id).first()
 
     
 
@@ -394,7 +394,7 @@ def eliminar_experiencia(data):
 
     usuario_id = resultado_token["payload"].get("usuario_id")
 
-    perfil=Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil=perfiles.query.filter_by(id_usuario=usuario_id).first()
 
     
 
@@ -431,7 +431,7 @@ def editar_experiencia(data):
 
     usuario_id = resultado_token["payload"].get("usuario_id")
 
-    perfil=Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil=perfiles.query.filter_by(id_usuario=usuario_id).first()
 
     
 
@@ -472,7 +472,7 @@ def actualizar_perfil_experto_service5(data):
 
     usuario_id = resultado_token["payload"].get("usuario_id")
 
-    perfil=Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil=perfiles.query.filter_by(id_usuario=usuario_id).first()
 
     
 
@@ -513,7 +513,7 @@ def eliminar_descripcion(data):
 
     usuario_id = resultado_token["payload"].get("usuario_id")
 
-    perfil=Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil=perfiles.query.filter_by(id_usuario=usuario_id).first()
 
     
 
@@ -551,7 +551,7 @@ def editar_descripcion(data):
 
     usuario_id = resultado_token["payload"].get("usuario_id")
 
-    perfil=Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil=perfiles.query.filter_by(id_usuario=usuario_id).first()
 
     
 
@@ -587,9 +587,9 @@ def subir_foto_perfil_service_experto(file):
     if error:
         return {"success": False, "message": error}
 
-    perfil = Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil = perfiles.query.filter_by(id_usuario=usuario_id).first()
     if not perfil:
-        return {"success": False, "message": "Perfil no encontrado."}
+        return {"success": False, "message": "perfil no encontrado."}
 
     filename = secure_filename(file.filename)
     carpeta = os.path.join(current_app.root_path, 'static/uploads')

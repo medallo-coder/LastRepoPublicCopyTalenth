@@ -1,6 +1,6 @@
 # /app/models/__init__.py
 from .usuario import Usuario
-from .perfiles import Perfiles
+from .perfiles import perfiles
 from .roles import Roles
 from .mensajeria import Mensajeria
 from .publicaciones import Publicaciones
@@ -10,9 +10,9 @@ from .categorias import Categorias
 from .estudios import Estudios
 from .experiencias import Experiencias
 from .idiomas import Idiomas
-from .perfil_idioma import perfil_idioma
 from .subcategorias import Subcategorias
 from app.extensions import db
+from .perfil_idioma import perfil_idioma
 
 Usuario.mensajes_enviados = db.relationship(
     'Mensajeria',

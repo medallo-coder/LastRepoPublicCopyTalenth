@@ -1,152 +1,110 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    await loadUsers(); // Primero carga todos los usuarios
-    await loadConversations(); // Luego carga conversaciones sin eliminar usuarios
+    await loadUsers();
+    await loadConversations();
 });
 
 document.getElementById('goHomeBtn').addEventListener('click', () => {
-    window.location.href = '/'; // Redirecciona al inicio
+    window.location.href = '/';
 });
 
-
-const currentUserIdElement = document.getElementById('currentUserId');
-if (!currentUserIdElement) {
+const currentUserElement = document.getElementById('currentUserId');
+if (!currentUserElement) {
     console.error("Error: No se encontró el ID de usuario actual.");
 }
-const currentUserId = currentUserIdElement.value;
+const currentUserId = currentUserElement.value;
 const conversationsList = document.getElementById('conversationsList');
 const chatContainer = document.getElementById('chatContainer');
 const messageInput = document.getElementById('messageInput');
 const sendMessageBtn = document.getElementById('sendMessageBtn');
-const chatUserName = document.getElementById('chatUserName');
-
 let selectedUserId = null;
 
-// Cargar historial de mensajes al seleccionar una conversación
-conversationsList.addEventListener('click', e => {
-    const conversationItem = e.target.closest('.conversation-item');
-    if (conversationItem) {
-        selectedUserId = conversationItem.dataset.userId;
-        chatUserName.textContent = conversationItem.dataset.userEmail;
-        loadMessages(selectedUserId);
+// Enviar con Enter
+messageInput.addEventListener('keydown', async (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        await sendMessage();
     }
 });
 
-// Enviar mensaje
-sendMessageBtn.addEventListener('click', async () => {
-    const text = messageInput.value.trim();
-    if (!selectedUserId || !text) return;
+// También puedes usar el botón
+sendMessageBtn.addEventListener('click', sendMessage);
 
-    try {
-        const response = await fetch('/mensajeria/enviar', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                id_emisor: currentUserId,
-                id_receptor: selectedUserId,
-                texto: text
-            })
-        });
-
-        if (!response.ok) {
-            const result = await response.json();
-            alert(result.error);
-            return;
-        }
-
-        messageInput.value = '';
-        loadMessages(selectedUserId);
-    } catch (error) {
-        console.error("Error al enviar el mensaje:", error);
-    }
-});
-
-// Función para cargar usuarios sin eliminarlos entre recargas
 async function loadUsers() {
     try {
-        const response = await fetch('/mensajeria/usuarios');
-        if (!response.ok) throw new Error("Error al cargar usuarios");
-
-        const users = await response.json();
-        console.log("Usuarios cargados:", users);
-
-        conversationsList.innerHTML = ''; // Limpiar lista antes de agregar nuevos usuarios
-
+        const res = await fetch('/mensajeria/usuarios');
+        const users = await res.json();
+        conversationsList.innerHTML = '';
         users.forEach(user => {
-            const div = document.createElement('div');
-            div.classList.add('conversation-item');
-            div.dataset.userId = user.usuario_id;
-            div.dataset.userEmail = user.correo;
-            div.innerHTML = `<strong>${user.correo}</strong>`;
-
-            // Evento para abrir conversación al hacer clic
-            div.addEventListener('click', () => {
+            const li = document.createElement('li');
+            li.classList.add('user-item');
+            li.dataset.userid = user.usuario_id;
+            li.innerHTML = `
+                <img src="/static/uploads/${user.foto}" alt="foto" class="user-photo">
+                <span>${user.nombre}</span>
+            `;
+            li.addEventListener('click', () => {
+                document.querySelectorAll('.user-item').forEach(el => el.classList.remove('active'));
+                li.classList.add('active');
                 selectedUserId = user.usuario_id;
-                chatUserName.textContent = user.correo;
-                loadMessages(selectedUserId);
+                document.getElementById('chatUserName').innerText = user.nombre;
+                document.getElementById('chatProfilePhoto').src = `/static/uploads/${user.foto}`;
+                loadMessages(currentUserId, selectedUserId);
             });
-
-            conversationsList.appendChild(div);
+            conversationsList.appendChild(li);
         });
-
-        console.log("Usuarios insertados en el HTML:", conversationsList.children.length);
-
-    } catch (error) {
-        console.error("Error cargando usuarios:", error);
+    } catch (err) {
+        console.error("Error cargando usuarios:", err);
     }
 }
 
-// Función para actualizar solo conversaciones sin borrar usuarios
 async function loadConversations() {
     try {
-        const currentUserId = document.getElementById('currentUserId').value;
-        if (!currentUserId) {
-            console.error("Error: `currentUserId` no está definido.");
-            return;
-        }
-
-        const response = await fetch(`/mensajeria/conversaciones/${currentUserId}`);
-        if (!response.ok) throw new Error("Error al cargar conversaciones");
-
-        const conversations = await response.json();
-        console.log("Conversaciones cargadas:", conversations);
-
-        conversations.forEach(convo => {
-            const userElement = document.querySelector(`[data-user-id="${convo.usuario_id}"]`);
-            if (userElement) {
-                userElement.innerHTML += `<small>${convo.ultimo_mensaje}</small>`;
-            }
-        });
-
-    } catch (error) {
-        console.error("Error cargando conversaciones:", error);
+        const res = await fetch(`/mensajeria/conversaciones/${currentUserId}`);
+        const data = await res.json();
+        // Aquí podrías agregar notificaciones, resumen de últimos mensajes, etc.
+    } catch (err) {
+        console.error("Error cargando conversaciones:", err);
     }
 }
 
-// Función para cargar historial de mensajes
-async function loadMessages(userId) {
+async function loadMessages(idEmisor, idReceptor) {
     try {
-        const chatPanel = document.querySelector('.chat-panel'); // Obtener el panel de chat
-        chatPanel.style.display = 'flex'; // Mostrar el panel
-
-        const response = await fetch(`/mensajeria/${currentUserId}/${userId}`);
-        if (!response.ok) throw new Error("Error al cargar mensajes");
-
-        const data = await response.json();
+        const res = await fetch(`/mensajeria/${idEmisor}/${idReceptor}`);
+        const mensajes = await res.json();
         chatContainer.innerHTML = '';
-
-        data.forEach(msg => {
+        mensajes.forEach(m => {
             const div = document.createElement('div');
-            div.classList.add('message');
-            div.classList.add(msg.id_emisor == currentUserId ? 'sent' : 'received');
+            div.classList.add('mensaje', m.id_emisor == currentUserId ? 'enviado' : 'recibido');
             div.innerHTML = `
-                <p>${msg.texto}</p>
-                <span>${msg.fecha}</span>
+                <p>${m.texto}</p>
+                <span>${m.fecha}</span>
             `;
             chatContainer.appendChild(div);
         });
-
         chatContainer.scrollTop = chatContainer.scrollHeight;
-    } catch (error) {
-        console.error("Error cargando mensajes:", error);
+    } catch (err) {
+        console.error("Error cargando mensajes:", err);
+    }
+}
+
+async function sendMessage() {
+    const texto = messageInput.value.trim();
+    if (!texto || !selectedUserId) return;
+
+    const body = {
+        id_emisor: currentUserId,
+        id_receptor: selectedUserId,
+        texto
+    };
+
+    const res = await fetch('/mensajeria/enviar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    });
+
+    if (res.ok) {
+        messageInput.value = '';
+        loadMessages(currentUserId, selectedUserId);
     }
 }

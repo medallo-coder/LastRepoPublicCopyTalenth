@@ -14,7 +14,7 @@ class Estudios(db.Model):
     id_perfil = db.Column(db.Integer, db.ForeignKey('perfiles.id_perfil', ondelete="CASCADE"), nullable=False)
    
     
-    perfil = db.relationship('Perfiles', back_populates='estudios', passive_deletes=True)
+    perfil = db.relationship('perfiles', back_populates='estudios', passive_deletes=True)
     
     def __repr__(self):
         return f"<Estudio {self.id_estudio}>"

@@ -1,7 +1,7 @@
 from flask import session, current_app, url_for, send_from_directory
 from app.services.jwt_service import verificar_token
 from app.models.usuario import Usuario
-from app.models.perfiles import Perfiles
+from app.models.perfiles import perfiles
 from app.extensions import db
 import os
 from werkzeug.utils import secure_filename
@@ -29,9 +29,9 @@ def actualizar_perfil_cliente_service(data, campos=None):
     if error:
         return {"success": False, "message": error}
 
-    perfil = Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil = perfiles.query.filter_by(id_usuario=usuario_id).first()
     if not perfil:
-        return {"success": False, "message": "Perfil no encontrado."}
+        return {"success": False, "message": "perfil no encontrado."}
 
     for campo in campos or []:
         if campo in data:
@@ -39,7 +39,7 @@ def actualizar_perfil_cliente_service(data, campos=None):
 
     try:
         db.session.commit()
-        return {"success": True, "message": "Perfil actualizado correctamente."}
+        return {"success": True, "message": "perfil actualizado correctamente."}
     except Exception as e:
         db.session.rollback()
         return {"success": False, "message": f"Error al actualizar perfil: {str(e)}"}
@@ -55,9 +55,9 @@ def subir_foto_perfil_service(file):
     if error:
         return {"success": False, "message": error}
 
-    perfil = Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil = perfiles.query.filter_by(id_usuario=usuario_id).first()
     if not perfil:
-        return {"success": False, "message": "Perfil no encontrado."}
+        return {"success": False, "message": "perfil no encontrado."}
 
     ext = os.path.splitext(secure_filename(file.filename))[1]
     filename = f"{uuid.uuid4().hex}{ext}"
@@ -85,7 +85,7 @@ def obtener_datos_usuario_service():
     if error:
         return {}
 
-    perfil = Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil = perfiles.query.filter_by(id_usuario=usuario_id).first()
     if not perfil:
         return {}
 
