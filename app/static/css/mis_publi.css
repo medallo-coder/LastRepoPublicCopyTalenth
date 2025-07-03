@@ -6,15 +6,23 @@
 }
 
 body {
-  background-color: #f5f5f5;
+  background-color: #f8f8f8;
   font-family: 'Oswald', sans-serif;
   color: #000;
   padding: 20px;
 }
 
 .container {
-  max-width: 540px; /* 1 cm menos ancho */
+  max-width: 840px; /* 1 cm menos ancho */
   margin: auto;
+}
+.form-group {
+  margin-bottom: 20px; /* Aumenta el espacio entre grupos de inputs */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px; /* Aumenta el espacio entre el título y el input */
 }
 
 h1 {
@@ -35,8 +43,21 @@ h1 {
   margin-bottom: 20px;
   position: relative;
   box-shadow: none; /* Sin sombra */
+  min-height: 230px; /* Ajusta el valor según el alto que deseas */ 
+  flex: 1 1 280px;      /* permite que crezcan más allá de 240px */
+  max-width: 420px;     /* límite visual */
+  width: 100%;   
 }
 
+/* Estilo para las estrellas (calificación) */
+.estrellasTarjetas {
+  display: flex; /* Flexbox para alinear las estrellas */
+  justify-content: left; /* Centrado horizontal */
+  font-size: 1rem; /* Tamaño de fuente para las estrellas */
+  color: #3EAEB1; /* Color azul */
+  gap: 0.1rem; /* Espacio entre las estrellas */
+  margin-top: -8px; 
+} 
 /* Menú superior derecho */
 .acciones-menu {
   position: absolute;
@@ -45,7 +66,7 @@ h1 {
 }
 
 .menu-trigger {
-  font-size: 20px;
+  font-size: 28px; /* Puedes probar 22px, 24px o incluso 26px según tu gusto */
   cursor: pointer;
   padding: 4px;
 }
@@ -83,10 +104,30 @@ h1 {
 }
 
 .publicacion-img img {
-  width: 100px;
-  height: 100px;
+  width: 105px;
+  height: 105px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.publicaciones-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* espacio entre tarjetas */
+}
+
+
+
+@media (max-width: 576px) {
+  .publicaciones-grid {
+    display: block; /* Apila verticalmente */
+  }
+
+  .publicacion-card {
+    width: 100%;
+    margin-bottom: 20px; /* espacio entre tarjetas */
+  }
 }
 
 .publicacion-img .precio {
@@ -102,8 +143,8 @@ h1 {
 }
 
 .publicacion-info .nombre {
-  font-size: 16px;
-  color: #3eaeb1;
+  font-size: 24px;
+  color: #000000;
   margin-bottom: 4px;
 }
 
@@ -129,19 +170,23 @@ h1 {
 .card {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border: 1px solid #ccc; /* Borde gris fino */
   padding: 20px;
   margin-bottom: 30px;
+  margin: 0 auto 30px auto; /* centrar horizontalmente */
+  max-width: 640px; /* 1 cm menos ancho */
+  
 }
 
 .card-header {
-  background: #3eaeb1;
-  color: #fff;
+  color: #3EAEB1;
   padding: 12px 16px;
-  font-size: 18px;
+  font-size: 24px;
   border-radius: 10px 10px 0 0;
   margin: -20px -20px 20px -20px;
+  text-align: center;
 }
+
 
 input[type="text"],
 input[type="number"],
@@ -168,20 +213,167 @@ textarea {
 
 button,
 .btn-secondary {
-  background: #555;
-  color: #fff;
-  padding: 8px 16px;
+  background: white;
+  color: black;
+  padding: 8px 18px;
   border: none;
   border-radius: 20px;
+  border: 3px solid #cac8c8;
   font-size: 13px;
   cursor: pointer;
+  font-family: 'Oswald', sans-serif;
+  text-decoration: none;
 }
 
-button {
-  background: #3eaeb1;
+button,
+.btn-primary {
+  color: #3eaeb1;
+  border: 3px solid #3eaeb1;
+  font-family: 'Oswald', sans-serif;
 }
 
 button:hover,
 .btn-secondary:hover {
-  opacity: 0.9;
+  background-color: #d9d9d9;
+}
+
+.btn-primary:hover {
+  background-color: #3eaeb1;
+  color: white;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;      /* Centra los botones horizontalmente */
+  gap: 56px;                    /* Espacio entre botones */
+  margin-top: 20px;            /* Espacio por encima de los botones */
+}
+
+
+
+/*nav de navegacion entre perfil  y publicaciones*/
+
+/* Contenedor principal centrado y responsivo */
+.cuadro {
+  width: 100%;
+  max-width: 700px;           /* Anchura máxima en pantallas grandes */
+  background-color: white;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 auto 1.5rem auto; /* Centrado horizontal + margen inferior */
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Estilo para el cuadro redondo */
+.redondo {
+  height: 5rem;
+  border-radius: 2rem;
+  border: 1px solid #6b7280;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contenedor de pestañas centrado y adaptativo */
+.tabs {
+  display: flex;
+  justify-content: center;   /* Centra horizontalmente */
+  flex-wrap: wrap;           /* Permite que se acomoden en varias líneas si no caben */
+  gap: 2rem;                 /* Espacio entre las pestañas */
+  padding: 1rem 0;
+}
+
+/* Estilo para cada pestaña */
+.tab {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: black;
+  transition: color 0.3s ease;
+  text-decoration: none;
+  position: relative;
+}
+
+/* Subrayado animado */
+.tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 2px;
+  width: 0;
+  background-color: #3EAEB1;
+  transition: width 0.3s ease;
+}
+
+.tab:hover::after {
+  width: 100%;
+}
+
+/* Pestaña activa */
+.tab.active {
+  color: #3EAEB1;
+}
+
+/* 🔄 Responsividad adicional */
+@media (max-width: 768px) {
+  .tab {
+    font-size: 1.1rem;          /* Tamaño más pequeño en móvil/tablet */
+    letter-spacing: 0.06rem;    /* Más aire entre letras */
+    padding: 0.3rem 0.5rem;     /* Menos altura visual */
+  }
+
+  .tab::after {
+    bottom: -2px;               /* Línea más cerca del texto */
+    height: 1.5px;              /* Línea más delgada */
+  }
+
+  .tabs {
+    gap: 1rem;                  /* Menos espacio entre pestañas */
+  }
+}
+
+@media (max-width: 768px) {
+  .cuadro {
+    height: 10%;           /* Se adapta al contenido */
+    padding: 1rem;          /* Ajusta el relleno interior */
+  }
+
+  .redondo {
+    height: auto;           /* Permite que el contenido lo defina */
+    padding: 1rem;          /* Más aire para que se vea bien */
+    flex-direction: column; /* Para acomodar mejor los elementos en pantallas pequeñas */
+    text-align: center;     /* Centra el contenido cuando sea vertical */
+  }
+}
+
+/* Estilo para el boton de nuevas publicaciones  */
+.card {
+  display: none; /* Oculta el formulario inicialmente */
+}
+
+/* Estilo del enlace tipo botón */
+.mostrar-form-link {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.2rem;
+  color: #3eaeb1;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+  user-select: none;
+}
+.mostrar-form-link:hover {
+  text-decoration: underline;
+}
+
+.ver-mas {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  color: #3EAEB1;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 6px; /* Antes: 10px */
 }
