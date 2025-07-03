@@ -126,7 +126,11 @@
       <p class="descripcion"><strong>Categoría:</strong> {{ pub.categoria.tipo_categoria if pub.categoria else 'Sin categoría' }}</p>
       <p class="descripcion"><strong>Subcategoría:</strong> {{ pub.subcategoria.nombre_subcategoria if pub.subcategoria else 'Sin subcategoría' }}</p>
       <p class="descripcion"><strong>Descripción:</strong> 
-        {{ pub.descripcion_publicacion[:100] }}{% if pub.descripcion_publicacion|length > 100 %}...{% endif %}
+        {% if pub.descripcion_publicacion %}
+    {{ pub.descripcion_publicacion[:100] }}{% if pub.descripcion_publicacion|length > 100 %}...{% endif %}
+     {% else %}
+       Sin descripción
+      {% endif %}
       </p>
       <span class="ver-mas hidden">Ver más</span>
     </div>
