@@ -2,7 +2,7 @@ from app.services.jwt_service import generar_token, verificar_token
 from app.services.notificaciones import enviar_notificacion_registro
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.models.usuario import Usuario
-from app.models.perfiles import Perfiles
+from app.models.perfiles import perfiles
 from app.models.aptitudes import Aptitudes
 from app.models.estudios import Estudios
 from app.models.experiencias import Experiencias
@@ -46,7 +46,7 @@ def registrar_usuario_service(data):
 
     id_usuario_generado = nuevo_usuario.usuario_id
 
-    nuevo_perfil = Perfiles(
+    nuevo_perfil = perfiles(
         id_usuario=id_usuario_generado,
         primer_nombre=primer_nombre,
         primer_apellido=primer_apellido,

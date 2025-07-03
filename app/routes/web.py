@@ -412,7 +412,7 @@ def perfil_general():
 
 
 from app.models import Categorias  # Adjust path if needed
-from app.models import Subcategorias, Publicaciones, Perfiles  # Adjust path if needed
+from app.models import Subcategorias, Publicaciones, perfiles  # Adjust path if needed
   
 
 

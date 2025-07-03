@@ -18,14 +18,14 @@ class Usuario(db.Model, UserMixin):  #Hereda de UserMixin (mensajeria)
     
     rol = db.relationship('Roles', back_populates='usuarios')
     
-    perfiles = db.relationship('Perfiles', back_populates='usuario', uselist=False, passive_deletes=True)
+    perfiles = db.relationship('perfiles', back_populates='usuario', uselist=False, passive_deletes=True)
     publicaciones = db.relationship('Publicaciones', back_populates='usuario', passive_deletes=True)
     reseñas = db.relationship('Reseñas', back_populates='usuario', passive_deletes=True)
     id_rol = db.Column(db.Integer, db.ForeignKey('roles.id_rol'), nullable=False, default=2)  
 
     rol = db.relationship('Roles', back_populates='usuarios')
 
-    perfiles = db.relationship('Perfiles', back_populates='usuario', uselist=False)
+    perfiles = db.relationship('perfiles', back_populates='usuario', uselist=False)
     publicaciones = db.relationship('Publicaciones', back_populates='usuario')
     reseñas = db.relationship('Reseñas', back_populates='usuario')
 

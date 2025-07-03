@@ -1,47 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="{{ url_for('static', filename='css/mensajeria.css') }}">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
-<title>Chat</title>
+    <meta charset="UTF-8">
+    <title>Mensajería</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mensajeria.css') }}">
 </head>
 <body>
-
-<div class="chat-container">
-
-    <!-- Panel izquierdo (Lista de conversaciones) -->
-    <aside class="sidebar">
-        <h2>Usuarios Disponibles</h2>
-        <button id="goHomeBtn" class="home-button">🏠 Inicio</button>
-        <div id="conversationsList"></div>
-    </aside>
-
-    <!-- Panel derecho (Chat activo) -->
-    <main class="chat-panel">
-        <header class="chat-header">
-            <div class="profile">
-                <img src="angie.jpg" alt="Perfil" id="chatUserImage"/>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Usuarios Disponibles</h2>
+            <button id="goHomeBtn"><i class="fa fa-home"></i> Inicio</button>
+            <ul id="conversationsList"></ul>
+        </div>
+        <div class="main">
+            <div class="chat-header">
+                <img id="chatProfilePhoto" src="{{ url_for('static', filename='uploads/default.jpg') }}" alt="Perfil">
                 <span id="chatUserName">Seleccione un usuario</span>
             </div>
-        </header>
-
-        <section id="chatContainer"></section>
-
-        <footer class="message-bar">
-            <input type="text" id="messageInput" placeholder="Escribe un mensaje..." />
-            <button id="sendMessageBtn">
-                <i class="bi bi-send-fill"></i>
-            </button>
-        </footer>
-    </main>
-
-</div>
-
-<input type="hidden" id="currentUserId" value="{{ current_user.usuario_id }}">
-
-<script src="{{ url_for('static', filename='js/mensajeria.js') }}"></script>
+            <div id="chatContainer" class="chat-messages"></div>
+            <div class="chat-input">
+                <input type="hidden" id="currentUserId" value="{{ current_user.usuario_id }}">
+                <input type="text" id="messageInput" placeholder="Escribe un mensaje..." />
+                <button id="sendMessageBtn"><i class="fa fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/mensajeria.js') }}"></script>
 </body>
 </html>

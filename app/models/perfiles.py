@@ -2,7 +2,7 @@ from app.extensions import db
 from app.models.perfil_idioma import perfil_idioma
 
 
-class Perfiles(db.Model):
+class perfiles(db.Model):
     __tablename__ = 'perfiles'
    
     id_perfil = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
@@ -23,4 +23,4 @@ class Perfiles(db.Model):
     experiencias = db.relationship('Experiencias', back_populates='perfil',passive_deletes=True)
 
     def __repr__(self):
-        return f"<Perfiles(id_perfil={self.id_perfil}')>"
+        return f"<perfiles(id_perfil={self.id_perfil}')>"

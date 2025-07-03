@@ -2,7 +2,7 @@ from app.services.jwt_service import verificar_token
 from flask import session
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.models.usuario import Usuario
-from app.models.perfiles import Perfiles
+from app.models.perfiles import perfiles
 from app.models.idiomas import Idiomas
 from app.models.aptitudes import Aptitudes
 from app.models.estudios import Estudios
@@ -81,7 +81,7 @@ def obtener_datos_usuario_service():
     
 
     usuario=Usuario.query.get(usuario_id)
-    perfil=Perfiles.query.filter_by(id_usuario=usuario_id).first()
+    perfil=perfiles.query.filter_by(id_usuario=usuario_id).first()
     aptitudes=Aptitudes.query.filter_by(id_perfil= perfil.id_perfil).first()
     estudios=Estudios.query.filter_by(id_perfil= perfil.id_perfil).first()
     experiencias=Experiencias.query.filter_by(id_perfil=perfil.id_perfil).first()
@@ -182,7 +182,7 @@ def enviar_link_recuperacion_service(correo):
     
     perfil=usuario.perfiles
     if not perfil:
-        return {"success": False, "message": "Perfil no encontrado para el usuario."}
+        return {"success": False, "message": "perfil no encontrado para el usuario."}
     
 
 
