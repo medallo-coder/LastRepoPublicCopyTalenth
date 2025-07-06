@@ -57,22 +57,7 @@ def registrar_usuario_service(data):
 
     id_perfil_generado = nuevo_perfil.id_perfil
 
-<<<<<<< HEAD
-    nuevo_aptitud = Aptitudes(id_perfil=id_perfil_generado)
-    db.session.add(nuevo_aptitud)
 
-    nuevo_estudio = Estudios(id_perfil=id_perfil_generado)
-    db.session.add(nuevo_estudio)
-
-    nueva_experiencia = Experiencias(id_perfil=id_perfil_generado)
-    db.session.add(nueva_experiencia)
-
-    nueva_resena = Reseñas(usuario_id=id_usuario_generado)
-    db.session.add(nueva_resena)
-
-=======
-    
->>>>>>> 3adb7d1a803b408f3350ad3115b0aff6acd7628a
     db.session.commit()
 
     token = generar_token(nuevo_usuario.usuario_id)
