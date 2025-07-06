@@ -604,3 +604,25 @@ def subir_foto_perfil_service_experto(file):
     except Exception as e:
         db.session.rollback()
         return {"success": False, "message": f"Error al guardar foto: {str(e)}"}
+
+def insertar_perfil_id(id_perfil_generado):
+   
+    print(f"ID del perfil recibido: {id_perfil_generado}")
+
+    
+    if not id_perfil_generado:
+        return {"success": False, "message": "ID del perfil no encontrado."}  
+    
+    
+    
+    tablas=["aptitudes", "estudios", "experiencias"]
+    
+    try:
+        for tabla in tablas:
+            db.session.execute(text(f"INSERT INTO {tabla} (id_perfil) VALUES (:perfil)"),{"perfil": id_perfil_generado},)
+       
+            db.session.commit()
+           
+    except Exception as e:
+        db.session.rollback()
+        
