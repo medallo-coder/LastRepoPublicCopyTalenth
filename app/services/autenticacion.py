@@ -1,5 +1,6 @@
 from app.services.jwt_service import generar_token, verificar_token
 from app.services.notificaciones import enviar_notificacion_registro
+from app.services.perfil_experto import insertar_perfil_id
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.models.usuario import Usuario
 from app.models.perfiles import perfiles
@@ -56,6 +57,7 @@ def registrar_usuario_service(data):
 
     id_perfil_generado = nuevo_perfil.id_perfil
 
+<<<<<<< HEAD
     nuevo_aptitud = Aptitudes(id_perfil=id_perfil_generado)
     db.session.add(nuevo_aptitud)
 
@@ -68,9 +70,14 @@ def registrar_usuario_service(data):
     nueva_resena = Reseñas(usuario_id=id_usuario_generado)
     db.session.add(nueva_resena)
 
+=======
+    
+>>>>>>> 3adb7d1a803b408f3350ad3115b0aff6acd7628a
     db.session.commit()
 
     token = generar_token(nuevo_usuario.usuario_id)
+
+    insertar_perfil_id(id_perfil_generado)
 
     # Enviar notificación
     enviar_notificacion_registro(correo, primer_nombre)

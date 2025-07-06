@@ -289,13 +289,12 @@
   /* Estilo para la columna izquierda */
   .columna-izquierda {
     flex: 2; /* Ocupa el doble de espacio que la columna derecha */
-    height: 32rem; /* Altura ajustada */
+    height: 27rem; /* Altura ajustada */
     background-color: white; /* Fondo blanco */
     border: 1px solid #6b7280; /* Borde gris oscuro */
     border-radius: 1rem; /* Bordes redondeados */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
     margin-bottom: 1.5rem; /* Margen debajo */
-  
   }
 
   
@@ -311,6 +310,13 @@
     padding: 0 25px;
   }
   
+  .titulo-barrio{
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400; /* Bold */
+    font-size: 1.4rem;
+    margin: 10px 0 1rem;
+    padding: 0 40px;
+  }
   .cali {
     font-family: 'Oswald', sans-serif;
     font-weight: 500; /* Medium */
@@ -574,11 +580,12 @@
     
   }
   
-  .titulo-interes {
+  #titulo-favoritos {
+    
   font-family: 'Oswald', sans-serif;
-    font-weight: 700; /* Bold */
+    font-weight: 500; /* Bold */
     font-size: 2rem;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     color: #3EAEB1;
     padding: 0 0px; /* Espaciado adicional a los lados para mayor separación */
   }
@@ -655,6 +662,8 @@
   
   .slider-container {
   position: relative;
+  margin-top: 20px;
+  
   }
   
   .slider {

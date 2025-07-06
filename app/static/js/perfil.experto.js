@@ -192,38 +192,52 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
+// Función para mostrar imagen de perfil
 function mostrarImagen(event) {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const preview = document.getElementById('preview');
-      preview.style.backgroundImage = `url('${e.target.result}')`;
-      preview.style.backgroundSize = 'cover';
-      preview.style.backgroundPosition = 'center';
-      preview.innerHTML = ''; // Quitamos el ícono si ya hay imagen
-    }
-    reader.readAsDataURL(file);
+  const input = event.target;
+  const reader = new FileReader();
+
+  reader.onload = function () {
+    const preview = document.getElementById('preview');
+    preview.style.backgroundImage = `url(${reader.result})`;
+    preview.innerHTML = ''; // Elimina el ícono
+  };
+
+  if (input.files[0]) {
+    reader.readAsDataURL(input.files[0]);
+
+    // Enviar formulario automáticamente
+    setTimeout(() => {
+      document.getElementById('formImagen').submit();
+    }, 500);
   }
 }
-
-function mostrarImagen(event) {
-    const input = event.target;
-    const reader = new FileReader();
-
-    reader.onload = function() {
-      const preview = document.getElementById('preview');
-      preview.style.backgroundImage = `url(${reader.result})`;
-      preview.innerHTML = ''; // Elimina el ícono
-    };
-
-    if (input.files[0]) {
-      reader.readAsDataURL(input.files[0]);
-
-      // Enviar formulario automáticamente
-      setTimeout(() => {
-        document.getElementById('formImagen').submit();
-      }, 500);
-    }
+// Cerrar formularios al hacer clic fuera de su contenido
+document.addEventListener('mousedown', function (event) {
+  // Evita cerrar si haces clic dentro del contenido
+  if (event.target.closest('.formulario-contenido, .formulario-contenido-descripcion, .formulario-experiencia-contenido, .formulario-editar-experiencia-contenido, .formulario-estudios-contenido, .formulario-editar-estudios-contenido')) {
+    return;
   }
+
+  const formularios = [
+    { id: 'formulario-editar', contenido: '.formulario-contenido' },
+    { id: 'formulario-añadir-descripcion', contenido: '.formulario-contenido-descripcion' },
+    { id: 'formulario-editar-descripcion', contenido: '.formulario-contenido-descripcion' },
+    { id: 'formulario-experiencia', contenido: '.formulario-experiencia-contenido' },
+    { id: 'formulario-editar-experiencia', contenido: '.formulario-editar-experiencia-contenido' },
+    { id: 'formulario-estudios', contenido: '.formulario-estudios-contenido' },
+    { id: 'formulario-editar-estudios', contenido: '.formulario-editar-estudios-contenido' },
+    { id: 'formularioIdioma', contenido: '.formulario-contenido' },
+    { id: 'formularioAptitudes', contenido: '.formulario-contenido' }
+  ];
+
+  formularios.forEach(f => {
+    const modal = document.getElementById(f.id);
+    if (modal && modal.style.display === 'flex') {
+      const contenido = modal.querySelector(f.contenido);
+      if (contenido && !contenido.contains(event.target)) {
+        modal.style.display = 'none';
+      }
+    }
+  });
+});

@@ -1,132 +1,102 @@
+// Navegacion
+function activarTab(element) {
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach(tab => tab.classList.remove('active'));
+  element.classList.add('active');
+}
 
- //Navegacion
- function activarTab(element) {
-    const tabs = document.querySelectorAll('.tab');
-    tabs.forEach(tab => tab.classList.remove('active'));
-    element.classList.add('active');
-  }
+// Función para abrir y cerrar formularios
+function accionLapiz() {
+  document.getElementById('formulario-editar').style.display = 'flex';
+}
 
-  
-  // Función para abrir el formulario EDITAR CONTACTO
-  function accionLapiz() {
-    document.getElementById('formulario-editar').style.display = 'flex';
-  }
+function cerrarFormulario() {
+  document.getElementById('formulario-editar').style.display = 'none';
+}
 
-  // Función para cerrar el formulario EDITAR CONTACTO
-  function cerrarFormulario() {
-    document.getElementById('formulario-editar').style.display = 'none';
-  }
- 
-  // UBICACIÓN - barrio
-  function mostrarFormularioUbicacion() {
-    document.getElementById('formularioUbicacion').style.display = 'flex';
-  }
+function mostrarFormularioUbicacion() {
+  document.getElementById('formularioUbicacion').style.display = 'flex';
+}
 
-  function cerrarFormularioUbicacion() {
-    document.getElementById('formularioUbicacion').style.display = 'none';
-  }
+function cerrarFormularioUbicacion() {
+  document.getElementById('formularioUbicacion').style.display = 'none';
+}
 
-  document.getElementById('lapizubicacion').addEventListener('click', function () {
+function cerrarFormularioEditarUbicacion() {
+  document.getElementById('formularioUbicacionEditar').style.display = 'none';
+}
+
+function mostrarFormularioEmpresa() {
+  document.getElementById('formulario-empresa').style.display = 'flex';
+}
+
+function cerrarFormularioEmpresa() {
+  document.getElementById('formulario-empresa').style.display = 'none';
+}
+
+function cerrarFormularioEditarEmpresa() {
+  document.getElementById('formulario-editar-empresa').style.display = 'none';
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Lógica para editar ubicación
+  document.getElementById('lapizubicacion')?.addEventListener('click', function () {
     const item = this.closest('.item-ubicacion');
-    const barrio = item.querySelector('.barrio').innerText;
+    const barrio = item.querySelector('.barrio')?.innerText;
     document.getElementById('editar-barrio').value = barrio;
     document.getElementById('formularioUbicacionEditar').style.display = 'flex';
   });
 
-  function cerrarFormularioEditarUbicacion() {
-    document.getElementById('formularioUbicacionEditar').style.display = 'none';
-  }
-
-
-  // EMPRESA
-   // Añadir empresa
-  function mostrarFormularioEmpresa() {
-    document.getElementById('formulario-empresa').style.display = 'flex';
-  }
-
-  function cerrarFormularioEmpresa() {
-    document.getElementById('formulario-empresa').style.display = 'none';
-  }
-
-  // Editar empresa
-  document.getElementById('lapizempresa').addEventListener('click', function () {
+  // Lógica para editar empresa
+  document.getElementById('lapizempresa')?.addEventListener('click', function () {
     const item = this.closest('.item-empresa');
-    const empresa = item.querySelector('.nombre_empresa').innerText;
+    const empresa = item.querySelector('.nombre_empresa')?.innerText;
     document.getElementById('editar-empresa').value = empresa;
     document.getElementById('formulario-editar-empresa').style.display = 'flex';
   });
 
-  function cerrarFormularioEditarEmpresa() {
-    document.getElementById('formulario-editar-empresa').style.display = 'none';
+  // Calificaciones
+  const slider = document.getElementById("slider");
+  const arrowButtons = document.querySelectorAll(".arrow-btn");
+
+  function getScrollAmount() {
+    return window.innerWidth <= 480 ? 365 : 600;
   }
 
-  //CALIFICACIONES
+  arrowButtons[0]?.addEventListener("click", () => {
+    slider.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
+  });
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const slider = document.getElementById("slider");
-    const arrowButtons = document.querySelectorAll(".arrow-btn");
-  
-    // Detectar el ancho de pantalla
-    function getScrollAmount() {
-      if (window.innerWidth <= 480) {
-        return 365; // Desplazamiento más lento (menor) para celulares
-      } else {
-        return 600; // Normal para pantallas grandes
-      }
-    }
-  
-    arrowButtons[0].addEventListener("click", () => {
-      slider.scrollBy({
-        left: -getScrollAmount(),
-        behavior: "smooth"
-      });
-    });
-  
-    arrowButtons[1].addEventListener("click", () => {
-      slider.scrollBy({
-        left: getScrollAmount(),
-        behavior: "smooth"
-      });
+  arrowButtons[1]?.addEventListener("click", () => {
+    slider.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
+  });
+
+  // Menús
+  const menuButtons = document.querySelectorAll('.menu-button');
+  const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+
+  menuButtons.forEach((button, index) => {
+    const dropdownMenu = dropdownMenus[index];
+
+    button.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isVisible = dropdownMenu.style.display === 'block';
+      dropdownMenus.forEach(menu => (menu.style.display = 'none'));
+      dropdownMenu.style.display = isVisible ? 'none' : 'block';
     });
   });
-  
-  document.addEventListener('DOMContentLoaded', () => {
-    const menuButtons = document.querySelectorAll('.menu-button');
-    const dropdownMenus = document.querySelectorAll('.dropdown-menu');
-  
-    // Agregar el evento de click para cada botón
-    menuButtons.forEach((button, index) => {
-      const dropdownMenu = dropdownMenus[index];
-  
-      button.addEventListener('click', (e) => {
-        e.stopPropagation(); // Evita que se cierre inmediatamente
-        const isVisible = dropdownMenu.style.display === 'block';
-        
-        // Cerrar todos los menús antes de abrir el que corresponde
-        dropdownMenus.forEach((menu) => (menu.style.display = 'none'));
-  
-        // Mostrar el menú del botón clicado
-        dropdownMenu.style.display = isVisible ? 'none' : 'block';
-      });
-    });
-  
-    // Cierra el menú si se hace clic fuera de él
-    document.addEventListener('click', () => {
-      dropdownMenus.forEach((menu) => (menu.style.display = 'none'));
-    });
-  
-    // Evita cierre si se hace clic dentro del menú
-    dropdownMenus.forEach((menu) => {
-      menu.addEventListener('click', (e) => {
-        e.stopPropagation();
-      });
+
+  document.addEventListener('click', () => {
+    dropdownMenus.forEach(menu => (menu.style.display = 'none'));
+  });
+
+  dropdownMenus.forEach(menu => {
+    menu.addEventListener('click', (e) => {
+      e.stopPropagation();
     });
   });
-  
 
-  
-// TARJETAS - DESCRIPCIÓN Y VER MÁS
-document.addEventListener('DOMContentLoaded', () => {
+  // Tarjetas
   const tarjetas = document.querySelectorAll('.tarjeta');
 
   tarjetas.forEach(tarjeta => {
@@ -159,29 +129,69 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  document.getElementById('cerrarTarjeta').addEventListener('click', () => {
+  // Cierre del modal de tarjeta
+  document.getElementById('cerrarTarjeta')?.addEventListener('click', () => {
     document.getElementById('modalTarjeta').classList.add('hidden');
+  });
+
+  const modalTarjeta = document.getElementById("modalTarjeta");
+  const contenidoTarjeta = modalTarjeta?.querySelector(".modal-content");
+
+  if (modalTarjeta && contenidoTarjeta) {
+    modalTarjeta.addEventListener("click", (e) => {
+      if (!contenidoTarjeta.contains(e.target)) {
+        modalTarjeta.classList.add("hidden");
+      }
+    });
+
+    contenidoTarjeta.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+  }
+
+  // Cierre automático de formularios si se hace clic fuera del contenido
+  const formularios = [
+    { id: "formulario-editar", contenido: ".formulario-contenido" },
+    { id: "formularioUbicacion", contenido: ".formulario-ubicacion-contenido" },
+    { id: "formularioUbicacionEditar", contenido: ".formulario-editar-ubicacion-contenido" },
+    { id: "formulario-empresa", contenido: ".formulario-empresa-contenido" },
+    { id: "formulario-editar-empresa", contenido: ".formulario-editar-empresa-contenido" }
+  ];
+
+  formularios.forEach(({ id, contenido }) => {
+    const fondo = document.getElementById(id);
+    if (!fondo) return;
+
+    const interior = fondo.querySelector(contenido);
+    if (!interior) return;
+
+    fondo.addEventListener("click", (e) => {
+      if (!interior.contains(e.target)) {
+        fondo.style.display = "none";
+      }
+    });
+
+    interior.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
   });
 });
 
-//foto 
-
+// Foto de perfil
 function mostrarImagen(event) {
-    const input = event.target;
-    const reader = new FileReader();
+  const input = event.target;
+  const reader = new FileReader();
 
-    reader.onload = function() {
-      const preview = document.getElementById('preview');
-      preview.style.backgroundImage = `url(${reader.result})`;
-      preview.innerHTML = ''; // Elimina el ícono
-    };
+  reader.onload = function () {
+    const preview = document.getElementById('preview');
+    preview.style.backgroundImage = `url(${reader.result})`;
+    preview.innerHTML = '';
+  };
 
-    if (input.files[0]) {
-      reader.readAsDataURL(input.files[0]);
-
-      // Enviar formulario automáticamente
-      setTimeout(() => {
-        document.getElementById('formImagen').submit();
-      }, 500);
-    }
+  if (input.files[0]) {
+    reader.readAsDataURL(input.files[0]);
+    setTimeout(() => {
+      document.getElementById('formImagen').submit();
+    }, 500);
   }
+}
