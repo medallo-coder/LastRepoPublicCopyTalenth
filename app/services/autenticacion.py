@@ -65,9 +65,6 @@ def registrar_usuario_service(data):
     nueva_experiencia = Experiencias(id_perfil=id_perfil_generado)
     db.session.add(nueva_experiencia)
 
-    nueva_publicacion = Publicaciones(usuario_id=id_usuario_generado)
-    db.session.add(nueva_publicacion)
-
     nueva_resena = Reseñas(usuario_id=id_usuario_generado)
     db.session.add(nueva_resena)
 

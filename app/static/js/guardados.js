@@ -1,87 +1,133 @@
-
-const slider = document.getElementById("slider");
-const buttons = document.querySelectorAll(".arrow-btn");
-
-buttons[0].addEventListener("click", () => {
-  slider.scrollLeft -= 300;
-});
-buttons[1].addEventListener("click", () => {
-  slider.scrollLeft += 300;
-});
-
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const menuButtons = document.querySelectorAll('.menu-button');
-    const dropdownMenus = document.querySelectorAll('.dropdown-menu');
-  
-    // Agregar el evento de click para cada botón
-    menuButtons.forEach((button, index) => {
-      const dropdownMenu = dropdownMenus[index];
-  
-      button.addEventListener('click', (e) => {
-        e.stopPropagation(); // Evita que se cierre inmediatamente
-        const isVisible = dropdownMenu.style.display === 'block';
-        
-        // Cerrar todos los menús antes de abrir el que corresponde
-        dropdownMenus.forEach((menu) => (menu.style.display = 'none'));
-  
-        // Mostrar el menú del botón clicado
-        dropdownMenu.style.display = isVisible ? 'none' : 'block';
-      });
-    });
-  
-    // Cierra el menú si se hace clic fuera de él
-    document.addEventListener('click', () => {
-      dropdownMenus.forEach((menu) => (menu.style.display = 'none'));
-    });
-  
-    // Evita cierre si se hace clic dentro del menú
-    dropdownMenus.forEach((menu) => {
-      menu.addEventListener('click', (e) => {
-        e.stopPropagation();
-      });
-    });
-  });
-  
-
-
-
-
-// TARJETAS - DESCRIPCIÓN Y VER MÁS
 document.addEventListener('DOMContentLoaded', () => {
-  const tarjetas = document.querySelectorAll('.tarjeta');
+  // SLIDER (si existe)
+  const slider = document.getElementById("slider");
+  const buttons = document.querySelectorAll(".arrow-btn");
 
-  tarjetas.forEach(tarjeta => {
-    const descripcionElem = tarjeta.querySelector('.descripcion');
-    const verMasBtn = tarjeta.querySelector('.ver-mas');
-    const textoOriginal = descripcionElem.textContent.trim();
+  if (slider && buttons.length === 2) {
+    buttons[0].addEventListener("click", (e) => {
+      e.preventDefault();
+      slider.scrollLeft -= 300;
+    });
 
-    if (textoOriginal.length > 70) {
-      descripcionElem.textContent = textoOriginal.substring(0, 70) + '...';
-      verMasBtn.classList.remove('hidden');
+    buttons[1].addEventListener("click", (e) => {
+      e.preventDefault();
+      slider.scrollLeft += 300;
+    });
+  }
 
-      verMasBtn.addEventListener('click', () => {
-        const tarjetaClonada = tarjeta.cloneNode(true);
-        tarjetaClonada.querySelector('.descripcion').textContent = textoOriginal;
+  // MENÚ DESPLEGABLE
+  const menuButtons = document.querySelectorAll('.menu-button');
+  const dropdownMenus = document.querySelectorAll('.dropdown-menu');
 
-        const verMasClon = tarjetaClonada.querySelector('.ver-mas');
-        if (verMasClon) verMasClon.remove();
+  menuButtons.forEach((button, index) => {
+    const dropdownMenu = dropdownMenus[index];
 
-        const menuClon = tarjetaClonada.querySelector('.menu-button-container');
-        if (menuClon) menuClon.remove();
+    button.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isVisible = dropdownMenu.style.display === 'block';
 
-        const contenedorModal = document.getElementById('contenidoTarjeta');
-        contenedorModal.innerHTML = '';
-        contenedorModal.appendChild(tarjetaClonada);
-
-        document.getElementById('modalTarjeta').classList.remove('hidden');
-      });
-    } else {
-      verMasBtn.classList.add('hidden');
-    }
+      dropdownMenus.forEach(menu => menu.style.display = 'none');
+      dropdownMenu.style.display = isVisible ? 'none' : 'block';
+    });
   });
 
-  document.getElementById('cerrarTarjeta').addEventListener('click', () => {
-    document.getElementById('modalTarjeta').classList.add('hidden');
+  // Cierra los menús al hacer clic fuera
+  document.addEventListener('click', () => {
+    dropdownMenus.forEach(menu => menu.style.display = 'none');
+  });
+
+  // Prevenir cierre si clic dentro
+  dropdownMenus.forEach(menu => {
+    menu.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  });
+
+  // Evitar que los <a href="#"> hagan scroll arriba
+  const links = document.querySelectorAll('.dropdown-menu a');
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+    });
   });
 });
+document.addEventListener('DOMContentLoaded', () => {
+  const trashIcons = document.querySelectorAll('.eliminar-guardado');
+
+  trashIcons.forEach(icon => {
+    icon.addEventListener('click', () => {
+      const pubId = icon.dataset.id;
+
+      // Enviamos el POST con fetch
+      fetch(`/mis-guardados/eliminar/${pubId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        // Muestra el mensaje usando tu sistema dinámico
+        mostrarMensaje(data.message, data.success ? 'success' : 'danger');
+
+        if (data.success) {
+          // Elimina el bloque de la publicación eliminada sin recargar
+          icon.closest('.categoria').remove();
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        mostrarMensaje("Error al eliminar el guardado", "danger");
+      });
+    });
+  });
+
+  // Sistema de menú desplegable (igual como lo tienes)
+  const menuButtons = document.querySelectorAll('.menu-button');
+  const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+
+  menuButtons.forEach((button, index) => {
+    const dropdownMenu = dropdownMenus[index];
+
+    button.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isVisible = dropdownMenu.style.display === 'block';
+      dropdownMenus.forEach(menu => menu.style.display = 'none');
+      dropdownMenu.style.display = isVisible ? 'none' : 'block';
+    });
+  });
+
+  document.addEventListener('click', () => {
+    dropdownMenus.forEach(menu => menu.style.display = 'none');
+  });
+
+  dropdownMenus.forEach(menu => {
+    menu.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  });
+
+  const links = document.querySelectorAll('.dropdown-menu a');
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+    });
+  });
+});
+
+// Función para inyectar mensaje al contenedor dinámico
+function mostrarMensaje(mensaje, categoria) {
+  const container = document.querySelector('.messages-container');
+  if (!container) return;
+
+  const alertDiv = document.createElement('div');
+  alertDiv.className = `alert ${categoria}`;
+  alertDiv.textContent = mensaje;
+
+  container.appendChild(alertDiv);
+
+  // Que desaparezca luego de unos segundos
+  setTimeout(() => {
+    alertDiv.remove();
+  }, 4000);
+}

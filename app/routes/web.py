@@ -7,6 +7,7 @@ from app.services.perfil_experto import eliminar_idioma, eliminar_aptitud,elimin
 from app.services.perfil_experto import actualizar_perfil_experto_service5,eliminar_descripcion,editar_descripcion, subir_foto_perfil_service_experto
 from app.services.rol_service import verificar_rol, cambiar_rol_a_experto_service, cambiar_rol_a_cliente_service
 from app.services.mis_publicaciones import obtener_mis_publicaciones_service, obtener_categorias_service, obtener_subcategorias_service, obtener_publicacion_por_id_service, guardar_mi_publicacion_service, eliminar_publicacion_service
+from app.services.guardados import obtener_guardados_service, guardar_publicacion_service, eliminar_guardado_service
 from app.services.jwt_service import verificar_token
 from flask import send_from_directory
 
@@ -22,19 +23,25 @@ from flask_login import login_required, current_user, login_user
 # Define el Blueprint para las rutas web
 web = Blueprint('web', __name__)
 
-from app.services.publi_recientes import obtener_publicaciones_recientes_service
-
+from app.services.publi_recientes import obtener_publicaciones_recientes_service, obtener_publicaciones_aleatorias_service
 @web.route('/')
 def inicio():
-    publicaciones = obtener_publicaciones_recientes_service()
-    primer_nombre = ""
+    publicaciones_recientes = obtener_publicaciones_recientes_service()
+    publicaciones_aleatorias = obtener_publicaciones_aleatorias_service()
 
+    primer_nombre = ""
     auth_result = verificar_autenticacion_service()
+
     if auth_result.get("authenticated"):
         datos_usuario = obtener_datos_usuario_service()
         primer_nombre = datos_usuario.get("primer_nombre", "").title()
 
-    return render_template('inicio.html', primer_nombre=primer_nombre, publicaciones=publicaciones)
+    return render_template(
+        'inicio.html',
+        primer_nombre=primer_nombre,
+        publicaciones_recientes=publicaciones_recientes,
+        publicaciones_aleatorias=publicaciones_aleatorias
+    )
 
 
 # Ruta para registrarse (Formulario web)
@@ -233,11 +240,13 @@ def perfil_cliente():
         direccion=(datos.get("direccion") or "").title(),
         foto_perfil=datos.get("foto_perfil", "")
     )
-    
+from werkzeug.utils import secure_filename
+
 @web.route('/uploads/perfiles/<filename>')
 def perfil_foto(filename):
     carpeta = os.path.join(current_app.root_path, 'uploads', 'perfiles')
-    return send_from_directory(carpeta, filename)
+    safe_filename = secure_filename(filename)
+    return send_from_directory(carpeta, safe_filename)
 
 
 # Ruta para visualizar el perfil del experto
@@ -343,17 +352,32 @@ def mensajeria():
     return render_template('mensajeria.html')
 
 # Ruta para la sección de guardados (requiere sesión)
-@web.route('/guardados', methods=['GET', 'POST'])
-def guardados():
-    # Verificar si el usuario está autenticado
-    auth_result = verificar_autenticacion_service()
-    if not auth_result.get("authenticated"):
-        flash(auth_result.get("message", "Debes iniciar sesión para acceder."), "error")
-        # Redirige a login con el parámetro 'next' para volver luego
-        return redirect(url_for('web.iniciar_sesion', next=request.path))
+@web.route('/guardar-publicacion/<int:publicacion_id>', methods=['POST'])
+def guardar_publicacion(publicacion_id):
+    try:
+        resultado = guardar_publicacion_service(publicacion_id)
+        return jsonify(resultado), (200 if resultado["success"] else 400)
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify(success=False, message=f"Error interno: {str(e)}"), 500
 
-    # Si está autenticado, renderiza la interfaz
-    return render_template('guardados.html')
+
+@web.route('/mis_guardados')
+def guardados():
+    
+    publicaciones = obtener_guardados_service()
+    return render_template('guardados.html', publicaciones=publicaciones)
+
+# Ruta para eliminar un guardado@web.route('/mis-guardados/eliminar/<int:publicacion_id>')
+@web.route('/mis-guardados/eliminar/<int:publicacion_id>', methods=['POST'])
+def eliminar_guardado(publicacion_id):
+    usuario_id = obtener_usuario_id_autenticado()
+    if not usuario_id:
+        return jsonify(success=False, message="Debes iniciar sesión para eliminar guardados"), 401
+
+    resultado = eliminar_guardado_service(publicacion_id)
+    return jsonify(success=resultado['success'], message=resultado['message'])
 
 # Ruta para publicaciones del experto
 
@@ -417,25 +441,31 @@ from app.models import Subcategorias, Publicaciones, perfiles  # Adjust path if 
 
 
 
-
 @web.route('/mis-publicaciones')
 def mis_publicaciones():
     usuario_id = obtener_usuario_id_autenticado()
 
     if not usuario_id:
         flash("Debes iniciar sesión para ver tus publicaciones", "warning")
-        return redirect(url_for('web.login'))  # o la ruta de tu login
+        return redirect(url_for('web.login'))
 
     publicaciones = obtener_mis_publicaciones_service(usuario_id)
     categorias = obtener_categorias_service()
     subcategorias = obtener_subcategorias_service()
+
+     # Calcula si hay publicaciones válidas
+    tiene_publicaciones = any(
+    pub.titulo and pub.descripcion_publicacion
+    for pub in publicaciones
+    )
 
     return render_template(
         'mis_publicaciones.html',
         publicaciones=publicaciones,
         categorias=categorias,
         subcategorias=subcategorias,
-        publicacion=None
+        publicacion=None,
+        tiene_publicaciones=tiene_publicaciones,
     )
 
 @web.route('/mis-publicaciones/guardar', methods=['POST'])
@@ -451,6 +481,8 @@ def guardar_mi_publicacion():
     resultado = guardar_mi_publicacion_service(data)
     flash(resultado['message'], 'success' if resultado['success'] else 'danger')
     return redirect(url_for('web.mis_publicaciones'))
+
+
 
 @web.route('/mis-publicaciones/editar/<int:publicacion_id>')
 def editar_mi_publicacion(publicacion_id):
@@ -469,13 +501,21 @@ def editar_mi_publicacion(publicacion_id):
         flash("No tienes permiso para editar esta publicación", "danger")
         return redirect(url_for('web.mis_publicaciones'))
 
+    # Calcula si hay publicaciones válidas
+    tiene_publicaciones = any(
+        pub.titulo and pub.descripcion_publicacion
+        for pub in publicaciones
+    )
+
     return render_template(
         'mis_publicaciones.html',
         publicaciones=publicaciones,
         categorias=categorias,
         subcategorias=subcategorias,
-        publicacion=publicacion
+        publicacion=publicacion,
+        tiene_publicaciones=tiene_publicaciones
     )
+
 
 
 

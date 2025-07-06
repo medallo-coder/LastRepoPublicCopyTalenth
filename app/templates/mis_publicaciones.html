@@ -7,15 +7,13 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/mis_publi.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
 </head>
 <body>
 
   {% include 'nav.html' %}
-  {% include 'errors.html' %} 
-  <br>
-  <br>
-    
+  {% include 'errors.html' %}
+  <br><br>
+  
   <div class="cuadro redondo">
     <div class="tabs">
       <span class="tab active" onclick="activarTab(this)">Mis publicaciones</span>
@@ -23,136 +21,141 @@
     </div>
   </div>
 
-  <p id="mostrarFormulario" class="mostrar-form-link">+ Nueva publicación</p>
-
+  <p id="mostrarFormulario" class="mostrar-form-link" {% if publicacion %}style="display:none;"{% endif %}>+ Nueva publicación</p>
 
   <div class="container">
 
     <!-- Formulario -->
-    <div class="card">
-  <div class="card-header">
-    {% if publicacion %}
-      Editar Publicación
-    {% else %}
-      Nueva Publicación
-    {% endif %}
-  </div>
-  <div class="card-body">
-    <form method="POST" action="{{ url_for('web.guardar_mi_publicacion') }}">
-      {% if publicacion %}
-        <input type="hidden" name="publicacion_id" value="{{ publicacion.publicacion_id }}">
-      {% endif %}
-
-      <div class="form-group">
-        <label>Título</label>
-        <input type="text" name="titulo" placeholder="Ej: Servicio de carpintería" value="{{ publicacion.titulo if publicacion else '' }}" required>
+    <div class="card" style="display: {{ 'block' if publicacion else 'none' }};">
+      <div class="card-header">
+        {% if publicacion %}
+          Editar Publicación
+        {% else %}
+          Nueva Publicación
+        {% endif %}
       </div>
+      <div class="card-body">
+        <form method="POST" action="{{ url_for('web.guardar_mi_publicacion') }}">
+          {% if publicacion %}
+            <input type="hidden" name="publicacion_id" value="{{ publicacion.publicacion_id }}">
+          {% endif %}
 
-      <div class="form-group">
-        <label>Precio</label>
-        <input type="number" name="precio" step="0.01" placeholder="Ej: 150.00" value="{{ publicacion.precio if publicacion else '' }}">
+          <div class="form-group">
+            <label>Título de tu publicación</label>
+            <input type="text" name="titulo" placeholder="Ej: Servicio de carpintería" value="{{ publicacion.titulo if publicacion else '' }}" required>
+          </div>
+
+          <div class="form-group">
+            <label>Precio</label>
+            <input type="number" name="precio" step="0.01" placeholder="Ej: 150.00" value="{{ publicacion.precio if publicacion else '' }}">
+          </div>
+
+          <div class="form-group">
+            <label>Categoría</label>
+            <select name="categoria_id">
+              <option value="">Seleccione</option>
+              {% for cat in categorias %}
+                <option value="{{ cat.categoria_id }}" {% if publicacion and publicacion.categoria_id == cat.categoria_id %}selected{% endif %}>{{ cat.tipo_categoria }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Subcategoría</label>
+            <select name="subcategoria_id">
+              <option value="">Seleccione</option>
+              {% for sub in subcategorias %}
+                <option value="{{ sub.subcategoria_id }}" {% if publicacion and publicacion.subcategoria_id == sub.subcategoria_id %}selected{% endif %}>{{ sub.nombre_subcategoria }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Descripción</label>
+            <textarea name="descripcion_publicacion" placeholder="Describe tu publicación">{{ publicacion.descripcion_publicacion if publicacion else '' }}</textarea>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">{% if publicacion %}Actualizar{% else %}Guardar{% endif %}</button>
+            <a href="{{ url_for('web.mis_publicaciones') }}" class="btn btn-secondary">Cancelar</a>
+          </div>
+        </form>
       </div>
-
-      <div class="form-group">
-        <label>Categoría</label>
-        <select name="categoria_id">
-          <option value="">Seleccione</option>
-          {% for cat in categorias %}
-            <option value="{{ cat.categoria_id }}" {% if publicacion and publicacion.categoria_id == cat.categoria_id %}selected{% endif %}>{{ cat.tipo_categoria }}</option>
-          {% endfor %}
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Subcategoría</label>
-        <select name="subcategoria_id">
-          <option value="">Seleccione</option>
-          {% for sub in subcategorias %}
-            <option value="{{ sub.subcategoria_id }}" {% if publicacion and publicacion.subcategoria_id == sub.subcategoria_id %}selected{% endif %}>{{ sub.nombre_subcategoria }}</option>
-          {% endfor %}
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Descripción</label>
-        <textarea name="descripcion_publicacion" placeholder="Describe tu publicación">{{ publicacion.descripcion_publicacion if publicacion else '' }}</textarea>
-      </div>
-
-      
-      <div class="form-actions">
-        <button class="btn btn-primary" type="submit">{% if publicacion %}Actualizar{% else %}Guardar{% endif %}</button>
-        <a href="{{ url_for('web.mis_publicaciones') }}" class="btn btn-secondary">Cancelar</a>
-      </div>
-    </form>
-  </div>
-</div>
-
-
-
+    </div>
 
     <!-- Lista de publicaciones -->
-   <div class="publicaciones-grid">
-  {% for pub in publicaciones %}
-    <div class="publicacion-card">
-      <!-- contenido -->
-    <div class="acciones-menu">
-      <div class="menu-trigger" onclick="toggleMenu(this)">⋯</div>
-      <div class="menu-opciones">
-        <a href="{{ url_for('web.editar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">Editar</a>
-        <a href="{{ url_for('web.eliminar_mi_publicacion', publicacion_id=pub.publicacion_id) }}" onclick="return confirm('¿Seguro que deseas eliminar?')">Eliminar</a>
-      </div>
+    <div class="publicaciones-grid">
+      {% for pub in publicaciones %}
+        {% if pub.titulo and pub.descripcion_publicacion %}
+          <div class="publicacion-card">
+            <div class="acciones-menu">
+              <div class="menu-trigger" onclick="toggleMenu(this)">⋯</div>
+              <div class="menu-opciones">
+                <a href="{{ url_for('web.editar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">Editar</a>
+                <a href="#" class="btn-eliminar-modal" data-url="{{ url_for('web.eliminar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">Eliminar</a>
+
+
+
+              </div>
+            </div>
+
+            <div class="publicacion-img">
+              {% if pub.usuario.perfiles.foto_perfil %}
+                <img src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" alt="Foto de perfil">
+              {% else %}
+                <img src="{{ url_for('static', filename='img/default_profile.png') }}" alt="Foto por defecto">
+              {% endif %}
+              <p class="precio"><strong>Precio:</strong> ${{ pub.precio }}</p>
+            </div>
+
+            <div class="publicacion-info">
+              <h3 class="nombre">{{ pub.usuario.perfiles.primer_nombre }} {{ pub.usuario.perfiles.primer_apellido }}</h3>
+
+              <div class="estrellasTarjetas">
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+              </div>
+
+              <h4 class="titulo">{{ pub.titulo }}</h4>
+              <p class="descripcion"><strong>Categoría:</strong> {{ pub.categoria.tipo_categoria if pub.categoria else 'Sin categoría' }}</p>
+              <p class="descripcion"><strong>Subcategoría:</strong> {{ pub.subcategoria.nombre_subcategoria if pub.subcategoria else 'Sin subcategoría' }}</p>
+              <p class="descripcion"><strong>Descripción:</strong> 
+                {% if pub.descripcion_publicacion %}
+                  {{ pub.descripcion_publicacion[:100] }}{% if pub.descripcion_publicacion|length > 100 %}...{% endif %}
+                {% else %}
+                  Sin descripción
+                {% endif %}
+              </p>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      {% if not tiene_publicaciones %}
+        <p class="sin-publicaciones">No tienes publicaciones aún.</p>
+      {% endif %}
     </div>
 
-    <div class="publicacion-img">
-      {% if pub.usuario.perfiles.foto_perfil %}
-        <img src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" alt="Foto de perfil">
-      {% else %}
-        <img src="{{ url_for('static', filename='img/default_profile.png') }}" alt="Foto por defecto">
-      {% endif %}
-      <p class="precio"><strong>Precio:</strong> ${{ pub.precio }}</p>
-    </div>
+  </div>
 
-    <div class="publicacion-info">
-      <h3 class="nombre">{{ pub.usuario.perfiles.primer_nombre }} {{ pub.usuario.perfiles.primer_apellido }}</h3>
 
-      <!-- Calificación -->
-      <div class="estrellasTarjetas">
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-      </div>
 
-      <h4 class="titulo">{{ pub.titulo }}</h4>
-      <p class="descripcion"><strong>Categoría:</strong> {{ pub.categoria.tipo_categoria if pub.categoria else 'Sin categoría' }}</p>
-      <p class="descripcion"><strong>Subcategoría:</strong> {{ pub.subcategoria.nombre_subcategoria if pub.subcategoria else 'Sin subcategoría' }}</p>
-      <p class="descripcion"><strong>Descripción:</strong> 
-        {% if pub.descripcion_publicacion %}
-    {{ pub.descripcion_publicacion[:100] }}{% if pub.descripcion_publicacion|length > 100 %}...{% endif %}
-     {% else %}
-       Sin descripción
-      {% endif %}
-      </p>
-      <span class="ver-mas hidden">Ver más</span>
+  <!-- modal para eliminar -->
+{% for pub in publicaciones %}
+  <div id="modalEliminar" class="modal-eliminar hidden">
+  <div class="modal-contenido">
+    <span class="modal-cerrar" id="cerrarModalEliminar">&times;</span>
+    <p>¿Estás seguro que deseas eliminar esta publicación?</p>
+    <div class="modal-acciones">
+      <a href="{{ url_for('web.eliminar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">Eliminar</a>
+      <button id="cancelarEliminar" class="btn btn-secondary">Cancelar</button>
     </div>
   </div>
-{% else %}
-  <p class="sin-publicaciones">No tienes publicaciones aún.</p>
- </div>
-  {% endfor %}
 </div>
+{% endfor %}
 
   <script src="{{ url_for('static', filename='js/mis_publi.js') }}"></script>
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const mostrarBtn = document.getElementById('mostrarFormulario');
-    const card = document.querySelector('.card');
-
-    mostrarBtn.addEventListener('click', function () {
-      card.style.display = 'block';
-      mostrarBtn.style.display = 'none'; // Oculta el botón de texto si quieres
-    });
-  });
-</script>
 
 </body>
 </html>

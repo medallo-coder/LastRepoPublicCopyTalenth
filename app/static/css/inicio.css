@@ -394,7 +394,7 @@
     color: black; /* Color de la letra en negro */
   }
 
-  .menu-completo button {
+  .menu-completo a {
     display: flex;
     align-items: center;
     width: 100%;
@@ -404,12 +404,14 @@
     cursor: pointer;
     text-align: left;
     font-size: 14px;
+    text-decoration: none;
   }
 
-  .menu-completo button span {
+  .menu-completo a span {
     font-family: 'Oswald', sans-serif;
     font-weight: 500; /* Medium */
     font-size: 14px;
+    text-decoration: none;
   }
   
   

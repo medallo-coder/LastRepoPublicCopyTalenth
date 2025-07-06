@@ -8,7 +8,7 @@
 body {
   background-color: #f8f8f8;
   font-family: 'Oswald', sans-serif;
-  color: #000;
+  color: #000000;
   padding: 20px;
 }
 
@@ -20,9 +20,13 @@ body {
   margin-bottom: 20px; /* Aumenta el espacio entre grupos de inputs */
 }
 
+ 
 .form-group label {
   display: block;
-  margin-bottom: 8px; /* Aumenta el espacio entre el título y el input */
+  font-weight: bold;
+  font-size: 15px;
+  margin-bottom: 6px;
+  color: #121212;
 }
 
 h1 {
@@ -169,7 +173,7 @@ h1 {
 /* Formulario / Card general */
 .card {
   background: #fff;
-  border-radius: 12px;
+  border-radius: 14px;
   border: 1px solid #ccc; /* Borde gris fino */
   padding: 20px;
   margin-bottom: 30px;
@@ -192,7 +196,10 @@ input[type="text"],
 input[type="number"],
 select,
 textarea {
-  width: 100%;
+  width: 95%;
+  max-width: 600px;
+  margin: 0 auto; /* Centra horizontalmente */
+  display: block;
   padding: 10px 12px;
   background: #d9d9d9;
   border: none;
@@ -200,6 +207,7 @@ textarea {
   font-family: 'Oswald', sans-serif;
   font-size: 14px;
 }
+
 
 input::placeholder,
 textarea::placeholder {
@@ -211,25 +219,29 @@ textarea {
   resize: vertical;
 }
 
-button,
 .btn-secondary {
   background: white;
   color: black;
-  padding: 8px 18px;
+  padding: 8px 8%;
   border: none;
   border-radius: 20px;
   border: 3px solid #cac8c8;
-  font-size: 13px;
+  font-size: 15px;
   cursor: pointer;
   font-family: 'Oswald', sans-serif;
   text-decoration: none;
 }
 
-button,
 .btn-primary {
-  color: #3eaeb1;
-  border: 3px solid #3eaeb1;
+  cursor: pointer;
+  color: #ffffff;
+  border: none;
+  background-color: #3eaeb1;
   font-family: 'Oswald', sans-serif;
+  padding: 8px 8%;
+  border-radius: 20px;
+  font-size: 15px;
+  text-decoration: none;
 }
 
 button:hover,
@@ -376,4 +388,43 @@ button:hover,
   cursor: pointer;
   display: inline-block;
   margin-bottom: 6px; /* Antes: 10px */
+}
+
+/* Estilo para el modal de eliminar */
+.modal-eliminar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-eliminar.hidden {
+  display: none;
+}
+
+.modal-contenido {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  width: 300px;
+  text-align: center;
+}
+
+.modal-cerrar {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.modal-acciones {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-around;
 }

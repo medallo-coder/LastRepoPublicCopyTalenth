@@ -1,25 +1,11 @@
-
- //Navegacion
+// Navegación entre tabs
 function activarTab(element) {
-    const tabs = document.querySelectorAll('.tab');
-    tabs.forEach(tab => tab.classList.remove('active'));
-    element.classList.add('active');
-  }
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach(tab => tab.classList.remove('active'));
+  element.classList.add('active');
+}
 
-
-document.addEventListener("DOMContentLoaded", () => {
-  const deleteLinks = document.querySelectorAll('.btn-danger');
-
-  deleteLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      if (!confirm('¿Seguro que deseas eliminar esta publicación?')) {
-        e.preventDefault();
-      }
-    });
-  });
-});
-
-
+// Menú acciones
 function toggleMenu(trigger) {
   const menu = trigger.nextElementSibling;
   document.querySelectorAll('.menu-opciones').forEach(m => {
@@ -28,87 +14,71 @@ function toggleMenu(trigger) {
   menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
 }
 
-document.addEventListener('click', function(event) {
-  if (!event.target.closest('.acciones-menu')) {
-    document.querySelectorAll('.menu-opciones').forEach(m => m.style.display = 'none');
-  }
-});
-
-
-
-
-// --- Lógica para las tarjetas (descripción y "Ver Más", existente, se mantiene) ---
-    document.addEventListener("DOMContentLoaded", () => {
-  // Confirmación al eliminar
-  const deleteLinks = document.querySelectorAll('.btn-danger');
-  deleteLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-      if (!confirm('¿Seguro que deseas eliminar esta publicación?')) {
-        e.preventDefault();
-      }
+document.addEventListener("DOMContentLoaded", () => {
+  // Mostrar formulario al pulsar el botón de nueva publicación
+  const mostrarBtn = document.getElementById('mostrarFormulario');
+  const card = document.querySelector('.card');
+  if (mostrarBtn && card) {
+    mostrarBtn.addEventListener('click', () => {
+      card.style.display = 'block';
+      mostrarBtn.style.display = 'none';
     });
-  });
-
-  // Lógica de menú
-  function toggleMenu(trigger) {
-    const menu = trigger.nextElementSibling;
-    document.querySelectorAll('.menu-opciones').forEach(m => {
-      if (m !== menu) m.style.display = 'none';
-    });
-    menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
   }
 
+  // Ocultar menús al hacer clic fuera
   document.addEventListener('click', function(event) {
     if (!event.target.closest('.acciones-menu')) {
       document.querySelectorAll('.menu-opciones').forEach(m => m.style.display = 'none');
     }
   });
 
-  // Lógica de las tarjetas "Ver Más"
-  const tarjetas = document.querySelectorAll('.card-tarjeta');
-  tarjetas.forEach(tarjeta => {
-    const descripcionElem = tarjeta.querySelector('.descripcion');
-    const verMasBtn = tarjeta.querySelector('.ver-mas');
-    if (!descripcionElem || !verMasBtn) return;
+  // Modal para eliminar
+  let enlaceAEliminar = null;
 
-    const textoOriginal = descripcionElem.textContent.trim();
-
-    if (textoOriginal.length > 70) {
-      descripcionElem.textContent = textoOriginal.substring(0, 70) + '...';
-      verMasBtn.classList.remove('hidden');
-
-      verMasBtn.addEventListener('click', () => {
-        const tarjetaClonada = tarjeta.cloneNode(true);
-        tarjetaClonada.querySelector('.descripcion').textContent = textoOriginal;
-
-        const verMasClon = tarjetaClonada.querySelector('.ver-mas');
-        if (verMasClon) verMasClon.remove();
-
-        const menuClon = tarjetaClonada.querySelector('.menu-button-container');
-        if (menuClon) menuClon.remove();
-
-        const contenedorModal = document.getElementById('contenidoTarjeta');
-        if (contenedorModal) {
-          contenedorModal.innerHTML = '';
-          contenedorModal.appendChild(tarjetaClonada);
-        }
-
-        const modalTarjeta = document.getElementById('modalTarjeta');
-        if (modalTarjeta) {
-          modalTarjeta.classList.remove('hidden');
-        }
-      });
-    } else {
-      verMasBtn.classList.add('hidden');
-    }
+  // Cambié a clase .btn-eliminar-modal para ser más claro y no usar btn-danger que confunde
+  document.querySelectorAll('.btn-eliminar-modal').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      enlaceAEliminar = link.getAttribute('data-url');
+      const modal = document.getElementById('modalEliminar');
+      if (modal) {
+        modal.classList.remove('hidden');
+      }
+    });
   });
 
-  const cerrarTarjetaBtn = document.getElementById('cerrarTarjeta');
-  if (cerrarTarjetaBtn) {
-    cerrarTarjetaBtn.addEventListener('click', () => {
-      const modalTarjeta = document.getElementById('modalTarjeta');
-      if (modalTarjeta) {
-        modalTarjeta.classList.add('hidden');
+  // Botón cerrar
+  const cerrarModalBtn = document.getElementById('cerrarModalEliminar');
+  if (cerrarModalBtn) {
+    cerrarModalBtn.addEventListener('click', () => {
+      document.getElementById('modalEliminar').classList.add('hidden');
+    });
+  }
+
+  // Botón cancelar
+  const cancelarBtn = document.getElementById('cancelarEliminar');
+  if (cancelarBtn) {
+    cancelarBtn.addEventListener('click', () => {
+      document.getElementById('modalEliminar').classList.add('hidden');
+    });
+  }
+
+  // Botón confirmar
+  const confirmarBtn = document.getElementById('confirmarEliminar');
+  if (confirmarBtn) {
+    confirmarBtn.addEventListener('click', () => {
+      if (enlaceAEliminar) {
+        window.location.href = enlaceAEliminar;
+      }
+    });
+  }
+
+  // Cerrar modal al hacer clic en la sombra
+  const modal = document.getElementById('modalEliminar');
+  if (modal) {
+    modal.addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.add('hidden');
       }
     });
   }

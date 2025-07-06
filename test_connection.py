@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 
 # Configura aquí tu conexión (sin contraseña)
-DATABASE_URI = 'mysql+pymysql://root:@localhost/dbpracticas'
+DATABASE_URI = 'mysql+pymysql://root:@localhost/dbejemplo'
 
 try:
     # Crea un motor de conexión

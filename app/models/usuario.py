@@ -28,6 +28,8 @@ class Usuario(db.Model, UserMixin):  #Hereda de UserMixin (mensajeria)
     perfiles = db.relationship('perfiles', back_populates='usuario', uselist=False)
     publicaciones = db.relationship('Publicaciones', back_populates='usuario')
     reseñas = db.relationship('Reseñas', back_populates='usuario')
+    guardados = db.relationship('Guardados', back_populates='usuario', passive_deletes=True)
+
 
     #se añadio la funcion is_active y get_id (mensajeria)
     def is_active(self):

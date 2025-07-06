@@ -18,11 +18,6 @@
   {% include 'nav.html' %}
   {% include 'errors.html' %}
 
-<style>
-
-</style>
-
-    
   <!-- CONTENEDOR PADRE GENERAL -->
   <div class="main-container">
 
@@ -121,15 +116,19 @@
     <div class="slider" id="slider">
 
       <!-- Tarjeta 1 -->
+       {% for pub in publicaciones_aleatorias %}
       <div class="card-tarjeta">
         <div class="image-price-container">
-          <img src="angie.jpg" alt="Foto" />
-          <p class="price">COP 30.000/h</p>
+  
+          {% if pub.usuario.perfiles.foto_perfil %}
+            <img src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" alt="Foto de perfil" />
+          {% endif %}
+          <p class="price">COP {{ pub.precio }}</p>
         </div>
 
         <div class="card-content">
           <div class="header">
-            <h3 class="nombre">Claudia Henao</h3>
+            <h3 class="nombre">{{ pub.usuario.perfiles.primer_nombre }} {{ pub.usuario.perfiles.primer_apellido }}</h3>
 
             <!-- Menú -->
             <div class="menu-button-container">
@@ -137,9 +136,19 @@
                 <i class="bi bi-three-dots"></i>
               </button>
               <div class="menu-completo">
-                <button><i class="bi bi-person-fill"></i><span>Ver perfil</span></button>
-                <button><i class="bi bi-bookmark-check"></i><span>Guardar</span></button>
-                <button><i class="bi bi-exclamation-circle"></i><span>Reportar</span></button>
+                <a href="#" class="btn-link">
+                   <i class="bi bi-person-fill"></i><span>Ver perfil</span>
+                </a>
+                
+                <!-- Contenedor de mensajes dinámicos -->
+<!-- Tu botón (sin href o con href="javascript:void(0);" para evitar recarga) -->
+<a href="javascript:void(0);" class="guardar-btn" data-id="{{ pub.publicacion_id }}">
+  <i class="bi bi-bookmark-check"></i><span>Guardar</span>
+</a>
+                <a href="#" class="btn-link">
+                  <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
+                </a>
+
               </div>
             </div>
           </div>
@@ -150,10 +159,10 @@
             <i class="bi bi-star-fill"></i>
           </div>
 
-          <p class="profesion"><strong>Fotógrafa</strong></p>
+          <p class="profesion"><strong>{{ pub.titulo }}</strong></p>
           <p class="descripcion-titulo">Descripción:</p>
           <p class="descripcion descripcion-texto">
-            Con una combinación de técnica, creatividad y un profundo respeto por el instante, capturo momentos que narran historias inolvidables para toda la vida...
+            {{ pub.descripcion_publicacion }}
           </p>
           <span class="ver-mas hidden">Ver más</span>
 
@@ -162,138 +171,11 @@
           </div>
         </div>
       </div> <!-- fin tarjeta -->
-
-      <!-- Tarjeta 1 -->
-      <div class="card-tarjeta">
-        <div class="image-price-container">
-          <img src="angie.jpg" alt="Foto" />
-          <p class="price">COP 30.000/h</p>
-        </div>
-
-        <div class="card-content">
-          <div class="header">
-            <h3 class="nombre">Claudia Henao</h3>
-
-            <!-- Menú -->
-            <div class="menu-button-container">
-              <button class="menu-button">
-                <i class="bi bi-three-dots"></i>
-              </button>
-              <div class="menu-completo">
-                <button><i class="bi bi-person-fill"></i><span>Ver perfil</span></button>
-                <button><i class="bi bi-bookmark-check"></i><span>Guardar</span></button>
-                <button><i class="bi bi-exclamation-circle"></i><span>Reportar</span></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="estrellasTarjetas">
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-          </div>
-
-          <p class="profesion"><strong>Fotógrafa</strong></p>
-          <p class="descripcion-titulo">Descripción:</p>
-          <p class="descripcion descripcion-texto">
-            Con una combinación de técnica, creatividad y un profundo respeto por el instante, capturo momentos que narran historias inolvidables para toda la vida...
-          </p>
-          <span class="ver-mas hidden">Ver más</span>
-
-          <div class="boton-container">
-            <button class="contact-button">Contactar experto</button>
-          </div>
-        </div>
-      </div> <!-- fin tarjeta -->
+      {% endfor %}
 
 
-      <!-- Tarjeta 1 -->
-      <div class="card-tarjeta">
-        <div class="image-price-container">
-          <img src="angie.jpg" alt="Foto" />
-          <p class="price">COP 30.000/h</p>
-        </div>
 
-        <div class="card-content">
-          <div class="header">
-            <h3 class="nombre">Claudia Henao</h3>
-
-            <!-- Menú -->
-            <div class="menu-button-container">
-              <button class="menu-button">
-                <i class="bi bi-three-dots"></i>
-              </button>
-              <div class="menu-completo">
-                <button><i class="bi bi-person-fill"></i><span>Ver perfil</span></button>
-                <button><i class="bi bi-bookmark-check"></i><span>Guardar</span></button>
-                <button><i class="bi bi-exclamation-circle"></i><span>Reportar</span></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="estrellasTarjetas">
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-          </div>
-
-          <p class="profesion"><strong>Fotógrafa</strong></p>
-          <p class="descripcion-titulo">Descripción:</p>
-          <p class="descripcion descripcion-texto">
-            Con una combinación de técnica, creatividad y un profundo respeto por el instante, capturo momentos que narran historias inolvidables para toda la vida...
-          </p>
-          <span class="ver-mas hidden">Ver más</span>
-
-          <div class="boton-container">
-            <button class="contact-button">Contactar experto</button>
-          </div>
-        </div>
-      </div> <!-- fin tarjeta -->
-
-
-      <!-- Tarjeta 1 -->
-      <div class="card-tarjeta">
-        <div class="image-price-container">
-          <img src="angie.jpg" alt="Foto" />
-          <p class="price">COP 30.000/h</p>
-        </div>
-
-        <div class="card-content">
-          <div class="header">
-            <h3 class="nombre">Claudia Henao</h3>
-
-            <!-- Menú -->
-            <div class="menu-button-container">
-              <button class="menu-button">
-                <i class="bi bi-three-dots"></i>
-              </button>
-              <div class="menu-completo">
-                <button><i class="bi bi-person-fill"></i><span>Ver perfil</span></button>
-                <button><i class="bi bi-bookmark-check"></i><span>Guardar</span></button>
-                <button><i class="bi bi-exclamation-circle"></i><span>Reportar</span></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="estrellasTarjetas">
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-          </div>
-
-          <p class="profesion"><strong>Fotógrafa</strong></p>
-          <p class="descripcion-titulo">Descripción:</p>
-          <p class="descripcion descripcion-texto">
-            Con una combinación de técnica, creatividad y un profundo respeto por el instante, capturo momentos que narran historias inolvidables para toda la vida...
-          </p>
-          <span class="ver-mas hidden">Ver más</span>
-
-          <div class="boton-container">
-            <button class="contact-button">Contactar experto</button>
-          </div>
-        </div>
-      </div> <!-- fin tarjeta -->
-
+        
     </div> <!-- fin slider -->
   </div> <!-- fin slider-container -->
    <!-- Flechas -->
@@ -367,7 +249,7 @@
 
 
       <!-- Tarjeta 1 -->
-      {% for pub in publicaciones %}
+      {% for pub in publicaciones_recientes %}
       <div class="card-tarjeta">
         <div class="image-price-container">
           {% if pub.usuario.perfiles.foto_perfil %}
@@ -388,7 +270,9 @@
               </button>
               <div class="menu-completo">
                 <button><i class="bi bi-person-fill"></i><span>Ver perfil</span></button>
-                <button><i class="bi bi-bookmark-check"></i><span>Guardar</span></button>
+                <button><i class="bi bi-bookmark-check" class="guardar-btn" data-id="{{ pub.publicacion_id }}">
+                  </i><span>Guardar</span>
+                </button>
                 <button><i class="bi bi-exclamation-circle"></i><span>Reportar</span></button>
               </div>
             </div>
@@ -513,7 +397,49 @@
 </div>
 
 
+
+
+<script>
+document.querySelectorAll('.guardar-link').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const id = link.dataset.id;
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = `/guardar-publicacion/${id}`;
+    document.body.appendChild(form);
+    form.submit();
+  });
+});
+</script>
+<script>
+fetch(`/guardar-publicacion/${id}`, {
+  method: 'POST'
+})
+.then(async res => {
+  let data;
+  try {
+    data = await res.json();
+  } catch {
+    throw new Error(`Respuesta no válida: ${res.status}`);
+  }
+  if (!res.ok) {
+    throw new Error(data.message || `Error ${res.status}`);
+  }
+  alert(data.message);
+})
+.catch(err => {
+  console.error("Error en fetch:", err);
+  alert("Error al guardar: " + err.message);
+});
+
+
+</script>
+
+
   <script src="{{ url_for('static', filename='js/inicio.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/errors.js') }}"></script>
+
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

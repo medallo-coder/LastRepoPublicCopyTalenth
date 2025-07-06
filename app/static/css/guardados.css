@@ -88,13 +88,16 @@
 
 /* Imagen del servicio */
 .image {
-    width: 200px;              /* Ancho fijo */
-    height: 200px;             /* Alto fijo */
-    flex-shrink: 0;            /* Evita que la imagen se reduzca en el contenedor flex */
-    background-size: cover;    /* Ajusta la imagen para cubrir todo el área, recortando si es necesario */
-    background-position: center; /* Centra la imagen dentro del área visible */
-    margin-top: 1%;            /* Espacio arriba, ajustable */
+    width: 200px;                /* Ancho fijo */
+    height: 200px;               /* Alto fijo */
+    flex-shrink: 0;              /* Evita que se reduzca en flex */
+    background-size: cover;      /* Que cubra el área */
+    background-position: center; /* Centrada */
+    margin-top: 1%;              /* Margen arriba */
+    border-radius: 50%;          /* ¡Esto las hace redondas! */
+    object-fit: cover;           /* Para las imágenes <img> */
 }
+
 
 /* Contenido textual dentro de la tarjeta */
 .info {
@@ -148,14 +151,16 @@
 }
 
 /* Estilos compartidos para etiquetas de categoría y subcategoría */
-.cate, .subcate {
-  background-color: white;     /* Fondo blanco */
-  border: 3px solid #3EAEB1;   /* Borde azul claro de 3px */
+.cate {
   color: black;                /* Texto negro */
-  padding: 6px 16px;           /* Espaciado interno vertical y horizontal */
-  border-radius: 20px;         /* Bordes redondeados */
-  cursor: pointer;             /* Cursor tipo mano para indicar clickeable */
-  font-size: 13px;             /* Tamaño de fuente pequeño */
+  border-radius: 20px;         /* Bordes redondeados */             /* Cursor tipo mano para indicar clickeable */
+  font-size: 16px;             /* Tamaño de fuente pequeño */
+  font-weight: 600; 
+}
+.subcate {
+  color: #606060;                /* Texto negro *//* Espaciado interno vertical y horizontal */
+  border-radius: 20px;         /* Bordes redondeados */         /* Cursor tipo mano para indicar clickeable */
+  font-size: 16px;             /* Tamaño de fuente pequeño */
   font-weight: 600;            /* Fuente seminegra */
 }
 
