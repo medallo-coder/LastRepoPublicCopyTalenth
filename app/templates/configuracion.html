@@ -4,11 +4,14 @@
   <meta charset="UTF-8">
   <title>Configuración de Cuenta</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Importa la fuente Oswald de Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Oswald:400,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/configuracion.css') }}">
   <link rel="icon" type="image/png" href="https://i.postimg.cc/26ZkKCPm/Vector.png">
 </head>
 <body>
   
+  {% include 'nav.html' %}
   {% include 'errors.html' %}
   
   <div class="container">
@@ -132,6 +135,7 @@
     });
 </script>
 
+<!-- Modificación Camilo: Incluí el footer correctamente antes de </body>. -->
 {% include 'footer.html' %}
 </body>
 </html>
