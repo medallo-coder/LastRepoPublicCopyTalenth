@@ -81,7 +81,7 @@ function cerrarFormularioeditarDescripcion() {
   document.getElementById('lapizexperiencia').addEventListener('click', function () {
     // Obtener los datos actuales
     const item = this.closest('.item-experiencia');
-    const cargo = item.querySelector('.rol').innerText;
+    const cargo = item.querySelector('.titulo-experiencia').innerText;
     const empresa = item.querySelector('.empresa').innerText;
     const fechas = item.querySelector('.fechas').innerText;
     
@@ -116,7 +116,7 @@ function cerrarFormularioeditarDescripcion() {
   document.getElementById('lapizestudios').addEventListener('click', function () {
     // Obtener los datos actuales
     const item = this.closest('.item-estudios');
-    const titulo = item.querySelector('.titulo').innerText;
+    const titulo = item.querySelector('.titulo-estudios').innerText;
     const lugar = item.querySelector('.lugar').innerText;
     const fecha = item.querySelector('.fecha').innerText;
     

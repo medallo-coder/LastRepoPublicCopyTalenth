@@ -224,6 +224,7 @@
 
 /* Estilos para los campos del formulario */
 .campo {
+  
   margin-bottom: 1.5rem; /* Espacio debajo de cada campo */
 }
 
@@ -457,10 +458,10 @@
 
 .titulo-experiencia {
   font-family: 'Oswald', sans-serif;
-  font-weight: 700; /* Bold */
+  font-weight: 500; /* Bold */
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
-  padding: 0 25px;
+  
 }
 
 .rol {
@@ -572,6 +573,7 @@
 -----------------------------------------------*/
 
 /* Formulario emergente para editar experiencia */
+
 .formulario-editar-experiencia {
   position: fixed;
   top: 0;
@@ -609,10 +611,10 @@
 
 .titulo-estudios {
   font-family: 'Oswald', sans-serif;
-  font-weight: 700; /* Bold */
+  font-weight: 500; /* Bold */
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
-  padding: 0 25px;
+  
 }
 
 .titulo {
