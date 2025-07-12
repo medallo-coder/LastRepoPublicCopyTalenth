@@ -1,2 +1,2 @@
 # /app/services/__init__.py
-from .autenticacion import registrar_usuario_service, iniciar_sesion_service, cerrar_sesion_service
+from .autenticacion import  iniciar_sesion_admin_service, registrar_admin_service, cerrar_sesion_admin_service, gestionar_usuarios_admin_service, deshabilitar_cuentas_admin_service
