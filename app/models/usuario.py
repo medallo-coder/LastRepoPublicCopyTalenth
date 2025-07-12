@@ -2,6 +2,7 @@ from app.extensions import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from datetime import datetime
 
 
 class Usuario(db.Model, UserMixin):  #Hereda de UserMixin (mensajeria)
@@ -12,6 +13,8 @@ class Usuario(db.Model, UserMixin):  #Hereda de UserMixin (mensajeria)
     fecha_registro = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     correo = db.Column(db.String(50), unique=True, nullable=False)
     estado = db.Column(db.String(20), default='activo')
+    intentos_fallidos = db.Column(db.Integer, default=0)
+    bloqueado_hasta = db.Column(db.DateTime, nullable=True) 
     token_recuperacion = db.Column(db.String(255), nullable=True)
 
     id_rol  = db.Column(db.Integer, db.ForeignKey('roles.id_rol'), nullable=False, default=2)  
