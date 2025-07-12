@@ -7,6 +7,7 @@ from app.services.perfil_experto import eliminar_idioma, eliminar_aptitud,elimin
 from app.services.perfil_experto import actualizar_perfil_experto_service5,eliminar_descripcion,editar_descripcion, subir_foto_perfil_service_experto
 from app.services.rol_service import verificar_rol, cambiar_rol_a_experto_service, cambiar_rol_a_cliente_service
 from app.services.mis_publicaciones import obtener_mis_publicaciones_service, obtener_categorias_service, obtener_subcategorias_service, obtener_publicacion_por_id_service, guardar_mi_publicacion_service, eliminar_publicacion_service
+from app.services.perfil_publico import obtener_perfil_publico_service
 from app.services.guardados import obtener_guardados_service, guardar_publicacion_service, eliminar_guardado_service
 from app.services.jwt_service import verificar_token
 from flask import send_from_directory
@@ -422,11 +423,33 @@ def perfil_general():
         return redirect(url_for('web.inicio'))
 
 
+#perfil general
+@web.route('/perfil-experto/<int:usuario_id>')
+def perfil_experto_publico(usuario_id):
+    experto = Usuario.query.get(usuario_id)
+    if not experto:
+        flash("No se encontró el usuario.", "error")
+        return redirect(url_for('web.inicio'))
 
+    perfil = obtener_perfil_publico_service(usuario_id)
 
+    # Si tu modelo Usuario no tiene las relaciones directas y las maneja el modelo 'perfiles', puedes acceder desde perfil
+    experiencias = perfil.experiencias if perfil else []
+    idiomas = perfil.idioma if perfil else []
+    aptitudes = perfil.aptitudes if perfil else []
+    descripcion_perfil = perfil.descripcion_perfil if perfil else []
+    estudios = perfil.estudios if perfil else []
 
-
-
+    return render_template(
+        'perfil_experto_publico.html',
+        experto=experto,
+        perfil=perfil,
+        experiencias=experiencias,
+        idiomas=idiomas,
+        aptitudes=aptitudes,
+        descripcion_perfil=descripcion_perfil,
+        estudios=estudios,
+    )
 
 
 

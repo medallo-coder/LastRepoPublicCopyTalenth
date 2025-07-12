@@ -2,6 +2,7 @@ from app.extensions import db
 from app.models.guardados import Guardados
 from app.models.publicaciones import Publicaciones
 from app.services.autenticacion import obtener_usuario_id_autenticado
+from app.models.usuario import Usuario
 
 def guardar_publicacion_service(publicacion_id):
     usuario_id = obtener_usuario_id_autenticado()
@@ -29,13 +30,26 @@ def guardar_publicacion_service(publicacion_id):
         return {"success": False, "message": f"Error al guardar: {str(e)}"}
 
 
+from sqlalchemy.orm import joinedload
+
+from sqlalchemy.orm import joinedload
 
 def obtener_guardados_service():
     usuario_id = obtener_usuario_id_autenticado()
     if not usuario_id:
         return []
 
-    guardados = Guardados.query.filter_by(usuario_id=usuario_id).all()
+    guardados = (
+        Guardados.query
+        .filter_by(usuario_id=usuario_id)
+        .options(
+            joinedload(Guardados.publicacion)
+            .joinedload(Publicaciones.usuario)
+            .joinedload(Usuario.perfiles)
+        )
+        .all()
+    )
+
     return [g.publicacion for g in guardados]
 
 

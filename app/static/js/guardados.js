@@ -25,93 +25,84 @@ document.addEventListener('DOMContentLoaded', () => {
     button.addEventListener('click', (e) => {
       e.stopPropagation();
       const isVisible = dropdownMenu.style.display === 'block';
-
       dropdownMenus.forEach(menu => menu.style.display = 'none');
       dropdownMenu.style.display = isVisible ? 'none' : 'block';
     });
   });
 
-  // Cierra los menús al hacer clic fuera
   document.addEventListener('click', () => {
     dropdownMenus.forEach(menu => menu.style.display = 'none');
   });
 
-  // Prevenir cierre si clic dentro
   dropdownMenus.forEach(menu => {
     menu.addEventListener('click', (e) => {
       e.stopPropagation();
     });
   });
 
-  // Evitar que los <a href="#"> hagan scroll arriba
-  const links = document.querySelectorAll('.dropdown-menu a');
-  links.forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-    });
-  });
-});
-document.addEventListener('DOMContentLoaded', () => {
+  // 👇 SE QUITÓ EL bloque que prevenía la navegación en TODOS los enlaces
+  // links.forEach(link => {
+  //   link.addEventListener('click', (e) => {
+  //     e.preventDefault();
+  //   });
+  // });
+
+  // ELIMINAR GUARDADO CON MODAL
   const trashIcons = document.querySelectorAll('.eliminar-guardado');
+  const modal = document.getElementById('confirmModal');
+  const confirmBtn = document.getElementById('confirmDelete');
+  const cancelBtn = document.getElementById('cancelDelete');
+  let selectedPubId = null;
+  let selectedElement = null;
 
   trashIcons.forEach(icon => {
     icon.addEventListener('click', () => {
-      const pubId = icon.dataset.id;
-
-      // Enviamos el POST con fetch
-      fetch(`/mis-guardados/eliminar/${pubId}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(res => res.json())
-      .then(data => {
-        // Muestra el mensaje usando tu sistema dinámico
-        mostrarMensaje(data.message, data.success ? 'success' : 'danger');
-
-        if (data.success) {
-          // Elimina el bloque de la publicación eliminada sin recargar
-          icon.closest('.categoria').remove();
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        mostrarMensaje("Error al eliminar el guardado", "danger");
-      });
+      selectedPubId = icon.dataset.id;
+      selectedElement = icon.closest('.categoria');
+      modal.style.display = 'flex'; // Mostrar modal
     });
   });
 
-  // Sistema de menú desplegable (igual como lo tienes)
-  const menuButtons = document.querySelectorAll('.menu-button');
-  const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+  confirmBtn.addEventListener('click', () => {
+    if (!selectedPubId) return;
 
-  menuButtons.forEach((button, index) => {
-    const dropdownMenu = dropdownMenus[index];
+    fetch(`/mis-guardados/eliminar/${selectedPubId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      mostrarMensaje(data.message, data.success ? 'success' : 'danger');
 
-    button.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isVisible = dropdownMenu.style.display === 'block';
-      dropdownMenus.forEach(menu => menu.style.display = 'none');
-      dropdownMenu.style.display = isVisible ? 'none' : 'block';
+      if (data.success && selectedElement) {
+        selectedElement.remove();
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      mostrarMensaje("Error al eliminar el guardado", "danger");
+    })
+    .finally(() => {
+      modal.style.display = 'none';
+      selectedPubId = null;
+      selectedElement = null;
     });
   });
 
-  document.addEventListener('click', () => {
-    dropdownMenus.forEach(menu => menu.style.display = 'none');
+  cancelBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+    selectedPubId = null;
+    selectedElement = null;
   });
 
-  dropdownMenus.forEach(menu => {
-    menu.addEventListener('click', (e) => {
-      e.stopPropagation();
-    });
-  });
-
-  const links = document.querySelectorAll('.dropdown-menu a');
-  links.forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-    });
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+      selectedPubId = null;
+      selectedElement = null;
+    }
   });
 });
 
@@ -131,3 +122,22 @@ function mostrarMensaje(mensaje, categoria) {
     alertDiv.remove();
   }, 4000);
 }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const imagenes = document.querySelectorAll('.image');
+  const modal = document.getElementById('imagenModal');
+  const modalImg = document.getElementById('imagenAmpliada');
+  const cerrar = document.getElementById('cerrarModal');
+
+  imagenes.forEach(img => {
+    img.addEventListener('click', () => {
+      modal.style.display = 'flex';
+      modalImg.src = img.src;
+    });
+  });
+
+  cerrar.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+});

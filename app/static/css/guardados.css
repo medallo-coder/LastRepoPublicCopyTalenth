@@ -96,6 +96,7 @@
     margin-top: 1%;              /* Margen arriba */
     border-radius: 50%;          /* ¡Esto las hace redondas! */
     object-fit: cover;           /* Para las imágenes <img> */
+    cursor: pointer;
 }
 
 
@@ -192,11 +193,15 @@
 /* Icono de basura para eliminar, con tamaño y transición de color */
 .bi-trash {
     font-size: 1.7rem;         /* Tamaño de fuente relativamente grande */
-    color: black;              /* Color negro */
+    color: #3eaeb1;              /* Color negro */
     cursor: pointer;           /* Cursor tipo mano */
     transition: color 0.3s;    /* Transición suave para cambios de color */
 }
-
+.bi-trash:hover {
+            /* Tamaño de fuente relativamente grande */
+    color: #ff4c4c;              /* Color negro */
+      /* Transición suave para cambios de color */
+}
 /* Precio del servicio */
 .precio {
     font-size: 17px;            /* Tamaño de fuente medio */
@@ -267,13 +272,6 @@
   text-align: center; /* Centra el texto horizontalmente */
 }
 
-/* Contenedor para imagen y precio, centrado vertical y horizontalmente */
-.image-price-container {
-  display: flex;
-  flex-direction: column; /* Coloca elementos en columna */
-  align-items: center; /* Centra horizontalmente */
-  justify-content: center; /* Centra verticalmente */
-}
 
 /* Estilo para estrellas de calificación en las tarjetas */
 .estrellasTarjetas {
@@ -319,18 +317,6 @@
   margin: 0; /* Sin margen */
 }
 
-/* Estilo para enlace o botón "Ver más" */
-.ver-mas {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500;
-  color: #3EAEB1; /* Azul */
-  font-size: 0.9rem;
-  cursor: pointer; /* Cambia cursor al pasar por encima */
-  margin-left: 5px; /* Margen a la izquierda */
-  display: inline-block; /* Para poder usar margen y padding */
-  margin-bottom: 10px; /* Espacio debajo para separar del botón */
-}
-
 /* Precio del servicio o producto */
 .price {
   font-family: 'Oswald', sans-serif;
@@ -351,15 +337,7 @@
   align-items: center; /* Alinea verticalmente al centro */
 }
 
-/* Imagen dentro de la tarjeta */
-.card img {
-  width: 100px; /* Ancho fijo */
-  height: 100px; /* Alto fijo */
-  background-color: #ccc; /* Fondo gris mientras carga imagen */
-  border-radius: 50%; /* Imagen circular */
-  object-fit: cover; /* Ajusta la imagen para cubrir el área */
-  flex-shrink: 0; /* No permite que se encoja */
-}
+
 
 /* Contenedor para el botón en el modal o tarjeta */
 .boton-container {
@@ -465,7 +443,7 @@
 }
 
 /* Botones dentro del menú desplegable */
-.dropdown-menu button {
+.dropdown-menu a {
   display: flex; /* Flex para alinear iconos y texto */
   align-items: center; /* Alinea verticalmente */
   width: 100%; /* Ocupa todo el ancho */
@@ -475,17 +453,24 @@
   cursor: pointer; /* Cursor puntero */
   text-align: left; /* Alinea texto a la izquierda */
   font-size: 14px; /* Tamaño texto */
+  text-decoration: none; /* Sin subrayado */
 }
 
 /* Span dentro del botón para texto */
-.dropdown-menu button span {
+.dropdown-menu a span {
   font-family: 'Oswald', sans-serif;
   font-weight: 500;
   font-size: 14px;
+  text-decoration: none; /* Sin subrayado */
+  color: black; /* Color texto negro */
 }
 
 /* Efecto hover para botones del menú */
-.dropdown-menu button:hover {
+.dropdown-menu a :hover {
+  color: #3EAEB1; /* Cambia color a azul */
+}
+
+.dropdown-menu i:hover {
   color: #3EAEB1; /* Cambia color a azul */
 }
 
@@ -493,6 +478,7 @@
 .dropdown-menu i {
   margin-right: 8px; /* Espacio a la derecha del icono */
   font-size: 16px; /* Tamaño icono */
+  color: black; /* Color texto negro */
 }
 
 /* Clase para ocultar contenido pero conservar espacio */
@@ -717,12 +703,6 @@
         gap: 10px;          /* Espacio entre elementos hijos dentro de la tarjeta */
     }
 
-    /* Imagen dentro de cada tarjeta */
-    .card img {
-        width: 80px;        /* Ancho fijo para la imagen */
-        height: 80px;       /* Alto fijo para mantener proporción */
-    }
-
     /* Nombre dentro de la tarjeta */
     .nombre {
         font-size: 16px;    /* Tamaño de fuente legible para móviles */
@@ -919,4 +899,79 @@
     width: 76px; 
   }
 
+}
+
+
+/*estilos para el modal de eliminar*/
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* fondo negrito trasparente */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 400px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn-aceptar {
+  background-color: #dc3545;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-cancelar {
+  background-color: #6c757d;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.modal-overlay {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 999;
+}
+
+.modal-content {
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 8px;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
 }

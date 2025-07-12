@@ -405,6 +405,7 @@
     text-align: left;
     font-size: 14px;
     text-decoration: none;
+    color: black;
   }
 
   .menu-completo a span {
@@ -415,7 +416,7 @@
   }
   
   
-  .menu-completo button:hover {
+  .menu-completo a :hover {
     color: #3EAEB1;
   }
   

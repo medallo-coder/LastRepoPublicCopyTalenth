@@ -136,21 +136,20 @@
                 <i class="bi bi-three-dots"></i>
               </button>
               <div class="menu-completo">
-                <a href="#" class="btn-link">
-                   <i class="bi bi-person-fill"></i><span>Ver perfil</span>
+                <a href="{{ url_for('web.perfil_experto_publico', usuario_id=pub.usuario.usuario_id) }}" class="btn-link">
+                  <i class="bi bi-person-fill"></i><span>Ver perfil</span>
                 </a>
-                
                 <!-- Contenedor de mensajes dinámicos -->
-<!-- Tu botón (sin href o con href="javascript:void(0);" para evitar recarga) -->
-<a href="javascript:void(0);" class="guardar-btn" data-id="{{ pub.publicacion_id }}">
-  <i class="bi bi-bookmark-check"></i><span>Guardar</span>
-</a>
+        
+                <a href="javascript:void(0);" class="guardar-btn" data-id="{{ pub.publicacion_id }}">
+                  <i class="bi bi-bookmark-check"></i><span>Guardar</span>
+                </a>
                 <a href="#" class="btn-link">
                   <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
                 </a>
-
               </div>
             </div>
+          <!----fin manu-->
           </div>
 
           <div class="estrellasTarjetas">
@@ -269,11 +268,17 @@
                 <i class="bi bi-three-dots"></i>
               </button>
               <div class="menu-completo">
-                <button><i class="bi bi-person-fill"></i><span>Ver perfil</span></button>
-                <button><i class="bi bi-bookmark-check" class="guardar-btn" data-id="{{ pub.publicacion_id }}">
-                  </i><span>Guardar</span>
-                </button>
-                <button><i class="bi bi-exclamation-circle"></i><span>Reportar</span></button>
+                <a href="{{ url_for('web.perfil_experto_publico', usuario_id=pub.usuario.usuario_id) }}" class="btn-link">
+                  <i class="bi bi-person-fill"></i><span>Ver perfil</span>
+                </a>
+                <!-- Contenedor de mensajes dinámicos -->
+        
+                <a href="javascript:void(0);" class="guardar-btn" data-id="{{ pub.publicacion_id }}">
+                  <i class="bi bi-bookmark-check"></i><span>Guardar</span>
+                </a>
+                <a href="#" class="btn-link">
+                  <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
+                </a>
               </div>
             </div>
           </div>

@@ -24,9 +24,8 @@
     {% for pub in publicaciones %}
 <div class="categoria">
   
-<img class="image"
-     src="{% if pub.usuario.perfiles.foto_perfil %}{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}{% else %}https://via.placeholder.com/150{% endif %}"
-     alt="Foto de perfil">
+<img class="image" src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" alt="Foto de perfil" />
+
 
 
   <div class="info">
@@ -38,7 +37,7 @@
         <i class="bi bi-three-dots"></i>
       </button>
       <div class="dropdown-menu">
-        <a href="#"><i class="bi bi-person-fill"></i><span>Ver perfil</span></a>
+        <a href="{{ url_for('web.perfil_experto_publico', usuario_id=pub.usuario.usuario_id) }}""><i class="bi bi-person-fill"></i><span>Ver perfil</span></a>
         <a href="#"><i class="bi bi-exclamation-circle"></i><span>Reportar</span></a>
       </div>
       </div>
@@ -80,13 +79,29 @@
   </div>
 
  
+<!-- Modal de Confirmación para eliminar-->
+<div id="confirmModal" class="modal-overlay" style="display: none;">
+  <div class="modal-content">
+    <p>¿Deseas eliminar esta publicación?</p>
+    <div class="modal-buttons">
+      <button id="confirmDelete" class="btn-aceptar">Aceptar</button>
+      <button id="cancelDelete" class="btn-cancelar">Cancelar</button>
+    </div>
+  </div>
+</div>
+
 
 
   {% include 'footer.html' %}
 
  <script src="{{ url_for('static', filename='js/guardados.js') }}"></script>
  
- 
+ <!-- Modal para ver imagen en grande -->
+<div id="imagenModal" class="modal-overlay" style="display: none;">
+  <span id="cerrarModal" class="close">&times;</span>
+  <img class="modal-content" id="imagenAmpliada" />
+</div>
+
 
 </body>
 </html>
