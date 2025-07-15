@@ -462,8 +462,7 @@ from app.models import Categorias  # Adjust path if needed
 from app.models import Subcategorias, Publicaciones, perfiles  # Adjust path if needed
   
 
-
-
+# Ver mis publicaciones
 @web.route('/mis-publicaciones')
 def mis_publicaciones():
     usuario_id = obtener_usuario_id_autenticado()
@@ -476,10 +475,9 @@ def mis_publicaciones():
     categorias = obtener_categorias_service()
     subcategorias = obtener_subcategorias_service()
 
-     # Calcula si hay publicaciones válidas
     tiene_publicaciones = any(
-    pub.titulo and pub.descripcion_publicacion
-    for pub in publicaciones
+        pub.titulo and pub.descripcion_publicacion
+        for pub in publicaciones
     )
 
     return render_template(
@@ -491,22 +489,26 @@ def mis_publicaciones():
         tiene_publicaciones=tiene_publicaciones,
     )
 
+
+# Guardar o actualizar publicación
 @web.route('/mis-publicaciones/guardar', methods=['POST'])
 def guardar_mi_publicacion():
     usuario_id = obtener_usuario_id_autenticado()
     if not usuario_id:
         flash("Debes iniciar sesión para realizar esta acción", "warning")
-        return redirect(url_for('web.login'))  # Ajusta tu ruta
+        return redirect(url_for('web.login'))
 
     data = dict(request.form)
     data['usuario_id'] = usuario_id
 
     resultado = guardar_mi_publicacion_service(data)
-    flash(resultado['message'], 'success' if resultado['success'] else 'danger')
+    categoria = 'success' if resultado.get("success") else 'error'
+    flash(resultado.get("message", "Error al guardar publicación."), categoria)
+
     return redirect(url_for('web.mis_publicaciones'))
 
 
-
+# Editar publicación
 @web.route('/mis-publicaciones/editar/<int:publicacion_id>')
 def editar_mi_publicacion(publicacion_id):
     usuario_id = obtener_usuario_id_autenticado()
@@ -519,12 +521,10 @@ def editar_mi_publicacion(publicacion_id):
     subcategorias = obtener_subcategorias_service()
     publicacion = obtener_publicacion_por_id_service(publicacion_id)
 
-    # Valida que la publicación sea del usuario autenticado
     if not publicacion or publicacion.usuario_id != usuario_id:
-        flash("No tienes permiso para editar esta publicación", "danger")
+        flash("No tienes permiso para editar esta publicación", "error")
         return redirect(url_for('web.mis_publicaciones'))
 
-    # Calcula si hay publicaciones válidas
     tiene_publicaciones = any(
         pub.titulo and pub.descripcion_publicacion
         for pub in publicaciones

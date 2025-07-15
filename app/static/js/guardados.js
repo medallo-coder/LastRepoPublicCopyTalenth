@@ -123,7 +123,7 @@ function mostrarMensaje(mensaje, categoria) {
   }, 4000);
 }
 
-
+// js de fot para ver de mas grande
 document.addEventListener('DOMContentLoaded', () => {
   const imagenes = document.querySelectorAll('.image');
   const modal = document.getElementById('imagenModal');

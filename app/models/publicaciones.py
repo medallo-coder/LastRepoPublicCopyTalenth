@@ -11,10 +11,10 @@ class Publicaciones(db.Model):
     categoria_id = db.Column(db.Integer, db.ForeignKey('categorias.categoria_id', ondelete="CASCADE"), nullable=True)
     subcategoria_id = db.Column(db.Integer, db.ForeignKey('subcategorias.subcategoria_id', ondelete="SET NULL"), nullable=True)
     descripcion_publicacion = db.Column(db.String(200), nullable=True)
-
+    cantidad = db.Column(db.Integer)
     categoria = db.relationship('Categorias', back_populates='publicaciones', passive_deletes=True)
     subcategoria = db.relationship('Subcategorias', back_populates='publicaciones', passive_deletes=True)
     usuario = db.relationship('Usuario', back_populates='publicaciones', passive_deletes=True)
-
+    destacada = db.Column(db.Boolean, default=False)  # o pro_publicacion
     def __repr__(self):
         return f"<Publicacion {self.publicacion_id}>"

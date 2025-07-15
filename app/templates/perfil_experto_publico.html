@@ -35,7 +35,7 @@
        <!-- Círculo con ícono debajo del título -->
         
           
-            <img src="{{ url_for('web.perfil_foto', filename=perfil.foto_perfil) }}" alt="Foto de perfil" class="image-container" />
+            <img src="{{ url_for('web.perfil_foto', filename=perfil.foto_perfil) }}" alt="Foto de perfil" class="image" />
           
         
         {% endif %}
@@ -492,8 +492,14 @@
   </div>
 </div>
 
-<script src="{{ url_for('static', filename='js/perfil.experto.js') }}"></script>
+ <!-- Modal para ver imagen en grande -->
+<div id="imagenModal" class="modal-overlay" style="display: none;">
+  <span id="cerrarModal" class="close">&times;</span>
+  <img class="modal-content" id="imagenAmpliada" />
+</div>
 
+<script src="{{ url_for('static', filename='js/perfil.experto.js') }}"></script>
+<script src="{{ url_for('static', filename='js/perfil_publico.js') }}"></script>
 {% include 'footer.html' %}
 </body>
 </html>
