@@ -29,7 +29,34 @@ def guardar_mi_publicacion_service(data):
                 }
         else:
             # Crear nueva publicación solo si los datos son válidos
-            publicacion = Publicaciones(usuario_id=data['usuario_id'])
+            publicacion = Publicaciones(usuario_id=data['usuario_id'], cantidad=0)
+
+
+        tipo_destacada =  "gratis"
+
+
+        cantidad_actual = Publicaciones.query.filter_by(usuario_id=data['usuario_id']).count()
+        cantidad_gratis= Publicaciones.query.filter_by(usuario_id=data['usuario_id'], destacada='gratis').count()
+        cantidad_destacada= Publicaciones.query.filter_by(usuario_id=data['usuario_id'], destacada='destacada').count()
+
+        
+
+        if cantidad_gratis + cantidad_destacada >=3:
+            return{
+                "success": False, "message": "Maximo de publicaciones son 3"
+            }
+
+        if tipo_destacada == "gratis" and cantidad_gratis >= 2 :
+            return{
+                "success": False, "message": "Solo puedes tener 2 publicaciones gratuitas. Paga para mas."
+            }
+        
+        
+        if tipo_destacada == "destacada" and cantidad_destacada >=1 :
+            return{
+                "success": False, "message": "Solo puedes tener tres publicaciones 1 destacada y 2 gratis"
+            }
+            
 
         # Asignar campos
         publicacion.titulo = titulo
@@ -37,15 +64,18 @@ def guardar_mi_publicacion_service(data):
         publicacion.categoria_id = data.get('categoria_id') or None
         publicacion.subcategoria_id = data.get('subcategoria_id') or None
         publicacion.descripcion_publicacion = descripcion
+        publicacion.cantidad = cantidad_actual + 1
+        publicacion.destacada = tipo_destacada
 
-        # Guardar en la base de datos
+
+            # Guardar en la base de datos
         db.session.add(publicacion)
         db.session.commit()
 
         return {
             "success": True,
             "message": "Guardado correctamente"
-        }
+            }
 
     except Exception as e:
         db.session.rollback()
@@ -75,6 +105,7 @@ def eliminar_publicacion_service(publicacion_id):
                 "success": False,
                 "message": "Publicación no encontrada"
             }
+       
 
         db.session.delete(publicacion)
         db.session.commit()
