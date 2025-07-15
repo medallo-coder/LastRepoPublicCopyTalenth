@@ -11,7 +11,9 @@ from app.models.publicaciones import Publicaciones
 from app.models.reseñas import Reseñas
 from app.extensions import db
 from flask import request, session
+from datetime import datetime, timedelta
 import re
+
 
 
 
@@ -91,7 +93,24 @@ def iniciar_sesion_service(data):
     if usuario.estado == "deshabilitado":
         return {"success": False, "message": "Usuario deshabilitado. Por favor, regístrate nuevamente con un correo diferente."}
 
+    if usuario.bloqueado_hasta and datetime.utcnow() < usuario.bloqueado_hasta:
+        tiempo_restante = usuario.bloqueado_hasta - datetime.utcnow()
+        minutos = int(tiempo_restante.total_seconds() // 60)
+        return {"success": False, "message": f"Usuario bloqueado temporalmente. Espera {minutos} minutos."}
+
+    if usuario.estado == "Bloqueado temporalmente" and usuario.bloqueado_hasta and datetime.utcnow() >= usuario.bloqueado_hasta:
+        print("⚠️ Periodo de bloqueo ha terminado, restableciendo usuario.")
+        usuario.intentos_fallidos = 0
+        usuario.estado = "activo"
+        usuario.bloqueado_hasta = None
+        db.session.commit()
+
     if not check_password_hash(usuario.contrasena, contrasena):
+        usuario.intentos_fallidos +=1
+        if usuario.intentos_fallidos == 3:
+            usuario.estado = "Bloqueado temporalmente"
+            usuario.bloqueado_hasta = datetime.utcnow() + timedelta(minutes=5)
+        db.session.commit()
         return {"success": False, "message": "La contrasena es incorrecta. Intenta nuevamente o restablécela."}
 
     token = generar_token(usuario.usuario_id)

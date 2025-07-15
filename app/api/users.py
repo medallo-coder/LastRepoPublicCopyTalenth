@@ -1,7 +1,9 @@
 from flask import Blueprint, request, jsonify
 from app.services.autenticacion import registrar_usuario_service, iniciar_sesion_service, cerrar_sesion_service
-from app.services_desktop import iniciar_sesion_admin_service, registrar_admin_service, cerrar_sesion_admin_service, gestionar_usuarios_admin_service, deshabilitar_cuentas_admin_service
-from app.services_desktop import perfil_usuarios_admin_service, gestion_publicaciones_admin_service
+from app.services_desktop.autenticacion import iniciar_sesion_admin_service, registrar_admin_service, cerrar_sesion_admin_service
+from app.services_desktop.gestion_publicaciones import  gestion_publicaciones_admin_service
+from app.services_desktop.gestionar_usuarios import gestionar_usuarios_admin_service, deshabilitar_cuentas_admin_service
+from app.services_desktop.perfil_usuarios  import perfil_usuarios_admin_service 
 # Define the Blueprint for the API
 users_api = Blueprint('users_api', __name__)
 
