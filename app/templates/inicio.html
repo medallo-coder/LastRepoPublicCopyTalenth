@@ -124,6 +124,9 @@
             <img src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" alt="Foto de perfil" />
           {% endif %}
           <p class="price">COP {{ pub.precio }}</p>
+          {% if pub.destacada == 'si' %}
+            <p class="destacada">Promocionada</p>
+          {% endif %}
         </div>
 
         <div class="card-content">
@@ -288,7 +291,9 @@
             <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
             <i class="bi bi-star-fill"></i>
           </div>
-
+      
+        <p class="profesion"><strong>{{ pub.titulo }}</strong></p>
+        
           <p class="profesion"><strong><strong>{{ pub.categoria.nombre if pub.categoria else 'Sin categoría' }}</strong></strong></p>
           <p class="descripcion-titulo">Descripción:</p>
           <p class="descripcion descripcion-texto">

@@ -19,6 +19,9 @@ body {
 .form-group {
   margin-bottom: 20px; /* Aumenta el espacio entre grupos de inputs */
 }
+.destacada {
+  color: #606060;
+}
 
  
 .form-group label {

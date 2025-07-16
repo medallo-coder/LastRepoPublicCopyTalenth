@@ -192,7 +192,10 @@
     align-items: center; /* Centra horizontalmente */
     justify-content: center;
   }
-  
+
+.destacada {
+  color: #606060;
+}
   
 /* Estilo para las estrellas (calificación) */
 .estrellasTarjetas {
