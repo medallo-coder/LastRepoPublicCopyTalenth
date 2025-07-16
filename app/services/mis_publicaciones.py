@@ -5,7 +5,6 @@ from flask import session
 # 🔍 Servicio para obtener todas las publicaciones del usuario autenticado
 def obtener_mis_publicaciones_service(usuario_id):
     return Publicaciones.query.filter_by(usuario_id=usuario_id).all()
-
 # 💾 Servicio para guardar o actualizar una publicación
 def guardar_mi_publicacion_service(data):
     try:
@@ -15,78 +14,71 @@ def guardar_mi_publicacion_service(data):
         if not titulo or not descripcion:
             return {
                 "success": False,
-                "message": "Título y descripción son obligatorios"
+                "message": "Título y descripción son obligatorios.",
+                "categoria": "error"
             }
-
-        usuario_id = data['usuario_id']
-        destacada = data.get('destacada') in ['true', 'True', '1', True]
-
-        # Contar publicaciones por tipo
-        publicaciones_gratis = Publicaciones.query.filter_by(
-            usuario_id=usuario_id,
-            destacada=False
-        ).count()
-
-        publicaciones_destacadas = Publicaciones.query.filter_by(
-            usuario_id=usuario_id,
-            destacada=True
-        ).count()
-
-        total = publicaciones_gratis + publicaciones_destacadas
 
         if data.get('publicacion_id'):
             publicacion = Publicaciones.query.get(int(data['publicacion_id']))
-            if not publicacion or publicacion.usuario_id != usuario_id:
+            if not publicacion or publicacion.usuario_id != data['usuario_id']:
                 return {
                     "success": False,
-                    "message": "Publicación no válida o no autorizada"
+                    "message": "Publicación no válida o no autorizada.",
+                    "categoria": "error"
                 }
-
         else:
-            if publicaciones_gratis >= 2 and not destacada:
+            publicacion = Publicaciones(usuario_id=data['usuario_id'])
+
+        publicaciones_usuario = Publicaciones.query.filter_by(usuario_id=data['usuario_id']).all()
+        cantidad_no = sum(1 for p in publicaciones_usuario if p.destacada == 'no')
+        cantidad_si = sum(1 for p in publicaciones_usuario if p.destacada == 'si')
+
+        if cantidad_si == 1:
+            if cantidad_no >= 2:
                 return {
                     "success": False,
-                    "message": "Solo puedes tener 2 publicaciones gratuitas. Destaca tu publicación para añadir otra."
+                    "message": "Ya tienes 1 destacada y 2 normales. Límite de publicaciones alcanzado.",
+                    "categoria": "error"
                 }
-
-            if publicaciones_destacadas >= 1 and destacada:
+            tipo_destacada = "no"
+        elif cantidad_si == 0:
+            if cantidad_no >= 2:
                 return {
                     "success": False,
-                    "message": "Ya tienes una publicación destacada. Elimina una si deseas agregar otra."
+                    "message": "Límite alcanzado. Mejora tu visibilidad con una publicación extra y \"destacada\". ¡Activa la promoción ahora y llega a más personas!",
+                    "categoria": "error"
                 }
+            tipo_destacada = "no"
+        else:
+            return {
+                "success": False,
+                "message": "Límite de publicaciones alcanzado. Solo se permite 1 destacada y 2 normales.",
+                "categoria": "error"
+            }
 
-            if publicaciones_gratis + publicaciones_destacadas >= 3:
-                return {
-                    "success": False,
-                    "message": "Solo puedes tener un máximo de 3 publicaciones entre gratuitas y destacadas."
-                }
-
-            publicacion = Publicaciones(usuario_id=usuario_id)
-
-
-        # Asignar campos
         publicacion.titulo = titulo
         publicacion.precio = data.get('precio') or None
         publicacion.categoria_id = data.get('categoria_id') or None
         publicacion.subcategoria_id = data.get('subcategoria_id') or None
         publicacion.descripcion_publicacion = descripcion
-        publicacion.destacada = destacada
+        publicacion.destacada = tipo_destacada
 
         db.session.add(publicacion)
         db.session.commit()
 
         return {
             "success": True,
-            "message": "Publicación guardada correctamente"
+            "message": "Publicación guardada correctamente.",
+            "categoria": "success"
         }
 
-    except Exception:
+    except Exception as e:
         db.session.rollback()
         return {
             "success": False,
-            "message": "Ocurrió un error inesperado al guardar la publicación."
+            "message": f"Error: {str(e)}",
+            "categoria": "error"
         }
-
 
 
 # 📚 Servicio para obtener todas las categorías
@@ -110,6 +102,7 @@ def eliminar_publicacion_service(publicacion_id):
                 "success": False,
                 "message": "Publicación no encontrada"
             }
+       
 
         db.session.delete(publicacion)
         db.session.commit()
