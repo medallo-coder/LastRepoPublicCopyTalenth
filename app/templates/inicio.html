@@ -21,14 +21,30 @@
   <!-- CONTENEDOR PADRE GENERAL -->
   <div class="main-container">
 
-    {% if session.get('jwt') %}
-    <!-- ENCABEZADO -->
-    <div class="header-section">
-      <div class="titulo">
-        <p>Hola,<span class="usuario"> {{ primer_nombre}} </span></p>
+      {% if not session.get('jwt') %}
+  <!-- ENCABEZADO PARA USUARIOS NO LOGUEADOS -->
+  <div class="header-section no-login-header">
+    <div class="titulo no-login-title">
+      <p class="bienvenidos">BIENVENIDOS A</p>
+      <p><span class="cali">CALI</span> TRABAJA</p>
+    </div>
+    <div class="app-icons">
+      <p>Obtener aplicación</p>
+      <div class="icons">
+        <i class="bi bi-google-play"></i>
+        <i class="bi bi-windows"></i>
       </div>
     </div>
-    {% endif %}
+  </div>
+  {% else %}
+  <!-- ENCABEZADO PARA USUARIOS LOGUEADOS -->
+  <div class="header-section login-header">
+    <div class="titulo login-title">
+      <p>Hola, <span class="usuario">{{ primer_nombre }}</span></p>
+    </div>
+  </div>
+  {% endif %}
+
     
 
     <!-- SLIDER DE FRASES -->
@@ -207,44 +223,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- Carrucel SERVICIOS DESTACADOS -->
 <div class="contenedor-destacados">
   <h2 class="titulo-interes">Servicios Recientes</h2>
@@ -341,63 +319,69 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   </div>
 
-   <section class="contenedor-frases">
+    {% if not session.get('jwt') %}
+  <!-- SECCIÓN PARA USUARIOS NO LOGUEADOS -->
+  <section class="contenedor-frases">
     <div class="contenedorfrasespeque">
-    <h1 class="titulo-frases">Tú tienes el conocimiento <br>Nosotros te conectamos con quienes lo necesitan</h1>
-    
-    <div class="servicios">
-      <div class="item">
-        <i class="bi-graph-up"></i>
-        <h3>Haz crecer tus ingresos</h3>
-        <p>Publica, chatea y coordina detalles sin intermediarios.</p>
+      <h1 class="titulo-frases">Conecta, Publica y Encuentra:<br>Todo en un Solo Lugar</h1>
+      
+      <div class="servicios">
+        <div class="item">
+          <i class="bi bi-person-badge"></i>
+          <h3>Publica tu servicio</h3>
+          <p>Publica lo que sabes hacer y permite que te descubran en minutos.</p>
+        </div>
+
+        <div class="item">
+          <i class="bi bi-search"></i>
+          <h3>Encuentra al profesional ideal</h3>
+          <p>Contrata con confianza y sin complicaciones.</p>
+        </div>
+
+        <div class="item">
+          <i class="bi bi-megaphone"></i>
+          <h3>Promociona</h3>
+          <p>Potencia tu visibilidad y llega a más clientes.</p>
+        </div>
       </div>
 
-      <div class="item">
-        <i class="bi-box-arrow-up"></i>
-        <h3>Publica tu oferta y hazla visible</h3>
-        <p>Pon tu perfil y servicios en nuestra plataforma para que te conozcan.</p>
-      </div>
-
-      <div class="item">
-        <i class="bi-rocket"></i>
-        <h3>Potencia tus publicaciones</h3>
-        <p>Si quieres llegar más lejos, promociona tus publicaciones y sé la primera opción.</p>
-      </div>
+      <button class="boton">Comienza gratis</button>
     </div>
-
-    <button class="boton">Convertirse en Experto</button>
-  </div>
   </section>
+
+  {% else %}
+  <!-- SECCIÓN PARA USUARIOS LOGUEADOS -->
+  <section class="contenedor-frases">
+    <div class="contenedorfrasespeque">
+      <h1 class="titulo-frases">Tú tienes el conocimiento <br>Nosotros te conectamos con quienes lo necesitan</h1>
+      
+      <div class="servicios">
+        <div class="item">
+          <i class="bi bi-graph-up"></i>
+          <h3>Haz crecer tus ingresos</h3>
+          <p>Publica, chatea y coordina detalles sin intermediarios.</p>
+        </div>
+
+        <div class="item">
+          <i class="bi bi-box-arrow-up"></i>
+          <h3>Publica tu oferta y hazla visible</h3>
+          <p>Pon tu perfil y servicios en nuestra plataforma para que te conozcan.</p>
+        </div>
+
+        <div class="item">
+          <i class="bi bi-rocket"></i>
+          <h3>Potencia tus publicaciones</h3>
+          <p>Si quieres llegar más lejos, promociona tus publicaciones y sé la primera opción.</p>
+        </div>
+      </div>
+
+      <button class="boton">Convertirse en Experto</button>
+    </div>
+  </section>
+  {% endif %}
+
 
   
 <!-- Modal -->
