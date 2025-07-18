@@ -11,3 +11,6 @@ class Roles(db.Model):
     def __repr__(self):
         return f"<Role {self.tipo_rol}>"
 
+
+
+

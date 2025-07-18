@@ -5,81 +5,71 @@ from flask import session
 # 🔍 Servicio para obtener todas las publicaciones del usuario autenticado
 def obtener_mis_publicaciones_service(usuario_id):
     return Publicaciones.query.filter_by(usuario_id=usuario_id).all()
+
+
+# 🔢 Servicio para obtener el conteo de publicaciones de un usuario
+def contar_publicaciones_usuario(usuario_id):
+    publicaciones = Publicaciones.query.filter_by(usuario_id=usuario_id).all()
+    cantidad_actual = len(publicaciones)
+    limite_maximo = 3  # Puedes cambiar este valor según tu lógica
+
+    return {
+        "cantidad_actual": cantidad_actual,
+        "limite_maximo": limite_maximo
+    }
+
+
 # 💾 Servicio para guardar o actualizar una publicación
+# app/services/publicaciones.py
 def guardar_mi_publicacion_service(data):
     try:
-        titulo = data.get('titulo')
-        descripcion = data.get('descripcion_publicacion')
+        usuario_id = data.get('usuario_id')
+        publicacion_id = data.get('id')  # vendrá si es edición
+
+        # Validación básica
+        titulo = data.get('titulo', '').strip()
+        descripcion = data.get('descripcion_publicacion', '').strip()
 
         if not titulo or not descripcion:
-            return {
-                "success": False,
-                "message": "Título y descripción son obligatorios.",
-                "categoria": "error"
-            }
+            return {"success": False, "message": "Título y descripción son obligatorios."}
 
-        if data.get('publicacion_id'):
-            publicacion = Publicaciones.query.get(int(data['publicacion_id']))
-            if not publicacion or publicacion.usuario_id != data['usuario_id']:
-                return {
-                    "success": False,
-                    "message": "Publicación no válida o no autorizada.",
-                    "categoria": "error"
-                }
-        else:
-            publicacion = Publicaciones(usuario_id=data['usuario_id'])
+        # Si es edición
+        if publicacion_id:
+            publicacion = Publicaciones.query.get(int(publicacion_id))
 
-        publicaciones_usuario = Publicaciones.query.filter_by(usuario_id=data['usuario_id']).all()
-        cantidad_no = sum(1 for p in publicaciones_usuario if p.destacada == 'no')
-        cantidad_si = sum(1 for p in publicaciones_usuario if p.destacada == 'si')
+            if not publicacion:
+                return {"success": False, "message": "La publicación no existe."}
+            if publicacion.usuario_id != usuario_id:
+                return {"success": False, "message": "No autorizado."}
 
-        if cantidad_si == 1:
-            if cantidad_no >= 2:
-                return {
-                    "success": False,
-                    "message": "Ya tienes 1 destacada y 2 normales. Límite de publicaciones alcanzado.",
-                    "categoria": "error"
-                }
-            tipo_destacada = "no"
-        elif cantidad_si == 0:
-            if cantidad_no >= 2:
-                return {
-                    "success": False,
-                    "message": "Límite alcanzado. Mejora tu visibilidad con una publicación extra y \"destacada\". ¡Activa la promoción ahora y llega a más personas!",
-                    "categoria": "error"
-                }
-            tipo_destacada = "no"
-        else:
-            return {
-                "success": False,
-                "message": "Límite de publicaciones alcanzado. Solo se permite 1 destacada y 2 normales.",
-                "categoria": "error"
-            }
+            # Actualizar campos
+            publicacion.titulo = titulo
+            publicacion.descripcion_publicacion = descripcion
+            publicacion.id_categoria = data.get("id_categoria")
+            publicacion.id_subcategoria = data.get("id_subcategoria")
 
-        publicacion.titulo = titulo
-        publicacion.precio = data.get('precio') or None
-        publicacion.categoria_id = data.get('categoria_id') or None
-        publicacion.subcategoria_id = data.get('subcategoria_id') or None
-        publicacion.descripcion_publicacion = descripcion
-        publicacion.destacada = tipo_destacada
+            db.session.commit()
+            return {"success": True, "message": "Publicación actualizada exitosamente."}
 
-        db.session.add(publicacion)
+        # Si es nueva publicación
+        conteo = contar_publicaciones_usuario(usuario_id)
+        if conteo["cantidad_actual"] >= conteo["limite_maximo"]:
+            return {"success": False, "message": "Límite de publicaciones alcanzado."}
+
+        nueva = Publicaciones(
+            titulo=titulo,
+            descripcion_publicacion=descripcion,
+            id_categoria=data.get("id_categoria"),
+            id_subcategoria=data.get("id_subcategoria"),
+            usuario_id=usuario_id
+        )
+        db.session.add(nueva)
         db.session.commit()
-
-        return {
-            "success": True,
-            "message": "Publicación guardada correctamente.",
-            "categoria": "success"
-        }
+        return {"success": True, "message": "Publicación creada correctamente."}
 
     except Exception as e:
         db.session.rollback()
-        return {
-            "success": False,
-            "message": f"Error: {str(e)}",
-            "categoria": "error"
-        }
-
+        return {"success": False, "message": f"Error interno: {str(e)}"}
 
 # 📚 Servicio para obtener todas las categorías
 def obtener_categorias_service():

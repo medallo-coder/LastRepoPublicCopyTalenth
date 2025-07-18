@@ -21,7 +21,9 @@
     </div>
   </div>
 
+  {% if cantidad_actual < limite_maximo %}
   <p id="mostrarFormulario" class="mostrar-form-link" {% if publicacion %}style="display:none;"{% endif %}>+ Nueva publicación</p>
+  {% endif %}
 
   <div class="container">
 
@@ -36,9 +38,10 @@
       </div>
       <div class="card-body">
         <form method="POST" action="{{ url_for('web.guardar_mi_publicacion') }}">
-          {% if publicacion %}
-            <input type="hidden" name="publicacion_id" value="{{ publicacion.publicacion_id }}">
-          {% endif %}
+      {% if publicacion %}
+        <input type="hidden" name="id" value="{{ publicacion.publicacion_id }}">
+      {% endif %}
+
 
           <div class="form-group">
             <label>Título de tu publicación</label>
@@ -139,6 +142,7 @@
         <p class="sin-publicaciones">No tienes publicaciones aún.</p>
       {% endif %}
     </div>
+    <p class="cantidad">{{ cantidad_actual }}/{{ limite_maximo }}</p>
 
   </div>
 

@@ -20,7 +20,15 @@ body {
   margin-bottom: 20px; /* Aumenta el espacio entre grupos de inputs */
 }
 .destacada {
+  color: #3eaeb1;
+}
+.cantidad {
   color: #606060;
+  text-align: center;
+  font-weight: bold;
+  margin: 10px auto;
+  width: fit-content;
+  font-size: 16px;
 }
 
  

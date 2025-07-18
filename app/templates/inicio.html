@@ -21,12 +21,15 @@
   <!-- CONTENEDOR PADRE GENERAL -->
   <div class="main-container">
 
+    {% if session.get('jwt') %}
     <!-- ENCABEZADO -->
     <div class="header-section">
       <div class="titulo">
         <p>Hola,<span class="usuario"> {{ primer_nombre}} </span></p>
       </div>
     </div>
+    {% endif %}
+    
 
     <!-- SLIDER DE FRASES -->
     <div class="carousel-container">

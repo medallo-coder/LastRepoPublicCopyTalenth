@@ -6,7 +6,7 @@ from app.services.perfil_experto import actualizar_perfil_experto_service, actua
 from app.services.perfil_experto import eliminar_idioma, eliminar_aptitud,eliminar_estudios,editar_estudios,actualizar_experiencia,eliminar_experiencia,editar_experiencia
 from app.services.perfil_experto import actualizar_perfil_experto_service5,eliminar_descripcion,editar_descripcion, subir_foto_perfil_service_experto
 from app.services.rol_service import verificar_rol, cambiar_rol_a_experto_service, cambiar_rol_a_cliente_service
-from app.services.mis_publicaciones import obtener_mis_publicaciones_service, obtener_categorias_service, obtener_subcategorias_service, obtener_publicacion_por_id_service, guardar_mi_publicacion_service, eliminar_publicacion_service
+from app.services.mis_publicaciones import obtener_mis_publicaciones_service, obtener_categorias_service, obtener_subcategorias_service, obtener_publicacion_por_id_service, guardar_mi_publicacion_service, eliminar_publicacion_service, contar_publicaciones_usuario
 from app.services.perfil_publico import obtener_perfil_publico_service
 from app.services.guardados import obtener_guardados_service, guardar_publicacion_service, eliminar_guardado_service
 from app.services.jwt_service import verificar_token
@@ -29,7 +29,7 @@ from app.services.publi_recientes import obtener_publicaciones_recientes_service
 def inicio():
     publicaciones_recientes = obtener_publicaciones_recientes_service()
     publicaciones_aleatorias = obtener_publicaciones_aleatorias_service()
-
+    rol_usuario = verificar_rol()  # Verifica el rol del usuario autenticado
     primer_nombre = ""
     auth_result = verificar_autenticacion_service()
 
@@ -41,7 +41,8 @@ def inicio():
         'inicio.html',
         primer_nombre=primer_nombre,
         publicaciones_recientes=publicaciones_recientes,
-        publicaciones_aleatorias=publicaciones_aleatorias
+        publicaciones_aleatorias=publicaciones_aleatorias,
+        rol_usuario=rol_usuario,
     )
 
 
@@ -469,11 +470,13 @@ def mis_publicaciones():
 
     if not usuario_id:
         flash("Debes iniciar sesión para ver tus publicaciones", "warning")
-        return redirect(url_for('web.login'))
+        return redirect(url_for('web.iniciar_sesion'))
 
     publicaciones = obtener_mis_publicaciones_service(usuario_id)
     categorias = obtener_categorias_service()
     subcategorias = obtener_subcategorias_service()
+    conteo = contar_publicaciones_usuario(usuario_id)
+
 
     tiene_publicaciones = any(
         pub.titulo and pub.descripcion_publicacion
@@ -487,7 +490,9 @@ def mis_publicaciones():
         subcategorias=subcategorias,
         publicacion=None,
         tiene_publicaciones=tiene_publicaciones,
-    )
+        cantidad_actual=conteo["cantidad_actual"],
+        limite_maximo=conteo["limite_maximo"])
+    
 
 
 # Guardar o actualizar publicación
@@ -520,6 +525,7 @@ def editar_mi_publicacion(publicacion_id):
     categorias = obtener_categorias_service()
     subcategorias = obtener_subcategorias_service()
     publicacion = obtener_publicacion_por_id_service(publicacion_id)
+    conteo = contar_publicaciones_usuario(usuario_id)
 
     if not publicacion or publicacion.usuario_id != usuario_id:
         flash("No tienes permiso para editar esta publicación", "error")
@@ -536,7 +542,9 @@ def editar_mi_publicacion(publicacion_id):
         categorias=categorias,
         subcategorias=subcategorias,
         publicacion=publicacion,
-        tiene_publicaciones=tiene_publicaciones
+        tiene_publicaciones=tiene_publicaciones,
+        cantidad_actual=conteo["cantidad_actual"],
+        limite_maximo=conteo["limite_maximo"]
     )
 
 
