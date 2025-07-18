@@ -1135,6 +1135,13 @@
   transform: scale(1.1);
 }
 
+.bi-trash {
+  box-shadow: none !important;
+  outline: none !important;
+  background: transparent;
+  border: none;
+}
+
 
 /*-----------------------------------------------
   Media Queries para Responsive Design

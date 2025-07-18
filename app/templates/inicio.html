@@ -84,40 +84,48 @@
 
        <div class="slider-categorias" id="sliderCategorias">
                 <div class="categoria">
-                    <img src="../static/images/Imagenes categorias/tecnico 1.svg" alt="Categoría 1">
-                    <p class="nombre-categoria">Servicios técnicos y reparación</p>
+                    <img src="../static/images/categorias/tecnico.svg" alt="Categoría 1">
+                    <p class="nombre-categoria">Reparación y mantenimiento</p>
                 </div>
                 <div class="categoria">
-                    <img src="../static/images/Imagenes categorias/educativos 1.svg" alt="Categoría 2">
-                    <p class="nombre-categoria">Educativos y aprendiaje</p>
+                    <img src="../static/images/categorias/Cuidadoyasistencia.svg" alt="Categoría 2">
+                    <p class="nombre-categoria">Cuidado y asistencia</p>
                 </div>
                 <div class="categoria">
-                    <img src="../static/images/Imagenes categorias/limpieza 1.svg " alt="Categoría 3">
-                    <p class="nombre-categoria">Servicios de limpieza y mantenimiento</p>
+                    <img src="../static/images/categorias/mascoteros.svg " alt="Categoría 3">
+                    <p class="nombre-categoria">Bienestar de mascotas</p>
                 </div>
                 <div class="categoria">
-                    <img src="../static/images/Imagenes categorias/mascoteros 1.svg " alt="Categoría 4">
-                    <p class="nombre-categoria">Cuidado de mascotas</p>
+                    <img src="../static/images/categorias/educativos.svg " alt="Categoría 4">
+                    <p class="nombre-categoria">Educativos y aprendizaje</p>
                 </div>
                 <div class="categoria">
-                    <img src="../static/images/Imagenes categorias/eventos 1.svg " alt="Categoría 5">
-                    <p class="nombre-categoria">Organización de eventos sociales</p>
+                    <img src="../static/images/categorias/limpieza.svg" alt="Categoría 5">
+                    <p class="nombre-categoria">Hogar y limpieza</p>
                 </div>
                 <div class="categoria">
-                    <img src="../static/images/Imagenes categorias/culinarios 1.svg " alt="Categoría 6">
-                    <p class="nombre-categoria">Gatronomía y cocina profesional</p>
+                    <img src="../static/images/categorias/Construccion.svg " alt="Categoría 6">
+                    <p class="nombre-categoria">Construcción y remodelación</p>
                 </div>
                 <div class="categoria">
-                    <img src="../static/images/Imagenes categorias/artisticos 1.svg " alt="Categoría 7">
+                    <img src="../static/images/categorias/artisticos.svg " alt="Categoría 7">
                     <p class="nombre-categoria">Artísticos y creatividad visual</p>
                 </div>
                 <div class="categoria">
-                    <img src="../static/images/Imagenes categorias/transporte 1.svg" alt="Categoría 8">
+                    <img src="../static/images/categorias/transporte.svg" alt="Categoría 8">
                     <p class="nombre-categoria">Movilidad y transporte</p>
                 </div>
                 <div class="categoria">
-                    <img src="../static/images/Imagenes categorias/salud_bien 2.svg" alt="Categoría 9">
-                    <p class="nombre-categoria">Salud y bienestar personal</p>
+                    <img src="../static/images/categorias/culinarios.svg" alt="Categoría 9">
+                    <p class="nombre-categoria">Gastronomía</p>
+                </div>
+                <div class="categoria">
+                    <img src="../static/images/categorias/eventos.svg" alt="Categoría 9">
+                    <p class="nombre-categoria">Eventos</p>
+                </div>
+                <div class="categoria">
+                    <img src="../static/images/categorias/salud_bien.svg" alt="Categoría 9">
+                    <p class="nombre-categoria">Bienestar personal</p>
                 </div>
             </div>
 
@@ -129,7 +137,7 @@
 
 <!-- Carrucel-->
 <div class="contenedor">
-  <h2 class="titulo-interes">Servicios</h2>
+  <h2 class="titulo-interes">Servicios para ti</h2>
 
   <div class="slider-container">
     <div class="slider" id="slider">
@@ -166,7 +174,7 @@
                 <a href="javascript:void(0);" class="guardar-btn" data-id="{{ pub.publicacion_id }}">
                   <i class="bi bi-bookmark-check"></i><span>Guardar</span>
                 </a>
-                <a href="#" class="btn-link">
+                <a href="#" class="btn-link"  id="abrirModalReporte">
                   <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
                 </a>
               </div>
@@ -392,6 +400,33 @@
     <div id="contenidoTarjeta"></div>
   </div>
 </div>
+
+<!-- Modal reporte -->
+<div id="modalReporte" class="modal-reporte" style="display: none;">
+  <div class="modal-contenido-reporte">
+    <span class="cerrar-modal" id="cerrarModalReporte">&times;</span>
+    <h2>Añadir reporte</h2>
+
+    <div class="campo">
+      <select>
+        <option disabled selected>Selecciona el motivo</option>
+        <option>Contenido inapropiado</option>
+        <option>Lenguaje ofensivo</option>
+        <option>Otro</option>
+      </select>
+    </div>
+
+    <div class="campo">
+      <textarea placeholder="Añade una descripción del problema"></textarea>
+    </div>
+
+    <div class="botones-reporte">
+      <button class="guardar">Guardar</button>
+      <button class="cancelar" id="cancelarModalReporte">Cancelar</button>
+    </div>
+  </div>
+</div>
+
 
 
 

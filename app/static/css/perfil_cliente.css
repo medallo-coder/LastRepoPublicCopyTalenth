@@ -324,13 +324,19 @@
     margin: 0;
   }
   
-  .barrio {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 300; /* Light */
-    margin: 0;
-    font-size: 1.2rem;
+  .fila-ubicacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 0 50px;
     margin-bottom: 1rem;
+  }
+
+  .barrio {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 1.2rem;
+    margin: 0;
   }
 
   .añadir-ubicacion {
@@ -391,24 +397,23 @@
     margin: 0;
   }
   
-  .iconos {
-    display: flex;
-    gap: 10px;
-    transform: translateX(30px); /* Mueve los íconos 30px a la derecha */
-  }
-  
-  #lapizubicacion,
-  .bi-trash {
-    font-size: 1.7rem;
-    color: #3eaeb1;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  
-  #lapizubicacion:hover,
-  .bi-trash:hover {
-    color: #292929;
-  }
+ .iconos {
+  display: flex;
+  gap: 10px;
+}
+
+#lapizubicacion,
+.bi-trash {
+  font-size: 1.7rem;
+  color: #3eaeb1;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#lapizubicacion:hover,
+.bi-trash:hover {
+  color: #292929;
+}
   
 /*-----------------------------------------------
   Estilos para formulario editar barrio
@@ -1152,6 +1157,14 @@
         font-size: 18px;
     }
 }
+
+.bi-trash {
+  box-shadow: none !important;
+  outline: none !important;
+  background: transparent;
+  border: none;
+}
+
 
 /* Estilos para tablets */
 @media (min-width: 769px) and (max-width: 1024px) {

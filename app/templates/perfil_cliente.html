@@ -77,30 +77,27 @@
         <h2 class="titulo-ubicacion">Ubicación</h2>
         <h2 class="titulo-barrio" > Barrio </h2>
          {% if direccion %}
-        <div class="item-ubicacion">
-          <div class="ubicacionicon">
-            <h3 class="cali"></h3>
-            <div class="iconos">
-              <i id="lapizubicacion" class="bi bi-pencil-square" onclick="abrirFormularioEditarUbicacion()"></i>
+          <div class="item-ubicacion">
+            <div class="fila-ubicacion">
+              <p class="barrio">{{ direccion }}</p>
+              <div class="iconos">
+                <i id="lapizubicacion" class="bi bi-pencil-square" onclick="abrirFormularioEditarUbicacion()"></i>
 
-              <form method="POST" action="{{ url_for('web.perfil_cliente') }}" style="display: inline;">
-                <input type="hidden" name="form_tipo" value="direccion">
-                <input type="hidden" name="direccion" value="">
-                <button type="submit" class="bi bi-trash" title="Eliminar dirección"
-                  onclick="return confirm('¿Seguro que deseas eliminar la dirección?')"></button>
-              </form>
+                <form method="POST" action="{{ url_for('web.perfil_cliente') }}" style="display: inline;">
+                  <input type="hidden" name="form_tipo" value="direccion">
+                  <input type="hidden" name="direccion" value="">
+                  <button type="submit" class="bi bi-trash" title="Eliminar dirección"
+                    onclick="return confirm('¿Seguro que deseas eliminar la dirección?')"></button>
+                </form>
+              </div>
             </div>
-
           </div>
-          <p class="barrio"> {{ direccion }} </p>
-        </div>
+        {% else %}
+          <div class="añadir-ubicacion" onclick="mostrarFormularioUbicacion()">
+            + Añadir barrio
+          </div>
+        {% endif %}
 
-      {% else %}
-      <!-- Botón para añadir experiencia -->
-      <div class="añadir-ubicacion" onclick="mostrarFormularioUbicacion()">
-        + Añadir barrio
-      </div>
-      {% endif %}
       </div>
 
 <!-- Sección de empresa -->

@@ -81,46 +81,59 @@
       <div class="item-descripcion">
         <div class="descripcionicon">
           <h3 class="descripcion-resumen" id="descripcionMostrado">{{ descripcion_perfil }}</h3>
+
+          {% if descripcion_perfil %}
           <div class="iconos">
             <i id="lapizdescripcion" class="bi bi-pencil-square" onclick="mostrarFormularioeditarDescripcion()"></i>
-            <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline; ">
-                <input type="hidden" name="form_tipo2" value="eliminar_descripcion">
-                <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-                
-                <button type="submit" class="bi bi-trash" title="Eliminar descripcion"
-                  onclick="return confirm('Seguro que deseas eliminar la descripcion?')">
-                </button>
-              </form>
+            <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;">
+              <input type="hidden" name="form_tipo2" value="eliminar_descripcion">
+              <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
+              <button type="submit" class="bi bi-trash" title="Eliminar descripcion"
+                onclick="return confirm('¿Seguro que deseas eliminar la descripción?')">
+              </button>
+            </form>
           </div>
+          {% endif %}
+
         </div>
       </div>
 
       <!-- Botón para añadir descripción -->
+      {% if not descripcion_perfil %}
       <div class="añadir-descripcion" id="btnAñadirDescripcion" onclick="mostrarFormularioDescripcion()">
         + Añadir descripción
       </div>
+      {% endif %}
 
-        <!-- Experiencia -->
+
+            <!-- Experiencia -->
       <div class="experiencia">
-        
+        <div class="titulo-izquierda">
+          <span>Experiencia</span>
+        </div>
         <div class="item-experiencia">
           
           <div class="experienciaicon">
             <h2 class="titulo-experiencia">{{ nombre_experiencia }}</h2>
             <h3 class="rol"></h3>
+
+            {% if nombre_experiencia %}
             <div class="iconos">
               <i id="lapizexperiencia" class="bi bi-pencil-square"></i>
-              <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline; ">
+              <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;">
                 <input type="hidden" name="form_tipo6" value="eliminar_experiencia">
                 <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-                
                 <button type="submit" class="bi bi-trash" title="Eliminar experiencia"
                   onclick="return confirm('Seguro que deseas eliminar la experiencia?')">
                 </button>
               </form>
             </div>
+            {% endif %}
+            
           </div>
+
           <p class="empresa">{{ descripcion_experiencia }}</p>
+
           {% if fecha_inicio_experiencia and fecha_fin_experiencia %}
           <p class="fechas">DESDE: {{ fecha_inicio_experiencia }}, HASTA: {{ fecha_fin_experiencia }}</p>
           {% else %}
@@ -129,43 +142,48 @@
         </div>
       </div>
 
-      <!-- Botón para añadir experiencia -->
+      <!-- Botón para añadir experiencia (siempre visible) -->
       <div class="añadir-experiencia" onclick="mostrarFormularioExperiencia()">
         + Añadir experiencia
       </div>
 
-      <!-- Estudios -->
+          <!-- Estudios -->
       <div class="estudios">
-        
+        <div class="titulo-izquierda">
+          <span>Mis estudios</span>
+        </div>
+
         <div class="item-estudios">
           <div class="estudiosicon">
             <h2 class="titulo-estudios">{{ titulo_obtenido }}</h2>
             <h3 class="titulo"></h3>
-            
+
+            {% if titulo_obtenido or institucion %}
             <div class="iconos">
               <i id="lapizestudios" class="bi bi-pencil-square"></i>
-              
-              <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline; ">
+
+              <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;">
                 <input type="hidden" name="form_tipo5" value="eliminar_estudios">
                 <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
 
                 <button type="submit" class="bi bi-trash" title="Eliminar estudios"
                   onclick="return confirm('Seguro que deseas eliminar los estudios?')">
-                  </button>
+                </button>
               </form>
             </div>
+            {% endif %}
           </div>
-          <p class="lugar"> {{ institucion }}</p>
-          
+
+          <p class="lugar">{{ institucion }}</p>
+
           {% if fecha_inicio and fecha_fin %}
           <p class="fecha">DESDE: {{ fecha_inicio }}, HASTA: {{ fecha_fin }}</p>
           {% else %}
           <p class="fecha"></p>
           {% endif %}
-
-          
         </div>
       </div>
+
 
       <!-- Botón para añadirestudios -->
       <div class="añadir-estudios" onclick="mostrarFormularioEstudios()">

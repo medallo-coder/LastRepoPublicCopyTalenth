@@ -201,4 +201,27 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+     const btnAbrir = document.getElementById('abrirModalReporte');
+    const modal = document.getElementById('modalReporte');
+    const btnCerrar = document.getElementById('cerrarModalReporte');
+    const btnCancelar = document.getElementById('cancelarModalReporte');
+
+    btnAbrir.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.style.display = 'flex';
+    });
+
+    btnCerrar.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    btnCancelar.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+        modal.style.display = 'none';
+        }
+    });            
 });
