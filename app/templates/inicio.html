@@ -174,7 +174,7 @@
                 <a href="javascript:void(0);" class="guardar-btn" data-id="{{ pub.publicacion_id }}">
                   <i class="bi bi-bookmark-check"></i><span>Guardar</span>
                 </a>
-                <a href="#" class="btn-link"  id="abrirModalReporte">
+                <a href="#" class="btn-link abrir-modal-reporte">
                   <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
                 </a>
               </div>
@@ -268,7 +268,7 @@
                 <a href="javascript:void(0);" class="guardar-btn" data-id="{{ pub.publicacion_id }}">
                   <i class="bi bi-bookmark-check"></i><span>Guardar</span>
                 </a>
-                <a href="#" class="btn-link">
+                <a href="#" class="btn-link abrir-modal-reporte">
                   <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
                 </a>
               </div>
@@ -408,16 +408,7 @@
     <h2>Añadir reporte</h2>
 
     <div class="campo">
-      <select>
-        <option disabled selected>Selecciona el motivo</option>
-        <option>Contenido inapropiado</option>
-        <option>Lenguaje ofensivo</option>
-        <option>Otro</option>
-      </select>
-    </div>
-
-    <div class="campo">
-      <textarea placeholder="Añade una descripción del problema"></textarea>
+      <textarea name="reporte" placeholder="Añade una descripción del problema"></textarea>
     </div>
 
     <div class="botones-reporte">
@@ -426,6 +417,7 @@
     </div>
   </div>
 </div>
+
 
 
 
