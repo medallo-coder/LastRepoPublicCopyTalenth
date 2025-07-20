@@ -589,10 +589,10 @@ def subir_foto_perfil_service_experto(file):
 
     perfil = perfiles.query.filter_by(id_usuario=usuario_id).first()
     if not perfil:
-        return {"success": False, "message": "perfil no encontrado."}
+        return {"success": False, "message": "Perfil no encontrado."}
 
     filename = secure_filename(file.filename)
-    carpeta = os.path.join(current_app.root_path, 'static/uploads')
+    carpeta = os.path.join(current_app.root_path, 'uploads/perfiles')  # ✅ nueva ruta
     os.makedirs(carpeta, exist_ok=True)
     ruta_archivo = os.path.join(carpeta, filename)
     file.save(ruta_archivo)

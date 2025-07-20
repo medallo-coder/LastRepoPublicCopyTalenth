@@ -54,24 +54,25 @@
           </div>
 
           <div class="form-group">
-            <label>Categoría</label>
-            <select name="categoria_id">
-              <option value="">Seleccione</option>
-              {% for cat in categorias %}
-                <option value="{{ cat.categoria_id }}" {% if publicacion and publicacion.categoria_id == cat.categoria_id %}selected{% endif %}>{{ cat.tipo_categoria }}</option>
-              {% endfor %}
-            </select>
-          </div>
+  <label>Categoría</label>
+  <select name="categoria_id" id="categoriaSelect">
+    <option value="">Seleccione</option>
+    {% for cat in categorias %}
+      <option value="{{ cat.categoria_id }}" {% if publicacion and publicacion.categoria_id == cat.categoria_id %}selected{% endif %}>{{ cat.tipo_categoria }}</option>
+    {% endfor %}
+  </select>
+</div>
 
-          <div class="form-group">
-            <label>Subcategoría</label>
-            <select name="subcategoria_id">
-              <option value="">Seleccione</option>
-              {% for sub in subcategorias %}
-                <option value="{{ sub.subcategoria_id }}" {% if publicacion and publicacion.subcategoria_id == sub.subcategoria_id %}selected{% endif %}>{{ sub.nombre_subcategoria }}</option>
-              {% endfor %}
-            </select>
-          </div>
+<div class="form-group">
+  <label>Subcategoría</label>
+  <select name="subcategoria_id" id="subcategoriaSelect">
+    <option value="">Seleccione</option>
+    {% for sub in subcategorias %}
+      <option value="{{ sub.subcategoria_id }}" {% if publicacion and publicacion.subcategoria_id == sub.subcategoria_id %}selected{% endif %}>{{ sub.nombre_subcategoria }}</option>
+    {% endfor %}
+  </select>
+</div>
+
 
           <div class="form-group">
             <label>Descripción</label>

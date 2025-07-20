@@ -6,7 +6,6 @@ from flask import session
 def obtener_mis_publicaciones_service(usuario_id):
     return Publicaciones.query.filter_by(usuario_id=usuario_id).all()
 
-
 # 🔢 Servicio para obtener el conteo de publicaciones de un usuario
 def contar_publicaciones_usuario(usuario_id):
     publicaciones = Publicaciones.query.filter_by(usuario_id=usuario_id).all()
@@ -18,9 +17,7 @@ def contar_publicaciones_usuario(usuario_id):
         "limite_maximo": limite_maximo
     }
 
-
 # 💾 Servicio para guardar o actualizar una publicación
-# app/services/publicaciones.py
 def guardar_mi_publicacion_service(data):
     try:
         usuario_id = data.get('usuario_id')
@@ -45,8 +42,8 @@ def guardar_mi_publicacion_service(data):
             # Actualizar campos
             publicacion.titulo = titulo
             publicacion.descripcion_publicacion = descripcion
-            publicacion.id_categoria = data.get("id_categoria")
-            publicacion.id_subcategoria = data.get("id_subcategoria")
+            publicacion.categoria_id = data.get("categoria_id")
+            publicacion.subcategoria_id = data.get("subcategoria_id")
 
             db.session.commit()
             return {"success": True, "message": "Publicación actualizada exitosamente."}
@@ -59,8 +56,8 @@ def guardar_mi_publicacion_service(data):
         nueva = Publicaciones(
             titulo=titulo,
             descripcion_publicacion=descripcion,
-            id_categoria=data.get("id_categoria"),
-            id_subcategoria=data.get("id_subcategoria"),
+            categoria_id=data.get("categoria_id"),
+            subcategoria_id=data.get("subcategoria_id"),
             usuario_id=usuario_id
         )
         db.session.add(nueva)
@@ -92,7 +89,6 @@ def eliminar_publicacion_service(publicacion_id):
                 "success": False,
                 "message": "Publicación no encontrada"
             }
-       
 
         db.session.delete(publicacion)
         db.session.commit()
@@ -108,3 +104,7 @@ def eliminar_publicacion_service(publicacion_id):
             "success": False,
             "message": f"Error: {str(e)}"
         }
+
+# 🔍 Servicio para obtener subcategorías filtradas por categoría
+def obtener_subcategorias_por_categoria_service(categoria_id):
+    return Subcategorias.query.filter_by(categoria_id=categoria_id).all()

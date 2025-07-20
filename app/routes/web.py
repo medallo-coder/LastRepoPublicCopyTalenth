@@ -6,13 +6,15 @@ from app.services.perfil_experto import actualizar_perfil_experto_service, actua
 from app.services.perfil_experto import eliminar_idioma, eliminar_aptitud,eliminar_estudios,editar_estudios,actualizar_experiencia,eliminar_experiencia,editar_experiencia
 from app.services.perfil_experto import actualizar_perfil_experto_service5,eliminar_descripcion,editar_descripcion, subir_foto_perfil_service_experto
 from app.services.rol_service import verificar_rol, cambiar_rol_a_experto_service, cambiar_rol_a_cliente_service
-from app.services.mis_publicaciones import obtener_mis_publicaciones_service, obtener_categorias_service, obtener_subcategorias_service, obtener_publicacion_por_id_service, guardar_mi_publicacion_service, eliminar_publicacion_service, contar_publicaciones_usuario
+from app.services.mis_publicaciones import obtener_mis_publicaciones_service, obtener_categorias_service, obtener_subcategorias_service, obtener_publicacion_por_id_service, guardar_mi_publicacion_service, eliminar_publicacion_service, contar_publicaciones_usuario, obtener_subcategorias_por_categoria_service
 from app.services.perfil_publico import obtener_perfil_publico_service
 from app.services.guardados import obtener_guardados_service, guardar_publicacion_service, eliminar_guardado_service
+from app.services.publicaciones_generales import obtener_publicaciones_generales_service, obtener_publicaciones_filtradas_service
 from app.services.jwt_service import verificar_token
 from flask import send_from_directory
 
 from app.models import Usuario  # Importa el modelo de Usuario
+from app.models import Categorias  # Importa el modelo de Categorias
 from werkzeug.utils import secure_filename
 import os
 
@@ -196,10 +198,49 @@ def restablecer_contraseña(token):
     return render_template('cambiar_contraseña.html')
 
 
-# Ruta para categorias
-@web.route('/categorias')
-def categorias():
-    return render_template('categorias.html')
+# Ruta para publicaciones generales interfaz
+from datetime import datetime, timedelta
+
+@web.route('/publicaciones')
+def publicaciones():
+    categoria_id = request.args.get('categoria_id', type=int)
+    subcategoria_id = request.args.get('subcategoria_id', type=int)
+    tiempo = request.args.get('tiempo')  # Puede ser '24h', 'semana', 'mes', etc.
+
+    # Obtener todas las categorías para los filtros
+    categorias = Categorias.query.all()
+
+    # Base query
+    publicaciones_query = Publicaciones.query
+
+    if categoria_id:
+        publicaciones_query = publicaciones_query.filter_by(categoria_id=categoria_id)
+
+    if subcategoria_id:
+        publicaciones_query = publicaciones_query.filter_by(subcategoria_id=subcategoria_id)
+
+    # Filtro por tiempo
+    if tiempo == "24h":
+        desde = datetime.now() - timedelta(hours=24)
+        publicaciones_query = publicaciones_query.filter(Publicaciones.fecha >= desde)
+    elif tiempo == "semana":
+        desde = datetime.now() - timedelta(days=7)
+        publicaciones_query = publicaciones_query.filter(Publicaciones.fecha >= desde)
+    elif tiempo == "mes":
+        desde = datetime.now() - timedelta(days=30)
+        publicaciones_query = publicaciones_query.filter(Publicaciones.fecha >= desde)
+    # Si no hay filtro, no aplicamos nada
+
+    # Ordenar de más reciente a más antigua
+    publicaciones = publicaciones_query.order_by(Publicaciones.fecha.desc()).all()
+
+    return render_template(
+        'publicaciones.html',
+        publicaciones_generales=publicaciones,
+        categorias=categorias,
+        total_resultados=len(publicaciones),
+        categoria_seleccionada=categoria_id,
+    )
 
 
 # Ruta para perfil cliente
@@ -506,12 +547,18 @@ def guardar_mi_publicacion():
     data = dict(request.form)
     data['usuario_id'] = usuario_id
 
+    # ✅ Corregir claves si vienen con nombres del formulario como 'id_categoria'
+    if 'id_categoria' in data:
+        data['categoria_id'] = data.pop('id_categoria')
+
+    if 'id_subcategoria' in data:
+        data['subcategoria_id'] = data.pop('id_subcategoria')
+
     resultado = guardar_mi_publicacion_service(data)
     categoria = 'success' if resultado.get("success") else 'error'
     flash(resultado.get("message", "Error al guardar publicación."), categoria)
 
     return redirect(url_for('web.mis_publicaciones'))
-
 
 # Editar publicación
 @web.route('/mis-publicaciones/editar/<int:publicacion_id>')
@@ -571,3 +618,13 @@ def eliminar_mi_publicacion(publicacion_id):
     flash(resultado['message'], 'success' if resultado['success'] else 'danger')
 
     return redirect(url_for('web.mis_publicaciones'))
+
+
+
+
+
+@web.route('/subcategorias/<int:categoria_id>')
+def obtener_subcategorias(categoria_id):
+    subcategorias = Subcategorias.query.filter_by(categoria_id=categoria_id).all()
+    data = [{"id": sub.subcategoria_id, "nombre": sub.nombre_subcategoria} for sub in subcategorias]
+    return jsonify(data)

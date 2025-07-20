@@ -121,6 +121,7 @@
 /* Estilo para el círculo con icono */
 .contenedor-circulo {
   margin-top: 1rem; /* Margen superior */
+  cursor: pointer;
 }
 
 .circulo-icono {

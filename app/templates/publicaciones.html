@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Categorías</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  <style>
+    body {
+      font-family: 'Oswald', sans-serif;
+    }
+      .ver-mas {
+    display: inline-block;
+    min-height: 1rem; /* o 24px para mantener el espacio */
+    visibility: hidden;
+  }
+
+  .ver-mas.visible {
+    visibility: visible;
+  }
+  </style>
+</head>
+
+
+<body class="flex flex-col min-h-screen p-12 sm:p-12" style="background-color: #F8F8F8;">
+       {% include 'nav.html' %}
+       {% include 'errors.html' %}
+    <div class="w-[70vw] mx-auto flex flex-col">
+
+  <!-- Botón de Filtros para pantallas pequeñas -->
+<div class="lg:hidden flex justify-start px-4 mb-4">
+  <button id="toggleFiltros" class="bg-[#3EAEB1] text-white px-4 py-2 rounded-lg">Filtros</button>
+</div>
+
+ <!-- Panel flotante para filtros en pantallas pequeñas -->
+ <div id="panelFiltros" class="fixed top-0 left-0 w-1/2 h-full bg-white z-50 p-4 shadow-lg hidden overflow-y-auto">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-black text-xl font-bold">Filtros</h2>
+    <button id="cerrarFiltros" class="text-black text-2xl">&times;</button>
+  </div>
+  <!-- Contenido de filtros que se extrae dinámicamente -->
+  <div id="contenidoFiltrosMobile"></div>
+</div>
+<div class="text-[#666666] text-lg mb-5 ">
+  <span class="text-2xl font-bold">{{ total_resultados }}</span><span class="ml-1">resultados</span>
+</div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-10 gap-2 sm:gap-3 lg:gap-4 ">
+
+<!-- Cuadro que muestra solo la categoría activa -->
+<div id="cuadroServicio" class="bg-white p-2 rounded-lg shadow-md col-span-2 h-20 flex-col justify-center text-left hidden lg:flex">
+  <span class="text-[#666666] text-sm uppercase tracking-wide font-medium">Categoría</span>
+  <span id="categoriaTexto" class="text-black text-base font-medium">Todas</span>
+</div>
+
+
+
+
+
+  <div class="w-full lg:w-full mx-auto bg-white p-6 rounded-lg shadow-md col-span-12 lg:col-span-8 h-20 flex justify-center items-center">
+    <nav class="flex items-center gap-5">
+        <button class="text-black text-2xl font-bold">&lt;</button>
+        <button class="w-8 h-8 flex items-center justify-center rounded-full bg-[#3EAEB1] text-black font-bold">1</button>
+        <button class="text-black text-lg">2</button>
+        <button class="text-black text-lg">3</button>
+        <button class="text-black text-lg">4</button>
+        <span class="text-black text-lg">...</span>
+        <button class="text-black text-2xl font-bold">&gt;</button>
+      </nav>
+    </div>
+
+
+    <div id="cuadroFiltros" class="bg-white p-2 rounded-lg shadow-md col-span-2 h-auto flex flex-col justify-start hidden lg:flex">
+
+  <!-- Filtro -->
+  <p class="text-[#666666] text-lg mb-3 font-normal">Filtrar por:</p>
+
+
+<!-- 🔽 INICIO DEL FORMULARIO -->
+<form id="filtroForm" method="GET" action="{{ url_for('web.publicaciones') }}">
+
+  <!-- Categorías -->
+  <div class="flex items-center justify-between mb-3">
+    <p class="text-lg font-semibold text-black">Categorías</p>
+    <button type="button" id="toggleCategorias" class="text-[#3EAEB1] text-lg ">
+      <i class="bi bi-chevron-down "></i>
+    </button>
+  </div>
+
+  <div id="categorias" class="mt-1 space-y-1.5 hidden">
+    <label class="flex items-center space-x-2 cursor-pointer category" data-categoria-id="">
+      <input type="radio" name="categoria_id" value="" class="category-radio" {% if not categoria_seleccionada %}checked{% endif %} />
+      <span class="text-[#666666] text-base">Todas</span>
+    </label>
+
+    {% for cat in categorias %}
+      <label class="flex items-center space-x-2 cursor-pointer category" data-categoria-id="{{ cat.categoria_id }}">
+        <input type="radio" name="categoria_id" value="{{ cat.categoria_id }}" class="category-radio"
+        {% if categoria_seleccionada == cat.categoria_id %}checked{% endif %} />
+        <span class="text-[#666666] text-base">{{ cat.tipo_categoria }}</span>
+      </label>
+    {% endfor %}
+  </div>
+
+  <!-- Subcategorías -->
+<div id="subcategoriasSection" class="hidden mt-3">
+  <div class="flex items-center justify-between mb-3">
+    <p class="text-lg font-semibold text-black">Subcategorías</p>
+    <button type="button" id="toggleSubcategorias" class="text-[#3EAEB1] text-lg">
+      <i class="bi bi-chevron-down"></i>
+    </button>
+  </div>
+  <div id="subcategorias" class="mt-1 space-y-1.5 hidden">
+    <!-- Subcategorías se insertan dinámicamente aquí vía JavaScript -->
+  </div>
+</div>
+
+
+  <!-- 🔘 Botón aplicar -->
+  <div class="mt-4">
+    <button type="submit" class="bg-[#3EAEB1] text-white px-4 py-2 rounded-lg w-full text-center text-sm font-semibold hover:bg-[#33989A] transition">
+      Aplicar Filtros
+    </button>
+  </div>
+</form>
+
+
+
+
+  <!-- Fecha de publicación -->
+  <div class="mt-5"></div>
+  <p class="text-lg font-semibold text-black">Fecha de publicación</p>
+<ul class="mt-2 space-y-1.5 text-base">
+    {% set tiempo_actual = request.args.get('tiempo') %}
+    {% set categoria_id = request.args.get('categoria_id') %}
+    {% set subcategoria_id = request.args.get('subcategoria_id') %}
+
+    <li>
+      <a href="{{ url_for('web.publicaciones', categoria_id=categoria_id, subcategoria_id=subcategoria_id) }}"
+         class="{% if tiempo_actual == 'todos' %}text-[#3EAEB1] font-bold{% else %}text-[#666666] hover:text-[#3EAEB1]{% endif %}"">
+        Todos
+      </a>
+    </li>
+    <li>
+      <a href="{{ url_for('web.publicaciones', categoria_id=categoria_id, subcategoria_id=subcategoria_id, tiempo='24h') }}"
+         class="{% if tiempo_actual == '24h' %}text-[#3EAEB1] font-bold{% else %}text-[#666666] hover:text-[#3EAEB1]{% endif %}">
+        Últimas 24 horas
+      </a>
+    </li>
+    <li>
+      <a href="{{ url_for('web.publicaciones', categoria_id=categoria_id, subcategoria_id=subcategoria_id, tiempo='semana') }}"
+         class="{% if tiempo_actual == 'semana' %}text-[#3EAEB1] font-bold{% else %}text-[#666666] hover:text-[#3EAEB1]{% endif %}">
+        Esta semana
+      </a>
+    </li>
+    <li>
+      <a href="{{ url_for('web.publicaciones', categoria_id=categoria_id, subcategoria_id=subcategoria_id, tiempo='mes') }}"
+         class="{% if tiempo_actual == 'mes' %}text-[#3EAEB1] font-bold{% else %}text-[#666666] hover:text-[#3EAEB1]{% endif %}">
+        Este mes
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+
+<!-- Contenedor fijo para tarjetas -->
+<div class="w-full col-span-12 lg:col-span-8">
+  <div class="relative w-full min-h-[800px] grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+    {% for pub in publicaciones_generales %}
+      <!-- Tarjeta individual -->
+    <div class="tarjeta bg-white p-4 rounded-lg shadow-md border border-gray-300 lg:h-[265px] flex flex-col lg:flex-row gap-3 lg:gap-4 items-center lg:items-start text-center lg:text-left relative font-[Oswald]">
+
+   <!-- Menú -->
+<div class="absolute top-2 right-4 menu-button-container">
+  <button class="menu-button">
+    <i class="bi bi-three-dots text-xl sm:text-2xl"></i>
+  </button>
+
+  <div class="dropdown-menu hidden absolute right-0 top-[30px] w-[120px] bg-[#F8F8F8] border border-[#ccc] rounded-[8px] p-2 shadow-[0_2px_6px_rgba(0,0,0,0.15)] z-10 font-[Oswald] font-medium text-black text-[14px]">
+
+    <a href="{{ url_for('web.perfil_experto_publico', usuario_id=pub.usuario.usuario_id) }}" class="flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1]">
+      <i class="bi bi-person-fill text-[16px] mr-2"></i>
+      <span class="font-[Oswald] font-medium text-[14px]">Ver perfil</span>
+    </a>
+
+    <a href="javascript:void(0);" class="guardar-btn flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1]" data-id="{{ pub.publicacion_id }}">
+      <i class="bi bi-bookmark-check text-[16px] mr-2"></i>
+      <span class="font-[Oswald] font-medium text-[14px]">Guardar</span>
+    </a>
+
+    <a href="#" class="flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1]">
+      <i class="bi bi-exclamation-circle text-[16px] mr-2"></i>
+      <span class="font-[Oswald] font-medium text-[14px]">Reportar</span>
+    </a>
+
+  </div>
+</div>
+      <!-- fin menú -->
+
+
+      <!-- Imagen y tarifa -->
+      <div class="flex flex-col justify-center items-center w-full sm:w-28 h-full gap-2">
+        {% if pub.usuario.perfiles.foto_perfil %}
+        <img src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" class="w-24 h-24 rounded-full object-cover shadow" />
+        {% endif %}
+
+        <span class="text-[#666666] text-xs sm:text-xs block text-center font-medium">COP {{ pub.precio }}/h</span>
+      </div>
+
+      <!-- Información del experto -->
+      <div class="flex-1 flex flex-col items-center lg:items-start">
+        <h2 class="text-black text-xl sm:text-xl font-medium">{{ pub.usuario.perfiles.primer_nombre }} {{ pub.usuario.perfiles.primer_apellido }}</h2>
+
+        <div class="flex gap-1 mt-0 mb-2">
+          <i class="bi bi-star-fill text-[#3EAEB1] text-base"></i>
+          <i class="bi bi-star-fill text-[#3EAEB1] text-base"></i>
+          <i class="bi bi-star-fill text-[#3EAEB1] text-base"></i>
+          <i class="bi bi-star-fill text-[#3EAEB1] text-base"></i>
+          <i class="bi bi-star text-[#3EAEB1] text-base"></i>
+        </div>
+
+        <p class="text-black text-base sm:text-base font-semibold">{{ pub.titulo }}</p>
+
+        <p class="text-black text-opacity-70 text-base mt-1 font-normal">Descripción:</p>
+
+        <p class="descripcion text-black text-sm sm:text-sm overflow-hidden h-[60px] leading-relaxed font-medium">
+          {{ pub.descripcion_publicacion }}
+        </p>
+
+        <span class="ver-mas text-[#3EAEB1] text-sm -mt-4 cursor-pointer font-medium">Ver más</span>
+
+        <div class="w-full flex justify-center mt-3">
+          <button class="bg-white border-[3px] border-[#3EAEB1] text-black text-[13px] px-4 py-[6px] rounded-[20px] cursor-pointer font-semibold font-[Oswald] hover:bg-[#3EAEB1] hover:text-white transition">
+            Contactar experto
+          </button>
+
+        </div>
+      </div>
+      
+    </div>
+  {% endfor %}
+
+
+  <script>
+document.querySelectorAll('.guardar-link').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const id = link.dataset.id;
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = `/guardar-publicacion/${id}`;
+    document.body.appendChild(form);
+    form.submit();
+  });
+});
+</script>
+<script>
+fetch(`/guardar-publicacion/${id}`, {
+  method: 'POST'
+})
+.then(async res => {
+  let data;
+  try {
+    data = await res.json();
+  } catch {
+    throw new Error(`Respuesta no válida: ${res.status}`);
+  }
+  if (!res.ok) {
+    throw new Error(data.message || `Error ${res.status}`);
+  }
+  alert(data.message);
+})
+.catch(err => {
+  console.error("Error en fetch:", err);
+  alert("Error al guardar: " + err.message);
+});
+
+
+</script>
+    
+
+  <script src="{{ url_for('static', filename='js/categorias.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/errors.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/publicaciones_categorias.js') }}"></script>
+
+</body>
+</html>

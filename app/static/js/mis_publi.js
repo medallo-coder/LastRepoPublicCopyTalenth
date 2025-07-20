@@ -83,3 +83,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+//back de mostrar las catefgorias y subcategorias
+document.addEventListener('DOMContentLoaded', () => {
+  const categoriaSelect = document.getElementById('categoriaSelect');
+  const subcategoriaSelect = document.getElementById('subcategoriaSelect');
+
+  categoriaSelect.addEventListener('change', function () {
+    const categoriaId = this.value;
+
+    if (!categoriaId) {
+      subcategoriaSelect.innerHTML = '<option value="">Seleccione</option>';
+      return;
+    }
+
+    fetch(`/subcategorias/${categoriaId}`)
+      .then(response => response.json())
+      .then(data => {
+        subcategoriaSelect.innerHTML = '<option value="">Seleccione</option>';
+        data.forEach(sub => {
+          const option = document.createElement('option');
+          option.value = sub.id;
+          option.textContent = sub.nombre;
+          subcategoriaSelect.appendChild(option);
+        });
+      });
+  });
+});
