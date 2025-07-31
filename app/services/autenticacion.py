@@ -126,16 +126,29 @@ def iniciar_sesion_service(data):
 def cerrar_sesion_service():
     session.pop('jwt', None)
     return {"success": True, "message": "Sesión cerrada correctamente."}
+from app.services.jwt_service import verificar_token
 
-# Servicio para verificar si el usuario está autenticado
 def verificar_autenticacion_service():
-    if not session.get('jwt'):
+    token = session.get('jwt')
+
+    if not token:
         return {
             "authenticated": False,
             "message": "No has iniciado sesión. Por favor inicia sesión o regístrate para continuar."
         }
+
+    resultado = verificar_token(token)
+
+    if not resultado.get("valid"):
+        session.pop('jwt', None)
+        return {
+            "authenticated": False,
+            "message": "Tu sesión ha expirado. Por favor inicia sesión nuevamente."
+        }
+
     return {
-        "authenticated": True
+        "authenticated": True,
+        "usuario_id": resultado.get("payload", {}).get("usuario_id")
     }
 
 

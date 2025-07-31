@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 def generar_token(usuario_id):
     payload = {
         'usuario_id': usuario_id,
-        'exp': datetime.utcnow() + timedelta(days=1)
+        'exp': datetime.utcnow() + timedelta(hours=12)
     }
     token = jwt.encode(payload, current_app.config['SECRET_KEY'], algorithm='HS256')
     return token

@@ -5,6 +5,9 @@
   <title>Mis Publicaciones</title>
   <link rel="icon" type="image/png" href="https://i.postimg.cc/26ZkKCPm/Vector.png">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/mis_publi.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/modal-promocion.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/modal-public_exit.css') }}">
+
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
@@ -21,9 +24,15 @@
     </div>
   </div>
 
-  {% if cantidad_actual < limite_maximo %}
-  <p id="mostrarFormulario" class="mostrar-form-link" {% if publicacion %}style="display:none;"{% endif %}>+ Nueva publicación</p>
+{% if cantidad_actual < limite_maximo %}
+  {% if cantidad_actual == 1 and cantidad_destacadas == 0 %}
+    <p class="mostrar-form-link" onclick="mostrarModal()">+ Nueva publicación</p>
+  {% else %}
+    <p id="mostrarFormulario" class="mostrar-form-link" {% if publicacion %}style="display:none;"{% endif %}>+ Nueva publicación</p>
   {% endif %}
+{% endif %}
+
+
 
   <div class="container">
 
@@ -97,6 +106,7 @@
               <div class="menu-opciones">
                 <a href="{{ url_for('web.editar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">Editar</a>
                 <a href="#" class="btn-eliminar-modal" data-url="{{ url_for('web.eliminar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">Eliminar</a>
+                <a href="#" onclick="abrirModalPromocionar()">Promocionar</a>
 
 
 
@@ -163,7 +173,52 @@
 </div>
 {% endfor %}
 
+
+<!-- Modal Promoción -->
+<div id="modalPromocion" class="modal-overlay">
+  <div class="modal-contenido">
+<h2>🚀 Publica más y destaca tu contenido</h2>
+<p>
+  Has alcanzado el límite gratuito de publicaciones. <strong>Adquiere una publicación adicional</strong> y obtén <strong>visibilidad destacada</strong>.
+</p>
+
+    <div class="modal-botones">
+      <a href="{{ url_for('web.obtener_promocion') }}">
+    <button class="btn-obtener">Obtener promoción</button>
+</a>
+  <button class="btn-cancelar" onclick="cerrarModal()">Más tarde</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para promocionar publicación ya existente -->
+<div class="modal-promocionar" id="modalPromocionarPublicacion">
+  <div class="modal-contenido-promocionar">
+    <span class="cerrar-promocionar" onclick="cerrarModalPromocionar()">&times;</span>
+    <h2>🚀 Promociona tu publicación</h2>
+    <p>Haz que más personas vean tu publicación destacándola por un valor adicional.</p>
+    <div class="modal-botones">
+      <a href="{{ url_for('web.obtener_promocion') }}">
+    <button class="btn-obtener">Obtener promoción</button>
+</a>
+  <button class="btn-cancelar" onclick="cerrarModal()">Más tarde</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+function obtenerPromocion() {
+  window.location.href = "/generar-promocion";
+}
+</script>
+
+     
+
+
   <script src="{{ url_for('static', filename='js/mis_publi.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/modal-promocion.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/modal-public_exit.js') }}"></script>
 
 </body>
 </html>

@@ -505,6 +505,7 @@ from app.models import Subcategorias, Publicaciones, perfiles  # Adjust path if 
   
 
 # Ver mis publicaciones
+# Ver mis publicaciones
 @web.route('/mis-publicaciones')
 def mis_publicaciones():
     usuario_id = obtener_usuario_id_autenticado()
@@ -518,11 +519,13 @@ def mis_publicaciones():
     subcategorias = obtener_subcategorias_service()
     conteo = contar_publicaciones_usuario(usuario_id)
 
-
     tiene_publicaciones = any(
         pub.titulo and pub.descripcion_publicacion
         for pub in publicaciones
     )
+
+    # 👇 Aquí es donde agregamos la lógica que faltaba:
+    cantidad_destacadas = sum(1 for pub in publicaciones if pub.destacada == "si")
 
     return render_template(
         'mis_publicaciones.html',
@@ -532,8 +535,10 @@ def mis_publicaciones():
         publicacion=None,
         tiene_publicaciones=tiene_publicaciones,
         cantidad_actual=conteo["cantidad_actual"],
-        limite_maximo=conteo["limite_maximo"])
-    
+        limite_maximo=conteo["limite_maximo"],
+        cantidad_destacadas=cantidad_destacadas  # 👈 Ahora sí se pasa al template
+    )
+
 
 
 # Guardar o actualizar publicación
@@ -628,3 +633,16 @@ def obtener_subcategorias(categoria_id):
     subcategorias = Subcategorias.query.filter_by(categoria_id=categoria_id).all()
     data = [{"id": sub.subcategoria_id, "nombre": sub.nombre_subcategoria} for sub in subcategorias]
     return jsonify(data)
+
+
+from app.services.mercado_pago_services.m_pago_service import crear_preferencia_pago
+
+@web.route('/obtener-promocion')
+def obtener_promocion():
+    url = crear_preferencia_pago(
+        titulo="Promocionar publicación",
+        precio=10000,
+        cantidad=1,
+        email_comprador="test_user_XXXXXXX@testuser.com"
+    )
+    return redirect(url)
