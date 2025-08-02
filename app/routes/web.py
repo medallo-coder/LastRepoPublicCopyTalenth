@@ -60,7 +60,7 @@ def registrarse():
         flash(resultado.get("message", "Error inesperado."), categoria)
 
         if resultado.get("success"):
-            return redirect(url_for('index.inicio'))
+            return redirect(url_for('web.inicio'))
 
     return render_template('registrar_usuario.html')
 

@@ -36,16 +36,7 @@
 
             <!-- Contenedor derecho -->
             <div class="header-right">
-                <!-- Buscador -->
-                <div class="buscador">
-                    <input type="text" placeholder="Buscar" class="inputBuscador">
-                    <div class="search">
-                        <button class="btnsearch">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </div>
-                </div>
-
+                
                 <!-- Botones visibles solo en desktop -->
                 <ul class="ulregistro">
                     {% if not session.get('jwt') %}

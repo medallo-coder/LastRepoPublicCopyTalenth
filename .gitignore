@@ -1,11 +1,33 @@
 
+# Bytecode
 __pycache__/
 *.py[cod]
 
-venv/
-.DS_Store
-Thumbs.db
-.vscode/ 
-.idea/
+# Bases de datos
 *.sqlite3
 *.db
+
+# Entornos virtuales
+venv/
+.venv/
+
+# Configuración de editores
+.vscode/
+.idea/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de logs
+*.log
+
+# Entornos de pruebas
+.coverage
+*.egg-info/
+dist/
+build/
+
+# Archivos temporales
+*.bak
+*.swp

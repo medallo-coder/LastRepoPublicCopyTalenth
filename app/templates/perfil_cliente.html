@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,74 +10,73 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="icon" type="image/png" href="https://i.postimg.cc/26ZkKCPm/Vector.png">
 </head>
+
 <body>
 
-  
+
   {% include 'nav.html' %}
   {% include 'errors.html' %}
 
-<style>
-
-</style>
-<div class="cliente">
-  <!-- Primer cuadro navegación --> 
-  <div class="cuadro redondo">
-    <div class="tabs">
-      <span class="tab active" onclick="activarTab(this)">Mi perfil</span>
-    </div>
-  </div>
-  
-<div class="cuadro grande">
-  <div class="contenido-grande">
-    <div class="titulo-principal">
-      {{ primer_nombre }} {{ segundo_nombre }} {{ primer_apellido }} {{ segundo_apellido }}
-    </div>
-    
-
-{% set imagen_url = url_for('web.perfil_foto', filename=foto_perfil) if foto_perfil else '' %}
-
-<div class="contenedor-circulo" onclick="document.getElementById('fileInput').click()">
-  <div class="circulo-icono" id="preview"
-       style="background-image: url('{{ imagen_url }}'); background-size: cover; background-position: center;">
-    {% if not foto_perfil %}
-      <i class="bi bi-person-fill-add"></i>
-    {% endif %}
-  </div>
-
-  <!-- Campo oculto de archivo -->
-  <form method="POST" action="/perfil_cliente" enctype="multipart/form-data" id="formImagen">
-    <input type="hidden" name="form_tipo" value="foto_perfil">
-    <input type="file" name="foto" id="fileInput" accept="image/*" style="display: none;" onchange="mostrarImagen(event)">
-  </form>
-</div>
-    
-    <div class="estrellas">
-      <i class="bi bi-star-fill"></i>
-      <i class="bi bi-star-fill"></i>
-      <i class="bi bi-star-fill"></i>
-      <i class="bi bi-star-fill"></i>
-      <i class="bi bi-star-fill"></i>
+  <div class="cliente">
+    <!-- Primer cuadro navegación -->
+    <div class="cuadro redondo">
+      <div class="tabs">
+        <span class="tab active" onclick="activarTab(this)">Mi perfil</span>
+      </div>
     </div>
 
-</div>
+    <div class="cuadro grande">
+      <div class="contenido-grande">
+        <div class="titulo-principal">
+          {{ primer_nombre }} {{ segundo_nombre }} {{ primer_apellido }} {{ segundo_apellido }}
+        </div>
 
-  <div class="icono-lapiz">
-    <i class="bi bi-pencil-square" onclick="document.getElementById('formulario-editar').style.display='flex'"></i>
-  </div>
-</div>
+
+        {% set imagen_url = url_for('web.perfil_foto', filename=foto_perfil) if foto_perfil else '' %}
+
+        <div class="contenedor-circulo" onclick="document.getElementById('fileInput').click()">
+          <div class="circulo-icono" id="preview"
+            style="background-image: url('{{ imagen_url }}'); background-size: cover; background-position: center;">
+            {% if not foto_perfil %}
+            <i class="bi bi-person-fill-add"></i>
+            {% endif %}
+          </div>
+
+          <!-- Campo oculto de archivo -->
+          <form method="POST" action="/perfil_cliente" enctype="multipart/form-data" id="formImagen">
+            <input type="hidden" name="form_tipo" value="foto_perfil">
+            <input type="file" name="foto" id="fileInput" accept="image/*" style="display: none;"
+              onchange="mostrarImagen(event)">
+          </form>
+        </div>
+
+        <div class="estrellas">
+          <i class="bi bi-star-fill"></i>
+          <i class="bi bi-star-fill"></i>
+          <i class="bi bi-star-fill"></i>
+          <i class="bi bi-star-fill"></i>
+          <i class="bi bi-star-fill"></i>
+        </div>
+
+      </div>
+
+      <div class="icono-lapiz">
+        <i class="bi bi-pencil-square" onclick="document.getElementById('formulario-editar').style.display='flex'"></i>
+      </div>
+    </div>
 
 
-  <!-- Contenedor dividido en dos columnas -->
-  <div class="contenedor-columnas">
-    
-  <!-- Columna izquierda -->
-    <div class="columna-izquierda">
-      
-      <!-- Ubicacion -->
-      <div class="ubicacion">
-        <h2 class="titulo-ubicacion">Ubicación</h2>
-        <h2 class="titulo-barrio" > Barrio </h2>
-         {% if direccion %}
+    <!-- Contenedor dividido en dos columnas -->
+    <div class="contenedor-columnas">
+
+      <!-- Columna izquierda -->
+      <div class="columna-izquierda">
+
+        <!-- Ubicacion -->
+        <div class="ubicacion">
+          <h2 class="titulo-ubicacion">Ubicación</h2>
+          <h2 class="titulo-barrio"> Barrio </h2>
+          {% if direccion %}
           <div class="item-ubicacion">
             <div class="fila-ubicacion">
               <p class="barrio">{{ direccion }}</p>
@@ -92,275 +92,285 @@
               </div>
             </div>
           </div>
-        {% else %}
+          {% else %}
           <div class="añadir-ubicacion" onclick="mostrarFormularioUbicacion()">
             + Añadir barrio
           </div>
-        {% endif %}
+          {% endif %}
+
+        </div>
+
+        <!-- Sección de empresa -->
+        <div class="empresa">
+          <p class="empresa-registrada">Empresa registrada</p>
+          <h2 class="titulo-empresa">¿Perteneces a una empresa?</h2>
+
+          <!-- Información de la empresa -->
+          <div class="item-empresa" {% if not nombre_empresa %}style="display: none;" {% endif %}>
+            <div class="empresaicon">
+              <h3 class="nombre_empresa" id="nombreMostrado">NOMBRE </h3>
+              <div class="iconos">
+                <i id="lapizempresa" class="bi bi-pencil-square" onclick="mostrarFormularioEditar()"></i>
+                <i class="bi bi-trash"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botón para añadir empresa -->
+          <div class="añadir-empresa" id="btnAñadirEmpresa" {% if nombre_empresa %}style="display: none;" {% endif %}>
+            <span onclick="mostrarFormularioEmpresa()">+ Añadir nombre</span>
+          </div>
+
+
+        </div>
 
       </div>
 
-<!-- Sección de empresa -->
-<div class="empresa">
-  <p class="empresa-registrada">Empresa registrada</p>
-  <h2 class="titulo-empresa">¿Perteneces a una empresa?</h2>
+      <!-- Carrucel-->
 
-  <!-- Información de la empresa -->
-  <div class="item-empresa" {% if not nombre_empresa %}style="display: none;"{% endif %}>
-    <div class="empresaicon">
-      <h3 class="nombre_empresa" id="nombreMostrado">NOMBRE </h3>
-      <div class="iconos">
-        <i id="lapizempresa" class="bi bi-pencil-square" onclick="mostrarFormularioEditar()"></i>
-        <i class="bi bi-trash"></i>
+      <div class="contenedor">
+        <h2 id="titulo-favoritos">Calificaciones</h2>
+        <div class="slider-container">
+          <div class="slider" id="slider">
+
+            <!-- Tarjeta 1 -->
+            <div class="card">
+              <div>
+                <img src="" alt="" />
+              </div>
+              <div class="card-content">
+                <h3>Claudia Henao</h3>
+                <div class="estrellasTarjetas">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+                <p class="descripcion">Excelente trabajador, cumplió con todas sus responsabilidades, muy puntual.</p>
+              </div>
+            </div>
+
+            <!-- Tarjeta 2 -->
+            <div class="card">
+              <div>
+                <img src="" alt="" />
+              </div>
+              <div class="card-content">
+                <h3>Claudia Henao</h3>
+                <div class="estrellasTarjetas">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+                <p class="descripcion">Excelente trabajador, cumplió con todas sus responsabilidades, muy puntual.</p>
+              </div>
+            </div>
+
+            <!-- Tarjeta 3 -->
+            <div class="card">
+              <div>
+                <img src="" alt="" />
+              </div>
+              <div class="card-content">
+                <h3>Claudia Henao</h3>
+                <div class="estrellasTarjetas">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+                <p class="descripcion">Excelente trabajador, cumplió con todas sus responsabilidades, muy puntual.</p>
+              </div>
+            </div>
+
+            <!-- Tarjeta 4 -->
+            <div class="card">
+              <div>
+                <img src="" alt="" />
+              </div>
+              <div class="card-content">
+                <h3>Claudia Henao</h3>
+                <div class="estrellasTarjetas">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+                <p class="descripcion">Excelente trabajador, cumplió con todas sus responsabilidades, muy puntual.</p>
+              </div>
+            </div>
+
+            <!-- Tarjeta 5 -->
+            <div class="card">
+              <div>
+                <img src="" alt="" />
+              </div>
+              <div class="card-content">
+                <h3>Claudia Henao</h3>
+                <div class="estrellasTarjetas">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </div>
+                <p class="descripcion">Excelente trabajador, cumplió con todas sus responsabilidades, muy puntual.</p>
+              </div>
+            </div>
+
+
+          </div>
+
+          <!-- Flechas -->
+          <div class="arrows">
+            <button class="arrow-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" fill="none" stroke="#3EAEB1"
+                stroke-width="2.5" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 8 8 12 12 16" />
+                <line x1="16" y1="12" x2="8" y2="12" />
+              </svg>
+            </button>
+
+            <button class="arrow-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" fill="none" stroke="#3EAEB1"
+                stroke-width="2.5" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 8 16 12 12 16" />
+                <line x1="8" y1="12" x2="16" y2="12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulario emergente para añadir barrio -->
+      <div class="formulario-ubicacion" id="formularioUbicacion" style="display: none;">
+        <div class="formulario-ubicacion-contenido">
+          <h2>Agregar barrio</h2>
+          <form method="POST" action="{{ url_for('web.perfil_cliente') }}">
+            <input type="hidden" name="form_tipo" value="direccion">
+            <div class="campo">
+              <input type="text" name="direccion" placeholder="Escribe el nombre del barrio" required />
+            </div>
+            <div class="botones">
+              <button type="submit">Guardar</button>
+              <button type="button" onclick="cerrarFormularioUbicacion()">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Formulario emergente para editar barrio -->
+      <div class="formulario-ubicacion-editar" id="formularioUbicacionEditar" style="display: none;">
+        <div class="formulario-editar-ubicacion-contenido">
+          <h2>Editar barrio</h2>
+          <form method="POST" action="{{ url_for('web.perfil_cliente') }}">
+            <input type="hidden" name="form_tipo" value="direccion">
+            <div class="campo">
+              <label for="editar-barrio"></label>
+              <input type="text" id="editar-barrio" name="direccion" placeholder="Escribe el nuevo barrio" required />
+            </div>
+            <div class="botones">
+              <button type="submit">Guardar</button>
+              <button type="button" onclick="cerrarFormularioEditarUbicacion()">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+      <!-- Formulario para añadir empresa -->
+      <div class="formulario-empresa" id="formulario-empresa" style="display: none;">
+        <div class="formulario-empresa-contenido">
+          <h2>Agregar empresa</h2>
+          <form method="POST" action="{{ url_for('web.perfil_cliente') }}">
+            <input type="hidden" name="form_tipo" value="nombre_empresa">
+            <div class="campo">
+              <input type="text" name="nombre_empresa" placeholder="Escribe el nombre de la empresa" required />
+            </div>
+            <div class="botones">
+              <button type="submit">Guardar</button>
+              <button type="button" onclick="cerrarFormularioEmpresa()">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+      <!-- Formulario emergente para editar empresa -->
+      <div class="formulario-editar-empresa" id="formulario-editar-empresa" style="display: none;">
+        <div class="formulario-editar-empresa-contenido">
+          <h2>Editar empresa</h2>
+          <form method="POST" action="{{ url_for('web.perfil_cliente') }}">
+            <input type="hidden" name="form_tipo" value="nombre_empresa">
+            <div class="campo">
+              <label for="editar-empresa"></label>
+              <input type="text" id="editar-empresa" name="nombre_empresa" placeholder="Escribe el nuevo nombre"
+                required />
+            </div>
+            <div class="botones">
+              <button type="submit">Guardar</button>
+              <button type="button" onclick="cerrarFormularioEditarEmpresa()">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+
+      <!-- Formulario de edición de contacto -->
+      <div class="formulario-editar" id="formulario-editar" style="display: none;">
+        <div class="formulario-contenido">
+          <h2>Editar contacto</h2>
+          <form method="POST" action="{{ url_for('web.perfil_cliente') }}">
+            <input type="hidden" name="form_tipo" value="perfil_principal">
+            <div class="campo">
+              <input type="text" id="primer_nombre" name="primer_nombre" value="{{ primer_nombre }}"
+                placeholder="Primer nombre" required>
+            </div>
+            <div class="campo">
+              <input type="text" id="segundo_nombre" name="segundo_nombre" value="{{ segundo_nombre }}"
+                placeholder="Segundo nombre (opcional)">
+            </div>
+            <div class="campo">
+              <input type="text" id="primer_apellido" name="primer_apellido" value="{{ primer_apellido }}"
+                placeholder="Primer apellido" required>
+            </div>
+            <div class="campo">
+              <input type="text" id="segundo_apellido" name="segundo_apellido" value="{{ segundo_apellido }}"
+                placeholder="Segundo apellido (opcional)">
+            </div>
+            <div class="botones">
+              <button type="submit">Guardar</button>
+              <button type="button" onclick="cerrarFormulario()">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+      <!-- Modal -->
+      <div id="modalTarjeta" class="modal hidden">
+        <div class="modal-content">
+          <button id="cerrarTarjeta" class="close-button">✕</button>
+          <!-- Aquí se cargará el contenido de la tarjeta -->
+          <div id="contenidoTarjeta"></div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Botón para añadir empresa -->
-  <div class="añadir-empresa" id="btnAñadirEmpresa" {% if nombre_empresa %}style="display: none;"{% endif %}>
-    <span onclick="mostrarFormularioEmpresa()">+ Añadir nombre</span>
-  </div>   
 
-      
-  </div>
-
-  </div>
-
-  <!-- Carrucel-->
-
-  <div class="contenedor">
-    <h2 id="titulo-favoritos">Calificaciones</h2>
-    <div class="slider-container">
-      <div class="slider" id="slider">
-
-        <!-- Tarjeta 1 -->
-        <div class="card">
-          <div>
-            <img src="" alt="" />
-          </div>
-            <div class="card-content">
-              <h3 >Claudia Henao</h3>
-              <div class="estrellasTarjetas">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </div>
-              <p class="descripcion">Excelente trabajador, cumplió con todas sus responsabilidades, muy puntual.</p>
-            </div>
-        </div>
-        
-        <!-- Tarjeta 2 -->
-        <div class="card">
-          <div>
-            <img src="" alt="" />
-          </div>
-            <div class="card-content">
-              <h3 >Claudia Henao</h3>
-              <div class="estrellasTarjetas">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </div>
-              <p class="descripcion">Excelente trabajador, cumplió con todas sus responsabilidades, muy puntual.</p>
-            </div>
-        </div>
-
-        <!-- Tarjeta 3 -->
-        <div class="card">
-          <div>
-            <img src="" alt="" />
-          </div>
-            <div class="card-content">
-              <h3 >Claudia Henao</h3>
-              <div class="estrellasTarjetas">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </div>
-              <p class="descripcion">Excelente trabajador, cumplió con todas sus responsabilidades, muy puntual.</p>
-            </div>
-        </div>
-
-        <!-- Tarjeta 4 -->
-        <div class="card">
-          <div>
-            <img src="" alt="" />
-          </div>
-            <div class="card-content">
-              <h3 >Claudia Henao</h3>
-              <div class="estrellasTarjetas">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </div>
-              <p class="descripcion">Excelente trabajador, cumplió con todas sus responsabilidades, muy puntual.</p>
-            </div>
-        </div>
-
-        <!-- Tarjeta 5 -->
-        <div class="card">
-          <div>
-            <img src="" alt="" />
-          </div>
-            <div class="card-content">
-              <h3 >Claudia Henao</h3>
-              <div class="estrellasTarjetas">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </div>
-              <p class="descripcion">Excelente trabajador, cumplió con todas sus responsabilidades, muy puntual.</p>
-            </div>
-        </div>
-        
-  
-      </div>
-
-      <!-- Flechas -->
-      <div class="arrows">
-        <button class="arrow-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" fill="none" stroke="#3EAEB1" stroke-width="2.5" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" />
-            <polyline points="12 8 8 12 12 16" />
-            <line x1="16" y1="12" x2="8" y2="12" />
-          </svg>
-        </button>
-        
-        <button class="arrow-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" fill="none" stroke="#3EAEB1" stroke-width="2.5" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" />
-            <polyline points="12 8 16 12 12 16" />
-            <line x1="8" y1="12" x2="16" y2="12" />
-          </svg>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Formulario emergente para añadir barrio -->
-<div class="formulario-ubicacion" id="formularioUbicacion" style="display: none;">
-  <div class="formulario-ubicacion-contenido">
-    <h2>Agregar barrio</h2>
-    <form method="POST" action="{{ url_for('web.perfil_cliente') }}">
-      <input type="hidden" name="form_tipo" value="direccion">
-      <div class="campo">
-        <input type="text" name="direccion" placeholder="Escribe el nombre del barrio" required />
-      </div>
-      <div class="botones">
-        <button type="submit">Guardar</button>
-        <button type="button" onclick="cerrarFormularioUbicacion()">Cancelar</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Formulario emergente para editar barrio -->
-<div class="formulario-ubicacion-editar" id="formularioUbicacionEditar" style="display: none;">
-  <div class="formulario-editar-ubicacion-contenido">
-    <h2>Editar barrio</h2>
-    <form method="POST" action="{{ url_for('web.perfil_cliente') }}">
-      <input type="hidden" name="form_tipo" value="direccion">
-      <div class="campo">
-        <label for="editar-barrio"></label>
-        <input type="text" id="editar-barrio" name="direccion" placeholder="Escribe el nuevo barrio" required />
-      </div>
-      <div class="botones">
-        <button type="submit">Guardar</button>
-        <button type="button" onclick="cerrarFormularioEditarUbicacion()">Cancelar</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-  
-  <!-- Formulario para añadir empresa -->
-  <div class="formulario-empresa" id="formulario-empresa" style="display: none;">
-  <div class="formulario-empresa-contenido">
-    <h2>Agregar empresa</h2>
-    <form method="POST" action="{{ url_for('web.perfil_cliente') }}">
-      <input type="hidden" name="form_tipo" value="nombre_empresa">
-      <div class="campo">
-        <input type="text" name="nombre_empresa" placeholder="Escribe el nombre de la empresa" required />
-      </div>
-      <div class="botones">
-        <button type="submit">Guardar</button>
-        <button type="button" onclick="cerrarFormularioEmpresa()">Cancelar</button>
-      </div>
-    </form>
-  </div>
-</div>
+    <script src="{{ url_for('static', filename='js/perfil_cliente.js') }}"></script>
 
 
- <!-- Formulario emergente para editar empresa -->
-<div class="formulario-editar-empresa" id="formulario-editar-empresa" style="display: none;">
-  <div class="formulario-editar-empresa-contenido">
-    <h2>Editar empresa</h2>
-    <form method="POST" action="{{ url_for('web.perfil_cliente') }}">
-      <input type="hidden" name="form_tipo" value="nombre_empresa">
-      <div class="campo">
-        <label for="editar-empresa"></label>
-        <input type="text" id="editar-empresa" name="nombre_empresa" placeholder="Escribe el nuevo nombre" required />
-      </div>
-      <div class="botones">
-        <button type="submit">Guardar</button>
-        <button type="button" onclick="cerrarFormularioEditarEmpresa()">Cancelar</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-
-
- <!-- Formulario de edición de contacto -->
-<div class="formulario-editar" id="formulario-editar"  style="display: none;">
-  <div class="formulario-contenido">
-    <h2>Editar contacto</h2>
-    <form method="POST" action="{{ url_for('web.perfil_cliente') }}">
-      <input type="hidden" name="form_tipo" value="perfil_principal">
-      <div class="campo">
-        <input type="text" id="primer_nombre" name="primer_nombre" value="{{ primer_nombre }}" placeholder="Primer nombre" required>
-      </div>
-      <div class="campo">
-        <input type="text" id="segundo_nombre" name="segundo_nombre" value="{{ segundo_nombre }}" placeholder="Segundo nombre (opcional)">
-      </div>
-      <div class="campo">
-        <input type="text" id="primer_apellido" name="primer_apellido" value="{{ primer_apellido }}" placeholder="Primer apellido" required>
-      </div>
-      <div class="campo">
-        <input type="text" id="segundo_apellido" name="segundo_apellido" value="{{ segundo_apellido }}" placeholder="Segundo apellido (opcional)">
-      </div>
-      <div class="botones">
-        <button type="submit">Guardar</button>
-        <button type="button" onclick="cerrarFormulario()">Cancelar</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-
-<!-- Modal -->
-<div id="modalTarjeta" class="modal hidden">
-  <div class="modal-content">
-    <button id="cerrarTarjeta" class="close-button">✕</button>
-    <!-- Aquí se cargará el contenido de la tarjeta -->
-    <div id="contenidoTarjeta"></div>
-  </div>
-</div>
-
-
-
-  <script src="{{ url_for('static', filename='js/perfil_cliente.js') }}"></script>
-
- 
+    {% include 'footer.html' %}
 </body>
+
 </html>

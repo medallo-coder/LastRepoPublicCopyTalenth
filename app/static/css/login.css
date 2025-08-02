@@ -180,6 +180,12 @@ button {
     margin: 0 auto; /* Esto lo mantiene centrado */
 }
 
+/* Íconos del toggle password */
+.toggle-pass {
+    cursor: pointer;
+    color: #333;
+}
+
   /* Contenedor para los enlaces centrados */
     .recuperar-creacion {
         display: flex;
