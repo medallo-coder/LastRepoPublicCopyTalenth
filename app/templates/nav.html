@@ -80,17 +80,8 @@
 
                 <li><a href="{{ url_for('web.publicaciones') }}"><i class="bi bi-grid"></i><span>Publicaciones</span></a></li>
                 <li><a href="{{ url_for('web.mensajeria') }}"><i class="bi bi-chat-dots"></i><span>Mensajes</span></a></li>
-{% if id_rol == 1 %}
-    <!-- Usuario es EXPERTO → puede convertirse en CLIENTE -->
-    <li>
-        <a href="#" class="btn-cambio-rol"
-           data-url="{{ url_for('web.convertir_a_cliente') }}"
-           data-titulo="Convertirse en Cliente">
-            <i class="bi bi-person-fill-check"></i>
-            <span>Convertirse en Cliente</span>
-        </a>
-    </li>
-{% elif id_rol == 2 %}
+
+{% if id_rol == 2 %}
     <!-- Usuario es CLIENTE → puede convertirse en EXPERTO -->
     <li>
         <a href="#" class="btn-cambio-rol"

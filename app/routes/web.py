@@ -79,7 +79,7 @@ def iniciar_sesion():
             #se añade la funcion login user para mantener la sesion activa (mensajeria)
             usuario = Usuario.query.filter_by(correo=data["correo"]).first()  # Obtener usuario
             login_user(usuario)  # Mantener sesión activa
-            return redirect(url_for('index.inicio'))
+            return redirect(url_for('web.inicio'))
 
     return render_template('iniciar_sesion.html')
 
@@ -87,7 +87,7 @@ def iniciar_sesion():
 @web.route('/cerrar_sesion', methods=['POST', 'GET'])
 def cerrar_sesion():
     cerrar_sesion_service()
-    return redirect(url_for('index.inicio'))
+    return redirect(url_for('web.inicio'))
 
 # Ruta para la configuración del usuario
 @web.route('/configuracion', methods=['GET', 'POST'])
@@ -121,7 +121,7 @@ def cambiar_contraseña():
     auth_result = verificar_autenticacion_service()
     if not auth_result["authenticated"]:
         flash(auth_result["message"], "error")
-        return redirect(url_for('index.inicio'))  # O 'web.index'
+        return redirect(url_for('web.inicio'))  # O 'web.index'
 
     data = request.form.to_dict()
     resultado = cambiar_contrasena_service(data)
@@ -139,7 +139,7 @@ def deshabilitar_cuenta():
     auth_result = verificar_autenticacion_service()
     if not auth_result["authenticated"]:
         flash(auth_result["message"], "error")
-        return redirect(url_for('index.inicio'))
+        return redirect(url_for('web.inicio'))
 
     data = request.form.to_dict()
     resultado = deshabilitar_cuenta_service(data)
@@ -148,7 +148,7 @@ def deshabilitar_cuenta():
     flash(resultado.get("message", "Error inesperado."), categoria)
 
     if resultado.get("success"):
-        return redirect(url_for('index.inicio'))  # Redirige a la página principal o donde prefieras
+        return redirect(url_for('web.inicio'))  # Redirige a la página principal o donde prefieras
 
     return redirect(url_for('web.configuracion'))
 
