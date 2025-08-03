@@ -26,9 +26,20 @@ def guardar_mi_publicacion_service(data):
         # Validación básica
         titulo = data.get('titulo', '').strip()
         descripcion = data.get('descripcion_publicacion', '').strip()
+        precio = data.get('precio')  # <- NUEVO
 
         if not titulo or not descripcion:
             return {"success": False, "message": "Título y descripción son obligatorios."}
+
+        if precio is None or str(precio).strip() == "":
+            return {"success": False, "message": "El precio es obligatorio."}
+
+        try:
+            precio = float(precio)
+            if precio < 0:
+                return {"success": False, "message": "El precio no puede ser negativo."}
+        except ValueError:
+            return {"success": False, "message": "Precio inválido."}
 
         destacada = data.get("destacada", "no")
 
@@ -44,6 +55,7 @@ def guardar_mi_publicacion_service(data):
             # Actualizar campos
             publicacion.titulo = titulo
             publicacion.descripcion_publicacion = descripcion
+            publicacion.precio = precio  # <- NUEVO
             publicacion.categoria_id = data.get("categoria_id")
             publicacion.subcategoria_id = data.get("subcategoria_id")
             publicacion.destacada = destacada
@@ -61,11 +73,9 @@ def guardar_mi_publicacion_service(data):
         cantidad_destacadas = sum(1 for pub in publicaciones_usuario if pub.destacada == "si")
         cantidad_no_destacadas = cantidad_total - cantidad_destacadas
 
-        # Si ya tiene una destacada, no puede agregar otra destacada
         if destacada == "si" and cantidad_destacadas >= 1:
             return {"success": False, "message": "Solo puedes tener una publicación destacada."}
 
-        # Si quiere agregar otra no destacada pero ya tiene una, y no tiene destacadas, no se permite
         if destacada == "no" and cantidad_no_destacadas >= 1 and cantidad_destacadas == 0:
             return {
                 "success": False,
@@ -76,6 +86,7 @@ def guardar_mi_publicacion_service(data):
         nueva = Publicaciones(
             titulo=titulo,
             descripcion_publicacion=descripcion,
+            precio=precio,  # <- NUEVO
             categoria_id=data.get("categoria_id"),
             subcategoria_id=data.get("subcategoria_id"),
             usuario_id=usuario_id,
