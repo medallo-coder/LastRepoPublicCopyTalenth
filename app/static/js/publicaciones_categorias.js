@@ -92,4 +92,12 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error al obtener subcategorías:", err);
       });
   }
+
+  // Función para cerrar el menú (desde la X)
+  window.cerrarMenu = function (elemento) {
+    const menu = elemento.closest(".dropdown-menu");
+    if (menu) {
+      menu.classList.add("hidden");
+    }
+  };
 });

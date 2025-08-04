@@ -23,6 +23,28 @@
     .ver-mas.visible {
       visibility: visible;
     }
+
+    
+
+ .menu-close-btn {
+  position: absolute;
+  top: 2px;
+  right: 6px;
+  font-size: 20px;
+  font-weight: normal;
+  font-family: Arial, Helvetica, sans-serif !important; /* FORZA que no use Oswald */
+  color: #333;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  line-height: 1;
+}
+
+.menu-close-btn:hover {
+  color: #3EAEB1;
+}
+
+
+
   </style>
 </head>
 
@@ -134,6 +156,7 @@
             <div class="absolute top-2 right-4 menu-button-container">
               <button class="menu-button"><i class="bi bi-three-dots text-xl sm:text-2xl"></i></button>
               <div class="dropdown-menu hidden absolute right-0 top-[30px] w-[120px] bg-[#F8F8F8] border border-[#ccc] rounded-[8px] p-2 shadow-[0_2px_6px_rgba(0,0,0,0.15)] z-10 font-[Oswald] font-medium text-black text-[14px]">
+                <span class="menu-close-btn block text-right text-lg font-bold cursor-pointer mb-1" onclick="cerrarMenu(this)">x</span>
                 <a href="{{ url_for('web.perfil_experto_publico', usuario_id=pub.usuario.usuario_id) }}" class="flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1]"><i class="bi bi-person-fill text-[16px] mr-2"></i>Ver perfil</a>
                 <a href="javascript:void(0);" class="guardar-btn flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1]" data-id="{{ pub.publicacion_id }}"><i class="bi bi-bookmark-check text-[16px] mr-2"></i>Guardar</a>
                 <a href="#" class="flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1]"><i class="bi bi-exclamation-circle text-[16px] mr-2"></i>Reportar</a>

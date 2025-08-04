@@ -453,7 +453,21 @@
     font-weight: 500; /* Oswald Medium */
     color: black; /* Color de la letra en negro */
   }
+  .menu-close-btn {
+  position: absolute;
+  top: 2px;          
+  right: 6px;        
+  font-size: 20px;   
+  font-weight: normal;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  line-height: 1;
+}
 
+.menu-close-btn:hover {
+  color: #3EAEB1;
+}
   .menu-completo a {
     display: flex;
     align-items: center;

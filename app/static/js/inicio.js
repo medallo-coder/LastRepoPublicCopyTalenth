@@ -126,6 +126,15 @@ document.addEventListener("DOMContentLoaded", function() {
     const menuButtons = document.querySelectorAll('.menu-button');
     const dropdownMenus = document.querySelectorAll('.menu-completo');
 
+        // Función global para cerrar el menú desde la "x"
+    window.cerrarMenu = function(elemento) {
+        const menu = elemento.closest('.menu-completo');
+        if (menu) {
+            menu.style.display = 'none';
+        }
+    };
+
+
     menuButtons.forEach((button, index) => {
         const dropdownMenu = dropdownMenus[index];
 
