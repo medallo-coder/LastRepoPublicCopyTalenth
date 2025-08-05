@@ -62,7 +62,12 @@
 
 
 
-    <p class="precio">COP {{ "{:,.0f}".format(pub.precio) }}/h</p>
+    {% if pub.precio is not none %}
+  <p class="precio">COP {{ "{:,.0f}".format(pub.precio) }}/h</p>
+{% else %}
+  <p class="precio">No especificado</p>
+{% endif %}
+
 
     <p class="descripcion1">
       {{ pub.descripcion_publicacion }}
