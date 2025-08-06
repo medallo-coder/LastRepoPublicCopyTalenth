@@ -41,46 +41,37 @@
 
 /* Estilos para las pestañas de navegación */
 .tabs {
-  display: flex; /* Usamos flexbox */
-  gap: 8rem; /* Espacio entre las pestañas */
-}
-
-
-/* Estilo para cada pestaña */
-.tab {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: black;
-  transition: color 0.3s ease;
-  text-decoration: none;
-  position: relative; /* para posicionar el pseudo-elemento */
-}
-
-
-/* Subrayado animado con ::after */
-.tab::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px; /* espacio justo debajo del texto */
-  height: 2px;
-  width: 0;
-  background-color: #3EAEB1;
-  transition: width 0.3s ease;
-}
-
-/* Al pasar el mouse, el subrayado se expande */
-.tab:hover::after {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+  position: relative;
+}
+
+.tabs__main {
+  display: flex;
+  position: relative;
+}
+
+.tabs__tab {
+  padding: 0.7em 1.5em;
+  font-size: 22px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #3eaeb1;
+  position: relative;
+  z-index: 1;
 }
 
 
-/* Estilo cuando una pestaña está activa */
-.tab.active {
-  color: #3EAEB1;
+.active_tab {
+  position: absolute;
+  border-bottom: solid 2px #3eaeb1;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  z-index: 0;
 }
+
 
 
 /*-----------------------------------------------

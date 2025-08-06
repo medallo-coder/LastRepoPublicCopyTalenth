@@ -19,8 +19,11 @@
   
   <div class="cuadro redondo">
     <div class="tabs">
-      <span class="tab active" onclick="activarTab(this)">Mis publicaciones</span>
-      <a href="{{ url_for('web.perfil_experto') }}" class="tab">Mi perfil</a>
+      <div class="tabs__main">
+        <div class="active_tab"></div>
+        <div class="tabs__tab" data-href="{{ url_for('web.perfil_experto') }}">Mi perfil</div>
+        <div class="tabs__tab" data-href="{{ url_for('web.mis_publicaciones') }}">Mis publicaciones</div>
+      </div>
     </div>
   </div>
 
@@ -37,7 +40,7 @@
   <div class="container">
 
     <!-- Formulario -->
-    <div class="card" style="display: {{ 'block' if publicacion else 'none' }};">
+    <div class="card" style="display: {{ 'block' if publicacion else 'none' }}">
       <div class="card-header">
         {% if publicacion %}
           Editar Publicación

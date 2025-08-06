@@ -9,7 +9,6 @@ body {
   background-color: #f8f8f8;
   font-family: 'Oswald', sans-serif;
   color: #000000;
-  padding: 20px;
 }
 
 .container {
@@ -299,45 +298,36 @@ button:hover,
 }
 
 /* Contenedor de pestañas centrado y adaptativo */
+/* Estilos para las pestañas de navegación */
 .tabs {
+  width: 100%;
   display: flex;
-  justify-content: center;   /* Centra horizontalmente */
-  flex-wrap: wrap;           /* Permite que se acomoden en varias líneas si no caben */
-  gap: 2rem;                 /* Espacio entre las pestañas */
-  padding: 1rem 0;
-}
-
-/* Estilo para cada pestaña */
-.tab {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: black;
-  transition: color 0.3s ease;
-  text-decoration: none;
+  justify-content: center;
+  padding: 0 20px;
   position: relative;
 }
 
-/* Subrayado animado */
-.tab::after {
-  content: "";
+.tabs__main {
+  display: flex;
+  position: relative;
+}
+
+.tabs__tab {
+  padding: 0.7em 1.5em;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  font-weight: bold;
+  color: #3eaeb1;
+  font-size: 22px;
+}
+
+.active_tab {
   position: absolute;
-  left: 0;
-  bottom: -4px;
-  height: 2px;
-  width: 0;
-  background-color: #3EAEB1;
-  transition: width 0.3s ease;
-}
-
-.tab:hover::after {
-  width: 100%;
-}
-
-/* Pestaña activa */
-.tab.active {
-  color: #3EAEB1;
+  border-bottom: solid 2px #3eaeb1;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  z-index: 0;
 }
 
 /* 🔄 Responsividad adicional */

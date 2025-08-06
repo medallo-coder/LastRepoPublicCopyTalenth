@@ -26,8 +26,9 @@
 .footer {
     width: 100%;             
     padding: 40px 20px;
-    background: linear-gradient(to bottom, #f8f8f8 0%, #3eaeb1 40%);
+    background: #2e8285;
     margin-top: 1px;
+
   }
   
   .footer-container {
@@ -50,7 +51,7 @@
     margin-bottom: 15px;
     font-size: 18px;
     font-weight: bold;
-    color: #606060;
+    color: #f8f8f8;
   }
   
   .footer-column ul {
@@ -66,7 +67,7 @@
   .footer-column a {
     text-decoration: none;
     font-size: 15px;
-    color: #f8f8f8;
+    color: #d9d9d9;
   }
   
   /* Parte inferior */

@@ -1,9 +1,41 @@
-// Navegación entre tabs
-function activarTab(element) {
-  const tabs = document.querySelectorAll('.tab');
-  tabs.forEach(tab => tab.classList.remove('active'));
-  element.classList.add('active');
-}
+//tabs
+const tabs = document.querySelectorAll(".tabs__tab");
+const active = document.querySelector(".active_tab");
+let currentTab = 0;
+
+const move = (target, ac) => {
+  const { offsetLeft, offsetTop, offsetWidth, offsetHeight } = target;
+  active.style.left = `${offsetLeft}px`;
+  active.style.top = `${offsetTop}px`;
+  active.style.width = `${offsetWidth}px`;
+  active.style.height = `${offsetHeight}px`;
+  currentTab = ac;
+};
+
+// Detectar cuál tab es el actual en base a URL
+tabs.forEach((tab, index) => {
+  if (window.location.pathname === tab.dataset.href) {
+    currentTab = index;
+  }
+});
+
+// Posicionar cuadro al cargar
+move(tabs[currentTab], currentTab);
+
+tabs.forEach((el, index) => {
+  el.addEventListener("click", (e) => {
+    e.preventDefault(); // Evita navegación inmediata
+    move(el, index);    // Mueve el cuadro
+    const href = el.dataset.href;
+    setTimeout(() => {
+      window.location.href = href;
+    }, 300); // Tiempo para ver la animación
+  });
+});
+
+window.addEventListener("resize", () => {
+  move(tabs[currentTab], currentTab);
+});
 
 // Menú acciones
 function toggleMenu(trigger) {
