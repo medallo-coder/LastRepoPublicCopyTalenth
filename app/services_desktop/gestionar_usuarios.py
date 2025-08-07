@@ -4,7 +4,7 @@ from app.services.jwt_service import generar_token, verificar_token
 from app.extensions import db
 
 
-
+# Servicio para gestionar los usuarios
 def gestionar_usuarios_admin_service():
     token = session.get('jwt')
 
@@ -33,8 +33,10 @@ def gestionar_usuarios_admin_service():
     if usuario_admin.id_rol != 3:
         return{"success": False, "message": "No tienes permisos de administrador"}
     
+    # Traemos a todos los usuarios
     usuarios = Usuario.query.all()
 
+    # Los guardamos en el array lista_usuarios
     lista_usuarios = []
 
     for usuario in usuarios:
@@ -52,6 +54,7 @@ def gestionar_usuarios_admin_service():
     return {"success": True, "usuarios": lista_usuarios}
 
 
+# Servicio para deshabilitar cuentas de usuarios
 def deshabilitar_cuentas_admin_service(data):
     token = session.get('jwt')
 
@@ -83,12 +86,15 @@ def deshabilitar_cuentas_admin_service(data):
 
     usuario = Usuario.query.filter_by(usuario_id=usuario_id).first()
 
+    # Validamos si existe el usuario
     if not usuario:
         return {"success": False, "message": "No hay ningun usuario"}
     
+    # Verificamos si el usuario ya esta deshabilitado
     if usuario.estado == "deshabilitado":
         return{"success": False, "message": "El usuario ya esta deshabilitado"}
     
+    # En caso de estar activo lo cambiamos a deshabilitado
     if usuario.estado == "activo":
         usuario.estado = "deshabilitado"
         db.session.commit()

@@ -3,7 +3,7 @@ from flask import request, session
 from app.services.jwt_service import generar_token, verificar_token
 from app.models.perfiles import perfiles
 
-
+# Servicio para ver los perfiles de los usuarios 
 def perfil_usuarios_admin_service():
     token = session.get('jwt')
 
@@ -33,8 +33,10 @@ def perfil_usuarios_admin_service():
         return{"success": False, "message": "No tienes permisos de administrador"}
     
 
+    # Hacemos un filtro para que nos traiga los perfiles, pero de los usuarios que tengan rol de cliente y experto.
     perfiless = perfiles.query.join(Usuario).filter(Usuario.id_rol.in_([1,2])).all()
 
+    # Guardamos los perfiles en el array lista_perfiles
     lista_perfiles= []
 
     for  perfil in perfiless:
