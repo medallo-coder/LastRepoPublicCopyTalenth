@@ -202,96 +202,84 @@
 
 
 
-      <!-- Columna derecha -->
-      <div class="columna-derecha">
-        <div class="cuadro-pequeno">
+      
+    <!-- Columna derecha -->
+    <div class="columna-derecha">
+      <div class="cuadro-pequeno">
 
-          {% if nombre_idioma %}
-          <!-- Idiomas -->
-          <div class="idiomas">
-            <h2 class="titulo-idiomas">Idiomas</h2>
-            <i id="agregaridiomas" class="bi bi-plus-circle-fill"></i>
-          </div>
+        <!-- Idiomas -->
+        <div class="idiomas">
+          <h2 class="titulo-idiomas">Idiomas</h2>
+          <i id="agregaridiomas" class="bi bi-plus-circle-fill"></i>
+        </div>
 
-          <div class="idioma-item">
-            <i class="bi bi-check2-circle icono-idioma"></i>
-            <span class="idioma-nombre">{{ nombre_idioma }}</span>
-            <span class="idioma-nivel"><!--(Nativo)--> </span>
-
-            <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;">
-              <input type="hidden" name="form_tipo3" value="eliminar_idioma">
-              <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-
-              <button type="submit" class="boton-icono" title="Eliminar idioma"
-                onclick="return confirm('Seguro que deseas eliminar el  idioma?')">
-                <i class="bi bi-trash"></i>
-              </button>
-            </form>
-          </div>
-
-          {% else %}
-
-          <div class="cuadro-pequeno">
-            <!-- Aptitudes -->
-            <div class="idiomas">
-              <h2 class="titulo-idiomas">Idiomas</h2>
-              <i id="agregaridiomas" class="bi bi-plus-circle-fill"></i>
-            </div>
-
-            {% endif %}
-
-
-            <div class="idioma-item">
-              <!--<i class="bi bi-check2-circle icono-idioma"></i> -->
-              <span class="idioma-nombre"></span>
-              <span class="idioma-nivel"></span>
-              <!-- <i class="bi bi-trash icono-borrar"></i> -->
-            </div>
-          </div>
-
-
-          {% if tipo_aptitud %}
-          <div class="cuadro-pequeno">
-            <!-- Aptitudes -->
-            <div class="idiomas">
-              <h2 class="titulo-idiomas">Aptitudes</h2>
-              <i id="agregaraptitudes" class="bi bi-plus-circle-fill"></i>
-            </div>
-
+        {% if idiomas %}
+          {% for idioma in idiomas %}
             <div class="idioma-item">
               <i class="bi bi-check2-circle icono-idioma"></i>
-              <span class="idioma-nombre">{{ tipo_aptitud }}</span>
+              <span class="idioma-nombre">{{ idioma.nombre }}</span>
 
-              <form method="POST" action="{{ url_for('web.perfil_experto')  }}" style="display: inline;">
-                <input type="hidden" name="form_tipo4" value="eliminar_aptitud">
+              <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;">
+                <input type="hidden" name="form_tipo3" value="eliminar_idioma">
                 <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-
-                <button type="submit" class=" boton-icono" title="Eliminar idioma"
-                  onclick="return confirm('Seguro que deseas eliminar el  idioma?')">
+                <input type="hidden" name="idioma_id" value="{{ idioma.id }}"> <!-- 👈 ID individual del idioma -->
+                
+                <button type="submit" class="boton-icono" title="Eliminar idioma"
+                  onclick="return confirm('¿Seguro que deseas eliminar el idioma?')">
                   <i class="bi bi-trash"></i>
                 </button>
               </form>
             </div>
+          {% endfor %}
 
-            {% else %}
-            <div class="cuadro-pequeno">
-              <!-- Aptitudes -->
-              <div class="idiomas">
-                <h2 class="titulo-idiomas">Aptitudes</h2>
-                <i id="agregaraptitudes" class="bi bi-plus-circle-fill"></i>
-              </div>
 
-              {% endif %}
+        {% endif %}
 
-              <div class="idioma-item">
-                <!-- <i class="bi bi-check2-circle icono-idioma"></i> -->
-                <span class="idioma-nombre"></span>
-                <!--  <i class="bi bi-trash icono-borrar"></i> -->
-              </div>
+          
+            <div class="idioma-item">
+              <!--<i class="bi bi-check2-circle icono-idioma"></i> -->
+              <span class="idioma-nombre"></span>
+              <span class="idioma-nivel"></span>
+            <!-- <i class="bi bi-trash icono-borrar"></i> -->
             </div>
           </div>
+          
+          
+        
+        <div class="cuadro-pequeno">
+          <!-- Aptitudes -->
+          <div class="idiomas">
+            <h2 class="titulo-idiomas">Aptitudes</h2>
+            <i id="agregaraptitudes" class="bi bi-plus-circle-fill"></i>
+          </div>
+
+          {% if aptitudes %}
+            {% for aptitud in aptitudes %}
+              <div class="idioma-item">
+                <i class="bi bi-check2-circle icono-idioma"></i>
+                <span class="idioma-nombre">{{ aptitud.tipo_aptitud }}</span>
+                
+                <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;">
+                  <input type="hidden" name="form_tipo4" value="eliminar_aptitud">
+                  <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
+                  <input type="hidden" name="tipo_aptitud" value="{{ aptitud.tipo_aptitud }}">
+                  <button type="submit" class="boton-icono" title="Eliminar aptitud" onclick="return confirm('¿Seguro que deseas eliminar esta aptitud?')">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </form>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="idioma-item">
+                <!--<i class="bi bi-check2-circle icono-idioma"></i> -->
+                <span class="idioma-nombre"></span>
+                <span class="idioma-nivel"></span>
+              <!-- <i class="bi bi-trash icono-borrar"></i> -->
+            </div>
+          {% endif %}
         </div>
       </div>
+    </div>
 
 
       <!-- Carrucel-->

@@ -4,7 +4,7 @@ from app.services.configuracion import cambiar_contrasena_service,obtener_datos_
 from app.services.perfil_cliente import actualizar_perfil_cliente_service, subir_foto_perfil_service
 from app.services.perfil_experto import actualizar_perfil_experto_service, actualizar_perfil_experto_service2, actualizar_perfil_experto_service3,actualizar_perfil_experto_service4
 from app.services.perfil_experto import eliminar_idioma, eliminar_aptitud,eliminar_estudios,editar_estudios,actualizar_experiencia,eliminar_experiencia,editar_experiencia
-from app.services.perfil_experto import actualizar_perfil_experto_service5,eliminar_descripcion,editar_descripcion, subir_foto_perfil_service_experto
+from app.services.perfil_experto import actualizar_perfil_experto_service5,eliminar_descripcion,editar_descripcion, subir_foto_perfil_service_experto, obtener_idiomas_perfil, obtener_aptitudes_perfil
 from app.services.rol_service import verificar_rol, cambiar_rol_a_experto_service, cambiar_rol_a_cliente_service
 from app.services.mis_publicaciones import obtener_mis_publicaciones_service, obtener_categorias_service, obtener_subcategorias_service, obtener_publicacion_por_id_service, guardar_mi_publicacion_service, eliminar_publicacion_service, contar_publicaciones_usuario, obtener_subcategorias_por_categoria_service
 from app.services.perfil_publico import obtener_perfil_publico_service
@@ -12,11 +12,12 @@ from app.services.guardados import obtener_guardados_service, guardar_publicacio
 from app.services.publicaciones_generales import obtener_publicaciones_generales_service, obtener_publicaciones_filtradas_service
 from app.services.jwt_service import verificar_token
 from flask import send_from_directory
-
 from app.models import Usuario  # Importa el modelo de Usuario
 from app.models import Categorias  # Importa el modelo de Categorias
 from werkzeug.utils import secure_filename
+
 import os
+
 
 
 #librerias para la mensajeria
@@ -302,32 +303,38 @@ def perfil_experto():
         return redirect(url_for('web.iniciar_sesion'))
 
     if request.method == 'POST':
-        form_tipo =   request.form.get('form_tipo1') or  request.form.get('form_tipo2') or request.form.get('form_tipo3') or request.form.get('form_tipo4') or request.form.get('form_tipo5') or request.form.get('form_tipo6')   # Obtiene el tipo de formulario enviado
+        form_tipo = (
+            request.form.get('form_tipo1') or
+            request.form.get('form_tipo2') or
+            request.form.get('form_tipo3') or
+            request.form.get('form_tipo4') or
+            request.form.get('form_tipo5') or
+            request.form.get('form_tipo6')
+        )
         data = request.form.to_dict()
 
         if form_tipo == 'perfil_principal2':
-            # Actualizar solo campos principales
             campos = ['primer_nombre', 'segundo_nombre', 'primer_apellido', 'segundo_apellido']
             resultado = actualizar_perfil_experto_service(data, campos=campos)
-        
+
         elif form_tipo == 'idioma':
-             campos=['nombre_idioma']
-             resultado =  actualizar_perfil_experto_service2(data, campos=campos)
-        
+            campos = ['nombre_idioma']
+            resultado = actualizar_perfil_experto_service2(data, campos=campos)
+
         elif form_tipo == 'aptitud':
             campos = ['tipo_aptitud']
             resultado = actualizar_perfil_experto_service3(data, campos=campos)
-        
+
         elif form_tipo == 'estudios':
-             campos= ['institucion', 'titulo_obtenido', 'fecha_inicio', 'fecha_fin']
-             resultado = actualizar_perfil_experto_service4(data, campos=campos)
+            campos = ['institucion', 'titulo_obtenido', 'fecha_inicio', 'fecha_fin']
+            resultado = actualizar_perfil_experto_service4(data, campos=campos)
 
         elif form_tipo == 'eliminar_idioma':
             resultado = eliminar_idioma(data)
 
         elif form_tipo == 'eliminar_aptitud':
             resultado = eliminar_aptitud(data)
-        
+
         elif form_tipo == 'eliminar_estudios':
             resultado = eliminar_estudios(data)
 
@@ -339,7 +346,7 @@ def perfil_experto():
 
         elif form_tipo == 'eliminar_experiencia':
             resultado = eliminar_experiencia(data)
-        
+
         elif form_tipo == 'editar_experiencia':
             resultado = editar_experiencia(data)
 
@@ -348,44 +355,49 @@ def perfil_experto():
 
         elif form_tipo == 'eliminar_descripcion':
             resultado = eliminar_descripcion(data)
-        
+
         elif form_tipo == 'editar_descripcion':
             resultado = editar_descripcion(data)
-        
+
         elif form_tipo == 'foto_perfil':
-             file = request.files.get('foto')
-             resultado = subir_foto_perfil_service_experto(file)
+            file = request.files.get('foto')
+            resultado = subir_foto_perfil_service_experto(file)
 
         else:
             resultado = {"success": False, "message": "Formulario desconocido."}
-        
+
         categoria = 'success' if resultado.get("success") else 'error'
         flash(resultado.get("message", "Error al actualizar perfil."), categoria)
         return redirect(url_for('web.perfil_experto'))
 
+    # GET: cargar datos para mostrar en plantilla
     resultado = obtener_datos_usuario_service()
-    
-    return render_template(
-        'perfil_experto.html', 
-        id_perfil=resultado.get("id_perfil", ""),
-        primer_nombre= resultado.get("primer_nombre", "").title(),
-        segundo_nombre = (resultado.get("segundo_nombre") or "").title(), 
-        primer_apellido = resultado.get("primer_apellido", "").title(),
-        segundo_apellido = (resultado.get("segundo_apellido") or "").title(),
-        descripcion_perfil = (resultado.get("descripcion_perfil") or "").title(),
-        nombre_idioma = (resultado.get("nombre_idioma") or "").title(),
-        tipo_aptitud = (resultado.get("tipo_aptitud") or "").title(),
-        institucion = (resultado.get("institucion") or "").title(),
-        titulo_obtenido = (resultado.get("titulo_obtenido") or "").title(), 
-        fecha_inicio = resultado.get("fecha_inicio", ""),
-        fecha_fin = resultado.get("fecha_fin", ""),
-        nombre_experiencia = (resultado.get("nombre") or "").title(),
-        descripcion_experiencia = (resultado.get("descripcion") or "").title(),
-        fecha_inicio_experiencia = resultado.get("fecha_inicio_experiencia", ""),
-        fecha_fin_experiencia = resultado.get("fecha_fin_experiencia", ""),
-        foto_perfil=resultado.get("foto_perfil", "")
+    id_perfil = resultado.get("id_perfil", "")
+    idiomas = obtener_idiomas_perfil()
+    aptitudes = obtener_aptitudes_perfil(id_perfil)  # ✅ AÑADIDO: obtener lista de aptitudes del perfil
 
-        )
+    return render_template(
+        'perfil_experto.html',
+        id_perfil=id_perfil,
+        primer_nombre=resultado.get("primer_nombre", "").title(),
+        segundo_nombre=(resultado.get("segundo_nombre") or "").title(),
+        primer_apellido=resultado.get("primer_apellido", "").title(),
+        segundo_apellido=(resultado.get("segundo_apellido") or "").title(),
+        descripcion_perfil=(resultado.get("descripcion_perfil") or "").title(),
+        nombre_idioma=(resultado.get("nombre_idioma") or "").title(),
+        tipo_aptitud=(resultado.get("tipo_aptitud") or "").title(),
+        institucion=(resultado.get("institucion") or "").title(),
+        titulo_obtenido=(resultado.get("titulo_obtenido") or "").title(),
+        fecha_inicio=resultado.get("fecha_inicio", ""),
+        fecha_fin=resultado.get("fecha_fin", ""),
+        nombre_experiencia=(resultado.get("nombre") or "").title(),
+        descripcion_experiencia=(resultado.get("descripcion") or "").title(),
+        fecha_inicio_experiencia=resultado.get("fecha_inicio_experiencia", ""),
+        fecha_fin_experiencia=resultado.get("fecha_fin_experiencia", ""),
+        foto_perfil=resultado.get("foto_perfil", ""),
+        idiomas=idiomas,
+        aptitudes=aptitudes  #  AÑADIDO: pasar la lista de aptitudes al HTML
+    )
         
     
 

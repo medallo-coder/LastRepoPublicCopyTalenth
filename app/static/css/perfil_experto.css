@@ -760,18 +760,30 @@
 
 /* Estilo para un cuadro pequeño */
 .cuadro-pequeno {
-  height: 11rem; /* Altura ajustada */
-  background-color: white; /* Fondo blanco */
-  border: 1px solid #6b7280; /* Borde gris oscuro */
-  border-radius: 0.5rem; /* Bordes redondeados */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-  margin-bottom: 1.5rem; /* Margen debajo */
+  min-height: 11rem; /* Altura mínima inicial, pero puede crecer */
+  height: auto;      /* Deja que se adapte al contenido */
+  background-color: white;
+  border: 1px solid #6b7280;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  overflow: visible; /* Asegura que no corte nada */
 }
 
 
 /*-----------------------------------------------
   Estilos para idiomas
 -----------------------------------------------*/
+
+/* Contenedor de idiomas */
+.idiomas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 25px; /* Ajusta el padding para controlar el espacio en los laterales */
+  margin: 0 0 1rem;
+  margin-top: 20px;
+}
 
 /* Contenedor de idiomas */
 .idiomas {
@@ -999,15 +1011,15 @@
 -----------------------------------------------*/
 
 /* Estilo para el contenedor con el título y las tarjetas */
+
+/* Estilo para el contenedor con el título y las tarjetas */
 .contenedor {
   width: 70%; /* Ancho del contenedor */
   height: 22rem; /* Altura ajustada */
   background-color: white; /* Fondo blanco */
   border: 1px solid #6b7280; /* Borde gris oscuro */
   border-radius: 1rem; /* Bordes redondeados */
-  display: flex; /* Flexbox para centrar el contenido */
-  flex-direction: column; /* Colocar el contenido en una columna (título + slider) */
-  position: relative; /* Posición relativa para iconos u otros elementos */
+  margin: 40px auto; /* centra el carrusel y añade separación */
   overflow: hidden; /* Ocultar el desbordamiento */
   padding: 20px; /* Espaciado interno */
   

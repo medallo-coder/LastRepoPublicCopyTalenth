@@ -66,38 +66,45 @@ def actualizar_perfil_experto_service2(data, campos=None):
     perfil = perfiles.query.filter_by(id_usuario=usuario_id).first()
     
     if not perfil:
-        return {"success": False, "message": "perfil  no encontrado."}
+        return {"success": False, "message": "Perfil no encontrado."}
 
-    
     nombre_idioma = data.get('nombre_idioma')
     print(f"Nombre del idioma recibido: {nombre_idioma}")
 
-    idioma=Idiomas.query.filter_by(nombre_idioma=nombre_idioma).first()
-
+    idioma = Idiomas.query.filter_by(nombre_idioma=nombre_idioma).first()
     if not idioma:
-        return {"success": False, "message": "Idioma no encontrado."}  
-    
+        return {"success": False, "message": "Idioma no encontrado."}
+
+    #  Verificar si ya hay 3 idiomas asociados al perfil
+    cantidad_idiomas = db.session.execute(
+        text("SELECT COUNT(*) FROM perfil_idioma WHERE id_perfil = :perfil_id"),
+        {"perfil_id": perfil.id_perfil}
+    ).scalar()
+
+    if cantidad_idiomas >= 3:
+        return {"success": False, "message": "Solo puedes añadir hasta 3 idiomas."}
+
+    #  Verificar si ya existe esa relación
     relacion_existente = db.session.execute(
-        text( "SELECT * FROM perfil_idioma WHERE id_perfil = :perfiles AND idioma_id = :idiomas"),
+        text("SELECT * FROM perfil_idioma WHERE id_perfil = :perfiles AND idioma_id = :idiomas"),
         {"perfiles": perfil.id_perfil, "idiomas": idioma.idioma_id}
     ).fetchone()
     
     if relacion_existente:
         return {"success": False, "message": "El idioma ya está asociado a este perfil."}
-    
+
     try:
         db.session.execute(
             text("INSERT INTO perfil_idioma (id_perfil, idioma_id) VALUES (:perfil, :idioma)"),
             {"perfil": perfil.id_perfil, "idioma": idioma.idioma_id}
         )
-       
         db.session.commit()
         return {"success": True, "message": "Idioma añadido correctamente al perfil."}
     except Exception as e:
         db.session.rollback()
         return {"success": False, "message": f"Error al añadir idioma: {str(e)}"}
-    
-def actualizar_perfil_experto_service3(data, campos= None ):
+ 
+def actualizar_perfil_experto_service3(data, campos=None):
     token = session.get('jwt')
     if not token:
         return {"success": False, "message": "No estás autenticado."}
@@ -107,30 +114,36 @@ def actualizar_perfil_experto_service3(data, campos= None ):
         return {"success": False, "message": resultado_token["message"]}
 
     usuario_id = resultado_token["payload"].get("usuario_id")
-
-    perfil=perfiles.query.filter_by(id_usuario=usuario_id).first()
-
-    
+    perfil = perfiles.query.filter_by(id_usuario=usuario_id).first()
 
     if not perfil:
         return {"success": False, "message": "Usuario no encontrado."}
 
     tipo_aptitud = data.get('tipo_aptitud')
-    print(f"Tipo de aptitud recibido: {tipo_aptitud}")
     if not tipo_aptitud:
         return {"success": False, "message": "Tipo de aptitud no proporcionado."}
 
-   
+    #  Verificar si ya hay 3 aptitudes registradas
+    cantidad = db.session.execute(
+        text("SELECT COUNT(*) FROM aptitudes WHERE id_perfil = :perfil AND tipo_aptitud IS NOT NULL"),
+        {"perfil": perfil.id_perfil}
+    ).scalar()
+
+    if cantidad >= 3:
+        return {"success": False, "message": "Solo puedes registrar hasta 3 aptitudes."}
+
     try:
+        #  Inserta una nueva aptitud
         db.session.execute(
-            text("UPDATE aptitudes SET tipo_aptitud  =:tipo_aptitud  WHERE id_perfil = :perfil"),
-            {"tipo_aptitud": tipo_aptitud, "perfil": perfil.id_perfil} 
+            text("INSERT INTO aptitudes (id_perfil, tipo_aptitud) VALUES (:perfil, :tipo_aptitud)"),
+            {"perfil": perfil.id_perfil, "tipo_aptitud": tipo_aptitud}
         )
         db.session.commit()
-        return {"success": True, "message": "Aptitud  agregada correctamente."}
+        return {"success": True, "message": "Aptitud agregada correctamente."}
     except Exception as e:
         db.session.rollback()
-        return {"success": False, "message": f"Error al actualizar aptitud: {str(e)}"}
+        return {"success": False, "message": f"Error al agregar aptitud: {str(e)}"}
+
 
 
 def actualizar_perfil_experto_service4(data, campos= None ):
@@ -181,6 +194,35 @@ def actualizar_perfil_experto_service4(data, campos= None ):
         db.session.rollback()
         return {"success": False, "message": f"Error al agregar estudios: {str(e)}"}
     
+   
+def obtener_idiomas_perfil():
+    token = session.get('jwt')
+    if not token:
+        return []
+
+    resultado = verificar_token(token)
+    if not resultado["valid"]:
+        return []
+
+    usuario_id = resultado["payload"].get("usuario_id")
+    perfil = perfiles.query.filter_by(id_usuario=usuario_id).first()
+
+    if not perfil:
+        return []
+
+    resultados = db.session.execute(
+        text("""
+            SELECT i.idioma_id, i.nombre_idioma 
+            FROM perfil_idioma pi
+            JOIN idiomas i ON i.idioma_id = pi.idioma_id
+            WHERE pi.id_perfil = :perfil_id
+        """),
+        {"perfil_id": perfil.id_perfil}
+    ).fetchall()
+
+    # Agregamos también el ID del idioma 
+    return [{"id": fila[0], "nombre": fila[1]} for fila in resultados]
+
 
 def eliminar_idioma(data):
     token = session.get('jwt')
@@ -192,69 +234,51 @@ def eliminar_idioma(data):
         return {"success": False, "message": resultado_token["message"]}
 
     usuario_id = resultado_token["payload"].get("usuario_id")
-
-    perfil=perfiles.query.filter_by(id_usuario=usuario_id).first()
-
-    
+    perfil = perfiles.query.filter_by(id_usuario=usuario_id).first()
 
     if not perfil:
         return {"success": False, "message": "Usuario no encontrado."}
 
     id_perfil = data.get('id_perfil')
-    
-    if not id_perfil:
-        return {"success": False, "message": "ID  no proporcionado."}
+    idioma_id = data.get('idioma_id')  #  Aquí el nombre correcto
 
-   
+    if not id_perfil or not idioma_id:
+        return {"success": False, "message": "Faltan datos para eliminar el idioma."}
+
     try:
         db.session.execute(
-            text("DELETE FROM  perfil_idioma   WHERE id_perfil = :perfil"),
-            {"perfil": id_perfil} 
+            text("DELETE FROM perfil_idioma WHERE id_perfil = :perfil AND idioma_id = :idioma"),
+            {"perfil": id_perfil, "idioma": idioma_id}
         )
         db.session.commit()
-        return {"success": True, "message": "Idioma borrado correctamente."}
+        return {"success": True, "message": "Idioma eliminado correctamente."}
     except Exception as e:
         db.session.rollback()
         return {"success": False, "message": f"Error al eliminar idioma: {str(e)}"}
 
+def obtener_aptitudes_perfil(id_perfil):
+    resultados = db.session.execute(
+        text("SELECT tipo_aptitud FROM aptitudes WHERE id_perfil = :perfil AND tipo_aptitud IS NOT NULL"),
+        {"perfil": id_perfil}
+    ).fetchall()
 
+    return [{"tipo_aptitud": fila[0]} for fila in resultados]
 
 def eliminar_aptitud(data):
-    token = session.get('jwt')
-    if not token:
-        return {"success": False, "message": "No estás autenticado."}
+    id_perfil = data.get("id_perfil")
+    tipo_aptitud = data.get("tipo_aptitud")
 
-    resultado_token = verificar_token(token)
-    if not resultado_token["valid"]:
-        return {"success": False, "message": resultado_token["message"]}
-
-    usuario_id = resultado_token["payload"].get("usuario_id")
-
-    perfil=perfiles.query.filter_by(id_usuario=usuario_id).first()
-
-    
-
-    if not perfil:
-        return {"success": False, "message": "Usuario no encontrado."}
-
-    id_perfil = data.get('id_perfil')
-    
-    
-    if not id_perfil:
-        return {"success": False, "message": "ID  no proporcionado."}
-
-   
     try:
         db.session.execute(
-            text("UPDATE aptitudes SET tipo_aptitud =:tipo_aptitud  WHERE id_perfil = :perfil"),
-            { "tipo_aptitud": None  ,"perfil": id_perfil} 
+            text("DELETE FROM aptitudes WHERE id_perfil = :id_perfil AND tipo_aptitud = :tipo_aptitud"),
+            {"id_perfil": id_perfil, "tipo_aptitud": tipo_aptitud}
         )
         db.session.commit()
-        return {"success": True, "message": "Aptitud borrada correctamente."}
+        return {"success": True, "message": "Aptitud eliminada correctamente"}
     except Exception as e:
         db.session.rollback()
-        return {"success": False, "message": f"Error al eliminar la aptitud: {str(e)}"}
-    
+        return {"success": False, "message": f"Error al eliminar aptitud: {str(e)}"}
+
 def eliminar_estudios(data):
     token = session.get('jwt')
     if not token:
