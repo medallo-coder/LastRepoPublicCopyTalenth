@@ -7,6 +7,7 @@
   <title>Categorías</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/modal_reportar.css') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
   <style>
     body {
@@ -148,6 +149,8 @@
       </div>
 
       <!-- tarjetas -->
+      {% include "modal_reportar.html" %}
+
       <div class="w-full col-span-12 lg:col-span-8">
         <div class="relative w-full min-h-[800px] grid grid-cols-1 sm:grid-cols-2 gap-4">
           {% for pub in publicaciones_generales %}
@@ -159,7 +162,7 @@
                 <span class="menu-close-btn block text-right text-lg font-bold cursor-pointer mb-1" onclick="cerrarMenu(this)">x</span>
                 <a href="{{ url_for('web.perfil_experto_publico', usuario_id=pub.usuario.usuario_id) }}" class="flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1]"><i class="bi bi-person-fill text-[16px] mr-2"></i>Ver perfil</a>
                 <a href="javascript:void(0);" class="guardar-btn flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1]" data-id="{{ pub.publicacion_id }}"><i class="bi bi-bookmark-check text-[16px] mr-2"></i>Guardar</a>
-                <a href="#" class="flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1]"><i class="bi bi-exclamation-circle text-[16px] mr-2"></i>Reportar</a>
+               <a href="#" class="flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1] abrir-modal-reporte"><i class="bi bi-exclamation-circle text-[16px] mr-2"></i><span>Reportar</span></a>
               </div>
             </div>
             <!-- Imagen -->
@@ -193,5 +196,7 @@
   <script src="{{ url_for('static', filename='js/categorias.js') }}"></script>
   <script src="{{ url_for('static', filename='js/errors.js') }}"></script>
   <script src="{{ url_for('static', filename='js/publicaciones_categorias.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/modal_reportar.js') }}"></script>
+
 </body>
 </html>
