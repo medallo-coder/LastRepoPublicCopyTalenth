@@ -90,6 +90,11 @@ def cerrar_sesion():
     cerrar_sesion_service()
     return redirect(url_for('web.inicio'))
 
+#Ruta para guia de usuario
+@web.route('/guia_usuario')
+def guia_usuario():
+    return render_template('guia_usuario.html')
+
 # Ruta para la configuración del usuario
 @web.route('/configuracion', methods=['GET', 'POST'])
 def configuracion():

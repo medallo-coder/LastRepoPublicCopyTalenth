@@ -1,0 +1,90 @@
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+.contenido {
+    flex: 1;
+    max-width: 70%;
+    padding-right: 60px; /* separación con el menú */
+}
+
+/* Menu lateral */
+.menu-lateral {
+    width: 30%;
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+    text-align: left;
+    margin-left: 40px; 
+}
+
+/* Estilos del menú*/
+.ul {
+    width: fit-content;
+    height: fit-content;
+    background-color: transparent;
+    list-style: none;
+    margin: 100px auto; /* centrado horizontalmente */
+    padding: 0;
+}
+
+.li {
+    margin-bottom: 10px;
+}
+
+.button {
+    background-color: transparent;
+    font-family: sans-serif;
+    color: rgb(23, 11, 11);
+    border: none;
+    font-size: 22px;
+    font-weight: 700;
+    padding: 10px 30px;
+    cursor: pointer;
+    position: relative;
+    padding-left: 11px;
+    text-align: center;
+    transition: 0.1s;
+    z-index: 1;
+}
+
+.p {
+    z-index: 2;
+    position: relative;
+}
+
+.button:hover {
+    color: #fff; /* color hover del texto */
+}
+
+.button::before {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: #3eaeb1; /* color base del rombo */
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg); /* rotación fija a rombo */
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.button:hover::before {
+    width: calc(100% - 20px); 
+    height: 40px;
+    top: 50%;
+    left: 10px; /* centrado */
+    transform: translateY(-50%) rotate(0deg);
+    border-radius: 3px;
+    background-color: #3eaeb1;
+}
+
+.button:active::before {
+    background-color: #3eaeb1; /* color al hacer clic */
+}
+
+section {
+    margin-bottom: 60px;
+}
