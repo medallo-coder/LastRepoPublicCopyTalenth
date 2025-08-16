@@ -230,13 +230,12 @@ textarea {
 }
 
 .btn-secondary {
-  background: white;
+  background: #f8f8f8;
   color: black;
-  padding: 8px 8%;
-  border: none;
+  padding: 0.4rem 3rem;
   border-radius: 20px;
-  border: 3px solid #cac8c8;
-  font-size: 15px;
+  border: 1px solid #E5E5E5;
+  font-size: 1rem;
   cursor: pointer;
   font-family: 'Oswald', sans-serif;
   text-decoration: none;
@@ -428,4 +427,14 @@ button:hover,
   margin-top: 15px;
   display: flex;
   justify-content: space-around;
+}
+.modal-acciones a {
+  background-color: #3eaeb1;
+  color: white;
+  border: none;
+  padding: 0.4rem 3rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
 }

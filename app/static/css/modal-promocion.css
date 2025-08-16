@@ -47,16 +47,16 @@
   color: white;
   border: none;
   padding: 10px 20px;
-  border-radius: 8px;
+  border-radius: 25px;
   cursor: pointer;
   font-weight: bold;
+  
 }
 
 .btn-cancelar {
-  background-color: #606060;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
+  background-color: #f8f8f8;
+  color: black;
+  padding: 0.4rem 3rem;
+  border-radius: 25px;
+  border: 1px solid #E5E5E5
 }

@@ -296,7 +296,13 @@
   font-weight: 500;
   font-size: 14px;
   color: black;
-  margin: 0 0 4px; /* Para dar un pequeño espacio hacia el botón */
+  margin: 0 0 4px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-height: 3.6em;       /* 3 líneas aprox */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ver-mas {

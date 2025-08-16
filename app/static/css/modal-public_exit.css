@@ -10,17 +10,11 @@
 .modal-contenido-promocionar {
   background-color: white;
   margin: 10% auto;
-  padding: 20px;
+  padding: 30px;
   width: 80%;
   max-width: 500px;
   border-radius: 12px;
   text-align: center;
-}
-
-.cerrar-promocionar {
-  float: right;
-  font-size: 28px;
-  cursor: pointer;
 }
 
 .botones-promocionar {
@@ -29,7 +23,7 @@
 
 .btn-confirmar-promocionar,
 .btn-cancelar-promocionar {
-  padding: 10px 20px;
+  padding: 0.4rem 3rem;
   margin: 5px;
   border: none;
   border-radius: 8px;
