@@ -18,3 +18,4 @@ class Estudios(db.Model):
     
     def __repr__(self):
         return f"<Estudio {self.id_estudio}>"
+    

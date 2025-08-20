@@ -4,6 +4,7 @@ from flask import request, session
 from app.extensions import db
 from app.services.jwt_service import generar_token, verificar_token
 from app.models.publicaciones import Publicaciones
+from app.models.categorias import Categorias
 
 
 
@@ -38,7 +39,7 @@ def gestion_publicaciones_admin_service(data):
 
     publicacion_id = data.get('publicacion_id')
     fecha = data.get('fecha')
-    categoria_id = data.get('categoria_id')
+    tipo_categoria = data.get('tipo_categoria')
 
     
     # Hace un filtro de las publicaciones que debe de traer
@@ -49,8 +50,9 @@ def gestion_publicaciones_admin_service(data):
     if fecha:
         query  = query.filter(Publicaciones.fecha==fecha)
 
-    if categoria_id:
-        query = query.filter(Publicaciones.categoria_id==categoria_id)
+    if  tipo_categoria:
+        query = query.join(Publicaciones.categoria).filter(Categorias.tipo_categoria == tipo_categoria)
+
 
     # Trae las publicaciones que se asignaron con ese filtro
     publicaciones = query.all()
@@ -67,10 +69,12 @@ def gestion_publicaciones_admin_service(data):
             "titulo": publicacion.titulo,
             "precio": publicacion.precio,
             "categoria_id": publicacion.categoria_id,
-            "tipo_categoria": publicacion.categoria.tipo_categoria,
+            "categorias": publicacion.categoria.tipo_categoria,
             "subcategoria_id": publicacion.subcategoria_id,
             "nombre_subcategoria": publicacion.subcategoria.nombre_subcategoria,
-            "descripcion_publicacion": publicacion.descripcion_publicacion
+            "descripcion_publicacion": publicacion.descripcion_publicacion,
+            "primer_nombre": publicacion.usuario.perfiles.primer_nombre,
+            "primer_apellido": publicacion.usuario.perfiles.primer_apellido
         })
 
     return {"success": True, "lista_publicaciones": resultado}

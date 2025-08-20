@@ -13,6 +13,7 @@ from .idiomas import Idiomas
 from .subcategorias import Subcategorias
 from app.extensions import db
 from .perfil_idioma import perfil_idioma
+from .reportes import Reportes
 
 Usuario.mensajes_enviados = db.relationship(
     'Mensajeria',
