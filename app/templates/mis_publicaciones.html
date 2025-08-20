@@ -197,14 +197,13 @@
 <!-- Modal para promocionar publicación ya existente -->
 <div class="modal-promocionar" id="modalPromocionarPublicacion">
   <div class="modal-contenido-promocionar">
-    <span class="cerrar-promocionar" onclick="cerrarModalPromocionar()">&times;</span>
     <h2>🚀 Promociona tu publicación</h2>
     <p>Haz que más personas vean tu publicación destacándola por un valor adicional.</p>
     <div class="modal-botones">
       <a href="{{ url_for('web.obtener_promocion') }}">
-    <button class="btn-obtener">Obtener promoción</button>
-</a>
-  <button class="btn-cancelar" onclick="cerrarModal()">Más tarde</button>
+        <button class="btn-obtener">Obtener promoción</button>
+      </a>
+      <button class="btn-cancelar" onclick="cerrarModalPromocionar()">Más tarde</button>
     </div>
   </div>
 </div>
@@ -216,7 +215,7 @@ function obtenerPromocion() {
 }
 </script>
 
-     
+
 
 
   <script src="{{ url_for('static', filename='js/mis_publi.js') }}"></script>

@@ -296,7 +296,13 @@
   font-weight: 500;
   font-size: 14px;
   color: black;
-  margin: 0 0 4px; /* Para dar un pequeño espacio hacia el botón */
+  margin: 0 0 4px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-height: 3.6em;       /* 3 líneas aprox */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ver-mas {
@@ -649,6 +655,8 @@
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s ease;
+  text-decoration: none; 
+  display: inline-block; 
 }
 
 .boton:hover {
@@ -677,113 +685,6 @@
   pointer-events: none;
 }
 
-
-/*-----------------------------------------------
-  Estilos para el modal de reportes oculto 
------------------------------------------------*/
-
-/* Modal general */
-.modal-reporte {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-/* Contenedor del contenido del modal */
-.modal-contenido-reporte {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 20px;
-  width: 400px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  position: relative;
-}
-
-/* Título */
-.modal-contenido-reporte h2 {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700;
-  font-size: 2rem;
-  margin-bottom: 3rem;
-  text-align: center;
-  color: #3eaeb1;
-}
-
-/* Botón para cerrar */
-.cerrar-modal {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-/* Campo de entrada */
-.campo {
-  margin-bottom: 1.5rem;
-}
-.campo textarea {
-  width: 100%;
-  height: 120px; 
-  padding: 0.8rem;
-  font-size: 1.2rem;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700;
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
-  background-color: #d9d9d9;
-  color: rgba(0, 0, 0, 0.7);
-  resize: none;
-}
-
-.campo textarea::placeholder {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700;
-  color: rgba(0, 0, 0, 0.7);
-}
-
-
-/* Botones del modal */
-.botones-reporte {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 3rem;
-}
-
-.botones-reporte .guardar,
-.botones-reporte .cancelar {
-  padding: 0.4rem 3rem;
-  font-size: 1rem;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.botones-reporte .guardar {
-  background-color: #3eaeb1;
-  color: white;
-  border: none;
-}
-
-.botones-reporte .cancelar {
-  background-color: #f8f8f8;
-  color: black;
-  border: 1px solid #E5E5E5;
-}
-
-.botones-reporte button:hover {
-  opacity: 0.8;
-}
 
 
 /*-----------------------------------------------
