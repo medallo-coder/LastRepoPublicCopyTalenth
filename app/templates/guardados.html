@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Guardados</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/guardados.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/26ZkKCPm/Vector.png">
+</head>
+<body>
+
+  {% include 'nav.html' %}
+  {% include 'errors.html' %}
+
+  <div class="guardar">
+    <div class="cuadro redondo">
+      <div class="tabs">
+        <span class="tab active" onclick="activarTab(this)">Mis guardados</span>
+      </div>
+    </div>
+
+    {% for pub in publicaciones %}
+<div class="categoria">
+  
+<img class="image" src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" alt="Foto de perfil" />
+
+
+
+  <div class="info">
+    <div class="encabezado">
+      <h2><span class="name">{{ pub.usuario.perfiles.primer_nombre or 'Sin nombre' }}</span></h2>
+
+      <div class="menu-button-container menu1">
+       <button class="menu-button">
+        <i class="bi bi-three-dots"></i>
+      </button>
+      <div class="dropdown-menu">
+        <a href="{{ url_for('web.perfil_experto_publico', usuario_id=pub.usuario.usuario_id) }}""><i class="bi bi-person-fill"></i><span>Ver perfil</span></a>
+        <a href="#"><i class="bi bi-exclamation-circle"></i><span>Reportar</span></a>
+      </div>
+      </div>
+
+
+      <i class="bi bi-trash eliminar-guardado" data-id="{{ pub.publicacion_id }}"></i>
+
+    </div>
+
+    <div class="estrellasTarjetas">
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill"></i>
+      <i class="bi bi-star-fill estrella-gris"></i>
+      <i class="bi bi-star-fill estrella-gris"></i>
+    </div>
+
+<div class="categorias">
+  <span class="cate">{{ pub.titulo }}</span>
+  <span class="subcate">{{ pub.categoria.tipo_categoria if pub.categoria else 'Sin categoría' }}</span>
+</div>
+
+
+
+    {% if pub.precio is not none %}
+  <p class="precio">COP {{ "{:,.0f}".format(pub.precio) }}/h</p>
+{% else %}
+  <p class="precio">No especificado</p>
+{% endif %}
+
+
+    <p class="descripcion1">
+      {{ pub.descripcion_publicacion }}
+    </p>
+
+    <div class="boton-contact">
+      <button class="contact-but">Contactar experto</button>
+    </div>
+  </div>
+</div>
+{% else %}
+<p>No tienes publicaciones guardadas aún.</p>
+{% endfor %}
+  </div>
+
+ 
+<!-- Modal de Confirmación para eliminar-->
+<div id="confirmModal" class="modal-overlay" style="display: none;">
+  <div class="modal-content">
+    <p>¿Deseas eliminar esta publicación?</p>
+    <div class="modal-buttons">
+      <button id="confirmDelete" class="btn-aceptar">Aceptar</button>
+      <button id="cancelDelete" class="btn-cancelar">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+
+
+  {% include 'footer.html' %}
+
+ <script src="{{ url_for('static', filename='js/guardados.js') }}"></script>
+ 
+ <!-- Modal para ver imagen en grande -->
+<div id="imagenModal" class="modal-overlay" style="display: none;">
+  <span id="cerrarModal" class="close">&times;</span>
+  <img class="modal-content" id="imagenAmpliada" />
+</div>
+
+
+</body>
+</html>

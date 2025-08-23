@@ -1,0 +1,59 @@
+/* Contenedor de mensajes */
+.messages-container {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    z-index: 1000;
+    margin: 10px auto;
+    text-align: center;
+}
+.alert.success {
+    background-color: #4caf50; /* Verde más brillante */
+    color: #ffffff; /* Letras blancas */
+    border: 1px solid #66bb6a;
+}
+
+.alert.error {
+    background-color: #ff4c4c; /* Rojo vivo */
+    color: #ffffff; /* Letras blancas */
+    border: 1px solid #ff6666;
+}
+
+/* Estilos generales para las alertas */
+.alert {
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 16px; /* Bordes redondeados */
+    font-size: 16px;
+    font-weight: bold; /* Letras más gruesas */
+    line-height: 1.5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra suave */
+    animation: fadeIn 0.5s ease-out;
+    opacity: 0.98; /* Más vibrante */
+    font-family: Arial, sans-serif; /* Fuente limpia y moderna */
+}
+
+
+
+/* Efecto de aparición */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .alert {
+        font-size: 14px;
+        padding: 15px;
+    }
+}

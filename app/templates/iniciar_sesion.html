@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar_Sesión</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/26ZkKCPm/Vector.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+</head>
+<body>
+
+   <div class="logo">
+            <!-- Ícono Vector.svg -->
+            <img src="{{ url_for('static', filename='images/Vector.svg') }}" alt="Logo">
+            <!-- Texto ContrataYA! -->
+             <span><span style="color: #3eaeb1;">Cali</span><span style="color: black;">Trabaja</span></span>
+        </div>
+
+    <!-- Bloque de mensajes dinámicos con estilo -->
+    {% include 'errors.html' %}
+
+
+    
+    
+
+
+    <!-- Formulario de inicio de sesión -->
+    <div class="register-form">
+        <h1>Iniciar Sesión</h1>
+        <br>
+        <form action="{{ url_for('web.iniciar_sesion') }}" method="POST">
+
+
+
+            <div class="inp-correo">
+                <span class="input-icon"><i class="bi bi-at"></i></span>
+                <input type="email" name="correo" placeholder="Correo electrónico" required>
+            </div>
+            <div class="inp-contraseña">
+                <span class="input-icon"><i class="bi-lock-fill"></i></span>
+                <input type="password" name="contrasena" placeholder="Contraseña" id="pass1" required>
+                <i class="bi bi-eye-fill toggle-pass"></i>
+            </div>
+
+            <!-- Botón centrado -->
+            <button type="submit" class="bt-login">Iniciar Sesión</button>
+
+            <!-- Enlaces centrados y apilados -->
+            <div class="recuperar-creacion">
+                <a href="{{ url_for('web.recuperar_contraseña') }}" class="bt-recuperar-pasword">¿Olvidaste tu contraseña?</a>
+
+                <a href="{{ url_for('web.registrarse') }}" class="bt-recuperar-pasword">Crea una cuenta</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/ocultar_contraseña.js') }}"></script>
+</body>
+</html>

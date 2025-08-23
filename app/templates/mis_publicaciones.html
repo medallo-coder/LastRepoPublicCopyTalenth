@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mis Publicaciones</title>
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/26ZkKCPm/Vector.png">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mis_publi.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/modal-promocion.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/modal-public_exit.css') }}">
+
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+<body>
+
+  {% include 'nav.html' %}
+  {% include 'errors.html' %}
+  <br><br>
+  
+  <div class="cuadro redondo">
+    <div class="tabs">
+      <div class="tabs__main">
+        <div class="active_tab"></div>
+        <div class="tabs__tab" data-href="{{ url_for('web.perfil_experto') }}">Mi perfil</div>
+        <div class="tabs__tab" data-href="{{ url_for('web.mis_publicaciones') }}">Mis publicaciones</div>
+      </div>
+    </div>
+  </div>
+
+{% if cantidad_actual < limite_maximo %}
+  {% if cantidad_actual == 1 and cantidad_destacadas == 0 %}
+    <p class="mostrar-form-link" onclick="mostrarModal()">+ Nueva publicación</p>
+  {% else %}
+    <p id="mostrarFormulario" class="mostrar-form-link" {% if publicacion %}style="display:none;"{% endif %}>+ Nueva publicación</p>
+  {% endif %}
+{% endif %}
+
+
+
+  <div class="container">
+
+    <!-- Formulario -->
+    <div class="card" style="display: {{ 'block' if publicacion else 'none' }}">
+      <div class="card-header">
+        {% if publicacion %}
+          Editar Publicación
+        {% else %}
+          Nueva Publicación
+        {% endif %}
+      </div>
+      <div class="card-body">
+        <form method="POST" action="{{ url_for('web.guardar_mi_publicacion') }}">
+      {% if publicacion %}
+        <input type="hidden" name="id" value="{{ publicacion.publicacion_id }}">
+      {% endif %}
+
+
+          <div class="form-group">
+            <label>Título de tu publicación</label>
+            <input type="text" name="titulo" placeholder="Ej: Servicio de carpintería" value="{{ publicacion.titulo if publicacion else '' }}" required>
+          </div>
+
+          <div class="form-group">
+            <label>Precio</label>
+            <input type="number" name="precio" step="0.01" placeholder="Ej: 150.00" value="{{ publicacion.precio if publicacion else '' }}">
+          </div>
+
+          <div class="form-group">
+  <label>Categoría</label>
+  <select name="categoria_id" id="categoriaSelect">
+    <option value="">Seleccione</option>
+    {% for cat in categorias %}
+      <option value="{{ cat.categoria_id }}" {% if publicacion and publicacion.categoria_id == cat.categoria_id %}selected{% endif %}>{{ cat.tipo_categoria }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+<div class="form-group">
+  <label>Subcategoría</label>
+  <select name="subcategoria_id" id="subcategoriaSelect">
+    <option value="">Seleccione</option>
+    {% for sub in subcategorias %}
+      <option value="{{ sub.subcategoria_id }}" {% if publicacion and publicacion.subcategoria_id == sub.subcategoria_id %}selected{% endif %}>{{ sub.nombre_subcategoria }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+
+          <div class="form-group">
+            <label>Descripción</label>
+            <textarea name="descripcion_publicacion" placeholder="Describe tu publicación">{{ publicacion.descripcion_publicacion if publicacion else '' }}</textarea>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">{% if publicacion %}Actualizar{% else %}Guardar{% endif %}</button>
+            <a href="{{ url_for('web.mis_publicaciones') }}" class="btn btn-secondary">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Lista de publicaciones -->
+    <div class="publicaciones-grid">
+      {% for pub in publicaciones %}
+        {% if pub.titulo and pub.descripcion_publicacion %}
+          <div class="publicacion-card">
+            <div class="acciones-menu">
+              <div class="menu-trigger" onclick="toggleMenu(this)">⋯</div>
+              <div class="menu-opciones">
+                <a href="{{ url_for('web.editar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">Editar</a>
+                <a href="#" class="btn-eliminar-modal" data-url="{{ url_for('web.eliminar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">Eliminar</a>
+                <a href="#" onclick="abrirModalPromocionar()">Promocionar</a>
+
+
+
+              </div>
+            </div>
+
+            <div class="publicacion-img">
+              {% if pub.usuario.perfiles.foto_perfil %}
+                <img src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" alt="Foto de perfil">
+              {% else %}
+                <img src="{{ url_for('static', filename='img/default_profile.png') }}" alt="Foto por defecto">
+              {% endif %}
+              <p class="precio"><strong>Precio:</strong> ${{ pub.precio }}</p>
+              {% if pub.destacada == 'si' %}
+              <p class="destacada">Promocionada</p>
+              {% endif %}
+            </div>
+
+            <div class="publicacion-info">
+              <h3 class="nombre">{{ pub.usuario.perfiles.primer_nombre }} {{ pub.usuario.perfiles.primer_apellido }}</h3>
+
+              <div class="estrellasTarjetas">
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+              </div>
+
+              <h4 class="titulo">{{ pub.titulo }}</h4>
+              <p class="descripcion"><strong>Categoría:</strong> {{ pub.categoria.tipo_categoria if pub.categoria else 'Sin categoría' }}</p>
+              <p class="descripcion"><strong>Subcategoría:</strong> {{ pub.subcategoria.nombre_subcategoria if pub.subcategoria else 'Sin subcategoría' }}</p>
+              <p class="descripcion"><strong>Descripción:</strong> 
+                {% if pub.descripcion_publicacion %}
+                  {{ pub.descripcion_publicacion[:100] }}{% if pub.descripcion_publicacion|length > 100 %}...{% endif %}
+                {% else %}
+                  Sin descripción
+                {% endif %}
+              </p>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      {% if not tiene_publicaciones %}
+        <p class="sin-publicaciones">No tienes publicaciones aún.</p>
+      {% endif %}
+    </div>
+    <p class="cantidad">{{ cantidad_actual }}/{{ limite_maximo }}</p>
+
+  </div>
+
+
+
+  <!-- modal para eliminar -->
+{% for pub in publicaciones %}
+  <div id="modalEliminar" class="modal-eliminar hidden">
+  <div class="modal-contenido">
+    <span class="modal-cerrar" id="cerrarModalEliminar">&times;</span>
+    <p>¿Estás seguro que deseas eliminar esta publicación?</p>
+    <div class="modal-acciones">
+      <a href="{{ url_for('web.eliminar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">Eliminar</a>
+      <button id="cancelarEliminar" class="btn btn-secondary">Cancelar</button>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
+<!-- Modal Promoción -->
+<div id="modalPromocion" class="modal-overlay">
+  <div class="modal-contenido">
+<h2>🚀 Publica más y destaca tu contenido</h2>
+<p>
+  Has alcanzado el límite gratuito de publicaciones. <strong>Adquiere una publicación adicional</strong> y obtén <strong>visibilidad destacada</strong>.
+</p>
+
+    <div class="modal-botones">
+      <a href="{{ url_for('web.obtener_promocion') }}">
+    <button class="btn-obtener">Obtener promoción</button>
+</a>
+  <button class="btn-cancelar" onclick="cerrarModal()">Más tarde</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para promocionar publicación ya existente -->
+<div class="modal-promocionar" id="modalPromocionarPublicacion">
+  <div class="modal-contenido-promocionar">
+    <h2>🚀 Promociona tu publicación</h2>
+    <p>Haz que más personas vean tu publicación destacándola por un valor adicional.</p>
+    <div class="modal-botones">
+      <a href="{{ url_for('web.obtener_promocion') }}">
+        <button class="btn-obtener">Obtener promoción</button>
+      </a>
+      <button class="btn-cancelar" onclick="cerrarModalPromocionar()">Más tarde</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+function obtenerPromocion() {
+  window.location.href = "/generar-promocion";
+}
+</script>
+
+
+
+
+  <script src="{{ url_for('static', filename='js/mis_publi.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/modal-promocion.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/modal-public_exit.js') }}"></script>
+
+</body>
+</html>

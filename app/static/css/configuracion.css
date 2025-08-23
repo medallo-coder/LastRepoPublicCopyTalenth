@@ -1,0 +1,192 @@
+/* Estilos generales */
+@font-face {
+    font-family: 'Oswald Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 200 700;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/oswald:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+.container {
+    width: 100%;
+    max-width: 1024px;
+    margin: 100px auto; /* ✅ centra horizontalmente en el body */
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+/* Tarjetas */
+.card {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid gray;
+    padding: 24px;
+}
+.card2 {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid gray;
+    padding: 4px;
+}
+.header {
+    text-align: center;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #3EAEB1;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none; /* 🔹 Esto elimina cualquier borde */
+    outline: none; /* 🔹 Previene bordes que aparecen al hacer clic */
+}
+
+
+.btn-primary:hover {
+    background-color: #349A9E;
+}
+
+.btn-secondary {
+    background-color: #f8f8f8;
+    color: gray;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+    border: 1px solid gray;
+    cursor: pointer;
+}
+
+/* Ocultar elementos */
+.hidden {
+    display: none;
+}
+
+/* Diseño flexible */
+.flex {
+    gap: 20px;
+    margin-top: 20px; /* 🔹 Separación entre los inputs y los botones */
+
+}
+input {
+    padding-bottom: 10px; /* 🔹 Espacio adicional debajo de los inputs */
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Destacado */
+.highlight {
+    color: #3EAEB1;
+}
+
+/* Modales */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    background: white;
+    padding: 24px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Fondo negro (backdrop) */
+.modal-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Ajuste de tamaño de fuentes pequeñas */
+p, label, .text-sm {
+    font-size: 1.1rem; /* Aumentado ligeramente */
+}
+
+/* Estilo para los inputs */
+/* Contenedor de los inputs */
+.input-group {
+    display: flex;
+    flex-direction: column; /* Fuerza a los inputs a estar en columna */
+    gap: 10px; /* Espacio entre los inputs */
+    width: 100%;
+}
+
+/* Estilos para los inputs */
+input, select {
+    width: 92%; /* Se aseguran de ocupar el ancho completo del contenedor */
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #d9d9d9;
+    border: none;
+    outline: none;
+    font-size: 0.9rem;
+    display: block; /* Se asegura que estén siempre en bloque */
+}
+#passwordForm {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Espacio vertical entre los elementos */
+  }
+
+  #eliminarForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espacio entre los elementos */
+    padding: 10px 0; /* Espacio interno arriba y abajo */
+  }
+.titulo-principal {
+    color: #3EAEB1;
+    font-weight: bold;
+}
+
+.titulo-secundario {
+    color: #3EAEB1;
+}
+@media (max-width: 600px) {
+    .titulo-principal {
+      font-size: 18px; /* O el tamaño que prefieras */
+      text-align: center;
+    }
+  }
+
+/* Para pantallas grandes */
+@media (max-width: 601px) {
+    input, select  {
+        max-width: 95%; /* Ajusta el ancho máximo */
+
+    }
+    body{
+        padding: 20px 8px; /* Ajusta el padding para pantallas pequeñas */
+    }
+}
+#little-text p {
+    color: #606060;
+    font-size: 1rem; /* Ajusta aquí el tamaño */
+    margin: 0.3em 0;   /* Opcional: separa un poco las líneas */
+    line-height: 1.4;
+}
+#little-text p:hover {
+   
+    color: #000000; /* Mismo color que el texto */
+    font-size: 1em; /* Tamaño del punto */
+    
+}

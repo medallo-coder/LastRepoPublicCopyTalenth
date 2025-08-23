@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrarse</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/26ZkKCPm/Vector.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/registrar_usuario.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+</head>
+<body>
+
+    <div class="logo">
+        <!-- Ícono Vector.svg -->
+        <img src="{{ url_for('static', filename='images/Vector.svg') }}" alt="Logo">
+        <!-- Texto ContrataYA! -->
+        <span><span style="color: #3eaeb1;">Cali</span><span style="color: black;">Trabaja</span></span>
+    </div>
+
+    <!-- Mostrar errores y mensajes -->
+    {% include 'errors.html' %}
+
+    <div class="register-form">
+        <h1>Registrate</h1>
+        <br>
+        <form method="POST" action="{{ url_for('web.registrarse') }}">
+
+            <div class="input-group">
+                <span class="input-icon"><i class="bi bi-person-fill"></i></span>
+                <input type="text" name="primer_nombre" placeholder="Primer nombre" required>
+            </div>
+
+            <div class="input-group">
+                <span class="input-icon"><i class="bi bi-person-fill"></i></span>
+                <input type="text" name="primer_apellido" placeholder="Primer apellido" required>
+            </div>
+
+            <div class="input-group">
+                <span class="input-icon"><i class="bi bi-at"></i></span>
+                <input type="email" name="correo" placeholder="Correo Electrónico" required>
+            </div>
+
+            <div class="input-group">
+                <span class="input-icon"><i class="bi-lock-fill"></i></span>
+                <input type="password" name="contrasena" placeholder="Contraseña" id="pass1" required>
+                <i class="bi bi-eye-fill toggle-pass"></i>
+            </div>
+            <!-- Mensaje que pediste -->
+            <p style="font-size: 12px; color: #666; margin-left: 10px; margin-top: -10px; margin-bottom: 10px;">
+                La contraseña debe tener al menos 6 caracteres y una letra mayúscula.
+            </p>
+
+            <div class="input-group">
+                <span class="input-icon"><i class="bi-lock-fill"></i></span>
+                <input type="password" name="confirmar_contrasena" placeholder="Repetir Contraseña" id="pass2" required>
+                <i class="bi bi-eye-fill toggle-pass"></i>
+            </div>
+
+            <button type="submit" class="bt-login">Registrate</button>
+
+            <br>
+            <a href="{{ url_for('web.iniciar_sesion') }}" class="bt-recuperar-pasword">¿Ya tienes una cuenta?</a>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/ocultar_contraseña.js') }}"></script>
+
+</body>
+</html>

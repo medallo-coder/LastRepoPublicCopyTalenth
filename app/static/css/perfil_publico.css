@@ -1,0 +1,1512 @@
+/* Establece el comportamiento del box model para todos los elementos */
+* {
+  box-sizing: border-box; /* Hace que el ancho y alto incluyan padding y border */
+  margin: 0; /* Elimina el margen por defecto */
+  padding: 0; /* Elimina el padding por defecto */
+}
+
+/* Estilos generales para el body */
+  .experto {
+    background-color: #f8f8f8; /* Color de fondo de la página */
+    display: flex; /* Usamos Flexbox para distribuir los elementos */
+    flex-direction: column; /* Organiza los elementos de manera vertical */
+    align-items: center; /* Centra los elementos horizontalmente */
+    min-height: 100vh; /* Asegura que la altura mínima sea 100% de la pantalla */
+    padding: 2.5rem 0; /* Espaciado arriba y abajo */
+    font-family: sans-serif; /* Define la fuente general */
+  }
+  
+  /*-----------------------------------------------
+    Estilos para la navegación
+  -----------------------------------------------*/
+  
+  /* Estilos para el cuadro de contenido */
+  .cuadro {
+    width: 70%; /* Define el ancho del cuadro */
+    background-color: white; /* Fondo blanco */
+    border: 1px solid #d1d5db; /* Borde gris claro */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    margin-bottom: 1.5rem; /* Margen debajo */
+  }
+  
+  /* Estilo para un cuadro con bordes redondeados */
+  .redondo {
+    height: 5rem; /* Define la altura del cuadro */
+    border-radius: 2rem; /* Bordes redondeados */
+    border: 1px solid #6b7280; /* Borde gris oscuro */
+    display: flex; /* Usamos flexbox */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+  }
+
+/* Estilos para las pestañas de navegación */
+.tabs {
+  display: flex; /* Usamos flexbox */
+  gap: 8rem; /* Espacio entre las pestañas */
+}
+
+
+/* Estilo para cada pestaña */
+.tab {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: black;
+  transition: color 0.3s ease;
+  text-decoration: none;
+  position: relative; /* para posicionar el pseudo-elemento */
+}
+
+
+/* Subrayado animado con ::after */
+.tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px; /* espacio justo debajo del texto */
+  height: 2px;
+  width: 0;
+  background-color: #3EAEB1;
+  transition: width 0.3s ease;
+}
+
+/* Al pasar el mouse, el subrayado se expande */
+.tab:hover::after {
+  width: 100%;
+}
+
+
+/* Estilo cuando una pestaña está activa */
+.tab.active {
+  color: #3EAEB1;
+}
+
+
+/*-----------------------------------------------
+  Estilos para contenedor con información principal 
+-----------------------------------------------*/
+
+/* Estilo para un cuadro grande con contenido centrado */
+.grande {
+  width: 70%; /* Ancho de la caja */
+  height: 20rem; /* Altura ajustada */
+  background-color: white; /* Fondo blanco */
+  border: 1px solid #6b7280; /* Borde gris oscuro */
+  border-radius: 1rem; /* Bordes redondeados */
+  display: flex; /* Flexbox para centrar el contenido */
+  justify-content: center; /* Centrado horizontal */
+  align-items: center; /* Centrado vertical */
+  position: relative; /* Posición relativa para colocar un icono en la esquina */
+}
+
+/* Estilo para el título */
+.titulo-principal {
+  font-family: 'Oswald', sans-serif; /* Fuente específica para el título */
+  font-weight: 700; /* Negrita */
+  font-size: 2.2rem; /* Tamaño de la fuente */
+  color: black; /* Color del texto */
+  text-align: center; /* Alineación centrada */
+}
+
+/* Contenedor de contenido centrado */
+.contenido-grande {
+  display: flex; /* Flexbox para centrar el contenido */
+  flex-direction: column; /* Organiza los elementos de manera vertical */
+  align-items: center; /* Centra los elementos horizontalmente */
+  justify-content: center; /* Centra los elementos verticalmente */
+  width: 100%; /* Ancho completo */
+}
+
+/* Estilo para el círculo con icono */
+.contenedor-circulo {
+  margin-top: 1rem; /* Margen superior */
+}
+
+.image {
+  width: 8rem; /* Ancho del círculo */
+  height: 8rem; /* Altura del círculo */
+  border: 1px solid #374151; /* Borde gris oscuro */
+  background-color: white; /* Fondo blanco */
+  border-radius: 50%; /* Hacemos un círculo */
+  display: flex; /* Flexbox para centrar el icono dentro */
+  align-items: center; /* Centrado vertical */
+  justify-content: center; /* Centrado horizontal */
+  cursor: pointer;
+}
+
+.circulo-icono i {
+  font-size: 6rem; /* Tamaño del icono */
+  color: #3EAEB1;
+}
+
+/* Estilo para las estrellas (calificación) */
+.estrellas {
+  display: flex; /* Flexbox para alinear las estrellas */
+  justify-content: center; /* Centrado horizontal */
+  margin-top: 0.5rem; /* Margen superior */
+  font-size: 1.5rem; /* Tamaño de fuente para las estrellas */
+  color: #3EAEB1;
+  gap: 0.3rem; /* Espacio entre las estrellas */
+}
+
+/* Estilo para la sección de contacto */
+.contacto {
+  display: flex; /* Flexbox para organizar los íconos */
+  justify-content: space-around; /* Espacio alrededor de los íconos */
+  margin-top: 10px; /* Margen superior */
+  gap: 30px; /* Espacio entre los íconos */
+}
+
+/* Estilo para los íconos de contacto (email y teléfono) */
+ .email {
+  display: flex; /* Flexbox para centrar los elementos */
+  align-items: center; /* Centra verticalmente */
+  font-size: 20px; /* Tamaño de fuente */
+  font-family: 'Oswald', sans-serif; /* Fuente Oswald */
+  font-weight: 400; /* Peso de la fuente regular */
+}
+
+
+
+/* Estilo para el ícono de lápiz */
+.icono-lapiz {
+  position: absolute; /* Posición absoluta para colocar el ícono en la esquina */
+  top: 1rem; /* Distancia desde la parte superior */
+  right: 1rem; /* Distancia desde la derecha */
+  font-size: 2rem; /* Tamaño del ícono */
+  color: #3eaeb1; /* Color azul */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  transition: color 0.3s; /* Transición de color */
+}
+
+/* Efecto hover para el ícono de lápiz */
+.icono-lapiz:hover {
+  color: #292929; /* Cambia el color al pasar el mouse */
+}
+
+
+/*-----------------------------------------------
+  Estilos para la editar información principal
+-----------------------------------------------*/
+
+/* Estilos para el formulario superpuesto */
+.formulario-editar {
+  position: fixed; /* Fijo en la pantalla */
+  top: 0;
+  left: 0;
+  width: 100%; /* Ocupa toda la pantalla */
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+  display: none; /* Inicialmente oculto */
+  justify-content: center; /* Centrado horizontal y vertical */
+  align-items: center;
+  z-index: 1000; /* Asegura que el formulario esté por encima de todo */
+}
+
+/* Contenedor del formulario */
+.formulario-contenido {
+  background-color: white; /* Fondo blanco */
+  padding: 2rem; /* Espaciado interno */
+  border-radius: 20px; /* Bordes redondeados */
+  width: 400px; /* Ancho fijo */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
+
+/* Título del formulario "Editar contacto" */
+.formulario-contenido h2 {
+  font-family: 'Oswald', sans-serif; /* Fuente Oswald */
+  font-weight: 700; /* Negrita */
+  font-size: 2rem; /* Tamaño de fuente */
+  margin-bottom: 3rem; /* Espacio debajo del título */
+  text-align: center; /* Alineación centrada */
+  color: #3eaeb1; /* Color azul */
+}
+
+/* Estilos para los campos del formulario */
+.campo {
+  
+  margin-bottom: 1.5rem; /* Espacio debajo de cada campo */
+}
+
+.campo input {
+  width: 100%; /* Ancho completo */
+  padding: 0.8rem; /* Espaciado interno */
+  font-size: 1rem; /* Tamaño de la fuente */
+  font-family: 'Oswald', sans-serif; /* Fuente Oswald */
+  font-weight: 700; /* Peso de la fuente regular */
+  border: 1px solid #d1d5db; /* Borde gris claro */
+  border-radius: 10px; /* Bordes redondeados */
+  background-color: #d9d9d9; /* Color de fondo de los inputs */
+  color: rgba(0, 0, 0, 0.7); /* Color del texto */
+}
+
+/* Estilo para los botones del formulario */
+.botones {
+  display: flex; /* Flexbox para centrar los botones */
+  justify-content: center; /* Centrado horizontal */
+  gap: 1rem; /* Espacio entre los botones */
+  margin-top: 3rem; /* Margen superior */
+}
+
+.botones button {
+  padding: 0.4rem 3rem; /* Padding más grande para botones */
+  font-size: 1rem; /* Tamaño de la fuente */
+  font-family: 'Oswald', sans-serif; /* Fuente Oswald */
+  font-weight: 500; /* Peso de la fuente medium */
+  background-color: #3eaeb1; /* Fondo azul */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 25px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor */
+  transition: background-color 0.3s; /* Transición suave para el cambio de color */
+}
+
+.botones button[type="button"] {
+  background-color: #f8f8f8; /* Fondo gris claro para el botón "Cancelar" */
+  color: black; /* Color negro para el texto */
+  border: 1px solid #E5E5E5; /* Borde gris claro */
+}
+
+/* Efecto hover para los botones */
+.botones button:hover {
+  opacity: 0.8; /* Desvanecimiento al pasar el mouse */
+}
+
+
+/*-----------------------------------------------
+  Estilos para las columnas izquierda y derecha
+-----------------------------------------------*/
+
+/* Estilo para el contenedor de columnas */
+.contenedor-columnas {
+  width: 65%; /* Ancho del contenedor */
+  display: flex; /* Flexbox para distribuir las columnas */
+  gap: 1.5rem; /* Espacio entre las columnas */
+}
+
+/*-----------------------------------------------
+  Estilos para contenedor de la izquierda
+-----------------------------------------------*/
+
+/* Estilo para la columna izquierda */
+.columna-izquierda {
+  flex: 2; /* Ocupa el doble de espacio que la columna derecha */
+  height: 38rem; /* Altura ajustada */
+  background-color: white; /* Fondo blanco */
+  border: 1px solid #6b7280; /* Borde gris oscuro */
+  border-radius: 1rem; /* Bordes redondeados */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  margin-bottom: 1.5rem; /* Margen debajo */
+
+}
+
+
+/*-----------------------------------------------
+  Estilos para descripción
+-----------------------------------------------*/
+
+/* Título en la columna izquierda */
+.titulo-izquierda {
+  display: flex;
+  justify-content: space-between; /* Alinea el título a la izquierda y el ícono a la derecha */
+  align-items: center;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: black;
+  margin: 20px 0 1rem;
+  padding: 0 25px; /* Espaciado adicional a los lados para mayor separación */
+}
+
+/* Estilo para el ícono del lápiz */
+#lapizdescripcion {
+  font-size: 1.7rem;
+  color: #3eaeb1; /* Color azul */
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+/* Efecto hover para el ícono del lápiz */
+#lapizdescripcion:hover {
+  color: #292929; /* Color al pasar el mouse */
+}
+
+.descripcion-resumen {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300; /* Oswald Light */
+  font-size: 1rem;
+  color: #333;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+
+}
+
+
+.añadir-descripcion {
+  color: #3eaeb1;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 25px; /* Espaciado adicional a los lados para mayor separación */
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  transition: color 0.3s;
+}
+
+.añadir-descripcion:hover {
+  color: #2d8284;
+}
+
+
+.descripcionicon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+  margin: 0;
+}
+
+
+/*-----------------------------------------------
+  Estilos para formulario editar descripción
+-----------------------------------------------*/
+
+/* Estilos para el formulario superpuesto de descripción */
+#formulario-editar-descripcion {
+  position: fixed; /* Fijo en la pantalla */
+  top: 0;
+  left: 0;
+  width: 100%; /* Ocupa toda la pantalla */
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+  display: none; /* Inicialmente oculto */
+  justify-content: center; /* Centrado horizontal y vertical */
+  align-items: center;
+  z-index: 1000; /* Asegura que el formulario esté por encima de todo */
+}
+
+/* Contenedor del formulario Descripción */
+.formulario-contenido-descripcion {
+  background-color: white; /* Fondo blanco */
+  padding: 2rem; /* Espaciado interno */
+  border-radius: 20px; /* Bordes redondeados */
+  width: 400px; /* Ancho fijo */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
+
+/* Título del formulario "Descripción" */
+.formulario-contenido-descripcion h2 {
+  font-family: 'Oswald', sans-serif; /* Fuente Oswald */
+  font-weight: 700; /* Negrita */
+  font-size: 2rem; /* Tamaño de fuente */
+  margin-bottom: 3rem; /* Espacio debajo del título */
+  text-align: center; /* Alineación centrada */
+  color: #3eaeb1; /* Color azul */
+}
+
+/* Estilos para los campos del formulario Descripción */
+.campo {
+  margin-bottom: 1.5rem; /* Espacio debajo de cada campo */
+}
+
+.campo textarea {
+  width: 100%; /* Ancho completo */
+  padding: 0.8rem; /* Espaciado interno */
+  font-size: 1.2rem; /* Tamaño de la fuente */
+  font-family: 'Oswald', sans-serif; /* Fuente Oswald */
+  font-weight: 700; /* Peso de la fuente regular */
+  border: 1px solid #d1d5db; /* Borde gris claro */
+  border-radius: 10px; /* Bordes redondeados */
+  background-color: #d9d9d9; /* Color de fondo de los inputs */
+  color: rgba(0, 0, 0, 0.7); /* Color del texto */
+}
+
+/* Estilo para el texto placeholder dentro del textarea */
+.campo textarea::placeholder {
+  font-family: 'Oswald', sans-serif; /* Tipografía Oswald */
+  font-weight: 700; /* Negrita */
+  color: rgba(0, 0, 0, 0.7); /* Negro al 70% */
+}
+
+
+/*-----------------------------------------------
+  Estilos para formulario añadir descripción
+-----------------------------------------------*/
+
+/* Estilos para el formulario superpuesto de descripción */
+#formulario-añadir-descripcion {
+  position: fixed; /* Fijo en la pantalla */
+  top: 0;
+  left: 0;
+  width: 100%; /* Ocupa toda la pantalla */
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+  display: none; /* Inicialmente oculto */
+  justify-content: center; /* Centrado horizontal y vertical */
+  align-items: center;
+  z-index: 1000; /* Asegura que el formulario esté por encima de todo */
+}
+
+
+
+
+
+/*-----------------------------------------------
+  Estilos para experiencia
+-----------------------------------------------*/
+
+.titulo-experiencia {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500; /* Bold */
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  
+}
+
+.rol {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500; /* Medium */
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.empresa {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300; /* Light */
+  margin: 0;
+  font-size: 1.2rem;
+  padding: 0 50px;
+}
+
+.fechas {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300; /* Light */
+  color: #333;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0 50px;
+}
+
+.añadir-experiencia {
+  color: #3eaeb1;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 25px; /* Espaciado adicional a los lados para mayor separación */
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  transition: color 0.3s;
+}
+
+.añadir-experiencia:hover {
+  color: #2d8284;
+}
+
+
+/*-----------------------------------------------
+  Estilos para formulario añadir experiencia
+-----------------------------------------------*/
+
+/* Formulario emergente para agregar experiencia*/
+.formulario-experiencia {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.formulario-experiencia-contenido {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 20px;
+  width: 400px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.formulario-experiencia-contenido h2 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #3eaeb1;
+}
+
+.experienciaicon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+  margin: 0;
+}
+
+.iconos {
+  display: flex;
+  gap: 10px;
+  transform: translateX(30px); /* Mueve los íconos 30px a la derecha */
+}
+
+#lapizexperiencia,
+.bi-trash {
+  font-size: 1.7rem;
+  color: #3eaeb1;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#lapizexperiencia:hover,
+.bi-trash:hover {
+  color: #292929;
+}
+
+
+/*-----------------------------------------------
+  Estilos para editar experiencia
+-----------------------------------------------*/
+
+/* Formulario emergente para editar experiencia */
+
+.formulario-editar-experiencia {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.formulario-editar-experiencia-contenido {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 20px;
+  width: 400px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.formulario-editar-experiencia-contenido h2 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #3eaeb1;
+}
+
+
+/*-----------------------------------------------
+  Estilos para estudios
+-----------------------------------------------*/
+
+.titulo-estudios {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500; /* Bold */
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  
+}
+
+.titulo {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500; /* Medium */
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.lugar {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300; /* Light */
+  margin: 0;
+  font-size: 1.2rem;
+  padding: 0 50px;
+}
+
+.fecha {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300; /* Light */
+  color: #333;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0 50px;
+}
+
+
+.añadir-estudios {
+  color: #3eaeb1;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 25px; /* Espaciado adicional a los lados para mayor separación */
+  margin-top: 1rem;
+  transition: color 0.3s;
+}
+
+.añadir-estudios:hover {
+  color: #2d8284;
+}
+
+
+/*-----------------------------------------------
+  Estilos para añadir estudios
+-----------------------------------------------*/
+
+/* Formulario emergente para agregar estudios */
+.formulario-estudios {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.formulario-estudios-contenido {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 20px;
+  width: 400px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.formulario-estudios-contenido h2 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #3eaeb1;
+}
+
+.estudiosicon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+  margin: 0;
+}
+
+
+/*-----------------------------------------------
+  Estilos para formulario editar estudios
+-----------------------------------------------*/
+
+/* Formulario emergente para editar estudios */
+.formulario-editar-estudios {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.formulario-editar-estudios-contenido {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 20px;
+  width: 400px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.formulario-editar-estudios-contenido h2 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #3eaeb1;
+}
+
+
+#lapizestudios,
+.bi-trash {
+  font-size: 1.7rem;
+  color: #3eaeb1;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#lapizestudios:hover,
+.bi-trash:hover {
+  color: #292929;
+}
+
+
+/*-----------------------------------------------
+  Estilos para los cuadros de la derecha
+-----------------------------------------------*/
+
+/* Estilo para la columna derecha */
+.columna-derecha {
+  flex: 1; /* Ocupa menos espacio que la columna izquierda */
+  display: flex; /* Flexbox para organizar los elementos */
+  flex-direction: column; /* Organiza los elementos de manera vertical */
+  gap: 1.5rem; /* Espacio entre los elementos */
+  
+}
+
+/* Estilo para un cuadro pequeño */
+.cuadro-pequeno {
+  height: 11rem; /* Altura ajustada */
+  background-color: white; /* Fondo blanco */
+  border: 1px solid #6b7280; /* Borde gris oscuro */
+  border-radius: 0.5rem; /* Bordes redondeados */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  margin-bottom: 1.5rem; /* Margen debajo */
+}
+
+
+/*-----------------------------------------------
+  Estilos para idiomas
+-----------------------------------------------*/
+
+/* Contenedor de idiomas */
+.idiomas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 25px; /* Ajusta el padding para controlar el espacio en los laterales */
+  margin: 0 0 1rem;
+  margin-top: 20px;
+}
+
+/* Título en la columna izquierda */
+.titulo-idiomas {
+  display: flex;
+  justify-content: flex-start; /* El texto se alinea a la izquierda */
+  align-items: center;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: black;
+  margin: 0; /* Elimina márgenes para asegurarte de que no haya espacio extra */
+}
+
+/* Estilo para el ícono del lápiz */
+#agregaridiomas {
+  font-size: 1.7rem;
+  color: #3eaeb1; /* Color azul */
+  cursor: pointer;
+  transition: color 0.3s;
+  margin-left: auto; /* Esto empuja el ícono hacia la derecha */
+}
+
+/* Efecto hover para el ícono del lápiz */
+#agregaridiomaslapizdescripcion:hover {
+  color: #292929; /* Color al pasar el mouse */
+}
+
+/* Lista de idiomas */
+.idioma-item {
+  display: flex;
+  align-items: center;
+  padding-left: 25px;
+  margin: 0 0 1rem;
+}
+
+.icono-idioma {
+  font-size: 1.5rem;
+  color: #3eaeb1;
+  margin-right: 0.6rem;
+}
+
+.idioma-nombre {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: black;
+}
+
+.idioma-nivel {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+  font-size: 1.1rem;
+  margin-left: 0.4rem;
+  color: #555;
+}
+
+.icono-borrar {
+  font-size: 1.5rem;
+  color: #3eaeb1;
+  margin-left: auto;
+  padding-right: 25px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.icono-borrar:hover {
+  color: #000000;
+}
+
+
+/*-----------------------------------------------
+  Estilos para formulario añadir idiomas
+-----------------------------------------------*/
+
+/* Estilos para el formulario superpuesto de Idiomas */
+.formulario-idioma {
+  position: fixed; /* Fijo en la pantalla */
+  top: 0;
+  left: 0;
+  width: 100%; /* Ocupa toda la pantalla */
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+  display: none; /* Inicialmente oculto */
+  justify-content: center; /* Centrado horizontal y vertical */
+  align-items: center;
+  z-index: 1000; /* Asegura que el formulario esté por encima de todo */
+}
+
+/* Contenedor del formulario de Idiomas */
+.formulario-contenido-descripcion {
+  background-color: white; /* Fondo blanco */
+  padding: 2rem; /* Espaciado interno */
+  border-radius: 20px; /* Bordes redondeados */
+  width: 400px; /* Ancho fijo */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
+
+/* Título del formulario de Idiomas */
+.formulario-contenido-descripcion h2 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  color: #3eaeb1; /* Color azul */
+}
+
+/* Estilos para los campos del formulario de Idiomas */
+.campo {
+  margin-bottom: 1.5rem;
+}
+
+.campo select {
+  width: 100%; /* Ancho completo */
+  padding: 0.5rem; /* Espaciado interno */
+  font-size: 1.2rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  border: 1px solid #d1d5db; /* Borde gris claro */
+  border-radius: 10px;
+  background-color: #d9d9d9;
+  color: rgba(0, 0, 0, 0.7); /* Color del texto */
+  
+}
+
+/* Estilo para el texto placeholder dentro de los select */
+.campo select::placeholder {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+
+/*-----------------------------------------------
+  Estilos para aptitudes
+-----------------------------------------------*/
+
+
+/* Estilo para el ícono del lápiz */
+#agregaraptitudes {
+  font-size: 1.7rem;
+  color: #3eaeb1; /* Color azul */
+  cursor: pointer;
+  transition: color 0.3s;
+  margin-left: auto; /* Esto empuja el ícono hacia la derecha */
+}
+
+/* Efecto hover para el ícono del lápiz */
+#agregaraptitudeslapizdescripcion:hover {
+  color: #292929; /* Color al pasar el mouse */
+}
+
+
+/* Estilos para el formulario superpuesto de Idiomas */
+.formulario-aptitudes {
+  position: fixed; /* Fijo en la pantalla */
+  top: 0;
+  left: 0;
+  width: 100%; /* Ocupa toda la pantalla */
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+  display: none; /* Inicialmente oculto */
+  justify-content: center; /* Centrado horizontal y vertical */
+  align-items: center;
+  z-index: 1000; /* Asegura que el formulario esté por encima de todo */
+}
+
+/* Contenedor del formulario de Idiomas */
+.formulario-contenido-descripcion {
+  background-color: white; /* Fondo blanco */
+  padding: 2rem; /* Espaciado interno */
+  border-radius: 20px; /* Bordes redondeados */
+  width: 400px; /* Ancho fijo */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+}
+
+/* Título del formulario de aptitudes */
+.formulario-contenido-descripcion h2 {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  color: #3eaeb1; /* Color azul */
+}
+
+/* Estilos para los campos del formulario de aptitudes */
+.campo {
+  margin-bottom: 1.5rem;
+}
+
+.campo select {
+  width: 100%; /* Ancho completo */
+  padding: 0.5rem; /* Espaciado interno */
+  font-size: 1.2rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  border: 1px solid #d1d5db; /* Borde gris claro */
+  border-radius: 10px;
+  background-color: #d9d9d9;
+  color: rgba(0, 0, 0, 0.7); /* Color del texto */
+  
+}
+
+/* Estilo para el texto placeholder dentro de los select */
+.campo select::placeholder {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+
+/*-----------------------------------------------
+  Estilos para contenedor de calificaciones 
+-----------------------------------------------*/
+
+/* Estilo para el contenedor con el título y las tarjetas */
+.contenedor {
+  width: 70%; /* Ancho del contenedor */
+  height: 22rem; /* Altura ajustada */
+  background-color: white; /* Fondo blanco */
+  border: 1px solid #6b7280; /* Borde gris oscuro */
+  border-radius: 1rem; /* Bordes redondeados */
+  display: flex; /* Flexbox para centrar el contenido */
+  flex-direction: column; /* Colocar el contenido en una columna (título + slider) */
+  position: relative; /* Posición relativa para iconos u otros elementos */
+  overflow: hidden; /* Ocultar el desbordamiento */
+  padding: 20px; /* Espaciado interno */
+  
+}
+
+#titulo-favoritos {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700; /* Bold */
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #3EAEB1;
+    padding: 0 0px; /* Espaciado adicional a los lados para mayor separación */
+    
+}
+
+/* Estilo para las estrellas (calificación) */
+.estrellasTarjetas {
+  display: flex; /* Flexbox para alinear las estrellas */
+  justify-content: left; /* Centrado horizontal */
+  font-size: 1rem; /* Tamaño de fuente para las estrellas */
+  color: #3EAEB1; /* Color azul */
+  gap: 0.3rem; /* Espacio entre las estrellas */
+} 
+
+/* Slider y tarjetas */
+.slider-container {
+  position: relative;
+  width: 100%; /* Asegura que el slider ocupe todo el ancho disponible */
+}
+
+.slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 20px;
+  padding-bottom: 20px;
+  width: 100%; /* Asegura que las tarjetas estén dentro del contenedor */
+}
+
+.slider::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  background-color: #fff;
+  flex: 0 0 300px; /* Ajusta el tamaño de la tarjeta */
+  border-radius: 12px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  box-sizing: border-box; /* Asegura que el padding y los bordes no afecten el tamaño */
+}
+
+.card img {
+  width: 80px;
+  height: 80px;
+  background-color: #ccc;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-content h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 0 0px 0;
+}
+
+.descripcion {
+  font-size: 12px;
+  font-weight: bold;
+  color: #000000;
+  margin-top: 10px;
+}
+
+
+.texto {
+  font-size: 13px;
+  color: black;
+  margin: 2px 0;
+  font-weight: bold;
+}
+
+
+.stars {
+  color: #3EAEB1;
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+/* Flechas de navegación (si las necesitas) */
+.arrows {
+  display: flex;
+  gap: 60px; /* Separación entre flechas */
+  justify-content: center;
+  align-items: center;
+  padding-top: 15px
+}
+
+.arrow-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.arrow-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.arrow-btn:hover svg {
+  transform: scale(1.1);
+}
+
+
+/*-----------------------------------------------
+  Media Queries para Responsive Design
+-----------------------------------------------*/
+/* Para pantallas más pequeñas (móviles) */
+@media (max-width: 768px) {
+  body {
+    padding: 1rem 0; /* Reduce el padding vertical */
+  }
+  .contenedor {
+    width: 95%;
+  }
+
+  .cuadro {
+    width: 95%; /* Ocupa casi todo el ancho */
+    margin-bottom: 1rem; /* Reduce el margen inferior */
+  }
+
+  .redondo {
+    height: 3rem; /* Reduce la altura */
+    border-radius: 1.5rem; /* Reduce el radio del borde */
+  }
+
+  .tabs {
+    gap: 1rem; /* Reduce el espacio entre las pestañas */
+    justify-content: space-around; /* Distribuye las pestañas equitativamente */
+  }
+
+  .tab {
+    font-size: 1rem; /* Reduce el tamaño de la fuente de las pestañas */
+  }
+
+  .grande {
+    width: 95%; /* Ocupa casi todo el ancho */
+    height: auto; /* Altura automática */
+    padding: 1rem; /* Reduce el padding interno */
+    flex-direction: column; /* Apila los elementos verticalmente */
+    align-items: center; /* Centra los elementos */
+  }
+
+  .titulo-principal {
+    font-size: 1.5rem; /* Reduce el tamaño del título */
+    margin-bottom: 0.5rem; /* Reduce el margen inferior */
+  }
+
+  .contenedor-circulo {
+    margin-top: 0.3rem; /* Reduce el margen superior */
+  }
+
+  .circulo-icono {
+    width: 5rem; /* Reduce el ancho del círculo */
+    height: 5rem; /* Reduce la altura del círculo */
+  }
+
+  .circulo-icono i {
+    font-size: 3rem; /* Reduce el tamaño del icono */
+  }
+
+  .estrellas {
+    font-size: 1rem; /* Reduce el tamaño de las estrellas */
+    margin-top: 0.2rem; /* Reduce el margen superior */
+    gap: 0.1rem; /* Reduce el espacio entre las estrellas */
+  }
+
+  .contacto {
+    gap: 0.5rem; /* Reduce el espacio entre los íconos de contacto */
+    margin-top: 0.3rem; /* Reduce el margen superior */
+  }
+
+  .contacto .email,
+  .contacto .telefono {
+    font-size: 0.8rem; /* Reduce el tamaño de la fuente del contacto */
+  }
+
+  .contacto i {
+    font-size: 1rem; /* Reduce el tamaño de los íconos de contacto */
+    margin-right: 2px; /* Reduce el margen derecho del icono de contacto */
+  }
+
+  .icono-lapiz {
+    top: 0.3rem; /* Reduce la distancia desde la parte superior */
+    right: 0.3rem; /* Reduce la distancia desde la derecha */
+    font-size: 1.2rem; /* Reduce el tamaño del icono de lápiz */
+  }
+
+  .contenedor-columnas {
+    width: 95%; /* Ocupa casi todo el ancho */
+    flex-direction: column; /* Apila las columnas */
+    gap: 1rem; /* Reduce el espacio entre las columnas */
+  }
+
+  .columna-izquierda,
+  .columna-derecha,
+  .cuadro-pequeno {
+    width: 100%; /* Ocupan todo el ancho disponible */
+    margin-bottom: 1rem; /* Reduce el margen inferior */
+    /* height: auto; Elimina esta línea */
+  }
+
+  .titulo-izquierda,
+  .titulo-idiomas,
+  .titulo-habilidades,
+  .titulo-experiencia,
+  .titulo-estudios {
+    font-size: 1.2rem; /* Reduce el tamaño del título */
+    margin: 1rem 0 0.5rem; /* Reduce los márgenes */
+    padding: 0 1rem; /* Reduce el padding */
+  }
+
+  .descripcion-resumen {
+    font-size: 0.9rem; /* Reduce el tamaño de la descripción */
+    margin-top: -0.3rem; /* Reduce el margen superior */
+    margin-bottom: 1rem; /* Reduce el margen inferior */
+    padding: 0 1rem; /* Reduce el padding */
+  }
+
+  .rol,
+  .empresa,
+  .fechas,
+  .titulo,
+  .lugar,
+  .fecha,
+  .idioma-nombre,
+  .idioma-nivel {
+    font-size: 1rem; /* Reduce el tamaño de la fuente */
+    padding-left: 1rem; /* Reduce el padding izquierdo */
+    padding-right: 1rem; /* Reduce el padding derecho si es necesario */
+  }
+
+  .empresa,
+  .lugar,
+  .fecha {
+    padding-left: 1.5rem; /* Ajusta el padding para la indentación */
+  }
+
+  .experienciaicon,
+  .estudiosicon,
+  .idiomas {
+    padding: 0 1rem; /* Reduce el padding horizontal */
+  }
+
+  .iconos {
+    transform: translateX(10px); /* Ajusta el desplazamiento de los íconos */
+  }
+
+  #lapizexperiencia,
+  .bi-trash,
+  #lapizestudios,
+  #agregaridiomas,
+  #agregarhabilidad {
+    font-size: 1.3rem; /* Reduce el tamaño de los íconos de edición/borrar */
+  }
+
+  .añadir-experiencia,
+  .añadir-estudios,
+  .idioma-item {
+    padding-left: 1rem; /* Reduce el padding izquierdo */
+  }
+
+  .icono-borrar,
+  .icono-idioma {
+    font-size: 1.3rem; /* Reduce el tamaño de los íconos de idioma */
+    padding-right: 1rem; /* Reduce el padding derecho */
+  }
+
+  .lista-habilidades {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Ajusta el ancho mínimo de las habilidades */
+    gap: 0.3rem; /* Reduce el espacio entre habilidades */
+  }
+
+  .habilidad-item {
+    font-size: 0.9rem; /* Reduce el tamaño de la fuente de las habilidades */
+    padding: 0.3rem 0.6rem; /* Reduce el padding de las habilidades */
+  }
+
+  /* Estilos para los formularios emergentes en pantallas pequeñas */
+  .formulario-editar,
+  .formulario-editar-descripcion,
+  .formulario-experiencia,
+  .formulario-editar-experiencia,
+  .formulario-estudios,
+  .formulario-editar-estudios,
+  .formulario-idioma,
+  .formulario-habilidad {
+    padding: 1rem; /* Reduce el padding del contenedor del formulario */
+  }
+
+  .formulario-contenido,
+  .formulario-contenido-descripcion,
+  .formulario-experiencia-contenido,
+  .formulario-editar-experiencia-contenido,
+  .formulario-estudios-contenido,
+  .formulario-editar-estudios-contenido,
+  .formulario-idioma-contenido, /* Asegúrate de que este exista si es necesario */
+  .formulario-habilidad-contenido {
+    width: 90%; /* Ocupa más ancho en pantallas pequeñas */
+    padding: 1.5rem; /* Reduce el padding interno del formulario */
+    border-radius: 15px; /* Reduce el radio del borde del formulario */
+  }
+
+  .formulario-contenido h2,
+  .formulario-contenido-descripcion h2,
+  .formulario-experiencia-contenido h2,
+  .formulario-editar-experiencia-contenido h2,
+  .formulario-estudios-contenido h2,
+  .formulario-editar-estudios-contenido h2,
+  .formulario-idioma-contenido h2,
+  .formulario-habilidad-contenido h2 {
+    font-size: 1.8rem; /* Reduce el tamaño del título del formulario */
+    margin-bottom: 1.5rem; /* Reduce el margen inferior del título del formulario */
+  }
+
+  .campo {
+    margin-bottom: 1rem; /* Reduce el margen inferior de los campos del formulario */
+  }
+
+  .campo input,
+  .campo textarea,
+  .campo select {
+    padding: 0.6rem; /* Reduce el padding de los inputs/textareas/selects */
+    font-size: 0.9rem; /* Reduce el tamaño de la fuente de los inputs/textareas/selects */
+    border-radius: 8px; /* Reduce el radio del borde de los inputs/textareas/selects */
+  }
+
+  .botones {
+    margin-top: 1.5rem; /* Reduce el margen superior de los botones del formulario */
+    gap: 0.5rem; /* Reduce el espacio entre los botones del formulario */
+  }
+
+  .botones button {
+    padding: 0.3rem 1.5rem; /* Reduce el padding de los botones del formulario */
+    font-size: 0.9rem; /* Reduce el tamaño de la fuente de los botones del formulario */
+    border-radius: 20px; /* Reduce el radio del borde de los botones del formulario */
+  }
+}
+
+/* Para tablets y pantallas medianas */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .cuadro {
+    width: 85%; /* Ocupa un poco más de ancho que en escritorio */
+  }
+
+  .grande {
+    width: 85%; /* Ocupa un poco más de ancho que en escritorio */
+  }
+
+  .contenedor-columnas {
+    width: 85%; /* Ocupa un poco más de ancho que en escritorio */
+    flex-direction: row; /* Vuelve a la disposición horizontal */
+  }
+
+  .columna-izquierda,
+  .columna-derecha {
+    width: 48%; /* Ocupan casi la mitad del ancho */
+  }
+
+  .cuadro-pequeno {
+    width: 100%; /* Ocupa todo el ancho de la columna derecha */
+  }
+
+  .tabs {
+    gap: 4rem; /* Ajusta el espacio entre pestañas */
+  }
+
+  .tab {
+    font-size: 1.3rem; /* Ajusta el tamaño de la fuente de las pestañas */
+  }
+
+  .titulo-principal {
+    font-size: 2rem; /* Ajusta el tamaño del título principal */
+  }
+
+  .contacto {
+    gap: 1rem; /* Ajusta el espacio entre los íconos de contacto */
+  }
+
+  .contacto .email,
+  .contacto .telefono {
+    font-size: 1rem; /* Ajusta el tamaño de la fuente del contacto */
+  }
+
+  .contacto i {
+    font-size: 1.2rem; /* Ajusta el tamaño de los íconos de contacto */
+  }
+
+  .titulo-izquierda,
+  .titulo-idiomas,
+  .titulo-habilidades,
+  .titulo-experiencia,
+  .titulo-estudios {
+    font-size: 1.4rem; /* Ajusta el tamaño de los títulos de las secciones */
+  }
+
+  .rol,
+  .empresa,
+  .fechas,
+  .titulo,
+  .lugar,
+  .fecha,
+  .idioma-nombre,
+  .idioma-nivel {
+    font-size: 1.1rem; /* Ajusta el tamaño de la fuente del texto */
+  }
+
+  .lista-habilidades {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Ajusta el ancho mínimo de las habilidades */
+    gap: 0.4rem; /* Ajusta el espacio entre habilidades */
+  }
+
+  .habilidad-item {
+    font-size: 1rem; /* Ajusta el tamaño de la fuente de las habilidades */
+    padding: 0.4rem 0.8rem; /* Ajusta el padding de las habilidades */
+  }
+
+  /* Los formularios emergentes pueden mantener un ancho similar al de escritorio en tablets */
+}
+
+/* Para pantallas de escritorio grandes (si es necesario ajustes específicos) */
+@media (min-width: 1201px) {
+  .cuadro {
+    width: 70%; /* Mantiene el ancho original */
+  }
+
+  .grande {
+    width: 76; /* Mantiene el ancho original */
+  }
+
+  .contenedor-columnas {
+    width: 70%; /* Mantiene el ancho original */
+    flex-direction: row; /* Asegura la disposición horizontal */
+  }
+
+  .columna-izquierda {
+    flex: 2; /* Mantiene la proporción */
+  }
+
+  .columna-derecha {
+    flex: 1; /* Mantiene la proporción */
+  }
+
+  .cuadro-pequeno {
+    width: 100%; /* Ocupa todo el ancho de la columna derecha */
+  }
+
+  /* Aquí podrías añadir ajustes para fuentes más grandes o espaciados si lo deseas en escritorios muy grandes */
+}
+
+
+/*modal de ver la imagen mas*/
+.modal-overlay {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 999;
+}
+
+.modal-content {
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 8px;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+}

@@ -1,0 +1,978 @@
+/* Establece el comportamiento del box model para todos los elementos */
+* {
+    box-sizing: border-box; /* Hace que el ancho y alto incluyan padding y border */
+    margin: 0; /* Elimina el margen por defecto */
+    padding: 0; /* Elimina el padding por defecto */
+  }
+  
+  /* Estilos generales para el body */
+  .guardar {
+    background-color: #f8f8f8; /* Color de fondo de la página */
+    display: flex; /* Usamos Flexbox para distribuir los elementos */
+    flex-direction: column; /* Organiza los elementos de manera vertical */
+    align-items: center; /* Centra los elementos horizontalmente */
+    min-height: 100vh; /* Asegura que la altura mínima sea 100% de la pantalla */
+    padding: 2.5rem 0; /* Espaciado arriba y abajo */
+    font-family: sans-serif; /* Define la fuente general */
+  }
+  
+  /*-----------------------------------------------
+    Estilos para la navegación
+  -----------------------------------------------*/
+  
+  /* Estilos para el cuadro de contenido */
+  .cuadro {
+    width: 70%; /* Define el ancho del cuadro */
+    background-color: white; /* Fondo blanco */
+    border: 1px solid #d1d5db; /* Borde gris claro */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    margin-bottom: 1.5rem; /* Margen debajo */
+  }
+  
+  /* Estilo para un cuadro con bordes redondeados */
+  .redondo {
+    height: 5rem; /* Define la altura del cuadro */
+    border-radius: 2rem; /* Bordes redondeados */
+    border: 1px solid #6b7280; /* Borde gris oscuro */
+    display: flex; /* Usamos flexbox */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+  }
+  
+  /* Estilos para las pestañas de navegación */
+  .tabs {
+    display: flex; /* Usamos flexbox */
+    gap: 8rem; /* Espacio entre las pestañas */
+  }
+  
+  /* Estilo para cada pestaña */
+  .tab {
+    font-family: 'Oswald', sans-serif; /* Fuente específica para las pestañas */
+    font-weight: 500; /* Peso medio de la fuente */
+    font-size: 1.5rem; /* Tamaño de fuente ajustado */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    color: black; /* Color de texto negro */
+    transition: color 0.3s ease; /* Transición suave para el cambio de color */
+  }
+  
+  /* Estilo cuando una pestaña está activa */
+  .tab.active {
+    color: #3EAEB1;
+  }
+  
+  
+  /*-----------------------------------------------
+    Estilos para contenedor de una servicio guardado 
+  -----------------------------------------------*/
+/* Contenedor general de los servicios guardados */
+.categoria {
+  position: relative;          /* Permite posicionar elementos hijos con posición absoluta relativos a este contenedor */
+  display: flex;               /* Activa el modelo flexbox para alinear hijos en fila */
+  align-items: flex-start;     /* Alinea los items hijos al inicio vertical */
+  gap: 20px;                   /* Espacio horizontal entre los elementos hijos */
+  padding: 20px 0;             /* Espaciado arriba y abajo dentro del contenedor */
+  width: 70%;                  /* El ancho del contenedor es el 70% del contenedor padre */
+  max-width: 950px;            /* Limita el ancho máximo a 950px */
+}
+
+/* Línea decorativa debajo del contenedor .categoria */
+.categoria::after {
+  content: "";                 /* Elemento vacío generado */
+  position: absolute;          /* Posición absoluta respecto a .categoria */
+  bottom: 0;                  /* Se coloca en la parte inferior del contenedor */
+  left: 25%;                  /* Se desplaza desde la izquierda un 25% del ancho */
+  width: 58%;                 /* El ancho de la línea es 58% del contenedor */
+  height: 1px;                /* Altura fina para parecer una línea */
+  background-color: black;    /* Color negro para la línea */
+}
+
+/* Imagen del servicio */
+.image {
+    width: 200px;                /* Ancho fijo */
+    height: 200px;               /* Alto fijo */
+    flex-shrink: 0;              /* Evita que se reduzca en flex */
+    background-size: cover;      /* Que cubra el área */
+    background-position: center; /* Centrada */
+    margin-top: 1%;              /* Margen arriba */
+    border-radius: 50%;          /* ¡Esto las hace redondas! */
+    object-fit: cover;           /* Para las imágenes <img> */
+    cursor: pointer;
+}
+
+
+/* Contenido textual dentro de la tarjeta */
+.info {
+    flex: 1;                   /* Ocupa el espacio restante dentro del contenedor flex */
+    display: flex;             /* Se usa flexbox para ordenar el contenido */
+    flex-direction: column;    /* Organiza hijos en columna */
+    justify-content: space-between; /* Espacio entre elementos para distribuir verticalmente */
+    margin-left: 3%;           /* Separación a la izquierda */
+}
+
+/* Encabezado dentro del contenido */
+.encabezado {
+  display: flex;               /* Flexbox para alinear elementos en fila */
+  align-items: center;         /* Centra verticalmente los elementos */
+  justify-content: flex-start; /* Alinea todo al inicio horizontal */
+  gap: 20px;                   /* Espacio entre los elementos hijos */
+}
+
+/* Estilo para el título h2 dentro de encabezado */
+.encabezado h2 {
+  margin: 0;                   /* Elimina margen predeterminado */
+}
+
+/* Nombre destacado del servicio */
+.name {
+    color: #3EAEB1;            /* Color azul claro */
+    font-size: 28px;           /* Tamaño de fuente grande */
+    font-family: 'Oswald', sans-serif; /* Tipografía Oswald */
+}
+
+/* Botón menú sin fondo ni borde */
+.menu1 {
+    background: none;           /* Sin fondo */
+    border: none;               /* Sin borde */
+    font-size: 24px;            /* Tamaño de fuente grande */
+    cursor: pointer;            /* Cambia el cursor a mano al pasar por encima */
+    margin-left: 32%;           /* Se separa a la derecha con margen izquierdo */
+}
+
+/* Icono de estrella en color gris */
+.estrella-gris {
+  color: gray;
+}
+
+/* Contenedor para categorías */
+.categorias {
+  display: flex;               /* Flexbox para alinear horizontal */
+  align-items: flex-start;     /* Alinea arriba verticalmente */
+  gap: 15px;                   /* Espacio entre categorías */
+  padding: 15px 0;             /* Espaciado arriba y abajo */
+}
+
+/* Estilos compartidos para etiquetas de categoría y subcategoría */
+.cate {
+  color: black;                /* Texto negro */
+  border-radius: 20px;         /* Bordes redondeados */             /* Cursor tipo mano para indicar clickeable */
+  font-size: 16px;             /* Tamaño de fuente pequeño */
+  font-weight: 600; 
+}
+.subcate {
+  color: #606060;                /* Texto negro *//* Espaciado interno vertical y horizontal */
+  border-radius: 20px;         /* Bordes redondeados */         /* Cursor tipo mano para indicar clickeable */
+  font-size: 16px;             /* Tamaño de fuente pequeño */
+  font-weight: 600;            /* Fuente seminegra */
+}
+
+/* Contenedor para botón de contacto */
+.boton-contact {
+  display: block;              /* Elemento de bloque */
+  margin-left: 25%;            /* Se mueve a la derecha */
+  margin-top: 8px;             /* Espacio arriba */
+}
+
+/* Botón de contacto con estilo similar a categorías */
+.contact-but {
+  background-color: white;     /* Fondo blanco */
+  border: 3px solid #3EAEB1;   /* Borde azul claro */
+  color: black;                /* Texto negro */
+  padding: 6px 16px;           /* Espaciado interno */
+  border-radius: 20px;         /* Bordes redondeados */
+  cursor: pointer;             /* Cursor tipo mano */
+  font-size: 13px;             /* Tamaño de texto pequeño */
+  font-weight: 600;            /* Texto seminegro */
+}
+
+/* Efecto hover para botón de contacto: cambia fondo y texto */
+.contact-but:hover {
+  background-color: #3EAEB1;   /* Fondo azul claro */
+  color: white;                /* Texto blanco */
+}
+
+/* Icono de basura para eliminar, con tamaño y transición de color */
+.bi-trash {
+    font-size: 1.7rem;         /* Tamaño de fuente relativamente grande */
+    color: #3eaeb1;              /* Color negro */
+    cursor: pointer;           /* Cursor tipo mano */
+    transition: color 0.3s;    /* Transición suave para cambios de color */
+}
+.bi-trash:hover {
+            /* Tamaño de fuente relativamente grande */
+    color: #ff4c4c;              /* Color negro */
+      /* Transición suave para cambios de color */
+}
+/* Precio del servicio */
+.precio {
+    font-size: 17px;            /* Tamaño de fuente medio */
+    font-weight: 500;           /* Peso medio */
+    font-family: 'Oswald', sans-serif; /* Tipografía Oswald */
+    color: gray;                /* Color gris */
+}
+
+/* Descripción del servicio */
+.descripcion1 {
+    font-weight: 500;           /* Peso medio */
+    font-family: 'Oswald', sans-serif; /* Tipografía Oswald */
+    font-size: 14px;            /* Tamaño de texto pequeño */
+    color: #333;                /* Color gris oscuro */
+    margin-top: 10px;           /* Margen superior para separación */
+    line-height: 1.4;           /* Altura de línea para mejor lectura */
+    max-width: 70%;             /* Ancho máximo para que no ocupe toda la fila */
+}
+
+
+
+
+
+
+/*-----------------------------------------------
+  Estilos para contenedor de "Servivios destacados"
+-----------------------------------------------*/
+
+/* Contenedor principal que agrupa título y tarjetas */
+.contenedor {
+  width: 70%; /* Define ancho del contenedor */
+  height: 27rem; /* Altura fija para el contenedor */
+  border-radius: 1rem; /* Bordes redondeados */
+  display: flex; /* Usa Flexbox para organizar hijos */
+  flex-direction: column; /* Organiza hijos en columna (título + slider) */
+  position: relative; /* Para posicionar elementos internos (como iconos) */
+  overflow: hidden; /* Oculta contenido que se salga del contenedor */
+  padding: 20px; /* Espacio interno alrededor del contenido */
+}
+
+/* Contenedor que envuelve el slider para posicionamiento */
+.slider-container {
+  position: relative; /* Permite posicionar elementos relativos dentro */
+}
+
+/* Contenedor del slider con tarjetas desplazables horizontalmente */
+.slider {
+  display: flex; /* Organiza tarjetas en fila */
+  overflow-x: auto; /* Permite scroll horizontal cuando hay más tarjetas */
+  scroll-behavior: smooth; /* Desplazamiento suave al hacer scroll */
+  gap: 20px; /* Espacio entre las tarjetas */
+  padding-bottom: 20px; /* Espacio debajo del slider para separación */
+}
+
+/* Oculta la barra de scroll en navegadores WebKit (Chrome, Safari) */
+.slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* Estilo para el título "Te podría interesar" */
+.titulo-interes {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700; /* Texto en negrita */
+  font-size: 2.5rem; /* Tamaño grande para título */
+  margin-bottom: 20px; /* Espacio debajo del título */
+  color: black; /* Color negro para el texto */
+  padding: 0 0px; /* Sin padding horizontal adicional */
+  text-align: center; /* Centra el texto horizontalmente */
+}
+
+
+/* Estilo para estrellas de calificación en las tarjetas */
+.estrellasTarjetas {
+  display: flex; /* Organiza estrellas en fila */
+  justify-content: left; /* Alinea a la izquierda */
+  font-size: 1rem; /* Tamaño de fuente para las estrellas */
+  color: #3EAEB1; /* Color azul para las estrellas */
+  gap: 0.1rem; /* Espacio pequeño entre estrellas */
+}
+
+/* Nombre del profesional o servicio */
+.nombre {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500; /* Peso medio */
+  font-size: 20px; /* Tamaño de texto */
+  color: black; /* Color negro */
+}
+
+/* Profesión o título debajo del nombre */
+.profesion {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400; /* Peso normal */
+  font-size: 16px;
+  color: black;
+  margin-top: 10px; /* Separación arriba */
+}
+
+/* Título de la descripción con color semitransparente */
+.descripcion-titulo {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.7); /* Negro con 70% de opacidad */
+  margin: 4px 0 2px; /* Margen arriba y abajo ajustado */
+}
+
+/* Texto descriptivo dentro de la tarjeta */
+.descripcion-texto {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: black;
+  margin: 0; /* Sin margen */
+}
+
+/* Precio del servicio o producto */
+.price {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  color: #6B7280; /* Gris */
+  font-size: 10px;
+}
+
+/* Tarjeta individual */
+.card {
+  background-color: #fff; /* Fondo blanco */
+  flex: 0 0 370px; /* Ancho fijo y no crecer ni encoger */
+  border-radius: 12px; /* Bordes redondeados */
+  padding: 15px; /* Espacio interno */
+  border: 1px solid #ccc; /* Borde gris claro */
+  display: flex; /* Flex para alinear imagen y contenido */
+  gap: 15px; /* Espacio entre imagen y contenido */
+  align-items: center; /* Alinea verticalmente al centro */
+}
+
+
+
+/* Contenedor para el botón en el modal o tarjeta */
+.boton-container {
+  display: flex; /* Usa Flexbox para centrar */
+  justify-content: center; /* Centra horizontalmente */
+  margin-top: 8px; /* Separación arriba */
+}
+
+/* Estilo del botón de contacto */
+.contact-button {
+  background-color: white; /* Fondo blanco */
+  border: 3px solid #3EAEB1; /* Borde azul */
+  color: black; /* Texto negro */
+  padding: 6px 16px; /* Espaciado interno */
+  border-radius: 20px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor tipo puntero */
+  font-size: 13px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 600; /* Peso medio */
+}
+
+/* Efecto hover para el botón de contacto */
+.contact-button:hover {
+  background-color: #3EAEB1; /* Fondo azul */
+  color: #ffffff; /* Texto blanco */
+}
+
+/* Contenido dentro de la tarjeta (texto, botones) */
+.card-content {
+  display: flex;
+  flex-direction: column; /* Organiza en columna */
+  justify-content: space-between; /* Espacio entre elementos */
+  flex: 1; /* Ocupa el espacio restante */
+}
+
+/* Contenedor de flechas para el slider */
+.arrows {
+  display: flex; /* Flex para organizar las flechas */
+  gap: 60px; /* Separación entre flechas */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+
+/* Botones de flechas para control del slider */
+.arrow-btn {
+  background: transparent; /* Fondo transparente */
+  border: none; /* Sin borde */
+  cursor: pointer; /* Cursor puntero */
+  padding: 0; /* Sin padding */
+}
+
+/* Transición para iconos SVG dentro del botón */
+.arrow-btn svg {
+  transition: transform 0.3s ease; /* Animación suave para transformaciones */
+}
+
+/* Efecto hover que escala la flecha */
+.arrow-btn:hover svg {
+  transform: scale(1.1); /* Agranda la flecha ligeramente */
+}
+
+/* Posición relativa para contenido dentro de la tarjeta */
+.card-content {
+  position: relative;
+}
+
+/* Contenedor para el nombre y botón del menú */
+.header {
+  display: flex; /* Flex para alinear elementos en fila */
+  justify-content: space-between; /* Separación entre nombre y menú */
+  align-items: center; /* Alineación vertical */
+}
+
+/* Contenedor para botón menú desplegable */
+.menu-button-container {
+  position: relative; /* Para posicionar menú desplegable */
+}
+
+/* Botón del menú desplegable */
+.menu-button {
+  background: none; /* Sin fondo */
+  border: none; /* Sin borde */
+  font-size: 24px; /* Tamaño de fuente grande */
+  cursor: pointer; /* Cursor puntero */
+}
+
+/* Menú desplegable oculto por defecto */
+.dropdown-menu {
+  display: none; /* Oculto inicialmente */
+  position: absolute; /* Posicionamiento absoluto respecto al contenedor */
+  right: 0; /* Alineado a la derecha */
+  top: 30px; /* Separación desde arriba */
+  width: 120px; /* Ancho fijo */
+  background-color: #F8F8F8; /* Fondo gris claro */
+  border: 1px solid #ccc; /* Borde gris */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 8px; /* Espacio interno */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Sombra suave */
+  z-index: 10; /* Se asegura que esté sobre otros elementos */
+  font-family: 'Oswald', sans-serif; /* Fuente Oswald */
+  font-weight: 500; /* Peso medio */
+  color: black; /* Color texto negro */
+}
+
+/* Botones dentro del menú desplegable */
+.dropdown-menu a {
+  display: flex; /* Flex para alinear iconos y texto */
+  align-items: center; /* Alinea verticalmente */
+  width: 100%; /* Ocupa todo el ancho */
+  padding: 6px 8px; /* Espaciado interno */
+  border: none; /* Sin borde */
+  background: none; /* Sin fondo */
+  cursor: pointer; /* Cursor puntero */
+  text-align: left; /* Alinea texto a la izquierda */
+  font-size: 14px; /* Tamaño texto */
+  text-decoration: none; /* Sin subrayado */
+}
+
+/* Span dentro del botón para texto */
+.dropdown-menu a span {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none; /* Sin subrayado */
+  color: black; /* Color texto negro */
+}
+
+/* Efecto hover para botones del menú */
+.dropdown-menu a :hover {
+  color: #3EAEB1; /* Cambia color a azul */
+}
+
+.dropdown-menu i:hover {
+  color: #3EAEB1; /* Cambia color a azul */
+}
+
+/* Iconos dentro del menú */
+.dropdown-menu i {
+  margin-right: 8px; /* Espacio a la derecha del icono */
+  font-size: 16px; /* Tamaño icono */
+  color: black; /* Color texto negro */
+}
+
+/* Clase para ocultar contenido pero conservar espacio */
+.hidden {
+  visibility: hidden; /* Oculta el elemento pero mantiene el espacio */
+}
+
+/* Modal oculto por defecto */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0; /* top, right, bottom, left a 0 */
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal:not(.hidden) {
+  display: flex;
+}
+
+/* Contenedor del modal */
+.modal-content {
+  position: relative;
+  width: 40%;
+  max-width: 400px;
+  max-height: 100vh;
+  background: #fff;
+  border-radius: 12px;
+  overflow-y: auto;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  height: auto;
+}
+
+/* Botón cerrar */
+.close-button {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 22px;
+  color: #000;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.close-button:hover {
+  color: #3eaeb1;
+}
+
+/* Media query para tablets: se aplican estilos cuando el ancho máximo de la pantalla es 768px */
+@media (max-width: 768px) {
+
+  /* Contenedor principal de cada servicio */
+  .categoria {
+    width: 95%;         /* Ancho del contenedor ajustado para ocupar la mayor parte del ancho disponible */
+    gap: 16px;          /* Espacio entre elementos hijos dentro del contenedor */
+  }
+
+  /* Imagen dentro del contenedor */
+  .image {
+    width: 160px;       /* Ancho fijo para la imagen en tablets */
+    height: 160px;      /* Alto fijo para la imagen, para mantener proporción */
+  }
+
+  /* Contenedor de la información (texto) al lado de la imagen */
+  .info {
+    margin-left: 2%;    /* Margen izquierdo pequeño para separar texto de la imagen */
+  }
+
+  /* Nombre del servicio o producto */
+  .name {
+    font-size: 24px;    /* Tamaño de fuente para que el texto se vea bien en tablets */
+  }
+
+  /* Precio del servicio o producto */
+  .precio {
+    font-size: 15px;    /* Tamaño de fuente un poco más pequeño que el nombre */
+  }
+
+  /* Descripción corta del servicio */
+  .descripcion1 {
+    font-size: 13px;    /* Tamaño de fuente pequeño para no ocupar demasiado espacio */
+    max-width: 90%;     /* Limita el ancho máximo para que no ocupe todo el contenedor */
+  }
+
+  /* Categoría, subcategoría y botón de contacto */
+  .cate, .subcate, .contact-but {
+    font-size: 12px;    /* Tamaño pequeño para texto menos relevante */
+    padding: 5px 14px;  /* Espaciado interno para dar espacio entre texto y borde */
+  }
+
+  /* Menú o elemento extra alineado a la izquierda */
+  .menu1 {
+    margin-left: 20%;   /* Margen izquierdo para empujar el menú más hacia la derecha */
+  }
+
+  /* Pseudo-elemento decorativo después de .categoria */
+  .categoria::after {
+    left: 5%;           /* Posición desde la izquierda para la línea decorativa */
+    width: 90%;         /* Ancho que abarca la mayor parte del contenedor */
+  }
+}
+
+
+/* Media query para celulares: estilos para pantallas de ancho máximo 480px */
+@media (max-width: 480px) {
+
+  /* Contenedor principal de servicio para pantallas pequeñas */
+  .categoria {
+    width: 90%;         /* Ancho reducido para pantallas más pequeñas */
+    padding: 15px 0;    /* Padding vertical para dar espacio arriba y abajo */
+    gap: 12px;          /* Menor espacio entre elementos hijos */
+  }
+
+  /* Imagen más pequeña para móviles */
+  .image {
+    width: 120px;       /* Ancho fijo más pequeño para la imagen */
+    height: 120px;      /* Alto fijo correspondiente */
+  }
+
+  /* Nombre con fuente más pequeña para pantallas pequeñas */
+  .name {
+    font-size: 20px;
+  }
+
+  /* Precio con fuente reducida para móviles */
+  .precio {
+    font-size: 14px;
+  }
+
+  /* Descripción ajustada para pantallas pequeñas */
+  .descripcion1 {
+    font-size: 12px;
+    max-width: 95%;     /* Casi todo el ancho disponible para mejor lectura */
+  }
+
+  /* Categoría, subcategoría y botón contacto con fuente y padding más pequeños */
+  .cate, .subcate, .contact-but {
+    font-size: 11px;
+    padding: 4px 12px;  /* Menor padding para que no ocupe mucho espacio */
+  }
+
+  /* Menú con margen izquierdo reducido */
+  .menu1 {
+    margin-left: 10%;
+  }
+
+  /* Línea decorativa bajo .categoria igual que en tablets */
+  .categoria::after {
+    left: 5%;
+    width: 90%;
+  }
+
+  /* Contenedor general de categorías */
+  .categorias {
+    flex-direction: column;     /* Cambia la dirección de fila a columna para apilar verticalmente */
+    align-items: flex-start;    /* Alinea al inicio del contenedor */
+    gap: 6px;                   /* Espacio pequeño entre las categorías */
+  }
+  
+  /* Contenedor para el botón de contacto debajo de la descripción */
+  .boton-contact {
+    display: flex;              /* Usa flexbox para facilitar alineación */
+    justify-content: center;    /* Centra el botón horizontalmente */
+    margin: 12px auto 0 auto;   /* Margen superior de 12px y centrado horizontal (auto) */
+  }
+}
+
+/*-----------------------------------------------
+  Estilos para pantallas pequeñas (móviles) carrusel
+-----------------------------------------------*/
+@media (max-width: 768px) {
+
+    /* Padding vertical del body para dar espacio arriba y abajo */
+    body {
+        padding: 1rem 0;
+    }
+
+    /* Contenedor principal (cuadro) ajustado para ocupar casi todo el ancho disponible */
+    .cuadro {
+        width: 95%;
+        margin-bottom: 1rem; /* Margen inferior para separar cuadros */
+    }
+
+    /* Elemento redondo, probablemente un avatar o icono, con altura fija */
+    .redondo {
+        height: 3.5rem;
+    }
+
+    /* Contenedor de pestañas (tabs) con separación horizontal y padding lateral */
+    .tabs {
+        gap: 1rem;          /* Espacio entre pestañas */
+        padding: 0 0.5rem;  /* Padding izquierdo y derecho */
+    }
+
+    /* Contenedor general para el carrusel o contenido */
+    .contenedor {
+        width: 95%;         /* Ancho casi completo */
+        height: auto;       /* Altura ajustable según contenido */
+        padding: 15px;      /* Espaciado interno uniforme */
+    }
+
+    /* Título de interés con tamaño de fuente mediano y margen inferior */
+    .titulo-interes {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+
+    /* Contenedor para los elementos del slider, con espacio entre ellos y padding inferior */
+    .slider {
+        gap: 10px;          /* Separación entre elementos del slider */
+        padding-bottom: 15px; /* Espacio debajo del slider */
+    }
+
+    /* Cada tarjeta dentro del slider */
+    .card {
+        flex: 0 0 280px;    /* Tarjeta con ancho fijo de 280px dentro de un flexbox */
+        padding: 10px;      /* Espacio interno para que el contenido no toque bordes */
+        gap: 10px;          /* Espacio entre elementos hijos dentro de la tarjeta */
+    }
+
+    /* Nombre dentro de la tarjeta */
+    .nombre {
+        font-size: 16px;    /* Tamaño de fuente legible para móviles */
+    }
+
+    /* Profesión u otro texto descriptivo */
+    .profesion {
+        font-size: 12px;    /* Fuente más pequeña */
+        margin-top: 5px;    /* Espacio encima para separar del nombre */
+    }
+
+    /* Textos descriptivos, botones, precios dentro de las tarjetas */
+    .descripcion-titulo,
+    .descripcion-texto,
+    .ver-mas,
+    .price {
+        font-size: 0.8rem;  /* Tamaño pequeño para no saturar espacio */
+    }
+
+    /* Tamaño de la fuente para las estrellas (rating) dentro de las tarjetas */
+    .estrellasTarjetas {
+        font-size: 0.8rem;
+    }
+
+    /* Botón para el menú (hamburguesa u otro icono) */
+    .menu-button {
+        font-size: 1.5rem;  /* Tamaño para fácil pulsación */
+    }
+
+    /* Menú desplegable */
+    .dropdown-menu {
+        width: 100px;       /* Ancho fijo para el menú desplegable */
+        top: 25px;          /* Posición vertical respecto al elemento padre */
+        padding: 5px;       /* Espaciado interno */
+        border-radius: 6px; /* Bordes redondeados */
+    }
+
+    /* Botones y textos dentro del menú desplegable */
+    .dropdown-menu button,
+    .dropdown-menu button span,
+    .dropdown-menu i {
+        font-size: 12px;    /* Tamaño pequeño para botones e iconos */
+    }
+
+    /* Contenedor de flechas para navegación */
+    .arrows {
+        gap: 30px;          /* Espacio entre las flechas */
+    }
+
+    /* Botones de flechas con SVG */
+    .arrow-btn svg {
+        width: 30px;        /* Ancho fijo para iconos SVG */
+        height: 30px;       /* Alto fijo para iconos SVG */
+    }
+
+    /* Contenido del modal, ajustado para pantallas pequeñas */
+    .modal-content {
+        width: 80%;         /* Ancho relativo al 80% de la ventana */
+        max-width: 350px;   /* Ancho máximo para no crecer demasiado */
+    }
+
+    /* Botón para cerrar el modal */
+    .close-button {
+        top: 8px;           /* Distancia del borde superior */
+        right: 10px;        /* Distancia del borde derecho */
+        font-size: 18px;    /* Tamaño de fuente para el ícono de cierre */
+    }
+}
+
+
+/*-----------------------------------------------
+  Estilos para tablets (entre 769px y 1024px) carrusel
+-----------------------------------------------*/
+@media (min-width: 769px) and (max-width: 1024px) {
+
+    /* Contenedor principal (cuadro) con ancho menor que en móviles */
+    .cuadro {
+        width: 85%;
+    }
+
+    /* Separación mayor entre pestañas para pantallas más amplias */
+    .tabs {
+        gap: 4rem;
+    }
+
+    /* Contenedor general para carrusel o contenido */
+    .contenedor {
+        width: 85%;         /* Ancho reducido para tablets */
+        height: auto;
+        padding: 20px;      /* Más padding que en móviles */
+    }
+
+    /* Título con fuente más grande y margen inferior mayor */
+    .titulo-interes {
+        font-size: 1.7rem;
+        margin-bottom: 18px;
+    }
+
+    /* Tarjetas del slider con ancho mayor */
+    .card {
+        flex: 0 0 320px;    /* Tarjetas más anchas en tablets */
+        padding: 12px;
+        gap: 12px;
+    }
+
+    /* Imagen más grande dentro de la tarjeta */
+    .card img {
+        width: 90px;
+        height: 90px;
+    }
+
+    /* Nombre con fuente más grande */
+    .nombre {
+        font-size: 18px;
+    }
+
+    /* Profesión con fuente más grande y margen superior */
+    .profesion {
+        font-size: 14px;
+        margin-top: 7px;
+    }
+
+    /* Textos descriptivos y botones con tamaño un poco mayor */
+    .descripcion-titulo,
+    .descripcion-texto,
+    .ver-mas,
+    .price {
+        font-size: 0.9rem;
+    }
+
+    /* Tamaño de fuente para las estrellas (rating) */
+    .estrellasTarjetas {
+        font-size: 0.9rem;
+    }
+
+    /* Botón para menú con fuente más grande */
+    .menu-button {
+        font-size: 2rem;
+    }
+
+    /* Menú desplegable con mayor ancho y padding */
+    .dropdown-menu {
+        width: 110px;
+        top: 28px;
+        padding: 7px;
+        border-radius: 7px;
+    }
+
+    /* Botones e iconos dentro del menú con tamaño más grande */
+    .dropdown-menu button,
+    .dropdown-menu button span,
+    .dropdown-menu i {
+        font-size: 13px;
+    }
+
+    /* Contenedor de flechas con mayor separación */
+    .arrows {
+        gap: 45px;
+    }
+
+    /* Iconos SVG para flechas más grandes */
+    .arrow-btn svg {
+        width: 35px;
+        height: 35px;
+    }
+
+    /* Contenido modal más ancho */
+    .modal-content {
+        width: 70%;
+        max-width: 500px;
+    }
+
+    /* Botón de cerrar modal ajustado */
+    .close-button {
+        top: 10px;
+        right: 12px;
+        font-size: 20px;
+    }
+}
+
+
+/*-----------------------------------------------
+  Estilos para pantallas de escritorio grandes (más de 1200px)
+-----------------------------------------------*/
+@media (min-width: 1201px) {
+
+  /* Contenedor principal con ancho fijo más pequeño */
+  .cuadro {
+    width: 70%; /* Mantiene el ancho original más estrecho para escritorio */
+  }
+
+  /* Clase para elementos grandes, manteniendo ancho original */
+  .grande {
+    width: 76px; 
+  }
+
+}
+
+
+/*estilos para el modal de eliminar*/
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* fondo negrito trasparente */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 400px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn-aceptar {
+  background-color: #dc3545;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-cancelar {
+  background-color: #6c757d;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+/*modal de ver la imagen mas*/
+.modal-overlay {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 999;
+}
+
+.modal-content {
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 8px;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+}

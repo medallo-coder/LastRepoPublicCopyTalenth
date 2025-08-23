@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/26ZkKCPm/Vector.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/c_recuperar.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+</head>
+<body>
+    
+    {% include 'errors.html' %}
+    <div class="logo">
+            <!-- Ícono Vector.svg -->
+            <img src="{{ url_for('static', filename='images/Vector.svg') }}" alt="Logo">
+            <!-- Texto ContrataYA! -->
+             <span><span style="color: black;">Contrata</span><span style="color: #3eaeb1;">YA!</span></span>
+        </div>
+
+    {% include 'errors.html' %}
+
+    <div class="container">
+      <div class="contenedor">
+        <div class="register-form">
+            <h1>Recupera tu contraseña</h1>
+            <br>
+            <form method="POST" action="{{ url_for('web.recuperar_contraseña') }}">
+
+                <div class="inp-contraseña">
+                    <span class="inp-pasw-icon">
+                        <i><img src="{{ url_for('static', filename='images/Arroba.svg') }}" width="30" height="30"></i>
+                    </span>
+                    <input type="email" name="correo" placeholder="Correo electrónico" required>
+                </div>
+
+                <div class="bt-recuperar-pasword">
+                    Te enviaremos un enlace para restablecer tu contraseña
+                </div>
+                <br>
+
+                <button type="submit" class="bt-enviar">Enviar</button>
+                <br>
+
+            </form>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
+
