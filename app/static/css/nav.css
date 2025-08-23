@@ -193,7 +193,7 @@
     top: 0;
     z-index: 100;
     overflow-y: auto;
-    background-color: #E7E7E7;
+    background-color: #ffffff;
     transition: width 0.5s ease;
 }
 
@@ -223,7 +223,7 @@
 -----------------------------------------------*/
 
 .header-side {
-    background-color: #F8F8F8;
+    background-color: #ffffff;
     height: auto;
     padding: 20px;
     border-bottom: 2px solid rgba(0, 0, 0, 0.2);
@@ -234,6 +234,8 @@
     font-size: 37px;
     margin-bottom: 5px;
     padding-top: 40px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
 }
 
 .header-side h2 {
