@@ -93,10 +93,9 @@ def iniciar_sesion_service(data):
     if usuario.estado == "deshabilitado":
         return {"success": False, "message": "Usuario deshabilitado. Por favor, regístrate nuevamente con un correo diferente."}
 
-    if usuario.bloqueado_hasta and datetime.utcnow() < usuario.bloqueado_hasta:
-        tiempo_restante = usuario.bloqueado_hasta - datetime.utcnow()
-        minutos = int(tiempo_restante.total_seconds() // 60)
-        return {"success": False, "message": f"Usuario bloqueado temporalmente. Espera {minutos} minutos."}
+    # Solo inician sesion los clientes y administradores
+    if usuario.id_rol not in (1,2):
+        return{"success": False, "message": "Solo se permiten clientes y expertos." }
 
     if usuario.estado == "Bloqueado temporalmente" and usuario.bloqueado_hasta and datetime.utcnow() >= usuario.bloqueado_hasta:
         print("⚠️ Periodo de bloqueo ha terminado, restableciendo usuario.")
@@ -105,6 +104,13 @@ def iniciar_sesion_service(data):
         usuario.bloqueado_hasta = None
         db.session.commit()
 
+    if usuario.bloqueado_hasta and datetime.utcnow() < usuario.bloqueado_hasta:
+        tiempo_restante = usuario.bloqueado_hasta - datetime.utcnow()
+        minutos = int(tiempo_restante.total_seconds() // 60)
+        return {"success": False, "message": f"Usuario bloqueado temporalmente. Espera {minutos} minutos."}
+
+   
+
     if not check_password_hash(usuario.contrasena, contrasena):
         usuario.intentos_fallidos +=1
         if usuario.intentos_fallidos == 3:
@@ -112,6 +118,12 @@ def iniciar_sesion_service(data):
             usuario.bloqueado_hasta = datetime.utcnow() + timedelta(minutes=5)
         db.session.commit()
         return {"success": False, "message": "La contrasena es incorrecta. Intenta nuevamente o restablécela."}
+
+    usuario.intentos_fallidos = 0
+    usuario.estado= "activo"
+    usuario.bloqueado_hasta = None
+
+    db.session.commit()
 
     token = generar_token(usuario.usuario_id)
 

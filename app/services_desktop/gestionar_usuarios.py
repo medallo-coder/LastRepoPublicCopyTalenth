@@ -37,6 +37,7 @@ def gestionar_usuarios_admin_service(data):
     if usuario_admin.id_rol != 3:
         return{"success": False, "message": "No tienes permisos de administrador"}
     
+    
     query = Usuario.query
 
     id_usuario = data.get('usuario_id')
@@ -82,10 +83,11 @@ def gestionar_usuarios_admin_service(data):
     lista_usuarios = []
 
     for usuario in usuarios:
+        perfil = usuario.perfiles
         lista_usuarios.append({
             "usuario_id": usuario.usuario_id,
-            "primer_nombre": usuario.perfiles.primer_nombre,
-            "primer_apellido": usuario.perfiles.primer_apellido,
+            "primer_nombre": perfil.primer_nombre if perfil else "",
+            "primer_apellido": perfil.primer_apellido if perfil else "",
             "fecha_registro": usuario.fecha_registro.strftime("%Y-%m-%d %H:%M:%S")  if usuario.fecha_registro else None,
             "correo": usuario.correo,
             "estado": usuario.estado,

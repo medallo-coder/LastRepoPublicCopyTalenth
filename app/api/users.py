@@ -5,6 +5,8 @@ from app.services_desktop.gestion_publicaciones import  gestion_publicaciones_ad
 from app.services_desktop.gestionar_usuarios import gestionar_usuarios_admin_service, deshabilitar_cuentas_admin_service
 from app.services_desktop.perfil_usuarios  import perfil_usuarios_admin_service 
 from app.services_desktop.gestion_reportes import gestion_reportes_admin_service
+from app.services_desktop.gestion_admin import cambiar_contrasena_admin_service
+
 # Define the Blueprint for the API
 users_api = Blueprint('users_api', __name__)
 
@@ -88,3 +90,9 @@ def gestion_reportes_admin():
     data= request.get_json() if request.is_json else request.form.to_dict()
     resultado = gestion_reportes_admin_service(data)
     return jsonify(resultado), (200 if resultado["success"]else 400) 
+
+@users_api.route('/cambiar_contraseña_admin', methods=['POST'])
+def cambiar_contraseña_admin():
+    data= request.get_json() if request.is_json else request.form.to_dict()
+    resultado = cambiar_contrasena_admin_service(data)
+    return jsonify(resultado), (200 if resultado["success"]else 400)

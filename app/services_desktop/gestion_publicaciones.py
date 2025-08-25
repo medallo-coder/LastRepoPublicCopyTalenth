@@ -62,6 +62,7 @@ def gestion_publicaciones_admin_service(data):
     
 
     for publicacion in publicaciones:
+        perfil = publicacion.usuario.perfiles
         resultado.append({
             "publicacion_id": publicacion.publicacion_id,
             "usuario_id": publicacion.usuario_id,
@@ -73,8 +74,8 @@ def gestion_publicaciones_admin_service(data):
             "subcategoria_id": publicacion.subcategoria_id,
             "nombre_subcategoria": publicacion.subcategoria.nombre_subcategoria,
             "descripcion_publicacion": publicacion.descripcion_publicacion,
-            "primer_nombre": publicacion.usuario.perfiles.primer_nombre,
-            "primer_apellido": publicacion.usuario.perfiles.primer_apellido
+            "primer_nombre": perfil.primer_nombre if perfil else "" ,
+            "primer_apellido": perfil.primer_apellido if perfil else ""
         })
 
     return {"success": True, "lista_publicaciones": resultado}
