@@ -1,110 +1,80 @@
-document.addEventListener('DOMContentLoaded', async () => {
-    await loadUsers();
-    await loadConversations();
-});
+// static/js/mensajeria.js
+console.log('🔄 mensajeria.js inicializado');
 
-document.getElementById('goHomeBtn').addEventListener('click', () => {
-    window.location.href = '/';
-});
+const socket = io();            // conecta al mismo origen
+const userId = +document.getElementById('currentUserId').value;
+let chatPartner = null;
 
-const currentUserElement = document.getElementById('currentUserId');
-if (!currentUserElement) {
-    console.error("Error: No se encontró el ID de usuario actual.");
-}
-const currentUserId = currentUserElement.value;
-const conversationsList = document.getElementById('conversationsList');
-const chatContainer = document.getElementById('chatContainer');
-const messageInput = document.getElementById('messageInput');
-const sendMessageBtn = document.getElementById('sendMessageBtn');
-let selectedUserId = null;
-
-// Enviar con Enter
-messageInput.addEventListener('keydown', async (event) => {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        await sendMessage();
-    }
-});
-
-// También puedes usar el botón
-sendMessageBtn.addEventListener('click', sendMessage);
-
-async function loadUsers() {
-    try {
-        const res = await fetch('/mensajeria/usuarios');
-        const users = await res.json();
-        conversationsList.innerHTML = '';
-        users.forEach(user => {
-            const li = document.createElement('li');
-            li.classList.add('user-item');
-            li.dataset.userid = user.usuario_id;
-            li.innerHTML = `
-                <img src="/static/uploads/${user.foto}" alt="foto" class="user-photo">
-                <span>${user.nombre}</span>
-            `;
-            li.addEventListener('click', () => {
-                document.querySelectorAll('.user-item').forEach(el => el.classList.remove('active'));
-                li.classList.add('active');
-                selectedUserId = user.usuario_id;
-                document.getElementById('chatUserName').innerText = user.nombre;
-                document.getElementById('chatProfilePhoto').src = `/static/uploads/${user.foto}`;
-                loadMessages(currentUserId, selectedUserId);
-            });
-            conversationsList.appendChild(li);
-        });
-    } catch (err) {
-        console.error("Error cargando usuarios:", err);
-    }
-}
-
-async function loadConversations() {
-    try {
-        const res = await fetch(`/mensajeria/conversaciones/${currentUserId}`);
-        const data = await res.json();
-        // Aquí podrías agregar notificaciones, resumen de últimos mensajes, etc.
-    } catch (err) {
-        console.error("Error cargando conversaciones:", err);
-    }
-}
-
-async function loadMessages(idEmisor, idReceptor) {
-    try {
-        const res = await fetch(`/mensajeria/${idEmisor}/${idReceptor}`);
-        const mensajes = await res.json();
-        chatContainer.innerHTML = '';
-        mensajes.forEach(m => {
-            const div = document.createElement('div');
-            div.classList.add('mensaje', m.id_emisor == currentUserId ? 'enviado' : 'recibido');
-            div.innerHTML = `
-                <p>${m.texto}</p>
-                <span>${m.fecha}</span>
-            `;
-            chatContainer.appendChild(div);
-        });
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-    } catch (err) {
-        console.error("Error cargando mensajes:", err);
-    }
-}
-
-async function sendMessage() {
-    const texto = messageInput.value.trim();
-    if (!texto || !selectedUserId) return;
-
-    const body = {
-        id_emisor: currentUserId,
-        id_receptor: selectedUserId,
-        texto
-    };
-
-    const res = await fetch('/mensajeria/enviar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
+// 1) Carga lista de usuarios
+fetch('/mensajeria/usuarios')
+  .then(res => res.json())
+  .then(users => {
+    const ul = document.getElementById('conversationsList');
+    ul.innerHTML = '';
+    users.forEach(u => {
+      const li = document.createElement('li');
+      li.textContent = u.nombre;
+      li.dataset.id = u.usuario_id;
+      li.onclick = () => {
+        chatPartner = u.usuario_id;
+        socket.emit('join_chat', { user_id: userId, other_user_id: chatPartner });
+      };
+      ul.appendChild(li);
     });
+  });
 
-    if (res.ok) {
-        messageInput.value = '';
-        loadMessages(currentUserId, selectedUserId);
-    }
+// 2) Recibe e imprime historial
+socket.on('chat_history', msgs => {
+  const c = document.getElementById('chatContainer');
+  c.innerHTML = '';
+  msgs.forEach(m => {
+    const who = m.emisor === userId ? 'Tú' : 'Ellos';
+    const div = document.createElement('div');
+    div.textContent = `[${new Date(m.fecha_chat).toLocaleTimeString()}] ${who}: ${m.texto}`;
+    c.appendChild(div);
+  });
+});
+
+// 3) Enviar mensaje
+function sendMessage() {
+  const inp = document.getElementById('messageInput');
+  const texto = inp.value.trim();
+  if (!texto || !chatPartner) return;
+  socket.emit('send_message', {
+    user_id: userId,
+    other_user_id: chatPartner,
+    texto: texto
+  });
+  inp.value = '';
 }
+
+document.getElementById('sendBtn').addEventListener('click', sendMessage);
+document.getElementById('messageInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    sendMessage();
+  }
+});
+
+// 4) Mostrar nuevos mensajes en tiempo real
+socket.on('new_message', m => {
+  // 1) Referencia al contenedor
+  const c = document.getElementById('chatContainer');
+
+  // 2) Crea el wrapper del mensaje
+  const div = document.createElement('div');
+  div.className = m.emisor === userId ? 'sent' : 'received';
+
+  // 3) Inserta el texto
+  div.textContent = m.texto;
+
+  // 4) (Opcional) Añade un timestamp
+   const ts = document.createElement('span');
+   ts.className = 'timestamp';
+   ts.textContent = new Date(m.fecha_chat).toLocaleTimeString();
+   div.appendChild(ts);
+
+  // 5) Mete el mensaje en el DOM y haz scroll
+  c.appendChild(div);
+  c.scrollTop = c.scrollHeight;
+});

@@ -1,9 +1,9 @@
+#!/usr/bin/env python3
 from app import create_app
+from app.extensions import socketio
 
-# Crear la instancia de la aplicación
 app = create_app()
 
-# Ejecutar la aplicación
-if __name__ == "__main__":
-    app.run(debug=True)  # Cambia debug=True si deseas habilitar la depuración
-
+if __name__ == '__main__':
+    # debug=True solo si lo necesitas
+    socketio.run(app, debug=True)
