@@ -1,51 +1,41 @@
+# app/__init__.py
+
 from flask import Flask
-from app.extensions import db, migrate
-from app.api.users import users_api as api_bp
-from app.routes.web import web as web_bp
-from app.models.roles import Roles
-from app.models.usuario import Usuario
-from app.models.subcategorias import Subcategorias
 from flask_login import LoginManager
-from app.services.mensajeria import mensajeria_bp
-from app.services.rol_service import verificar_rol
-from config import Config  # <- Asegúrate de tener dotenv ahí
+from config import Config
+
+from app.extensions import db, migrate, socketio
 
 def create_app():
+    # 1) Instancia de Flask
     app = Flask(__name__)
-    app.config.from_object(Config)  # <- Usa el archivo config.py que cargará .env
+    app.config.from_object(Config)
 
-    # Inicialización de extensiones
+    # 2) Inicializa extensiones
     db.init_app(app)
     migrate.init_app(app, db)
+    socketio.init_app(app)
 
-    # Configuración LoginManager
+    # 3) Flask-Login
     login_manager = LoginManager()
+    login_manager.login_view = 'web.iniciar_sesion'
     login_manager.init_app(app)
-    login_manager.login_view = 'web.login'
-    login_manager.login_message_category = "info"
 
+    from app.models.usuario import Usuario
     @login_manager.user_loader
     def load_user(user_id):
         return Usuario.query.get(int(user_id))
 
-    # Registrar blueprints
-    app.register_blueprint(api_bp, url_prefix='/api')
+    # 4) Registra blueprints
+    from app.routes.web import web as web_bp
     app.register_blueprint(web_bp)
+
+    from app.services.mensajeria import mensajeria_bp
     app.register_blueprint(mensajeria_bp)
 
-    # Inyección de rol en plantillas
-    @app.context_processor
-    def inject_rol():
-        return dict(id_rol=verificar_rol())
-
-    # Crear tablas
+    # 5) Crea tablas y lista rutas (opcional en dev)
     with app.app_context():
-        from app.models import usuario
-        try:
-            db.create_all()
-            print("✅ Conexión a la base de datos correcta.")
-        except Exception as e:
-            print(f"❌ Error al crear las tablas: {e}")
+        db.create_all()
 
-    from app import models
+
     return app

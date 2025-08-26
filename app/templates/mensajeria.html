@@ -1,30 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Mensajería</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/mensajeria.css') }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chat • Tu App</title>
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/mensajeria.css') }}"
+  />
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <h2>Usuarios Disponibles</h2>
-            <button id="goHomeBtn"><i class="fa fa-home"></i> Inicio</button>
-            <ul id="conversationsList"></ul>
-        </div>
-        <div class="main">
-            <div class="chat-header">
-                <img id="chatProfilePhoto" src="{{ url_for('static', filename='uploads/default.jpg') }}" alt="Perfil">
-                <span id="chatUserName">Seleccione un usuario</span>
-            </div>
-            <div id="chatContainer" class="chat-messages"></div>
-            <div class="chat-input">
-                <input type="hidden" id="currentUserId" value="{{ current_user.usuario_id }}">
-                <input type="text" id="messageInput" placeholder="Escribe un mensaje..." />
-                <button id="sendMessageBtn"><i class="fa fa-paper-plane"></i></button>
-            </div>
-        </div>
-    </div>
-    <script src="{{ url_for('static', filename='js/mensajeria.js') }}"></script>
+  {% include 'nav.html' %}
+
+  <div class="chat-app">
+    <!-- Sidebar de contactos -->
+    <aside class="chat-sidebar">
+      <h2>Contactos</h2>
+      <ul id="conversationsList"></ul>
+    </aside>
+
+    <!-- Panel de conversación -->
+    <section class="chat-panel">
+      <header class="chat-header">
+        <img
+          id="chatProfilePhoto"
+          src="{{ url_for('static', filename='uploads/default.jpg') }}"
+          alt="Avatar"
+        />
+        <span id="chatUserName">Selecciona un contacto</span>
+      </header>
+
+      <main id="chatContainer" class="chat-messages"></main>
+
+      <footer class="chat-input">
+        <input
+          type="hidden"
+          id="currentUserId"
+          value="{{ current_user.usuario_id }}"
+        />
+        <input
+          type="text"
+          id="messageInput"
+          placeholder="Escribe un mensaje…"
+          autocomplete="off"
+        />
+        <button id="sendBtn">
+          <i class="fa fa-paper-plane"></i>
+        </button>
+      </footer>
+    </section>
+  </div>
+
+  <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
+  <script src="{{ url_for('static', filename='js/mensajeria.js') }}"></script>
 </body>
 </html>

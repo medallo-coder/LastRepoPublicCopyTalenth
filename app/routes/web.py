@@ -404,12 +404,11 @@ def perfil_experto():
         aptitudes=aptitudes  #  AÑADIDO: pasar la lista de aptitudes al HTML
     )
         
-    
-
-# Ruta para visualizar el chat
+"""# Ruta para visualizar el chat
 @web.route('/mensajeria.html')
+@login_required
 def mensajeria():
-    return render_template('mensajeria.html')
+    return redirect(url_for('mensajeria.mensajeria'))"""
 
 # Ruta para la sección de guardados (requiere sesión)
 @web.route('/guardar-publicacion/<int:publicacion_id>', methods=['POST'])
