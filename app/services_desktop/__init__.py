@@ -4,4 +4,4 @@ from .gestion_publicaciones import   gestion_publicaciones_admin_service, elimin
 from .gestionar_usuarios import gestionar_usuarios_admin_service, deshabilitar_cuentas_admin_service
 from .perfil_usuarios import perfil_usuarios_admin_service
 from .gestion_reportes import gestion_reportes_admin_service
-from .gestion_admin import cambiar_contrasena_admin_service
+from .gestion_admin import cambiar_contrasena_admin_service, deshabilitar_cuenta_admin_usu_service, datos_admin_service
