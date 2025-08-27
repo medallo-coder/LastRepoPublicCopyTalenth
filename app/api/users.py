@@ -2,11 +2,11 @@ from flask import Blueprint, request, jsonify
 from app.services.autenticacion import registrar_usuario_service, iniciar_sesion_service, cerrar_sesion_service
 from app.services_desktop.autenticacion import iniciar_sesion_admin_service, registrar_admin_service, cerrar_sesion_admin_service
 from app.services_desktop.gestion_publicaciones import  gestion_publicaciones_admin_service, eliminar_publicaciones_admin_service
-from app.services_desktop.gestionar_usuarios import gestionar_usuarios_admin_service, deshabilitar_cuentas_admin_service
-from app.services_desktop.perfil_usuarios  import perfil_usuarios_admin_service 
+from app.services_desktop.gestionar_usuarios import gestionar_usuarios_admin_service, deshabilitar_cuenta_global_service
+from app.services_desktop.perfil_usuarios  import perfil_usuarios_admin_service
 from app.services_desktop.gestion_reportes import gestion_reportes_admin_service
 from app.services_desktop.gestion_admin import cambiar_contrasena_admin_service, deshabilitar_cuenta_admin_usu_service
-from app.services_desktop.gestion_admin import datos_admin_service
+from app.services_desktop.gestion_admin import datos_admin_service, deshabilitar_cuentas_admin_service
 from app.services_desktop.gestionar_usuarios import datos_expertos_service, datos_clientes_service
 
 # Define the Blueprint for the API
@@ -124,4 +124,11 @@ def datos_expertos():
 def datos_clientes():
     data = request.get_json() if request.is_json else request.form.to_dict()
     resultado = datos_clientes_service(data)
+    return jsonify(resultado), (200 if resultado["success"]else 400)
+
+
+@users_api.route('/deshabilitar_cuenta_global', methods=['POST'])
+def deshabilitar_cuenta_global():
+    data = request.get_json() if request.is_json else request.form.to_dict()
+    resultado = deshabilitar_cuenta_global_service(data)
     return jsonify(resultado), (200 if resultado["success"]else 400)

@@ -60,6 +60,8 @@ def gestion_reportes_admin_service(data):
     for reporte in reportes:
         lista_reportes.append({
             "reporte_id": reporte.reporte_id,
+            "usuario_id_reportador": reporte.reportador.usuario_id,
+            "rol_reportador": reporte.reportador.rol.tipo_rol,
             "descripcion_reporte":reporte.descripcion_reporte,
             "fecha_reporte": reporte.fecha_reporte,
             "reportador_id":reporte.reportador_id,

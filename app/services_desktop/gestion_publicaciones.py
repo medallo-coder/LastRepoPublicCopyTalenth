@@ -66,9 +66,11 @@ def gestion_publicaciones_admin_service(data):
         resultado.append({
             "publicacion_id": publicacion.publicacion_id,
             "usuario_id": publicacion.usuario_id,
+            "rol": publicacion.usuario.rol.tipo_rol,
             "fecha": publicacion.fecha.strftime("%Y-%m-%d %H:%M:%S")  if publicacion.fecha else None, 
             "titulo": publicacion.titulo,
             "precio": publicacion.precio,
+            "estado_publicacion": publicacion.estado,
             "categoria_id": publicacion.categoria_id,
             "categorias": publicacion.categoria.tipo_categoria,
             "subcategoria_id": publicacion.subcategoria_id,
@@ -115,8 +117,13 @@ def eliminar_publicaciones_admin_service(data):
     if not publicaciones:
         return {"success": False, "message": f"La publicacion con el id {publicacion_id}, no existe"}
     
-    # Si existe se elimina
-    db.session.delete(publicaciones)
-    db.session.commit()
+    if publicaciones.estado == "desactivada":
+        return{"success": False, "message": f"La publicacion con el id {publicacion_id}, ya esta deshabilitada"}
+    
+    # Si existe y esta activa las deshabilitada
 
-    return {"success": True, "message": f"La publicacion con el ID {publicacion_id}, fue eliminada"}
+    if publicaciones.estado == "activo":
+        publicaciones.estado = "desactivada"
+        db.session.commit()
+        
+        return {"success": True, "message": f"La publicacion con el ID {publicacion_id}, fue deshabilitada"}
