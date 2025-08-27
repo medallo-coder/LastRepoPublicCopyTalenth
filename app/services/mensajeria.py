@@ -20,6 +20,9 @@ mensajeria_bp = Blueprint('mensajeria', __name__, url_prefix='/mensajeria')
 def mensajeria():
     return render_template('mensajeria.html')
 
+def _room_name(a, b):
+    return f"chat_{min(a, b)}_{max(a, b)}"
+
 
 @mensajeria_bp.route('/enviar', methods=['POST'])
 def enviar_mensaje():
@@ -56,6 +59,9 @@ def obtener_conversaciones(usuario_id):
         (Mensajeria.id_receptor == usuario_id)
     ).order_by(Mensajeria.fecha.desc()).all()
 
+    
+
+
     contactos = {}
     for m in mensajes:
         otro_id = m.id_receptor if m.id_emisor == usuario_id else m.id_emisor
@@ -69,6 +75,12 @@ def obtener_conversaciones(usuario_id):
                 else u.correo.split('@')[0]
             )
             foto = perfil.foto_perfil if perfil and perfil.foto_perfil else 'default.jpg'
+            
+            pendientes = Mensajeria.query.filter_by(
+                id_emisor=otro_id,
+                id_receptor=usuario_id,
+                leido=False
+            ).count()
 
             contactos[otro_id] = {
                 'usuario_id':     u.usuario_id,
@@ -76,7 +88,8 @@ def obtener_conversaciones(usuario_id):
                 'nombre':         nombre,
                 'foto':           foto,
                 'ultimo_mensaje': m.texto,
-                'fecha':          m.fecha.strftime('%Y-%m-%d %H:%M:%S')
+                'fecha':          m.fecha.strftime('%Y-%m-%d %H:%M:%S'),
+                'pendientes': pendientes
             }
 
     return jsonify(list(contactos.values())), 200
@@ -149,48 +162,50 @@ def _room_name(a, b):
 
 @socketio.on('join_chat')
 def handle_join(data):
+    print("🔌 SID que se une:", request.sid)
+
     print("🔥 server recibió join_chat:", data)
-    # 1) Extraer y validar IDs
-    user_id  = data.get('user_id')
-    other_id = data.get('other_user_id')
+
     try:
-        user_id, other_id = int(user_id), int(other_id)
+        user_id = int(data.get('user_id'))
+        other_id = int(data.get('other_user_id'))
     except (TypeError, ValueError):
         return
 
-    # 2) Autorización
-    #if not current_user.is_authenticated or current_user.usuario_id != user_id:
-        return
-
-    # 3) Sala y unión
     room = _room_name(user_id, other_id)
-    if not room:
-        return
     join_room(room)
 
-    # 4) Historial
     historial = Mensajeria.query.filter(
-        ((Mensajeria.id_emisor   == user_id)   & (Mensajeria.id_receptor == other_id)) |
-        ((Mensajeria.id_emisor   == other_id) & (Mensajeria.id_receptor == user_id))
+        ((Mensajeria.id_emisor == user_id) & (Mensajeria.id_receptor == other_id)) |
+        ((Mensajeria.id_emisor == other_id) & (Mensajeria.id_receptor == user_id))
     ).order_by(Mensajeria.fecha.asc()).all()
 
-    # 5) Marca como leídos
-    to_commit = False
-    for m in historial:
-        if m.id_receptor == user_id and not getattr(m, 'leido', False):
+    mensajes_pendientes = [
+        m for m in historial if m.id_receptor == user_id and not getattr(m, 'leido', False)
+    ]
+    if mensajes_pendientes:
+        for m in mensajes_pendientes:
             m.leido = True
-            to_commit = True
-    if to_commit:
         db.session.commit()
 
-    # 6) Emitir historial
-    emit('chat_history', [m.to_dict() for m in historial], room=room)
+        ids = [m.mensaje_id for m in mensajes_pendientes]
+        emit('message_read', {'mensaje_id': ids}, room=_room_name(user_id, other_id))
+        
+        # Avisar solo al otro usuario que refresque su lista
+        sid_otro = obtener_sid_usuario(other_id)  # tu función para mapear user_id → sid
+        if sid_otro:
+            emit('update_conversations', {}, to=sid_otro)
+
+    emit('chat_history', [m.to_dict() for m in historial], to=request.sid)
+
+
+
 
 
 @socketio.on('send_message')
 def handle_send(data):
     print("🔥 servidor recibió send_message:", data)
-    # Guarda en BD, construye el payload...
+
     mensaje = Mensajeria(
         id_emisor   = data['user_id'],
         id_receptor = data['other_user_id'],
@@ -199,25 +214,32 @@ def handle_send(data):
     db.session.add(mensaje)
     db.session.commit()
 
-    payload = mensaje.to_dict()  # revisa que incluya fecha y id
-    room = f"chat_{min(data['user_id'], data['other_user_id'])}_{max(data['user_id'], data['other_user_id'])}"
+    payload = mensaje.to_dict()
+    room = _room_name(mensaje.id_emisor, mensaje.id_receptor)
+
+    join_room(room)  # Asegura que el emisor esté en la sala
     emit('new_message', payload, room=room)
-
-
+    print("🔥 servidor emitió new_message a room:", room, "con payload:", payload)
 
 @socketio.on('message_seen')
-def handle_message_seen(data):
+def handle_seen(data):
     mensaje_id = data.get('mensaje_id')
-    if not current_user.is_authenticated:
-        return
+    user_id    = data.get('user_id')
 
-    msg = Mensajeria.query.get(mensaje_id)
-    if msg and msg.id_receptor == current_user.usuario_id:
-        msg.leido = True
+    mensaje = Mensajeria.query.get(mensaje_id)
+    if mensaje and mensaje.id_receptor == user_id and not mensaje.leido:
+        mensaje.leido = True
         db.session.commit()
-        room = _room_name(msg.id_emisor, msg.id_receptor)
-        if room:
-            emit('message_read', {'mensaje_id': mensaje_id}, room=room)
+
+        # Avisar con ✔✔ al emisor
+        emit('message_read', {'mensaje_id': mensaje_id}, room=_room_name(mensaje.id_emisor, mensaje.id_receptor))
+
+        # 🔔 Avisar solo al emisor que refresque su lista
+        sid_emisor = _obtener_sid_de_usuario(mensaje.id_emisor)  # tu propia forma de mapear user_id→SID
+        if sid_emisor:
+            emit('update_conversations', {}, to=sid_emisor)
+
+
 
 
 @socketio.on('typing')
