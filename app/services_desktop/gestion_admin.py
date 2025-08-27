@@ -161,6 +161,6 @@ def datos_admin_service():
         "rol": rol.tipo_rol
     }
     
-    return{"success": True, "message":datos_admin}
+    return{"success": True, "admin":datos_admin}
 
 

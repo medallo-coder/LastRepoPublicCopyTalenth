@@ -149,4 +149,122 @@ def deshabilitar_cuentas_admin_service(data):
         db.session.commit()
 
         return {"success": True, "message": f"El usuario con ID {usuario_id} ha sido deshabilitado"}
+    
+
+def datos_expertos_service(data):
+    token = session.get('jwt')
+
+      # Si no hay token en sesión, intenta obtenerlo del header Authorization
+    if not token:
+        auth_header = request.headers.get("Authorization")
+        if auth_header and auth_header.startswith("Bearer "):
+            token = auth_header.split(" ")[1]
+    
+    if not token:
+        return {"success": True, "message": "Token no enviado"}
+    
+    resultado= verificar_token(token)
+    if not resultado["valid"]:
+        return {"success": False, "message": "No estas autenticado "}
+    
+    usuario_id = resultado["payload"].get("usuario_id")
+    
+    usuario_admin = Usuario.query.filter_by(usuario_id=usuario_id).first()
+    
+    if not usuario_admin:
+        return{"success": False, "message": "Usuario no encontrado"}
+    
+    if usuario_admin.id_rol != 3:
+        return{"success": False, "message": "No tienes permisos de administrador"}
+
+    
+    usuario_id = data.get("usuario_id")
+
+    usuario = Usuario.query.filter_by(usuario_id=usuario_id).first()
+
+    # Validamos si existe el usuario
+    if not usuario:
+        return {"success": False, "message": "No hay ningun usuario"}
+
+
+    idioma_lista = []
+    perfil = usuario.perfiles    
+    experiencia = perfil.experiencias[0] if perfil.experiencias else None
+    estudio = perfil.estudios[0] if perfil.estudios else None
+    aptitud = perfil.aptitudes[0] if perfil.aptitudes else None
+
+    
+
+    for i in perfil.idioma:
+        idioma_lista.append({
+            "nombre_idioma": i.nombre_idioma
+        })
+    
+
+    datos_experto = {
+    "primer_nombre": perfil.primer_nombre,
+    "primer_apellido": perfil.primer_apellido,
+    "descripcion": perfil.descripcion_perfil if perfil else None,
+    "nombre_experiencia": experiencia.nombre if experiencia else None,
+    "descripcion_experiencia": experiencia.descripcion if experiencia else None,
+    "fecha_inicio_experiencia": experiencia.fecha_inicio_experiencia if experiencia else None,
+    "fecha_fin_experiencia": experiencia.fecha_fin_experiencia if experiencia else None,
+    "titulo_obtenido": estudio.titulo_obtenido if estudio else None,
+    "institucion": estudio.institucion if estudio else None,
+    "fecha_inicio_estudios": estudio.fecha_inicio if estudio else None,
+    "fecha_fin_estudios": estudio.fecha_fin if estudio else None,
+    "idiomas": idioma_lista if idioma_lista else None,
+    "tipo_aptitud": aptitud.tipo_aptitud if aptitud else None
+    }
+
+    return{"success":True, "expertos":datos_experto}
+
+def datos_clientes_service(data):
+    token = session.get('jwt')
+
+      # Si no hay token en sesión, intenta obtenerlo del header Authorization
+    if not token:
+        auth_header = request.headers.get("Authorization")
+        if auth_header and auth_header.startswith("Bearer "):
+            token = auth_header.split(" ")[1]
+    
+    if not token:
+        return {"success": True, "message": "Token no enviado"}
+    
+    resultado= verificar_token(token)
+    if not resultado["valid"]:
+        return {"success": False, "message": "No estas autenticado "}
+    
+    usuario_id = resultado["payload"].get("usuario_id")
+    
+    usuario_admin = Usuario.query.filter_by(usuario_id=usuario_id).first()
+    
+    if not usuario_admin:
+        return{"success": False, "message": "Usuario no encontrado"}
+    
+    if usuario_admin.id_rol != 3:
+        return{"success": False, "message": "No tienes permisos de administrador"}
+
+    
+    usuario_id = data.get("usuario_id")
+
+    usuario = Usuario.query.filter_by(usuario_id=usuario_id).first()
+
+    # Validamos si existe el usuario
+    if not usuario:
+        return {"success": False, "message": "No hay ningun usuario"}
+
+    perfil = usuario.perfiles
+
+    datos_clientes={
+        "primer_nombre": perfil.primer_nombre,
+        "primer_apellido": perfil.primer_apellido,
+        "direccion":perfil.direccion
+    }
+
+    return{"success": True, "clientes":datos_clientes}
+
+
+
+
 

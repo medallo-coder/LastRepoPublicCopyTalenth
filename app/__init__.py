@@ -33,6 +33,9 @@ def create_app():
     from app.services.mensajeria import mensajeria_bp
     app.register_blueprint(mensajeria_bp)
 
+    from app.api.users import users_api
+    app.register_blueprint(users_api, url_prefix="/api")
+
     # 5) Crea tablas y lista rutas (opcional en dev)
     with app.app_context():
         db.create_all()

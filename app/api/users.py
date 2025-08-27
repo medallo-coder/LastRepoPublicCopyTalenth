@@ -7,6 +7,7 @@ from app.services_desktop.perfil_usuarios  import perfil_usuarios_admin_service
 from app.services_desktop.gestion_reportes import gestion_reportes_admin_service
 from app.services_desktop.gestion_admin import cambiar_contrasena_admin_service, deshabilitar_cuenta_admin_usu_service
 from app.services_desktop.gestion_admin import datos_admin_service
+from app.services_desktop.gestionar_usuarios import datos_expertos_service, datos_clientes_service
 
 # Define the Blueprint for the API
 users_api = Blueprint('users_api', __name__)
@@ -111,4 +112,16 @@ def deshabilitar_cuenta_admin_usu():
 @users_api.route('/datos_admin', methods=['POST'])
 def datos_admin_():
     resultado = datos_admin_service()
+    return jsonify(resultado), (200 if resultado["success"]else 400)
+
+@users_api.route('/datos_expertos', methods=['POST'])
+def datos_expertos():
+    data= request.get_json() if request.is_json else request.form.to_dict()
+    resultado = datos_expertos_service(data)
+    return jsonify(resultado), (200 if resultado["success"]else 400)
+
+@users_api.route('/datos_clientes', methods=['POST'])
+def datos_clientes():
+    data = request.get_json() if request.is_json else request.form.to_dict()
+    resultado = datos_clientes_service(data)
     return jsonify(resultado), (200 if resultado["success"]else 400)

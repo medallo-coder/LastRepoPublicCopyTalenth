@@ -25,7 +25,7 @@ def registrar_usuario_service(data):
     contrasena = data.get('contrasena')
     confirmar_contrasena = data.get('confirmar_contrasena')
 
-    if not primer_nombre or not correo or not contrasena or not confirmar_contrasena:
+    if not primer_nombre or not primer_apellido  or not correo or not contrasena or not confirmar_contrasena:
         return {"success": False, "message": "Todos los campos son obligatorios. Por favor, completa cada uno."}
 
     if len(contrasena) < 6:
