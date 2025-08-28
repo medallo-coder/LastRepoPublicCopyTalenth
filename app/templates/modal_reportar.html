@@ -1,41 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Modal de Reporte</title>
 </head>
 <body>
-      <!-- Modal reporte -->
-<div id="modalReporte" class="modal-reporte" style="display: none;">
-  <div class="modal-contenido-reporte">
-    <h2>Añadir reporte</h2>
+    <!-- Modal reporte -->
+    <div id="modalReporte" class="modal-reporte" style="display: none;">
+        <div class="modal-contenido-reporte">
+            <h2>Añadir reporte</h2>
 
-    <!-- Campo para seleccionar motivo -->
-    <div class="campo">
-      <select id="motivo-reporte" name="motivo">
-        <option value="">Seleccione un motivo</option>
-        <option value="contenido-inapropiado">Contenido inapropiado u ofensivo</option>
-        <option value="informacion-falsa">Información falsa o engañosa</option>
-        <option value="publicidad-no-autorizada">Publicidad o spam no autorizado</option>
-        <option value="actividad-sospechosa">Actividad sospechosa o estafa</option>
-        <option value="incumple-normas">Incumple las normas de la comunidad</option>
-        <option value="otro">Otro</option>
-      </select>
+            <form action="{{ url_for('users_api.guardar_reporte') }}" method="post">
+                <!-- ID del usuario reportado -->
+                <input type="hidden" name="reportado_id" id="reportado-id-input">
+
+                <!-- ID del usuario que reporta -->
+                <input type="hidden" name="reportador_id" id="reportador-id-input" value="{{ current_user.id }}">
+
+                <!-- Motivo -->
+                <div class="campo">
+                    <select id="motivo-reporte" name="motivo" required>
+                        <option value="">Seleccione un motivo</option>
+                        <option value="contenido-inapropiado">Contenido inapropiado u ofensivo</option>
+                        <option value="informacion-falsa">Información falsa o engañosa</option>
+                        <option value="publicidad-no-autorizada">Publicidad o spam no autorizado</option>
+                        <option value="actividad-sospechosa">Actividad sospechosa o estafa</option>
+                        <option value="incumple-normas">Incumple las normas de la comunidad</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+
+                <!-- Descripción -->
+                <div class="campo">
+                    <textarea name="descripcion" placeholder="Añade una descripción del problema"></textarea>
+                </div>
+
+                <!-- Botones -->
+                <div class="botones-reporte">
+                    <button type="submit" class="guardar">Guardar</button>
+                    <button type="button" class="cancelar" id="cancelarModalReporte">Cancelar</button>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <!-- Campo descripción -->
-    <div class="campo">
-      <textarea name="reporte" placeholder="Añade una descripción del problema"></textarea>
-    </div>
-
-    <!-- Botones -->
-    <div class="botones-reporte">
-      <button class="guardar">Guardar</button>
-      <button class="cancelar" id="cancelarModalReporte">Cancelar</button>
-    </div>
-  </div>
-</div>
-
 </body>
 </html>
