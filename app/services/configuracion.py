@@ -89,6 +89,7 @@ def obtener_datos_usuario_service():
     nombre_idioma = ", ".join([idioma.nombre_idioma for idioma in perfil.idioma]) if perfil.idioma else ""
  
     return {
+        "usuario_id": usuario.usuario_id,
         "id_perfil": perfil.id_perfil,
         "primer_nombre": perfil.primer_nombre,
         "segundo_nombre": perfil.segundo_nombre,
@@ -112,6 +113,27 @@ def obtener_datos_usuario_service():
 
         "fecha_registro": f"Se unió en {fecha_formateada}"  # Formateamos la fecha
     }
+
+def obtener_id_usuario():
+    
+    # Obtener token desde la sesión
+    token = session.get('jwt')
+    if not token:
+        return {"success": False, "message": "No estás autenticado."}
+
+    resultado_token = verificar_token(token)
+    if not resultado_token["valid"]:
+        return {"success": False, "message": resultado_token["message"]}
+
+    usuario_id = resultado_token["payload"].get('usuario_id')
+    usuario = Usuario.query.get(usuario_id)
+
+    if not usuario:
+        return {"success": False, "message": "Usuario no encontrado."}
+    
+    return {"success": True, "usuario_id": usuario_id}
+
+
 
 # Servicio para deshabilitar la cuenta
 def deshabilitar_cuenta_service(data):

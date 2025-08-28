@@ -15,14 +15,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Tomar valores de los atributos data- del botón
       const reportadoId = boton.getAttribute("data-usuario-reportado");
-      const reportadorId = boton.getAttribute("data-usuario");
+     
 
       // Insertarlos en los inputs ocultos del modal
       const inputReportado = document.getElementById("reportado-id-input");
-      const inputReportador = document.getElementById("reportador-id-input");
+      
 
       if (inputReportado) inputReportado.value = reportadoId;
-      if (inputReportador) inputReportador.value = reportadorId;
+     
 
       modal.style.display = "flex";
     });

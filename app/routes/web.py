@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, current_app,jsonify, request, redirect, url_for, flash, session
 from app.services.autenticacion import registrar_usuario_service, iniciar_sesion_service, cerrar_sesion_service,verificar_autenticacion_service,obtener_usuario_id_autenticado
-from app.services.configuracion import cambiar_contrasena_service,obtener_datos_usuario_service,deshabilitar_cuenta_service, enviar_link_recuperacion_service,restablecer_contraseña_service
+from app.services.configuracion import cambiar_contrasena_service,obtener_datos_usuario_service,deshabilitar_cuenta_service, enviar_link_recuperacion_service,restablecer_contraseña_service, obtener_id_usuario
 from app.services.perfil_cliente import actualizar_perfil_cliente_service, subir_foto_perfil_service
 from app.services.perfil_experto import actualizar_perfil_experto_service, actualizar_perfil_experto_service2, actualizar_perfil_experto_service3,actualizar_perfil_experto_service4
 from app.services.perfil_experto import eliminar_idioma, eliminar_aptitud,eliminar_estudios,editar_estudios,actualizar_experiencia,eliminar_experiencia,editar_experiencia
@@ -34,11 +34,16 @@ def inicio():
     publicaciones_aleatorias = obtener_publicaciones_aleatorias_service()
     rol_usuario = verificar_rol()  # Verifica el rol del usuario autenticado
     primer_nombre = ""
+    id_usuario_reportador = None
+    
     auth_result = verificar_autenticacion_service()
 
     if auth_result.get("authenticated"):
         datos_usuario = obtener_datos_usuario_service()
         primer_nombre = datos_usuario.get("primer_nombre", "").title()
+        usuario_id = obtener_datos_usuario_service()
+        id_usuario_reportador = usuario_id.get("usuario_id")
+        
 
     return render_template(
         'inicio.html',
@@ -46,6 +51,9 @@ def inicio():
         publicaciones_recientes=publicaciones_recientes,
         publicaciones_aleatorias=publicaciones_aleatorias,
         rol_usuario=rol_usuario,
+        id_usuario_logueado=id_usuario_reportador
+        
+        
     )
 
 
@@ -667,13 +675,15 @@ from datetime import date
 from app.extensions import db
 from app.models.reportes import Reportes
 
-@web.route("/guardar_reporte", methods=["POST"])
+@web.route('/guardar_reporte', methods=['POST'])
 def guardar_reporte():
     try:
-        reportado_id = request.form.get("reportado_id")
-        reportador_id = request.form.get("reportador_id")
-        motivo = request.form.get("motivo")
-        descripcion = request.form.get("descripcion")
+        reportado_id = request.form.get('reportado_id')
+        reportador_id = request.form.get('reportador_id')
+        motivo = request.form.get('motivo')
+        descripcion = request.form.get('descripcion')
+
+        print(f"DATOS: {reportado_id}, {reportador_id}, {motivo}, {descripcion}")
 
         if not reportado_id or not reportador_id or not motivo:
             flash("Faltan datos en el reporte", "error")

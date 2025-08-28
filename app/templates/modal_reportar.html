@@ -10,13 +10,12 @@
     <div id="modalReporte" class="modal-reporte" style="display: none;">
         <div class="modal-contenido-reporte">
             <h2>Añadir reporte</h2>
-
-            <form action="{{ url_for('web.guardar_reporte') }}" method="post">
+            <form method="POST" action="{{ url_for('web.guardar_reporte') }}">
                 <!-- ID del usuario reportado -->
                 <input type="hidden" name="reportado_id" id="reportado-id-input">
 
                 <!-- ID del usuario que reporta -->
-                <input type="hidden" name="reportador_id" id="reportador-id-input" value="{{ current_user.id }}">
+                <input type="hidden" name="reportador_id" id="reportador-id-input" value="{{ id_usuario_logueado }}">
 
                 <!-- Motivo -->
                 <div class="campo">
