@@ -662,3 +662,35 @@ def obtener_promocion():
         email_comprador="test_user_XXXXXXX@testuser.com"
     )
     return redirect(url)
+
+from datetime import date
+from app.extensions import db
+from app.models.reportes import Reportes
+
+@web.route("/guardar_reporte", methods=["POST"])
+def guardar_reporte():
+    try:
+        reportado_id = request.form.get("reportado_id")
+        reportador_id = request.form.get("reportador_id")
+        motivo = request.form.get("motivo")
+        descripcion = request.form.get("descripcion")
+
+        if not reportado_id or not reportador_id or not motivo:
+            flash("Faltan datos en el reporte", "error")
+            return redirect(url_for("web.inicio"))
+
+        nuevo_reporte = Reportes(
+            descripcion_reporte=descripcion,
+            fecha_reporte=date.today(),
+            reportador_id=reportador_id,
+            reportado_id=reportado_id
+        )
+
+        db.session.add(nuevo_reporte)
+        db.session.commit()
+        flash("Reporte enviado correctamente", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash("Error al guardar el reporte: " + str(e), "error")
+
+    return redirect(url_for("web.inicio"))

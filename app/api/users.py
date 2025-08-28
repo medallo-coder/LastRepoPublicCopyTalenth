@@ -9,40 +9,12 @@ from app.services_desktop.gestion_admin import cambiar_contrasena_admin_service,
 from app.services_desktop.gestion_admin import datos_admin_service, deshabilitar_cuentas_admin_service
 from app.services_desktop.gestionar_usuarios import datos_expertos_service, datos_clientes_service
 from flask import Blueprint, request, redirect, url_for, flash
-from datetime import date
-from app.extensions import db
-from app.models.reportes import Reportes
 
-users_api = Blueprint("users_api", __name__)
 
-@users_api.route("/guardar_reporte", methods=["POST"])
-def guardar_reporte():
-    try:
-        reportado_id = request.form.get("reportado_id")
-        reportador_id = request.form.get("reportador_id")
-        motivo = request.form.get("motivo")
-        descripcion = request.form.get("descripcion")
 
-        if not reportado_id or not reportador_id or not motivo:
-            flash("Faltan datos en el reporte", "error")
-            return redirect(url_for("web.inicio"))
+""""
 
-        nuevo_reporte = Reportes(
-            descripcion_reporte=descripcion,
-            fecha_reporte=date.today(),
-            reportador_id=reportador_id,
-            reportado_id=reportado_id
-        )
-
-        db.session.add(nuevo_reporte)
-        db.session.commit()
-        flash("Reporte enviado correctamente", "success")
-    except Exception as e:
-        db.session.rollback()
-        flash("Error al guardar el reporte: " + str(e), "error")
-
-    return redirect(url_for("web.inicio"))
-
+"""
 
 # Define the Blueprint for the API
 users_api = Blueprint('users_api', __name__)
