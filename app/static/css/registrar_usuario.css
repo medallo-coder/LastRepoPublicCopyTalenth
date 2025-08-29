@@ -283,6 +283,27 @@ input::placeholder {
     opacity: 0.6;
     cursor: pointer;
 }
+/* Estilos para la validacion de contraseña*/
+
+#password-requirements {
+    margin: 10px 0 15px 10px;
+    font-size: 14px;   /* un poco más grande */
+    line-height: 1.6;  /* más espacio entre líneas */
+}
+
+#password-requirements p {
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+#password-requirements span {
+    font-size: 16px;  /* círculo o check más grande */
+    margin-right: 8px;
+    font-weight: bold;
+}
+
 
 /* Media Queries para celulares */
 @media (max-width: 480px) {
