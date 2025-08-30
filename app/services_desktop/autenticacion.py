@@ -1,6 +1,6 @@
 from app.models.usuario import Usuario
 from werkzeug.security import check_password_hash, generate_password_hash
-from app.services.jwt_service import generar_token, verificar_token
+from app.services_desktop.jwt_service import generar_token, verificar_token
 from flask import request, session
 from app.extensions import db
 from datetime import datetime, timedelta
@@ -95,9 +95,15 @@ def iniciar_sesion_admin_service(data):
     session['jwt'] = token
     return {"success": True, "message": "Inicio de sesión exitoso."}
 
+# Lista global o base de datos para tokens revocados
+TOKENS_REVOCADOS = set()
 # Servicio para cerrar sesion en el apartado administrador
-def cerrar_sesion_admin_service():
-    session.pop('jwt', None)
+def cerrar_sesion_admin_service(token: str):
+    """
+    token: el JWT enviado por el header Authorization
+    """
+    if token:
+        TOKENS_REVOCADOS.add(token)  # marca el token como revocado
     return {"success": True, "message": "Sesión cerrada correctamente."}
 
 

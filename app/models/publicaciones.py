@@ -24,3 +24,15 @@ class Publicaciones(db.Model):
 
     def __repr__(self):
         return f"<Publicacion {self.publicacion_id}>"
+
+    def to_dict(self):
+        return {
+            "publicacion_id": self.publicacion_id,
+            "usuario_id": self.usuario_id,
+            "fecha": self.fecha.isoformat() if self.fecha else None,
+            "nombre": self.titulo,
+            "costo": float(self.precio) if self.precio is not None else None,
+            "descripcion": self.descripcion_publicacion,
+            "profesion": self.categoria.tipo_categoria if self.categoria else None,
+            "calificacion":4
+         }

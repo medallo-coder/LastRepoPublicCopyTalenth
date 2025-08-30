@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify
-from app.services.autenticacion import registrar_usuario_service, iniciar_sesion_service, cerrar_sesion_service
 from app.services_desktop.autenticacion import iniciar_sesion_admin_service, registrar_admin_service, cerrar_sesion_admin_service
 from app.services_desktop.gestion_publicaciones import  gestion_publicaciones_admin_service, eliminar_publicaciones_admin_service
 from app.services_desktop.gestionar_usuarios import gestionar_usuarios_admin_service, deshabilitar_cuenta_global_service
@@ -8,36 +7,15 @@ from app.services_desktop.gestion_reportes import gestion_reportes_admin_service
 from app.services_desktop.gestion_admin import cambiar_contrasena_admin_service, deshabilitar_cuenta_admin_usu_service
 from app.services_desktop.gestion_admin import datos_admin_service, deshabilitar_cuentas_admin_service
 from app.services_desktop.gestionar_usuarios import datos_expertos_service, datos_clientes_service
-from flask import Blueprint, request, redirect, url_for, flash
+from app.services_movil.autenticacion import registrar_usuario_service, iniciar_sesion_service, cerrar_sesion_service
+from app.services_movil.inicio import inicio_service
+from app.services_movil.gestion_usuarios import datos_usuario_service, cambiar_contrasena_usuario_service, deshabilitar_cuenta_usuario_service
+from flask import Blueprint, request, redirect, url_for, flash, render_template
 
 
-
-""""
-
-"""
 
 # Define the Blueprint for the API
 users_api = Blueprint('users_api', __name__)
-
-# Ruta para registrar usuario
-@users_api.route('/registrar_usuario', methods=['POST'])
-def registrar_usuario():
-    data = request.get_json() if request.is_json else request.form.to_dict()
-    resultado = registrar_usuario_service(data)
-    return jsonify(resultado), (200 if resultado["success"] else 400)
-
-# Ruta para iniciar sesión
-@users_api.route('/iniciar_sesion', methods=['POST'])
-def iniciar_sesion():
-    data = request.get_json() if request.is_json else request.form.to_dict()
-    resultado = iniciar_sesion_service(data)
-    return jsonify(resultado), (200 if resultado["success"] else 401)
-
-# Ruta para cerrar sesión
-@users_api.route('/cerrar_sesion', methods=['POST'])
-def cerrar_sesion():
-    resultado = cerrar_sesion_service()
-    return jsonify(resultado), 200
 
 
 
@@ -59,8 +37,15 @@ def iniciar_session_admin():
 # Ruta para cerrar sesion en el apartado admin
 @users_api.route('/cerrar_sesion_admin', methods=['POST'])
 def cerrar_sesion_admin():
-    resultado = cerrar_sesion_admin_service()
-    return jsonify(resultado), 200
+         # obtener el token del header Authorization
+    auth_header = request.headers.get("Authorization")
+    if auth_header and auth_header.startswith("Bearer "):
+        token = auth_header.split(" ")[1]  # quitar "Bearer "
+    else:
+        return {"success": False, "message": "Token no proporcionado"}, 400
+
+    resultado = cerrar_sesion_service(token)
+    return resultado
 
 # Ruta para gestionar a los usuarios 
 @users_api.route('/gestion_usuarios_admin', methods=['POST'])
@@ -138,4 +123,59 @@ def datos_clientes():
 def deshabilitar_cuenta_global():
     data = request.get_json() if request.is_json else request.form.to_dict()
     resultado = deshabilitar_cuenta_global_service(data)
+    return jsonify(resultado), (200 if resultado["success"]else 400)
+
+
+
+#------------------RUTAS DE MOVIL-------------------------------------------
+
+@users_api.route('/', methods=['GET'])
+def inicio():
+    resultado = inicio_service()
+    return jsonify(resultado), (200 if resultado["success"] else 400)
+
+
+# Ruta para registrar usuario
+@users_api.route('/registrar_usuario', methods=['POST'])
+def registrar_usuario():
+    data = request.get_json() if request.is_json else request.form.to_dict()
+    resultado = registrar_usuario_service(data)
+    return jsonify(resultado), (200 if resultado["success"] else 400)
+
+# Ruta para iniciar sesión
+@users_api.route('/iniciar_sesion', methods=['POST'])
+def iniciar_sesion():
+    data = request.get_json() if request.is_json else request.form.to_dict()
+    resultado = iniciar_sesion_service(data)
+    return jsonify(resultado), (200 if resultado["success"] else 401)
+
+# Ruta para cerrar sesión
+@users_api.route('/cerrar_sesion', methods=['POST'])
+def cerrar_sesion():
+        # obtener el token del header Authorization
+    auth_header = request.headers.get("Authorization")
+    if auth_header and auth_header.startswith("Bearer "):
+        token = auth_header.split(" ")[1]  # quitar "Bearer "
+    else:
+        return {"success": False, "message": "Token no proporcionado"}, 400
+
+    resultado = cerrar_sesion_service(token)
+    return resultado
+
+@users_api.route('/datos_usuario', methods=['POST'])
+def datos_usuario_():
+    resultado = datos_usuario_service()
+    return jsonify(resultado), (200 if resultado["success"]else 400)
+
+
+@users_api.route('/cambiar_contraseña_usuario', methods=['POST'])
+def cambiar_contraseña_usuario():
+    data= request.get_json() if request.is_json else request.form.to_dict()
+    resultado = cambiar_contrasena_usuario_service(data)
+    return jsonify(resultado), (200 if resultado["success"]else 400)
+
+@users_api.route('/deshabilitar_cuenta_usuario', methods=['POST'])
+def deshabilitar_cuenta_usuario():
+    data= request.get_json() if request.is_json else request.form.to_dict()
+    resultado = deshabilitar_cuenta_usuario_service(data)
     return jsonify(resultado), (200 if resultado["success"]else 400)
