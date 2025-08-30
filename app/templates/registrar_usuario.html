@@ -27,17 +27,20 @@
 
             <div class="input-group">
                 <span class="input-icon"><i class="bi bi-person-fill"></i></span>
-                <input type="text" name="primer_nombre" placeholder="Primer nombre" required>
+                <input type="text" name="primer_nombre" placeholder="Primer nombre"  
+                value="{{ request.form.get('primer_nombre', '') }}"  required>
             </div>
 
             <div class="input-group">
                 <span class="input-icon"><i class="bi bi-person-fill"></i></span>
-                <input type="text" name="primer_apellido" placeholder="Primer apellido" required>
+                <input type="text" name="primer_apellido" placeholder="Primer apellido" 
+                value="{{ request.form.get('primer_apellido', '') }}"required>
             </div>
 
             <div class="input-group">
                 <span class="input-icon"><i class="bi bi-at"></i></span>
-                <input type="email" name="correo" placeholder="Correo Electrónico" required>
+                <input type="email" name="correo" placeholder="Correo Electrónico" 
+                required>
             </div>
 
             <div class="input-group">
@@ -45,16 +48,24 @@
                 <input type="password" name="contrasena" placeholder="Contraseña" id="pass1" required>
                 <i class="bi bi-eye-fill toggle-pass"></i>
             </div>
-            <!-- Mensaje que pediste -->
-            <p style="font-size: 12px; color: #666; margin-left: 10px; margin-top: -10px; margin-bottom: 10px;">
-                La contraseña debe tener al menos 6 caracteres y una letra mayúscula.
-            </p>
+           <!-- Mensaje de error para requisitos de contraseña (ahora aparece ARRIBA de los checks) -->
+            <div id="password-req-error" style="color: red; font-size: 13px; margin-left: 10px; display: none;"></div>
+
+            <div id="password-requirements" style="font-size: 12px; color: #666; margin-left: 10px; margin-top: 5px;">
+            <p><span id="req-length" style="color: red;">&#x25CB;</span> Al menos 6 caracteres</p>
+            <p><span id="req-uppercase" style="color: red;">&#x25CB;</span> Al menos 1 letra mayúscula</p>
+            </div>
+
 
             <div class="input-group">
                 <span class="input-icon"><i class="bi-lock-fill"></i></span>
                 <input type="password" name="confirmar_contrasena" placeholder="Repetir Contraseña" id="pass2" required>
                 <i class="bi bi-eye-fill toggle-pass"></i>
             </div>
+            <div id="password-error" style="color: red; font-size: 13px; margin-left: 10px; display: none;">
+            Las contraseñas no coinciden. Vuelve a intentarlo.
+            </div>
+
 
             <button type="submit" class="bt-login">Registrate</button>
 
@@ -64,6 +75,8 @@
     </div>
 
     <script src="{{ url_for('static', filename='js/ocultar_contraseña.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/registrar_usuario.js') }}"></script>
+
 
 </body>
 </html>
