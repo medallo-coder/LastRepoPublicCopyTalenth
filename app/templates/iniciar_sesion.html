@@ -17,25 +17,16 @@
              <span><span style="color: #3eaeb1;">Cali</span><span style="color: black;">Trabaja</span></span>
         </div>
 
-    <!-- Bloque de mensajes dinámicos con estilo -->
-    {% include 'errors.html' %}
-
-
-    
-    
-
-
     <!-- Formulario de inicio de sesión -->
     <div class="register-form">
         <h1>Iniciar Sesión</h1>
+        
         <br>
         <form action="{{ url_for('web.iniciar_sesion') }}" method="POST">
-
-
-
             <div class="inp-correo">
                 <span class="input-icon"><i class="bi bi-at"></i></span>
-                <input type="email" name="correo" placeholder="Correo electrónico" required>
+                <input type="email" name="correo" placeholder="Correo electrónico" 
+                value="{{ request.form.correo or '' }}" required>
             </div>
             <div class="inp-contraseña">
                 <span class="input-icon"><i class="bi-lock-fill"></i></span>
@@ -43,6 +34,15 @@
                 <i class="bi bi-eye-fill toggle-pass"></i>
             </div>
 
+             <!-- 🔹 Aquí aparecen los errores específicos del login -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="login-error">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
             <!-- Botón centrado -->
             <button type="submit" class="bt-login">Iniciar Sesión</button>
 
