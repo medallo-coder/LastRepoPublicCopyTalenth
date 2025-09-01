@@ -90,7 +90,8 @@ def guardar_mi_publicacion_service(data):
             categoria_id=data.get("categoria_id"),
             subcategoria_id=data.get("subcategoria_id"),
             usuario_id=usuario_id,
-            destacada=destacada
+            destacada=destacada,
+            estado="activo" 
         )
         db.session.add(nueva)
         db.session.commit()

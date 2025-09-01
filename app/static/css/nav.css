@@ -34,7 +34,18 @@
     padding: 0 20px;
     gap: 15px;
     flex-wrap: nowrap;
-    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+    
+}
+
+/* Clase para ocultar el nav */
+.header_nav.hide {
+  transform: translateY(-100%);
 }
 
 /* Menú hamburguesa */
@@ -200,7 +211,7 @@
 .sidebar.click {
     width: 300px;
     box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.4);
-    z-index: 100;
+    z-index: 1001;
 }
 
 .sidebar a {

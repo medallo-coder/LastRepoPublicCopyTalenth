@@ -31,7 +31,10 @@
   {% if cantidad_actual == 1 and cantidad_destacadas == 0 %}
     <p class="mostrar-form-link" onclick="mostrarModal()">+ Nueva publicación</p>
   {% else %}
-    <p id="mostrarFormulario" class="mostrar-form-link" {% if publicacion %}style="display:none;"{% endif %}>+ Nueva publicación</p>
+    <p id="mostrarFormulario" class="mostrar-form-link"
+       {% if publicacion is defined and publicacion %}style="display:none;"{% endif %}>
+       + Nueva publicación
+    </p>
   {% endif %}
 {% endif %}
 
@@ -40,29 +43,31 @@
   <div class="container">
 
     <!-- Formulario -->
-    <div class="card" style="display: {{ 'block' if publicacion else 'none' }}">
+    <div class="card" {% if not (publicacion is defined and publicacion) %}style="display:none"{% endif %}>
       <div class="card-header">
-        {% if publicacion %}
+        {% if publicacion is defined and publicacion %}
           Editar Publicación
         {% else %}
           Nueva Publicación
         {% endif %}
       </div>
+
       <div class="card-body">
         <form method="POST" action="{{ url_for('web.guardar_mi_publicacion') }}">
-      {% if publicacion %}
-        <input type="hidden" name="id" value="{{ publicacion.publicacion_id }}">
-      {% endif %}
+        {% if publicacion is defined and publicacion %}
+          <input type="hidden" name="id" value="{{ publicacion.publicacion_id }}">
+        {% endif %}
+
 
 
           <div class="form-group">
             <label>Título de tu publicación</label>
-            <input type="text" name="titulo" placeholder="Ej: Servicio de carpintería" value="{{ publicacion.titulo if publicacion else '' }}" required>
+            <input type="text" name="titulo" placeholder="Ej: Servicio de carpintería" value="{{ publicacion.titulo if publicacion is defined and publicacion else '' }}" required>
           </div>
 
           <div class="form-group">
             <label>Precio</label>
-            <input type="number" name="precio" step="0.01" placeholder="Ej: 150.00" value="{{ publicacion.precio if publicacion else '' }}">
+            <input type="number" name="precio" step="0.01" placeholder="Ej: 150.00" value="{{ publicacion.precio if publicacion is defined and publicacion else '' }}">
           </div>
 
           <div class="form-group">
@@ -80,7 +85,7 @@
   <select name="subcategoria_id" id="subcategoriaSelect">
     <option value="">Seleccione</option>
     {% for sub in subcategorias %}
-      <option value="{{ sub.subcategoria_id }}" {% if publicacion and publicacion.subcategoria_id == sub.subcategoria_id %}selected{% endif %}>{{ sub.nombre_subcategoria }}</option>
+      <option value="{{ sub.subcategoria_id }}" {% if publicacion is defined and publicacion and publicacion.subcategoria_id == sub.subcategoria_id %}selected{% endif %}>{{ sub.nombre_subcategoria }}</option>
     {% endfor %}
   </select>
 </div>
@@ -88,7 +93,7 @@
 
           <div class="form-group">
             <label>Descripción</label>
-            <textarea name="descripcion_publicacion" placeholder="Describe tu publicación">{{ publicacion.descripcion_publicacion if publicacion else '' }}</textarea>
+            <textarea name="descripcion_publicacion" placeholder="Describe tu publicación">{{ publicacion.descripcion_publicacion if publicacion is defined and publicacion else '' }}</textarea>
           </div>
 
           <div class="form-actions">
@@ -117,11 +122,12 @@
             </div>
 
             <div class="publicacion-img">
-              {% if pub.usuario.perfiles.foto_perfil %}
-                <img src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" alt="Foto de perfil">
-              {% else %}
-                <img src="{{ url_for('static', filename='img/default_profile.png') }}" alt="Foto por defecto">
-              {% endif %}
+             {% if pub.usuario.perfiles.foto_perfil %}
+              <img src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" 
+                  alt="Foto de perfil" class="perfil-img"/>
+            {% else %}
+              <i class="bi bi-person-circle perfil-img placeholder-icon"></i>
+            {% endif %}
               <p class="precio"><strong>Precio:</strong> ${{ pub.precio }}</p>
               {% if pub.destacada == 'si' %}
               <p class="destacada">Promocionada</p>

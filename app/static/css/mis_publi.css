@@ -1,4 +1,4 @@
-/* Reset */
+/* ---------------- RESET ---------------- */
 * {
   margin: 0;
   padding: 0;
@@ -8,29 +8,42 @@
 body {
   background-color: #f8f8f8;
   font-family: 'Oswald', sans-serif;
-  color: #000000;
+  color: #000;
+  padding-top: 70px; /* espacio para navbar */
 }
 
+/* ---------------- CONTENEDORES ---------------- */
 .container {
-  max-width: 840px; /* 1 cm menos ancho */
+  max-width: 840px;
   margin: auto;
-}
-.form-group {
-  margin-bottom: 20px; /* Aumenta el espacio entre grupos de inputs */
-}
-.destacada {
-  color: #3eaeb1;
-}
-.cantidad {
-  color: #606060;
-  text-align: center;
-  font-weight: bold;
-  margin: 10px auto;
-  width: fit-content;
-  font-size: 16px;
+  padding: 0 15px;
 }
 
- 
+/* General para cuadros y cards */
+.card, .cuadro {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 0 auto 30px auto;
+  max-width: 640px;
+  box-sizing: border-box;
+}
+
+.card-header {
+  color: #3EAEB1;
+  font-size: 24px;
+  text-align: center;
+  padding: 12px 16px;
+  border-radius: 10px 10px 0 0;
+  margin: 0 -20px 20px -20px;
+}
+
+/* ---------------- FORMULARIOS ---------------- */
+.form-group {
+  margin-bottom: 20px;
+}
+
 .form-group label {
   display: block;
   font-weight: bold;
@@ -39,39 +52,145 @@ body {
   color: #121212;
 }
 
-h1 {
-  text-align: center;
-  color: #3eaeb1;
-  margin-bottom: 30px;
-  font-size: 28px;
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  width: 95%;
+  max-width: 600px;
+  display: block;
+  margin: 0 auto;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 12px;
+  background: #d9d9d9;
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
 }
 
-/* Publicación card */
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #555;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 56px;
+  margin-top: 20px;
+}
+
+/* ---------------- BOTONES ---------------- */
+.btn-primary {
+  cursor: pointer;
+  color: #fff;
+  border: none;
+  background-color: #3eaeb1;
+  font-family: 'Oswald', sans-serif;
+  padding: 8px 8%;
+  border-radius: 20px;
+  font-size: 15px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #2a8b8f; /* azul más oscuro al pasar */
+}
+
+.btn-secondary {
+  background: #f8f8f8;
+  color: black;
+  padding: 0.4rem 3rem;
+  border-radius: 20px;
+  border: 1px solid #E5E5E5;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: 'Oswald', sans-serif;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background-color: #d9d9d9;
+}
+
+/* ---------------- PUBLICACIONES ---------------- */
+.publicaciones-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
 .publicacion-card {
   display: flex;
   align-items: center;
   background: #fff;
-  border: 1px solid #ccc; /* Borde gris fino */
+  border: 1px solid #ccc;
   border-radius: 12px;
   padding: 16px;
-  margin-bottom: 20px;
+  min-height: 230px;
+  flex: 1 1 280px;
+  max-width: 420px;
+  width: 100%;
   position: relative;
-  box-shadow: none; /* Sin sombra */
-  min-height: 230px; /* Ajusta el valor según el alto que deseas */ 
-  flex: 1 1 280px;      /* permite que crezcan más allá de 240px */
-  max-width: 420px;     /* límite visual */
-  width: 100%;   
 }
 
-/* Estilo para las estrellas (calificación) */
+.publicacion-img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.publicacion-img img {
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.publicacion-img .precio {
+  font-size: 13px;
+  color: #444;
+  margin-top: 5px;
+}
+
+.publicacion-info {
+  margin-left: 15px;
+  flex: 1;
+}
+
+.publicacion-info .nombre {
+  font-size: 24px;
+  color: #000;
+  margin-bottom: 4px;
+}
+
+.publicacion-info .titulo {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.publicacion-info .descripcion {
+  font-size: 13px;
+  color: #444;
+  margin-bottom: 3px;
+}
+
 .estrellasTarjetas {
-  display: flex; /* Flexbox para alinear las estrellas */
-  justify-content: left; /* Centrado horizontal */
-  font-size: 1rem; /* Tamaño de fuente para las estrellas */
-  color: #3EAEB1; /* Color azul */
-  gap: 0.1rem; /* Espacio entre las estrellas */
-  margin-top: -8px; 
-} 
+  display: flex;
+  justify-content: left;
+  font-size: 1rem;
+  color: #3EAEB1;
+  gap: 0.1rem;
+  margin-top: -8px;
+}
+
 /* Menú superior derecho */
 .acciones-menu {
   position: absolute;
@@ -80,7 +199,7 @@ h1 {
 }
 
 .menu-trigger {
-  font-size: 28px; /* Puedes probar 22px, 24px o incluso 26px según tu gusto */
+  font-size: 28px;
   cursor: pointer;
   padding: 4px;
 }
@@ -110,194 +229,27 @@ h1 {
   background: #f0f0f0;
 }
 
-/* Imagen y precio */
-.publicacion-img {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.publicacion-img img {
-  width: 105px;
-  height: 105px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.publicaciones-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px; /* espacio entre tarjetas */
-}
-
-
-
-@media (max-width: 576px) {
-  .publicaciones-grid {
-    display: block; /* Apila verticalmente */
-  }
-
-  .publicacion-card {
-    width: 100%;
-    margin-bottom: 20px; /* espacio entre tarjetas */
-  }
-}
-
-.publicacion-img .precio {
-  font-size: 13px;
-  color: #444;
-  margin-top: 5px;
-}
-
-/* Info */
-.publicacion-info {
-  margin-left: 15px;
-  flex: 1;
-}
-
-.publicacion-info .nombre {
-  font-size: 24px;
-  color: #000000;
-  margin-bottom: 4px;
-}
-
-.publicacion-info .titulo {
-  font-size: 15px;
-  margin-bottom: 4px;
-}
-
-.publicacion-info .descripcion {
-  font-size: 13px;
-  color: #444;
-  margin-bottom: 3px;
-}
-
-/* Sin publicaciones */
+/* ---------------- MENSAJES ---------------- */
 .sin-publicaciones {
   text-align: center;
   font-size: 15px;
   color: #999;
 }
 
-/* Formulario / Card general */
-.card {
-  background: #fff;
-  border-radius: 14px;
-  border: 1px solid #ccc; /* Borde gris fino */
-  padding: 20px;
-  margin-bottom: 30px;
-  margin: 0 auto 30px auto; /* centrar horizontalmente */
-  max-width: 640px; /* 1 cm menos ancho */
-  
+.destacada {
+  color: #3eaeb1;
 }
 
-.card-header {
-  color: #3EAEB1;
-  padding: 12px 16px;
-  font-size: 24px;
-  border-radius: 10px 10px 0 0;
-  margin: -20px -20px 20px -20px;
+.cantidad {
+  color: #606060;
   text-align: center;
+  font-weight: bold;
+  margin: 10px auto;
+  width: fit-content;
+  font-size: 16px;
 }
 
-
-input[type="text"],
-input[type="number"],
-select,
-textarea {
-  width: 95%;
-  max-width: 600px;
-  margin: 0 auto; /* Centra horizontalmente */
-  display: block;
-  padding: 10px 12px;
-  background: #d9d9d9;
-  border: none;
-  border-radius: 12px;
-  font-family: 'Oswald', sans-serif;
-  font-size: 14px;
-}
-
-
-input::placeholder,
-textarea::placeholder {
-  color: #555;
-}
-
-textarea {
-  min-height: 90px;
-  resize: vertical;
-}
-
-.btn-secondary {
-  background: #f8f8f8;
-  color: black;
-  padding: 0.4rem 3rem;
-  border-radius: 20px;
-  border: 1px solid #E5E5E5;
-  font-size: 1rem;
-  cursor: pointer;
-  font-family: 'Oswald', sans-serif;
-  text-decoration: none;
-}
-
-.btn-primary {
-  cursor: pointer;
-  color: #ffffff;
-  border: none;
-  background-color: #3eaeb1;
-  font-family: 'Oswald', sans-serif;
-  padding: 8px 8%;
-  border-radius: 20px;
-  font-size: 15px;
-  text-decoration: none;
-}
-
-button:hover,
-.btn-secondary:hover {
-  background-color: #d9d9d9;
-}
-
-.btn-primary:hover {
-  background-color: #3eaeb1;
-  color: white;
-}
-
-.form-actions {
-  display: flex;
-  justify-content: center;      /* Centra los botones horizontalmente */
-  gap: 56px;                    /* Espacio entre botones */
-  margin-top: 20px;            /* Espacio por encima de los botones */
-}
-
-
-
-/*nav de navegacion entre perfil  y publicaciones*/
-
-/* Contenedor principal centrado y responsivo */
-.cuadro {
-  width: 100%;
-  max-width: 700px;           /* Anchura máxima en pantallas grandes */
-  background-color: white;
-  border: 1px solid #d1d5db;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 0 auto 1.5rem auto; /* Centrado horizontal + margen inferior */
-  padding: 1rem;
-  box-sizing: border-box;
-}
-
-/* Estilo para el cuadro redondo */
-.redondo {
-  height: 5rem;
-  border-radius: 2rem;
-  border: 1px solid #6b7280;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Contenedor de pestañas centrado y adaptativo */
-/* Estilos para las pestañas de navegación */
+/* ---------------- PESTAÑAS ---------------- */
 .tabs {
   width: 100%;
   display: flex;
@@ -329,44 +281,79 @@ button:hover,
   z-index: 0;
 }
 
-/* 🔄 Responsividad adicional */
+
+  /* Estilo compartido para la foto y el icono de reemplazo */
+.perfil-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ccc;
+}
+
+/* Solo para el icono cuando no hay imagen */
+.placeholder-icon {
+    font-size: 4rem; /* Ajusta tamaño del icono dentro del mismo contenedor */
+    color: #3EAEB1; /* Color del icono */
+    background-color: #f8f8f8; /* Misma base que la imagen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ---------------- REDONDO ---------------- */
+.redondo {
+  height: 5rem;
+  border-radius: 2rem;
+  border: 1px solid #6b7280;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
 @media (max-width: 768px) {
-  .tab {
-    font-size: 1.1rem;          /* Tamaño más pequeño en móvil/tablet */
-    letter-spacing: 0.06rem;    /* Más aire entre letras */
-    padding: 0.3rem 0.5rem;     /* Menos altura visual */
+  .publicaciones-grid {
+    display: block;
   }
 
-  .tab::after {
-    bottom: -2px;               /* Línea más cerca del texto */
-    height: 1.5px;              /* Línea más delgada */
+  .publicacion-card {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .tab {
+    font-size: 1.1rem;
+    letter-spacing: 0.06rem;
+    padding: 0.3rem 0.5rem;
   }
 
   .tabs {
-    gap: 1rem;                  /* Menos espacio entre pestañas */
+    gap: 1rem;
   }
-}
 
-@media (max-width: 768px) {
   .cuadro {
-    height: 10%;           /* Se adapta al contenido */
-    padding: 1rem;          /* Ajusta el relleno interior */
+    padding: 1rem;
   }
 
   .redondo {
-    height: auto;           /* Permite que el contenido lo defina */
-    padding: 1rem;          /* Más aire para que se vea bien */
-    flex-direction: column; /* Para acomodar mejor los elementos en pantallas pequeñas */
-    text-align: center;     /* Centra el contenido cuando sea vertical */
+    height: auto;
+    padding: 1rem;
+    flex-direction: column;
+    text-align: center;
   }
 }
 
-/* Estilo para el boton de nuevas publicaciones  */
-.card {
-  display: none; /* Oculta el formulario inicialmente */
+/* ---------------- FORMULARIO OCULTO ---------------- */
+.form-card {
+  display: none; /* solo oculta los formularios que quieras */
 }
 
-/* Estilo del enlace tipo botón */
 .mostrar-form-link {
   font-family: 'Oswald', sans-serif;
   font-size: 1.2rem;
@@ -376,6 +363,7 @@ button:hover,
   margin-bottom: 20px;
   user-select: none;
 }
+
 .mostrar-form-link:hover {
   text-decoration: underline;
 }
@@ -387,10 +375,10 @@ button:hover,
   font-size: 0.9rem;
   cursor: pointer;
   display: inline-block;
-  margin-bottom: 6px; /* Antes: 10px */
+  margin-bottom: 6px;
 }
 
-/* Estilo para el modal de eliminar */
+/* ---------------- MODAL ---------------- */
 .modal-eliminar {
   position: fixed;
   top: 0; left: 0;
@@ -428,6 +416,7 @@ button:hover,
   display: flex;
   justify-content: space-around;
 }
+
 .modal-acciones a {
   background-color: #3eaeb1;
   color: white;

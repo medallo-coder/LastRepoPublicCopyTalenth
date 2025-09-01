@@ -152,14 +152,18 @@
   <div class="slider-container">
     <div class="slider" id="slider">
 
-      <!-- Tarjeta 1 -->
-       {% for pub in publicaciones_aleatorias %}
+          <!-- Tarjeta 1 -->
+      {% for pub in publicaciones_aleatorias %}
       <div class="card-tarjeta">
         <div class="image-price-container">
-  
+
           {% if pub.usuario.perfiles.foto_perfil %}
             <img src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" alt="Foto de perfil" />
+          {% else %}
+            <!-- Icono de Bootstrap como reemplazo -->
+            <i class="bi bi-person-circle perfil-img placeholder-icon"></i>
           {% endif %}
+
           <p class="price">COP {{ pub.precio }}</p>
           {% if pub.destacada == 'si' %}
             <p class="destacada">Promocionada</p>
@@ -199,7 +203,6 @@
             <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
             <i class="bi bi-star-fill"></i>
           </div>
-
           <p class="profesion"><strong>{{ pub.titulo }}</strong></p>
           <p class="descripcion-titulo">Descripción:</p>
           <p class="descripcion descripcion-texto">
@@ -255,8 +258,11 @@
       {% for pub in publicaciones_recientes %}
       <div class="card-tarjeta">
         <div class="image-price-container">
-          {% if pub.usuario.perfiles.foto_perfil %}
+           {% if pub.usuario.perfiles.foto_perfil %}
             <img src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" alt="Foto de perfil" />
+          {% else %}
+            <!-- Icono de Bootstrap como reemplazo -->
+            <i class="bi bi-person-circle perfil-img placeholder-icon"></i>
           {% endif %}
 
           <p class="price">COP {{ pub.precio }}/h</p>

@@ -3,8 +3,9 @@
 
 .main-container {
     width: 70%;
-    margin: 50px auto 0 auto; /* Centrado horizontal con margen superior */
+    margin: 0 auto; /* Centrado horizontal con margen superior */
     display: flex;
+    padding-top: 120px;
     flex-direction: column;
     gap: 40px; /* Espacio entre header y slider */
 }
@@ -349,8 +350,8 @@
   display: flex;
   gap: 15px;
   align-items: center; 
-  height: 260px; /* Limita la altura total */
-
+  height: 280px; /* Limita la altura total */
+  position: relative;
   }
   
   
@@ -365,9 +366,12 @@
 
   /* Contenedor del botón en el modal */
 .boton-container {
-  display: flex; /* Usa Flexbox para centrar el contenido */
-  justify-content: center; /* Centra el botón horizontalmente */
-  margin-top: 8px; /* Añadir margen superior para separar la descripción */
+  position: absolute;
+  bottom: 2px;   /* fija el botón a 15px del fondo */
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
 }
 
 /* Estilo del botón */
@@ -380,7 +384,8 @@
   cursor: pointer;
   font-size: 13px;
   font-family: 'Oswald', sans-serif;
-  font-weight: 600; /* Medium */
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 .contact-button:hover {
@@ -390,10 +395,13 @@
 
 /* Asegura que los contenidos dentro de .card-content estén en columna */
 .card-content {
-  display: flex;
+   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   flex: 1;
+  position: relative;
+  padding-bottom: 10px; /* espacio para el botón */
+  height: 100%; /* asegura que use toda la altura */
+  box-sizing: border-box;
 }
  
   .arrows {
@@ -422,6 +430,30 @@
   .card-content{
     position: relative;
   }
+
+  /* Estilo compartido para la foto y el icono de reemplazo */
+.perfil-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ccc;
+}
+
+/* Solo para el icono cuando no hay imagen */
+.placeholder-icon {
+    font-size: 4rem; /* Ajusta tamaño del icono dentro del mismo contenedor */
+    color: #3EAEB1; /* Color del icono */
+    background-color: #f8f8f8; /* Misma base que la imagen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
   
   /* Contenedor de nombre y botón menú */
   .header {
@@ -753,6 +785,8 @@
 @media (max-width: 768px) {
     .card-tarjeta {
         flex: 0 0 260px; /* Reduce aún más el ancho de la tarjeta */
+         max-width: 500px; /* un límite razonable */
+    min-height: 320px; /* más altura mínima */
         padding: 10px; /* Relleno ajustado */
     }
 
@@ -795,7 +829,7 @@
 @media (max-width: 575px) {
     .card-tarjeta {
         flex: 0 0 90%; /* La tarjeta ocupa casi todo el ancho en las pantallas más pequeñas */
-        max-width: 300px; /* Evita que se haga demasiado ancha en pantallas pequeñas ligeramente más grandes */
+        max-width: 400px; /* Evita que se haga demasiado ancha en pantallas pequeñas ligeramente más grandes */
         margin: 0 auto; /* Centra la tarjeta cuando ocupa casi todo el ancho */
         padding: 8px; /* Relleno aún más ajustado */
     }
