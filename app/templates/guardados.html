@@ -24,8 +24,13 @@
     {% for pub in publicaciones %}
 <div class="categoria">
   
-<img class="image" src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" alt="Foto de perfil" />
-
+{% if pub.usuario.perfiles.foto_perfil %}
+  <img class="image perfil-img" 
+       src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" 
+       alt="Foto de perfil" />
+{% else %}
+  <i class="bi bi-person-circle perfil-img placeholder-icon"></i>
+{% endif %}
 
 
   <div class="info">

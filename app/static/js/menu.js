@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const menu = document.querySelector('.menu');
     const menuid = document.getElementById('menuid');
     const sidebar = document.getElementById('sidebar');
+    const nav = document.querySelector(".header_nav"); 
+    let lastScrollTop = 0; 
 
     // Abrir / cerrar el menú
     menuid.addEventListener('click', (event) => {
@@ -24,7 +26,24 @@ document.addEventListener("DOMContentLoaded", function () {
     sidebar.addEventListener('click', (event) => {
         event.stopPropagation(); // Detener la propagación para que el clic no cierre el menú
     });
+
+      // ---- NAV OCULTARSE AL SCROLL ----
+  window.addEventListener("scroll", () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+    if (scrollTop > lastScrollTop) {
+      // bajando → ocultar
+      nav.classList.add("hide");
+    } else {
+      // subiendo → mostrar
+      nav.classList.remove("hide");
+    }
+
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // evita valores negativos
+  });
+
 });
+
 
 
 

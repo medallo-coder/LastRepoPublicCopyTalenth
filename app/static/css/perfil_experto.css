@@ -5,6 +5,7 @@
   padding: 0; /* Elimina el padding por defecto */
 }
 
+
 /* Estilos generales para el body */
   .experto {
     background-color: #f8f8f8; /* Color de fondo de la página */
@@ -12,7 +13,7 @@
     flex-direction: column; /* Organiza los elementos de manera vertical */
     align-items: center; /* Centra los elementos horizontalmente */
     min-height: 100vh; /* Asegura que la altura mínima sea 100% de la pantalla */
-    padding: 2.5rem 0; /* Espaciado arriba y abajo */
+    padding: 120px 0 2.5rem 0; /* Espaciado arriba y abajo */
     font-family: sans-serif; /* Define la fuente general */
   }
   

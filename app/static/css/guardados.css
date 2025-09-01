@@ -12,7 +12,7 @@
     flex-direction: column; /* Organiza los elementos de manera vertical */
     align-items: center; /* Centra los elementos horizontalmente */
     min-height: 100vh; /* Asegura que la altura mínima sea 100% de la pantalla */
-    padding: 2.5rem 0; /* Espaciado arriba y abajo */
+    padding: 120px 0 2.5rem 0;/* Espaciado arriba y abajo */
     font-family: sans-serif; /* Define la fuente general */
   }
   
@@ -530,6 +530,27 @@
 .close-button:hover {
   color: #3eaeb1;
 }
+
+.perfil-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ccc;
+}
+
+.placeholder-icon {
+    font-size: 4rem; 
+    color: #3EAEB1; 
+    background-color: #e3e3e3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 /* Media query para tablets: se aplican estilos cuando el ancho máximo de la pantalla es 768px */
 @media (max-width: 768px) {

@@ -11,7 +11,7 @@
 .container {
     width: 100%;
     max-width: 1024px;
-    margin: 100px auto; /* ✅ centra horizontalmente en el body */
+    margin: 120px auto; /* ✅ centra horizontalmente en el body */
     display: flex;
     flex-direction: column;
     gap: 24px;

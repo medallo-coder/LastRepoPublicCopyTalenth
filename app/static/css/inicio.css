@@ -3,8 +3,9 @@
 
 .main-container {
     width: 70%;
-    margin: 50px auto 0 auto; /* Centrado horizontal con margen superior */
+    margin: 0 auto; /* Centrado horizontal con margen superior */
     display: flex;
+    padding-top: 120px;
     flex-direction: column;
     gap: 40px; /* Espacio entre header y slider */
 }
@@ -429,6 +430,30 @@
   .card-content{
     position: relative;
   }
+
+  /* Estilo compartido para la foto y el icono de reemplazo */
+.perfil-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ccc;
+}
+
+/* Solo para el icono cuando no hay imagen */
+.placeholder-icon {
+    font-size: 4rem; /* Ajusta tamaño del icono dentro del mismo contenedor */
+    color: #3EAEB1; /* Color del icono */
+    background-color: #f8f8f8; /* Misma base que la imagen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
   
   /* Contenedor de nombre y botón menú */
   .header {

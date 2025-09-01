@@ -12,6 +12,7 @@
   <style>
     body {
       font-family: 'Oswald', sans-serif;
+      
     }
 
     .ver-mas {
@@ -50,7 +51,7 @@
 </head>
 
 
-<body class="flex flex-col min-h-screen" style="background-color: #F8F8F8;">
+<body class="flex flex-col min-h-screen pt-[120px]" style="background-color: #F8F8F8;">
   {% include 'nav.html' %}
   {% include 'errors.html' %}
   
@@ -165,12 +166,20 @@
                <a href="#" class="flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1] abrir-modal-reporte"><i class="bi bi-exclamation-circle text-[16px] mr-2"></i><span>Reportar</span></a>
               </div>
             </div>
-            <!-- Imagen -->
+            <!-- Imagen o icono -->
             <div class="flex flex-col justify-center items-center w-full sm:w-28 h-full gap-2">
               {% if pub.usuario.perfiles.foto_perfil %}
-              <img src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" class="w-24 h-24 rounded-full object-cover shadow" />
+                <img src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" 
+                    class="w-24 h-24 rounded-full object-cover shadow" />
+              {% else %}
+                <!-- Icono de Bootstrap como reemplazo -->
+                <i class="bi bi-person-circle flex items-center justify-center rounded-full shadow"
+                  style="width: 6rem; height: 6rem; font-size: 4rem; color: #3EAEB1; background-color: #f8f8f8;"></i>
               {% endif %}
-              <span class="text-[#666666] text-xs sm:text-xs block text-center font-medium">COP {{ pub.precio }}/h</span>
+              
+              <span class="text-[#666666] text-xs sm:text-xs block text-center font-medium">
+                COP {{ pub.precio }}/h
+              </span>
             </div>
             <!-- Info -->
             <div class="flex-1 flex flex-col items-center lg:items-start">
