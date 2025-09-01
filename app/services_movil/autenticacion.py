@@ -171,3 +171,20 @@ def verificar_autenticacion_service(token):
         "authenticated": True,
         "usuario_id": resultado.get("payload", {}).get("usuario_id")
     }
+
+def obtener_usuario_id_autenticado():
+    
+    token = session.get('jwt')
+    if not token:
+        auth_header = request.headers.get("Authorization")
+        if auth_header and auth_header.startswith("Bearer "):
+            token = auth_header.split(" ")[1]
+
+    if not token:
+        return None
+
+    resultado = verificar_token(token)
+    if not resultado.get("valid"):
+        return None
+
+    return resultado.get("payload", {}).get("usuario_id")

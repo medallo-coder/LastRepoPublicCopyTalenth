@@ -31,8 +31,10 @@ class Publicaciones(db.Model):
             "usuario_id": self.usuario_id,
             "fecha": self.fecha.isoformat() if self.fecha else None,
             "nombre": self.titulo,
+            "nombre_experto": self.usuario.perfiles.primer_nombre if self.usuario else None,
             "costo": float(self.precio) if self.precio is not None else None,
             "descripcion": self.descripcion_publicacion,
-            "profesion": self.categoria.tipo_categoria if self.categoria else None,
-            "calificacion":4
+            "categoria": self.categoria.tipo_categoria if self.categoria else None,
+            "calificacion":4,
+            "subcategoria": self.subcategoria.nombre_subcategoria if self.subcategoria else None
          }

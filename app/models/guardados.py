@@ -14,3 +14,13 @@ class Guardados(db.Model):
 
     def __repr__(self):
         return f"<Guardado usuario={self.usuario_id} publicacion={self.publicacion_id}>"
+
+
+    def to_dict(self):
+        return {
+            "guardado_id": self.guardado_id,
+            "usuario_id": self.usuario_id,
+            "publicacion_id": self.publicacion_id,
+            "fecha_guardado": self.fecha_guardado.isoformat() if self.fecha_guardado else None,
+            "publicacion": self.publicacion.to_dict() if self.publicacion else None
+        }

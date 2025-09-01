@@ -5,10 +5,12 @@ from app import db
 def map_to_card(pub):
     return {
         "nombre": pub["nombre"],
-        "profesion": pub["profesion"],
+        "categoria": pub["categoria"],
         "descripcion": pub["descripcion"],
         "costo": pub["costo"],
-        "calificacion": pub["calificacion"]
+        "calificacion": pub["calificacion"],
+        "publicacion_id": pub["publicacion_id"],
+        "usuario_id": pub["usuario_id"]
     }
 
 

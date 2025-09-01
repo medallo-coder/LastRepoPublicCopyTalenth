@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.services_desktop.autenticacion import iniciar_sesion_admin_service, registrar_admin_service, cerrar_sesion_admin_service
+from app.services_desktop.autenticacion import iniciar_sesion_admin_service, registrar_admin_service, cerrar_sesion_admin_service 
 from app.services_desktop.gestion_publicaciones import  gestion_publicaciones_admin_service, eliminar_publicaciones_admin_service
 from app.services_desktop.gestionar_usuarios import gestionar_usuarios_admin_service, deshabilitar_cuenta_global_service
 from app.services_desktop.perfil_usuarios  import perfil_usuarios_admin_service
@@ -7,10 +7,12 @@ from app.services_desktop.gestion_reportes import gestion_reportes_admin_service
 from app.services_desktop.gestion_admin import cambiar_contrasena_admin_service, deshabilitar_cuenta_admin_usu_service
 from app.services_desktop.gestion_admin import datos_admin_service, deshabilitar_cuentas_admin_service
 from app.services_desktop.gestionar_usuarios import datos_expertos_service, datos_clientes_service
-from app.services_movil.autenticacion import registrar_usuario_service, iniciar_sesion_service, cerrar_sesion_service
+from app.services_movil.autenticacion import registrar_usuario_service, iniciar_sesion_service, cerrar_sesion_service, obtener_usuario_id_autenticado
 from app.services_movil.inicio import inicio_service
 from app.services_movil.gestion_usuarios import datos_usuario_service, cambiar_contrasena_usuario_service, deshabilitar_cuenta_usuario_service
-from flask import Blueprint, request, redirect, url_for, flash, render_template
+from app.services_movil.guardados import guardar_publicacion_service, obtener_guardados_service, eliminar_guardado_service
+from app.services_movil.reporte import guardar_reporte_service
+from flask import Blueprint, request
 
 
 
@@ -44,7 +46,7 @@ def cerrar_sesion_admin():
     else:
         return {"success": False, "message": "Token no proporcionado"}, 400
 
-    resultado = cerrar_sesion_service(token)
+    resultado = cerrar_sesion_admin_service(token)
     return resultado
 
 # Ruta para gestionar a los usuarios 
@@ -179,3 +181,35 @@ def deshabilitar_cuenta_usuario():
     data= request.get_json() if request.is_json else request.form.to_dict()
     resultado = deshabilitar_cuenta_usuario_service(data)
     return jsonify(resultado), (200 if resultado["success"]else 400)
+
+# Ruta para la sección de guardados (requiere sesión)
+@users_api.route('/guardar-publicacion', methods=['POST'])
+def guardar_publicacion():
+    data= request.get_json() if request.is_json else request.form.to_dict()  
+    resultado = guardar_publicacion_service(data)
+    return jsonify(resultado), (200 if resultado["success"] else 400)
+    
+
+#Ruta de publicaciones guardadas
+@users_api.route('/mis_guardados', methods=['GET'])
+def guardados():
+    resultado = obtener_guardados_service()
+    return jsonify(resultado), (200 if resultado["success"] else 400)
+
+
+# Ruta para eliminar un guardado@web.route('/mis-guardados/eliminar')
+@users_api.route('/mis-guardados/eliminar', methods=['POST'])
+def eliminar_guardado():
+    data= request.get_json() if request.is_json else request.form.to_dict() 
+    resultado = eliminar_guardado_service(data)
+    return jsonify(resultado), (200 if resultado["success"] else 400)
+
+
+
+@users_api.route('/guardar_reporte', methods=['POST'])
+def guardar_reporte():
+    data= request.get_json() if request.is_json else request.form.to_dict() 
+    resultado = guardar_reporte_service(data)
+    return jsonify(resultado), (200 if resultado["success"] else 400)
+
+    
