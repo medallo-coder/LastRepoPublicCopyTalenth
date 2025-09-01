@@ -12,6 +12,12 @@ class Categorias(db.Model):
 
     def __repr__(self):
         return f"<Categoria {self.tipo_categoria}>"
+    
+    def to_dict(self):
+        return{
+            "categoria_id": self.categoria_id,
+            "tipo_categoria": self.tipo_categoria
+        }
 
 
 

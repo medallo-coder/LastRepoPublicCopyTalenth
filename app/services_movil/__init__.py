@@ -5,3 +5,4 @@ from .rol_service import verificar_rol
 from .gestion_usuarios import datos_usuario_service,cambiar_contrasena_usuario_service, deshabilitar_cuenta_usuario_service
 from .guardados import guardar_publicacion_service, obtener_guardados_service, eliminar_guardado_service
 from .reporte import guardar_reporte_service
+from .publicaciones import guardar_publicacion_usuario_service

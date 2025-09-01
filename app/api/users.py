@@ -12,6 +12,7 @@ from app.services_movil.inicio import inicio_service
 from app.services_movil.gestion_usuarios import datos_usuario_service, cambiar_contrasena_usuario_service, deshabilitar_cuenta_usuario_service
 from app.services_movil.guardados import guardar_publicacion_service, obtener_guardados_service, eliminar_guardado_service
 from app.services_movil.reporte import guardar_reporte_service
+from app.services_movil.publicaciones import guardar_publicacion_usuario_service
 from flask import Blueprint, request
 
 
@@ -210,6 +211,12 @@ def eliminar_guardado():
 def guardar_reporte():
     data= request.get_json() if request.is_json else request.form.to_dict() 
     resultado = guardar_reporte_service(data)
+    return jsonify(resultado), (200 if resultado["success"] else 400)
+
+@users_api.route('/publicaciones', methods=['POST'])
+def publicaciones():
+    data= request.get_json() if request.is_json else request.form.to_dict() 
+    resultado = guardar_publicacion_usuario_service(data)
     return jsonify(resultado), (200 if resultado["success"] else 400)
 
     
