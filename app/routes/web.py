@@ -36,6 +36,8 @@ def inicio():
     primer_nombre = ""
     id_usuario_reportador = None
     
+    publicaciones_guardadas_ids = []
+    
     auth_result = verificar_autenticacion_service()
 
     if auth_result.get("authenticated"):
@@ -44,6 +46,9 @@ def inicio():
         usuario_id = obtener_datos_usuario_service()
         id_usuario_reportador = usuario_id.get("usuario_id")
         
+        publicaciones_guardadas = obtener_guardados_service()
+        publicaciones_guardadas_ids = [p.publicacion_id for p in publicaciones_guardadas]
+        
 
     return render_template(
         'inicio.html',
@@ -51,8 +56,8 @@ def inicio():
         publicaciones_recientes=publicaciones_recientes,
         publicaciones_aleatorias=publicaciones_aleatorias,
         rol_usuario=rol_usuario,
-        id_usuario_logueado=id_usuario_reportador
-        
+        id_usuario_logueado=id_usuario_reportador,
+        publicaciones_guardadas_ids=publicaciones_guardadas_ids  
         
     )
 

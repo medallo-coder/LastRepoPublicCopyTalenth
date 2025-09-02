@@ -528,9 +528,10 @@
   }
   
   
-  .menu-completo a :hover {
-    color: #3EAEB1;
-  }
+  .menu-completo a:hover i,
+  .menu-completo a:hover span {
+  color: #3EAEB1;
+}
   
   .menu-completo i {
     margin-right: 8px;

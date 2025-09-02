@@ -17,7 +17,7 @@
   <div class="guardar">
     <div class="cuadro redondo">
       <div class="tabs">
-        <span class="tab active" onclick="activarTab(this)">Mis guardados</span>
+        <span class="tab active" onclick="activarTab(this)">Guardados</span>
       </div>
     </div>
 
@@ -42,7 +42,7 @@
         <i class="bi bi-three-dots"></i>
       </button>
       <div class="dropdown-menu">
-        <a href="{{ url_for('web.perfil_experto_publico', usuario_id=pub.usuario.usuario_id) }}""><i class="bi bi-person-fill"></i><span>Ver perfil</span></a>
+        <a href="{{ url_for('web.perfil_experto_publico', usuario_id=pub.usuario.usuario_id) }}"><i class="bi bi-person-fill"></i><span>Ver perfil</span></a>
         <a href="#"><i class="bi bi-exclamation-circle"></i><span>Reportar</span></a>
       </div>
       </div>
