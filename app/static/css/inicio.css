@@ -568,24 +568,26 @@
 /* Contenedor del modal */
 .modal-content {
   position: relative;
-  width: 45%; /* Ancho más estrecho (ajústalo a tu gusto) */
-  max-width: 450px; /* Máximo ancho */
-  height: auto; /* Altura automática según el contenido */
-  max-height: 100vh; /* La altura máxima será el 90% de la altura de la ventana */
+  width: 80%;           
+  max-width: 650px;     
+  min-width: 420px;     
+  height: auto;
+  max-height: 90vh;     
   border-radius: 12px;
-  background-color: white; /* Fondo blanco para el contenido */
-  overflow-y: auto; /* Permite desplazamiento si el contenido es muy largo */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil */
-}
+  background-color: white;
+  overflow-y: auto;     
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  padding: 12px 16px; /* 🔑 menos padding */
 
+}
 
 /* Botón de cerrar */
 .close-button {
   position: absolute;
-  top: 12px;
-  right: 16px;
-  font-size: 22px;
-  color: #000000;
+  top: 10px;
+  right: 40px; 
+  font-size: 40px;
+  color: #000;
   background: none;
   border: none;
   cursor: pointer;
@@ -595,6 +597,81 @@
 .close-button:hover {
   color: #3eaeb1;
 }
+
+/* Quitar bordes de tarjeta en modal */
+#modalTarjeta .card-tarjeta,
+#modalTarjeta .contenedor {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent;
+}
+
+/* Tarjeta dentro del modal → mantiene diseño horizontal */
+#modalTarjeta .card-tarjeta {
+  display: flex;
+  flex-direction: row !important;   /* ✅ siempre en fila */
+  align-items: center !important;
+  text-align: left !important;
+  gap:12px;
+
+  width: 100% !important;
+  max-width: 650px;
+  height: auto !important;
+  flex: none !important;
+  padding: 20px;
+}
+
+/* Imagen igual que en la tarjeta normal */
+#modalTarjeta .card-tarjeta img {
+  flex-shrink: 0;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+   align-self: center;
+}
+
+/* Títulos y párrafos */
+#modalTarjeta .card-content h2,
+#modalTarjeta .card-content h3,
+#modalTarjeta .card-content p {
+  margin: 1px 0;  /* 🔑 menos margen */
+  line-height: 1.3;
+}
+/* Texto fluido */
+#modalTarjeta .descripcion-texto {
+  max-height: none !important;
+  overflow: visible !important;
+  margin-bottom: 5px !important; /* ✅ deja aire entre texto y botón */
+}
+
+/* Ajuste del botón dentro del modal */
+#modalTarjeta .contact-button {
+  margin-top: 0 !important; /* no se acumula margen extra */
+}
+
+/* Contenedor del botón → lo saca del absolute y lo centra */
+#modalTarjeta .boton-container {
+  position: static !important;   /* ✅ ya no es absolute */
+  bottom: auto !important;
+  left: auto !important;
+  right: auto !important;
+  margin-top: 10px !important;   /* espacio debajo del texto */
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Contenido en columna: texto arriba, botón abajo */
+#modalTarjeta .card-content {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 
 /* Estilo para el contenedor con el título y las tarjetas */
   .contenedor-destacados {
