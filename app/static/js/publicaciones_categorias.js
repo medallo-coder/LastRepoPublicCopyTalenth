@@ -100,4 +100,78 @@ document.addEventListener("DOMContentLoaded", function () {
       menu.classList.add("hidden");
     }
   };
+});// --- Lógica para las tarjetas y modal "Ver más" ---
+// --- Lógica para las tarjetas y modal "Ver más" ---
+document.addEventListener("DOMContentLoaded", () => {
+  const tarjetas = document.querySelectorAll(".tarjeta, .card-tarjeta");
+  const modalTarjeta = document.getElementById("modalTarjeta");
+  const contenidoTarjeta = document.getElementById("contenidoTarjeta");
+  const cerrarTarjetaBtn = document.getElementById("cerrarTarjeta");
+
+  tarjetas.forEach((tarjeta) => {
+    const descripcionElem = tarjeta.querySelector(".descripcion");
+    const verMasBtn = tarjeta.querySelector(".ver-mas");
+
+    if (!verMasBtn || !descripcionElem) return;
+
+    const textoOriginal = descripcionElem.textContent.trim();
+
+    // Si la descripción es larga, mostrar resumen en la tarjeta
+    if (textoOriginal.length > 70) {
+      descripcionElem.setAttribute("data-texto-completo", textoOriginal); // 🔑 Guardar el texto real
+      descripcionElem.textContent = textoOriginal.substring(0, 70) + "...";
+      verMasBtn.classList.remove("hidden");
+
+      verMasBtn.addEventListener("click", () => {
+        const tarjetaClonada = tarjeta.cloneNode(true);
+
+        // Restaurar descripción completa en el modal
+        const descripcionClon = tarjetaClonada.querySelector(".descripcion");
+        if (descripcionClon) {
+          const textoCompleto = descripcionElem.getAttribute("data-texto-completo") || textoOriginal;
+          descripcionClon.textContent = textoCompleto;
+          descripcionClon.classList.remove("h-[60px]", "overflow-hidden");
+          descripcionClon.classList.add("h-[200px]", "overflow-y-auto");
+
+          descripcionClon.classList.add("descripcion-modal");
+        }
+
+        // Quitar botón "Ver más" y menú
+        const verMasClon = tarjetaClonada.querySelector(".ver-mas");
+        if (verMasClon) verMasClon.remove();
+
+        const menuClon = tarjetaClonada.querySelector(".menu-button-container");
+        if (menuClon) menuClon.remove();
+
+        // Aplicar clase modal
+        tarjetaClonada.classList.add("card-tarjeta");
+
+        // Insertar en el modal
+        contenidoTarjeta.innerHTML = "";
+        contenidoTarjeta.appendChild(tarjetaClonada);
+
+        modalTarjeta.classList.remove("hidden");
+      });
+    } else {
+      verMasBtn.classList.add("hidden");
+    }
+  });
+
+  // Cerrar modal con botón
+  if (cerrarTarjetaBtn) {
+    cerrarTarjetaBtn.addEventListener("click", () => {
+      modalTarjeta.classList.add("hidden");
+      contenidoTarjeta.innerHTML = "";
+    });
+  }
+
+  // Cerrar modal al hacer clic fuera
+  if (modalTarjeta) {
+    modalTarjeta.addEventListener("click", (e) => {
+      if (e.target === modalTarjeta) {
+        modalTarjeta.classList.add("hidden");
+        contenidoTarjeta.innerHTML = "";
+      }
+    });
+  }
 });
