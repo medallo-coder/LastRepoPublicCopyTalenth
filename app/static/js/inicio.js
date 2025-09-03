@@ -150,4 +150,37 @@ document.querySelectorAll('.guardar-btn').forEach(btn => {
         });
     });
 
+
+    const contactButtons = document.querySelectorAll('.contact-button');
+    const modalLogin = document.getElementById('modalLoginContacto');
+    const closeLoginModal = document.getElementById('cerrarLoginContacto');
+
+    // Este valor lo pasamos desde Flask al JS
+    const estaLogueado = document.body.getAttribute('data-logueado') === 'true';
+
+    contactButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        if (!estaLogueado) {
+          modalLogin.classList.remove('hidden');
+        } else {
+          // Aquí puedes redirigir al chat o página de contacto real
+          console.log("Usuario logueado, se puede contactar al experto.");
+        }
+      });
+    });
+
+    // Botón para cerrar el modal
+    closeLoginModal.addEventListener('click', function () {
+      modalLogin.classList.add('hidden');
+    });
+
+    // También cerrarlo si se hace clic fuera del modal
+    window.addEventListener('click', function (e) {
+      if (e.target === modalLogin) {
+        modalLogin.classList.add('hidden');
+      }
+    });
+  
+
+    
 });
