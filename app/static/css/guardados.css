@@ -223,194 +223,6 @@
 
 
 
-
-
-
-/*-----------------------------------------------
-  Estilos para contenedor de "Servivios destacados"
------------------------------------------------*/
-
-/* Contenedor principal que agrupa título y tarjetas */
-.contenedor {
-  width: 70%; /* Define ancho del contenedor */
-  height: 27rem; /* Altura fija para el contenedor */
-  border-radius: 1rem; /* Bordes redondeados */
-  display: flex; /* Usa Flexbox para organizar hijos */
-  flex-direction: column; /* Organiza hijos en columna (título + slider) */
-  position: relative; /* Para posicionar elementos internos (como iconos) */
-  overflow: hidden; /* Oculta contenido que se salga del contenedor */
-  padding: 20px; /* Espacio interno alrededor del contenido */
-}
-
-/* Contenedor que envuelve el slider para posicionamiento */
-.slider-container {
-  position: relative; /* Permite posicionar elementos relativos dentro */
-}
-
-/* Contenedor del slider con tarjetas desplazables horizontalmente */
-.slider {
-  display: flex; /* Organiza tarjetas en fila */
-  overflow-x: auto; /* Permite scroll horizontal cuando hay más tarjetas */
-  scroll-behavior: smooth; /* Desplazamiento suave al hacer scroll */
-  gap: 20px; /* Espacio entre las tarjetas */
-  padding-bottom: 20px; /* Espacio debajo del slider para separación */
-}
-
-/* Oculta la barra de scroll en navegadores WebKit (Chrome, Safari) */
-.slider::-webkit-scrollbar {
-  display: none;
-}
-
-/* Estilo para el título "Te podría interesar" */
-.titulo-interes {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700; /* Texto en negrita */
-  font-size: 2.5rem; /* Tamaño grande para título */
-  margin-bottom: 20px; /* Espacio debajo del título */
-  color: black; /* Color negro para el texto */
-  padding: 0 0px; /* Sin padding horizontal adicional */
-  text-align: center; /* Centra el texto horizontalmente */
-}
-
-
-/* Estilo para estrellas de calificación en las tarjetas */
-.estrellasTarjetas {
-  display: flex; /* Organiza estrellas en fila */
-  justify-content: left; /* Alinea a la izquierda */
-  font-size: 1rem; /* Tamaño de fuente para las estrellas */
-  color: #3EAEB1; /* Color azul para las estrellas */
-  gap: 0.1rem; /* Espacio pequeño entre estrellas */
-}
-
-/* Nombre del profesional o servicio */
-.nombre {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500; /* Peso medio */
-  font-size: 20px; /* Tamaño de texto */
-  color: black; /* Color negro */
-}
-
-/* Profesión o título debajo del nombre */
-.profesion {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 400; /* Peso normal */
-  font-size: 16px;
-  color: black;
-  margin-top: 10px; /* Separación arriba */
-}
-
-/* Título de la descripción con color semitransparente */
-.descripcion-titulo {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  color: rgba(0, 0, 0, 0.7); /* Negro con 70% de opacidad */
-  margin: 4px 0 2px; /* Margen arriba y abajo ajustado */
-}
-
-/* Texto descriptivo dentro de la tarjeta */
-.descripcion-texto {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  color: black;
-  margin: 0; /* Sin margen */
-}
-
-/* Precio del servicio o producto */
-.price {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500;
-  color: #6B7280; /* Gris */
-  font-size: 10px;
-}
-
-/* Tarjeta individual */
-.card {
-  background-color: #fff; /* Fondo blanco */
-  flex: 0 0 370px; /* Ancho fijo y no crecer ni encoger */
-  border-radius: 12px; /* Bordes redondeados */
-  padding: 15px; /* Espacio interno */
-  border: 1px solid #ccc; /* Borde gris claro */
-  display: flex; /* Flex para alinear imagen y contenido */
-  gap: 15px; /* Espacio entre imagen y contenido */
-  align-items: center; /* Alinea verticalmente al centro */
-}
-
-
-
-/* Contenedor para el botón en el modal o tarjeta */
-.boton-container {
-  display: flex; /* Usa Flexbox para centrar */
-  justify-content: center; /* Centra horizontalmente */
-  margin-top: 8px; /* Separación arriba */
-}
-
-/* Estilo del botón de contacto */
-.contact-button {
-  background-color: white; /* Fondo blanco */
-  border: 3px solid #3EAEB1; /* Borde azul */
-  color: black; /* Texto negro */
-  padding: 6px 16px; /* Espaciado interno */
-  border-radius: 20px; /* Bordes redondeados */
-  cursor: pointer; /* Cursor tipo puntero */
-  font-size: 13px;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 600; /* Peso medio */
-}
-
-/* Efecto hover para el botón de contacto */
-.contact-button:hover {
-  background-color: #3EAEB1; /* Fondo azul */
-  color: #ffffff; /* Texto blanco */
-}
-
-/* Contenido dentro de la tarjeta (texto, botones) */
-.card-content {
-  display: flex;
-  flex-direction: column; /* Organiza en columna */
-  justify-content: space-between; /* Espacio entre elementos */
-  flex: 1; /* Ocupa el espacio restante */
-}
-
-/* Contenedor de flechas para el slider */
-.arrows {
-  display: flex; /* Flex para organizar las flechas */
-  gap: 60px; /* Separación entre flechas */
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-}
-
-/* Botones de flechas para control del slider */
-.arrow-btn {
-  background: transparent; /* Fondo transparente */
-  border: none; /* Sin borde */
-  cursor: pointer; /* Cursor puntero */
-  padding: 0; /* Sin padding */
-}
-
-/* Transición para iconos SVG dentro del botón */
-.arrow-btn svg {
-  transition: transform 0.3s ease; /* Animación suave para transformaciones */
-}
-
-/* Efecto hover que escala la flecha */
-.arrow-btn:hover svg {
-  transform: scale(1.1); /* Agranda la flecha ligeramente */
-}
-
-/* Posición relativa para contenido dentro de la tarjeta */
-.card-content {
-  position: relative;
-}
-
-/* Contenedor para el nombre y botón del menú */
-.header {
-  display: flex; /* Flex para alinear elementos en fila */
-  justify-content: space-between; /* Separación entre nombre y menú */
-  align-items: center; /* Alineación vertical */
-}
-
 /* Contenedor para botón menú desplegable */
 .menu-button-container {
   position: relative; /* Para posicionar menú desplegable */
@@ -484,51 +296,6 @@
 /* Clase para ocultar contenido pero conservar espacio */
 .hidden {
   visibility: hidden; /* Oculta el elemento pero mantiene el espacio */
-}
-
-/* Modal oculto por defecto */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0; /* top, right, bottom, left a 0 */
-  background-color: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-.modal:not(.hidden) {
-  display: flex;
-}
-
-/* Contenedor del modal */
-.modal-content {
-  position: relative;
-  width: 40%;
-  max-width: 400px;
-  max-height: 100vh;
-  background: #fff;
-  border-radius: 12px;
-  overflow-y: auto;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  height: auto;
-}
-
-/* Botón cerrar */
-.close-button {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  font-size: 22px;
-  color: #000;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 10;
-}
-
-.close-button:hover {
-  color: #3eaeb1;
 }
 
 .perfil-img {
@@ -937,13 +704,12 @@
   z-index: 9999;
 }
 
-.modal-content {
+.modal-content-delete {
   background: #fff;
-  padding: 20px 30px;
-  border-radius: 10px;
-  text-align: center;
-  max-width: 400px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 350px;
+  width: 90%;
 }
 
 .modal-buttons {
@@ -981,12 +747,6 @@
   width: 100%; height: 100%;
   background-color: rgba(0,0,0,0.8);
   z-index: 999;
-}
-
-.modal-content {
-  max-width: 80%;
-  max-height: 80%;
-  border-radius: 8px;
 }
 
 .close {

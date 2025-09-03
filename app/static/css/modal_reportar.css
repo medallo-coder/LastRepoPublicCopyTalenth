@@ -1,10 +1,9 @@
-
 /*-----------------------------------------------
   Estilos para el modal de reportes oculto 
 -----------------------------------------------*/
 
 /* Modal general */
-.modal-reporte {
+.overlay-reporte {
   position: fixed;
   top: 0;
   left: 0;
@@ -18,7 +17,7 @@
 }
 
 /* Contenedor del contenido del modal */
-.modal-contenido-reporte {
+.contenido-reporte {
   background-color: white;
   padding: 2rem;
   border-radius: 20px;
@@ -28,7 +27,7 @@
 }
 
 /* Título */
-.modal-contenido-reporte h2 {
+.contenido-reporte h2 {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
   font-size: 2rem;
@@ -37,22 +36,13 @@
   color: #3eaeb1;
 }
 
-/* Botón para cerrar */
-.cerrar-modal {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
 /* Campo de entrada */
-.campo {
+.campo-reporte {
   margin-bottom: 1.5rem;
 }
 
 /* Estilo para textarea */
-.campo textarea {
+.campo-reporte textarea {
   width: 100%;
   height: 120px; 
   padding: 0.8rem;
@@ -66,14 +56,14 @@
   resize: none;
 }
 
-.campo textarea::placeholder {
+.campo-reporte textarea::placeholder {
   font-family: 'Oswald', sans-serif;
   font-weight: 700;
   color: rgba(0, 0, 0, 0.7);
 }
 
 /* Estilo para select */
-.campo select {
+.campo-reporte select {
   width: 100%;
   padding: 0.8rem;
   font-size: 1.2rem;
@@ -86,7 +76,7 @@
   cursor: pointer;
 }
 
-.campo select:focus {
+.campo-reporte select:focus {
   outline: none;
   border-color: #3eaeb1;
 }
@@ -99,8 +89,8 @@
   margin-top: 3rem;
 }
 
-.botones-reporte .guardar,
-.botones-reporte .cancelar {
+.btn-reporte-guardar,
+.btn-reporte-cancelar {
   padding: 0.4rem 3rem;
   font-size: 1rem;
   font-family: 'Oswald', sans-serif;
@@ -110,13 +100,13 @@
   transition: background-color 0.3s;
 }
 
-.botones-reporte .guardar {
+.btn-reporte-guardar {
   background-color: #3eaeb1;
   color: white;
   border: none;
 }
 
-.botones-reporte .cancelar {
+.btn-reporte-cancelar {
   background-color: #f8f8f8;
   color: black;
   border: 1px solid #E5E5E5;

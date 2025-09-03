@@ -7,8 +7,8 @@
 </head>
 <body>
     <!-- Modal reporte -->
-    <div id="modalReporte" class="modal-reporte" style="display: none;">
-        <div class="modal-contenido-reporte">
+    <div id="modalReporte" class="overlay-reporte" style="display: none;">
+        <div class="contenido-reporte">
             <h2>Añadir reporte</h2>
             <form method="POST" action="{{ url_for('web.guardar_reporte') }}">
                 <!-- ID del usuario reportado -->
@@ -18,7 +18,7 @@
                 <input type="hidden" name="reportador_id" id="reportador-id-input" value="{{ id_usuario_logueado }}">
 
                 <!-- Motivo -->
-                <div class="campo">
+                <div class="campo-reporte">
                     <select id="motivo-reporte" name="motivo" required>
                         <option value="">Seleccione un motivo</option>
                         <option value="contenido-inapropiado">Contenido inapropiado u ofensivo</option>
@@ -31,17 +31,18 @@
                 </div>
 
                 <!-- Descripción -->
-                <div class="campo">
+                <div class="campo-reporte">
                     <textarea name="descripcion" placeholder="Añade una descripción del problema"></textarea>
                 </div>
 
                 <!-- Botones -->
                 <div class="botones-reporte">
-                    <button type="submit" class="guardar">Guardar</button>
-                    <button type="button" class="cancelar" id="cancelarModalReporte">Cancelar</button>
+                    <button type="submit" class="btn-reporte-guardar">Guardar</button>
+                    <button type="button" class="btn-reporte-cancelar" id="cancelarModalReporte">Cancelar</button>
                 </div>
             </form>
         </div>
     </div>
 </body>
+
 </html>

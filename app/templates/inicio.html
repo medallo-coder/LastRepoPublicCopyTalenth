@@ -186,7 +186,7 @@
                   <i class="bi bi-person-fill"></i><span>Ver perfil</span>
                 </a>
                 <!-- Contenedor de mensajes dinámicos -->
-        
+              {% if session.get('jwt') %}
                 <a href="javascript:void(0);" class="guardar-btn" data-id="{{ pub.publicacion_id }}">
                   {% if pub.publicacion_id in publicaciones_guardadas_ids %}
                     <i class="bi bi-bookmark-dash"></i><span>Eliminar</span>
@@ -198,6 +198,7 @@
                 <a href="javascript:void(0);" class="btn-link abrir-modal-reporte" data-publicacion-id="{{ pub.publicacion_id }}" data-usuario-reportado="{{ pub.usuario.usuario_id }}" data-usuario="{{ current_user.id }}">
                   <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
                 </a>
+              {% endif %}
               </div>
             </div>
           <!----fin manu-->
