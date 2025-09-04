@@ -70,73 +70,107 @@ document.addEventListener("DOMContentLoaded", function() {
     document.addEventListener('click', () => dropdownMenus.forEach((menu) => (menu.style.display = 'none')));
     dropdownMenus.forEach((menu) => menu.addEventListener('click', (e) => e.stopPropagation()));
 
-    // --- Descripción y Ver Más ---
+    // --- Descripción y Ver Más con modal ---
+    const modalTarjeta = document.getElementById('modalTarjeta');
+    const contenidoModal = document.getElementById('contenidoTarjeta');
+    const cerrarTarjetaBtn = document.getElementById('cerrarTarjeta');
+
+    const estaLogueado = document.body.getAttribute('data-logueado') === 'true';
+    const modalLogin = document.getElementById('modalLoginContacto');
+    const closeLoginModal = document.getElementById('cerrarLoginContacto');
+
     document.querySelectorAll('.card-tarjeta').forEach(tarjeta => {
         const descripcionElem = tarjeta.querySelector('.descripcion');
         const verMasBtn = tarjeta.querySelector('.ver-mas');
         if (!descripcionElem || !verMasBtn) return;
+
         const textoOriginal = descripcionElem.textContent.trim();
         if (textoOriginal.length > 70) {
             descripcionElem.textContent = textoOriginal.substring(0, 70) + '...';
             verMasBtn.classList.remove('hidden');
+
             verMasBtn.addEventListener('click', () => {
                 const tarjetaClonada = tarjeta.cloneNode(true);
+
                 tarjetaClonada.querySelector('.descripcion').textContent = textoOriginal;
+
+                // Eliminar solo elementos que no deben aparecer en modal
                 const verMasClon = tarjetaClonada.querySelector('.ver-mas'); if (verMasClon) verMasClon.remove();
                 const menuClon = tarjetaClonada.querySelector('.menu-button-container'); if (menuClon) menuClon.remove();
-                const contenedorModal = document.getElementById('contenidoTarjeta');
-                if (contenedorModal) { contenedorModal.innerHTML = ''; contenedorModal.appendChild(tarjetaClonada); }
-                const modalTarjeta = document.getElementById('modalTarjeta'); if (modalTarjeta) modalTarjeta.classList.remove('hidden');
+
+                // Botón de contacto dentro del modal
+                const contactBtn = tarjetaClonada.querySelector('.contact-button');
+                if (contactBtn) {
+                    contactBtn.addEventListener('click', function () {
+                        if (!estaLogueado) {
+                            modalLogin.classList.remove('hidden');
+                        } else {
+                            console.log("Usuario logueado, se puede contactar al experto.");
+                        }
+                    });
+                }
+
+                contenidoModal.innerHTML = '';
+                contenidoModal.appendChild(tarjetaClonada);
+                modalTarjeta.classList.remove('hidden');
             });
-        } else { verMasBtn.classList.add('hidden'); }
-    });
-
-    const cerrarTarjetaBtn = document.getElementById('cerrarTarjeta');
-    if (cerrarTarjetaBtn) cerrarTarjetaBtn.addEventListener('click', () => {
-        const modalTarjeta = document.getElementById('modalTarjeta');
-        if (modalTarjeta) modalTarjeta.classList.add('hidden');
-    });
-
-   // --- Guardar publicaciones ---
-document.querySelectorAll('.guardar-btn').forEach(btn => {
-  btn.addEventListener('click', async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    if (btn.dataset.processing === "true") return;
-    btn.dataset.processing = "true";
-    
-    const publicacionId = btn.dataset.id;
-    const icono = btn.querySelector('i');
-    const textoSpan = btn.querySelector('span');
-    
-    try {
-        let url = `/guardar-publicacion/${publicacionId}`;
-        let response = await fetch(url, { method: 'POST' });
-        
-        if (response.ok) {
-            let data = await response.json();
-            console.log("Respuesta servidor:", data);
-
-            if (data.guardado) {
-                icono.classList.remove('bi-bookmark-check');
-                icono.classList.add('bi-bookmark-dash');
-                textoSpan.textContent = "Eliminar";
-            } else {
-                icono.classList.remove('bi-bookmark-dash');
-                icono.classList.add('bi-bookmark-check');
-                textoSpan.textContent = "Guardar";
-            }
+        } else {
+            verMasBtn.classList.add('hidden');
         }
-    } catch (error) {
-        console.error("Error:", error);
-    } finally {
-        btn.dataset.processing = "false";
-    }
-});
-});
+    });
 
+    // Cerrar modal de tarjeta
+    cerrarTarjetaBtn.addEventListener('click', () => {
+        modalTarjeta.classList.add('hidden');
+        contenidoModal.innerHTML = '';
+    });
 
+    // --- Cerrar modal al hacer clic fuera ---
+    window.addEventListener('click', function(e) {
+        if (e.target === modalTarjeta) {
+            modalTarjeta.classList.add('hidden');
+            contenidoModal.innerHTML = '';
+        }
+        if (e.target === modalLogin) {
+            modalLogin.classList.add('hidden');
+        }
+    });
+
+    // --- Guardar publicaciones ---
+    document.querySelectorAll('.guardar-btn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (btn.dataset.processing === "true") return;
+            btn.dataset.processing = "true";
+
+            const publicacionId = btn.dataset.id;
+            const icono = btn.querySelector('i');
+            const textoSpan = btn.querySelector('span');
+
+            try {
+                let url = `/guardar-publicacion/${publicacionId}`;
+                let response = await fetch(url, { method: 'POST' });
+
+                if (response.ok) {
+                    let data = await response.json();
+                    if (data.guardado) {
+                        icono.classList.remove('bi-bookmark-check');
+                        icono.classList.add('bi-bookmark-dash');
+                        textoSpan.textContent = "Eliminar";
+                    } else {
+                        icono.classList.remove('bi-bookmark-dash');
+                        icono.classList.add('bi-bookmark-check');
+                        textoSpan.textContent = "Guardar";
+                    }
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            } finally {
+                btn.dataset.processing = "false";
+            }
+        });
+    });
 
     // --- Filtro de categorías ---
     const categorias = document.querySelectorAll("#sliderCategorias .categoria");
@@ -150,37 +184,20 @@ document.querySelectorAll('.guardar-btn').forEach(btn => {
         });
     });
 
-
+    // --- Modal de login contacto ---
     const contactButtons = document.querySelectorAll('.contact-button');
-    const modalLogin = document.getElementById('modalLoginContacto');
-    const closeLoginModal = document.getElementById('cerrarLoginContacto');
-
-    // Este valor lo pasamos desde Flask al JS
-    const estaLogueado = document.body.getAttribute('data-logueado') === 'true';
-
     contactButtons.forEach(button => {
-      button.addEventListener('click', function () {
-        if (!estaLogueado) {
-          modalLogin.classList.remove('hidden');
-        } else {
-          // Aquí puedes redirigir al chat o página de contacto real
-          console.log("Usuario logueado, se puede contactar al experto.");
-        }
-      });
+        button.addEventListener('click', function () {
+            if (!estaLogueado) {
+                modalLogin.classList.remove('hidden');
+            } else {
+                console.log("Usuario logueado, se puede contactar al experto.");
+            }
+        });
     });
 
-    // Botón para cerrar el modal
     closeLoginModal.addEventListener('click', function () {
-      modalLogin.classList.add('hidden');
-    });
-
-    // También cerrarlo si se hace clic fuera del modal
-    window.addEventListener('click', function (e) {
-      if (e.target === modalLogin) {
         modalLogin.classList.add('hidden');
-      }
     });
-  
 
-    
 });

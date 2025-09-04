@@ -547,7 +547,7 @@
 /*-----------------------------------------------
   Estilos para el modal oculto 
 -----------------------------------------------*/
-/* Modal oculto por defecto */
+
 /* Modal oculto por defecto */
 .modal {
   display: none;
@@ -610,7 +610,7 @@
 /* Tarjeta dentro del modal → mantiene diseño horizontal */
 #modalTarjeta .card-tarjeta {
   display: flex;
-  flex-direction: row !important;   /* ✅ siempre en fila */
+  flex-direction: row !important;   
   align-items: center !important;
   text-align: left !important;
   gap:12px;
@@ -636,28 +636,28 @@
 #modalTarjeta .card-content h2,
 #modalTarjeta .card-content h3,
 #modalTarjeta .card-content p {
-  margin: 1px 0;  /* 🔑 menos margen */
+  margin: 1px 0;  
   line-height: 1.3;
 }
 /* Texto fluido */
 #modalTarjeta .descripcion-texto {
   max-height: none !important;
   overflow: visible !important;
-  margin-bottom: 5px !important; /* ✅ deja aire entre texto y botón */
+  margin-bottom: 5px !important; 
 }
 
 /* Ajuste del botón dentro del modal */
 #modalTarjeta .contact-button {
-  margin-top: 0 !important; /* no se acumula margen extra */
+  margin-top: 0 !important; 
 }
 
 /* Contenedor del botón → lo saca del absolute y lo centra */
 #modalTarjeta .boton-container {
-  position: static !important;   /* ✅ ya no es absolute */
+  position: relative !important;  
   bottom: auto !important;
   left: auto !important;
   right: auto !important;
-  margin-top: 10px !important;   /* espacio debajo del texto */
+  margin-top: 10px !important;   
   text-align: center;
   width: 100%;
   display: flex;
