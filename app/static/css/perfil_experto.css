@@ -758,7 +758,6 @@
   gap: 1.5rem; /* Espacio entre los elementos */
   
 }
-
 /* Estilo para un cuadro pequeño */
 .cuadro-pequeno {
   min-height: 11rem; /* Altura mínima inicial, pero puede crecer */

@@ -765,15 +765,16 @@
   gap: 1.5rem; /* Espacio entre los elementos */
   
 }
-
 /* Estilo para un cuadro pequeño */
 .cuadro-pequeno {
-  height: 11rem; /* Altura ajustada */
-  background-color: white; /* Fondo blanco */
-  border: 1px solid #6b7280; /* Borde gris oscuro */
-  border-radius: 0.5rem; /* Bordes redondeados */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-  margin-bottom: 1.5rem; /* Margen debajo */
+  min-height: 11rem; /* Altura mínima inicial, pero puede crecer */
+  height: auto;      /* Deja que se adapte al contenido */
+  background-color: white;
+  border: 1px solid #6b7280;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  overflow: visible; /* Asegura que no corte nada */
 }
 
 

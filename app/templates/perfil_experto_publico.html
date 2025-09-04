@@ -65,80 +65,90 @@
       <!-- Pequeña descripción debajo del título -->
       <div class="item-descripcion">
         <div class="descripcionicon">
-          <h3 class="descripcion-resumen" id="descripcionMostrado">{{ perfil.descripcion_perfil }}</h3>
-          <div class="iconos">
-          </div>
+          {% if descripcion_perfil %}
+            <h3 class="descripcion-resumen" id="descripcionMostrado">{{ descripcion_perfil }}</h3>
+          {% else %}
+            <h3 class="descripcion-resumen">No hay descripcion registrada</h3>
+          {% endif %}
         </div>
       </div>
 
 
 
-        <!-- Experiencia -->
+        
      <!-- Experiencia -->
-<div class="experiencia">
+  <div class="experiencia">
   <div class="titulo-izquierda">
     <span>Experiencias</span>
   </div>
 
-  {% if experiencias %}
-    {% for exp in experiencias %}
-    <div class="item-experiencia">
-      <div class="experienciaicon">
-        <h2 class="titulo-experiencia">{{ exp.nombre }}</h2>
-        <h3 class="rol"></h3>
+  {% set experiencias_validas = experiencias | selectattr("nombre") | list %}
+
+  {% if experiencias_validas|length > 0 %}
+    {% for exp in experiencias_validas %}
+      <div class="item-experiencia">
+        <div class="experienciaicon">
+          {% if exp.nombre %}
+            <h2 class="titulo-experiencia">{{ exp.nombre }}</h2>
+          {% endif %}
+        </div>
+
+        {% if exp.descripcion %}
+          <p class="empresa">{{ exp.descripcion }}</p>
+        {% endif %}
+
+        {% if exp.fecha_inicio_experiencia and exp.fecha_fin_experiencia %}
+          <p class="fechas">DESDE: {{ exp.fecha_inicio_experiencia }}, HASTA: {{ exp.fecha_fin_experiencia }}</p>
+        {% endif %}
       </div>
-      <p class="empresa">{{ exp.descripcion }}</p>
-      
-      {% if exp.fecha_inicio_experiencia and exp.fecha_fin_experiencia %}
-        <p class="fechas">DESDE: {{ exp.fecha_inicio_experiencia }}, HASTA: {{ exp.fecha_fin_experiencia }}</p>
-      {% else %}
-        <p class="fechas">Fechas no disponibles</p>
-      {% endif %}
-    </div>
     {% endfor %}
   {% else %}
-    <p>No hay experiencias disponibles.</p>
+    <div class="item-experiencia">
+      <div class="experienciaicon descripcionicon" style="text-align:center;">
+        <h3 class="descripcion-resumen">No hay experiencias registradas.</h3>
+      </div>
+    </div>
   {% endif %}
 </div>
 
-      <!-- Estudios -->
-       {% if estudios %}
-    {% for est in estudios %}
-      <div class="estudios">
-          <div class="titulo-izquierda">
-            <span>Estudios</span>
-          </div>
-                 
-        <div class="item-estudios">
-          <div class="estudiosicon">
-            <!-- Mostrar título obtenido -->
-            {% if est.titulo_obtenido %}
+
+
+<div class="estudios">
+      <div class="titulo-izquierda">
+        <span>Estudios</span>
+      </div>
+
+      {% set estudios_validos = estudios | selectattr("titulo_obtenido") | list %}
+
+      {% if estudios_validos|length > 0 %}
+        {% for est in estudios_validos %}
+          <div class="item-estudios">
+            <div class="estudiosicon">
               <h2 class="titulo-estudios">{{ est.titulo_obtenido }}</h2>
-            {% endif %}
-            
-          </div>
-            <!-- Mostrar institución y nivel educativo si están disponibles -->
+            </div>
+
             {% if est.institucion %}
               <p class="lugar">{{ est.institucion }}</p>
             {% endif %}
-          
-          {% if est.nivel_educativo %}
-            <p class="lugar">{{ est.nivel_educativo }}</p>
-          {% endif %}
 
-          {% if est.fecha_inicio and est.fecha_fin %}
-           <p class="fecha">DESDE: {{ est.fecha_inicio }},  HASTA: {{ est.fecha_fin }}</p>
-          {% endif %}
+            {% if est.nivel_educativo %}
+              <p class="lugar">{{ est.nivel_educativo }}</p>
+            {% endif %}
 
-          {% else %}
-           <p>No hay estudios registrados.</p>
+            {% if est.fecha_inicio and est.fecha_fin %}
+              <p class="fecha">DESDE: {{ est.fecha_inicio }}, HASTA: {{ est.fecha_fin }}</p>
+            {% endif %}
+          </div>
         {% endfor %}
-          {% endif %}
-        
+      {% else %}
+        <div class="experienciaicon descripcionicon" style="text-align:center;">
+          <h3 class="descripcion-resumen">No hay estudios registrados.</h3>
+        </div>
+      {% endif %}
+    </div>
 
           
-        </div>
-      </div>
+        
    
     </div>
 
@@ -165,32 +175,39 @@
     {% else %}
       <div class="idiomas">
         <h2 class="titulo-idiomas">Idiomas</h2>
-        <p>No hay idiomas registrados.</p>
+      </div>
+      <div class="experienciaicon descripcionicon" style="text-align:center;">
+          <h3 class="descripcion-resumen">No hay idiomas registrados.</h3>
       </div>
     {% endif %}
   </div>
 
-  <!-- Aptitudes -->
+  
 <!-- Aptitudes -->
-<div class="cuadro-pequeno">
-  <div class="idiomas">
-    <h2 class="titulo-idiomas">Aptitudes</h2>
-  </div>
-  {% if aptitudes %}
-    {% for aptitud in aptitudes %}
-      {% if aptitud.tipo_aptitud %}
-        <div class="idioma-item">
-          <i class="bi bi-check2-circle icono-idioma"></i>
-          <span class="idioma-nombre">{{ aptitud.tipo_aptitud }}</span>
+    <div class="cuadro-pequeno">
+      <div class="idiomas">
+        <h2 class="titulo-idiomas">Aptitudes</h2>
+      </div>
+
+      {# selecciona solo las aptitudes que tienen tipo_aptitud truthy #}
+      {% set valid_aptitudes = aptitudes|selectattr('tipo_aptitud')|list %}
+
+      {% if valid_aptitudes %}
+        {% for aptitud in valid_aptitudes %}
+          <div class="idioma-item">
+            <i class="bi bi-check2-circle icono-idioma"></i>
+            <span class="idioma-nombre">{{ aptitud.tipo_aptitud }}</span>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="experienciaicon descripcionicon" style="text-align:center;">
+          <h3 class="descripcion-resumen">No hay aptitudes registradas.</h3>
         </div>
       {% endif %}
-    {% endfor %}
-  {% else %}
-    <p>No hay aptitudes registradas.</p>
-  {% endif %}
-</div>
+    </div>
 
-</div>
+
+  </div>
 
 </div>
 
