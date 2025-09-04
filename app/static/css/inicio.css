@@ -814,7 +814,7 @@
 
 .modal-login-content {
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 15px;
   padding: 40px 30px;
   max-width: 420px;
   width: 90%;
@@ -852,12 +852,27 @@
 
 /* Texto link: CREAR CUENTA */
 .modal-login-content .link-modal {
-  color: #3eaeb1;
+  display: block;                /* Igual que btn-modal */
+  width: 100%;                   /* Ocupa todo el ancho del modal */
+  text-align: center;            /* Centrar texto */
+  background-color: #f8f8f8;
+  color: black;
+  border: 1px solid #E5E5E5;
   font-size: 1rem;
-  text-decoration: underline;
-  display: inline-block;
+  text-decoration: none;         /* Quitamos el subrayado */
   margin-top: 15px;
+  padding: 12px 0;               /* Igual altura que btn-modal */
+  border-radius: 6px;            /* Bordes redondeados */
+  font-weight: bold;             /* Igual que btn-modal */
+  transition: background-color 0.3s, color 0.3s;
 }
+
+/* Hover para que tenga efecto similar a btn-modal */
+.modal-login-content .link-modal:hover {
+   opacity: 0.8;
+}
+
+
 
 /* Botón cerrar (X) más grande y más pegado al borde */
 .close-button {

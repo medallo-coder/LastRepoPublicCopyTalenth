@@ -10,11 +10,14 @@ const reqUppercase = document.getElementById("req-uppercase");
 const mismatchMsg = document.getElementById("password-error");      // "Las contraseñas no coinciden..."
 const reqMsg = document.getElementById("password-req-error");       // Mensaje dinámico de requisitos
 
-// --- utilidades de UI ---
 function setReqVisual(okNode, ok) {
-  okNode.textContent = ok ? "✔" : "○";
-  okNode.style.color = ok ? "green" : "red";
+  if (ok) {
+    okNode.innerHTML = '<i class="bi bi-check-circle-fill text-success"></i>';
+  } else {
+    okNode.innerHTML = '<i class="bi bi-x-circle text-danger"></i>';
+  }
 }
+
 
 function resetReqVisualsToDefault() {
   setReqVisual(reqLength, false);

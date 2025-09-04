@@ -226,7 +226,7 @@ nav span {
 }
 
 .password-group {
-    margin-bottom: -2px !important;
+    margin-bottom: 10px !important;
 }
 
 /* Iconos */
@@ -296,23 +296,63 @@ input::placeholder {
 /* Estilos para la validacion de contraseña*/
 
 #password-requirements {
-    margin: 0px 0px 10px 5px; 
-    font-size: 15px;   /* un poco más grande */
-    line-height: 1.2;  /* más espacio entre líneas */
+  margin: 0px 0px 10px 5px; 
+  font-size: 15px;   
+  line-height: 1.2;
 }
 
 #password-requirements p {
-    margin: 1px 0;
-    display: flex;
-    align-items: center;
-    font-weight: 600;
+  margin: 3px 0;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: #666;   /* ✅ aplica solo al texto dentro del <p> */
+}
+
+#password-requirements span i {
+  font-size: 25px;   /* ícono más grande */
+  margin-right: 10px;
+}
+
+/* Mantén el texto gris pero permite que los iconos tengan su color */
+#password-requirements {
+  margin: 0 0 10px 5px;
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+#password-requirements p {
+  margin: 1px 0;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: #666;  /* texto gris */
 }
 
 #password-requirements span {
-    font-size: 25px;  /* círculo o check más grande */
-    margin-right: 10px;
-    font-weight: bold;
+  width: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
 }
+
+/* tamaño del icono */
+#password-requirements span i {
+  font-size: 20px;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+/* si no usas bootstrap, define los colores que necesitas */
+#password-requirements span i.text-danger {
+  color: #dc3545 !important;   /* rojo */
+}
+#password-requirements span i.text-success {
+  color: #198754 !important;   /* verde */
+}
+
+
 
 
 /* Media Queries para celulares */

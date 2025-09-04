@@ -161,6 +161,100 @@
 
 
 
+.modal-login-contacto {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-login-contacto.hidden {
+  display: none;
+}
+
+.modal-login-content {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 40px 30px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.modal-login-content h2 {
+  font-size: 1.4rem;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* Botón azul: INGRESAR */
+.modal-login-content .btn-modal {
+  display: block;
+  background-color: #3eaeb1;
+  color:  white;
+  padding: 12px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  margin: 10px auto;
+  text-decoration: none;
+  width: 100%;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.modal-login-content .btn-modal:hover {
+  background-color: #329da1;
+}
+
+.modal-login-content .link-modal {
+  display: block;                /* Igual que btn-modal */
+  width: 100%;                   /* Ocupa todo el ancho del modal */
+  text-align: center;            /* Centrar texto */
+  background-color: #f8f8f8;
+  color: black;
+  border: 1px solid #E5E5E5;
+  font-size: 1rem;
+  text-decoration: none;         /* Quitamos el subrayado */
+  margin-top: 15px;
+  padding: 12px 0;               /* Igual altura que btn-modal */
+  border-radius: 6px;            /* Bordes redondeados */
+  font-weight: bold;             /* Igual que btn-modal */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Hover para que tenga efecto similar a btn-modal */
+.modal-login-content .link-modal:hover {
+   opacity: 0.8;
+}
+
+/* Botón cerrar (X) más grande y más pegado al borde */
+.close-button {
+  position: absolute;
+  top: -8px;
+  right: 13px;
+  font-size: 2.5rem;
+  color: black;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #3eaeb1;
+}
+
+
+
 
 </style>
 </head>
@@ -317,7 +411,7 @@
 
               <!-- Botón siempre abajo -->
               <div class="w-full flex justify-center mt-auto">
-                <button class="bg-white border-[3px] border-[#3EAEB1] text-black text-[13px] px-4 py-[6px] rounded-[20px] cursor-pointer font-semibold font-[Oswald] hover:bg-[#3EAEB1] hover:text-white transition">
+                <button class="contact-button bg-white border-[3px] border-[#3EAEB1] text-black text-[13px] px-4 py-[6px] rounded-[20px] cursor-pointer font-semibold font-[Oswald] hover:bg-[#3EAEB1] hover:text-white transition">
                   Contactar experto
                 </button>
               </div>
@@ -346,5 +440,23 @@
   <script src="{{ url_for('static', filename='js/publicaciones_categorias.js') }}"></script>
   <script src="{{ url_for('static', filename='js/modal_reportar.js') }}"></script>
 
-</body>
+<div id="modalLoginContacto" class="modal-login-contacto hidden">
+    <div class="modal-login-content">
+        <!-- Botón de cerrar -->
+        <button id="cerrarLoginContacto" class="close-button">&times;</button>
+
+        <!-- Mensaje de inicio de sesión -->
+        <h2>
+            ¡Hola! Para contactar a un experto, <br>
+            inicia sesión
+        </h2>
+
+        <!-- Botones de acción -->
+        <a href="{{ url_for('web.iniciar_sesion') }}" class="btn-modal">Ingresar</a>
+        <a href="{{ url_for('web.registrarse') }}" class="link-modal">Crear cuenta</a>
+    </div>
+  </div>
+
+
+<body data-logged-in="{{ 'true' if session.get('jwt') else 'false' }}">
 </html>

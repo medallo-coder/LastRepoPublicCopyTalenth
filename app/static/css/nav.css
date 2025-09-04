@@ -422,6 +422,108 @@
     background-color: #212529;
 }
 
+ /* Modal cerrar sesión ajustado igual que roles */
+#modalCerrarSesion {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5); /* mismo fondo que modal roles */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#modalCerrarSesion.hidden {
+  display: none;
+}
+
+/* Contenido del modal */
+#modalCerrarSesion .modal-content {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 25px; /* igual que modal roles */
+  text-align: center;
+  width: 100%;
+  max-width: 400px; /* igual que modal roles */
+  position: relative;
+  font-family: 'Oswald', sans-serif;
+}
+
+/* Texto y títulos */
+#modalCerrarSesion h2 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+#modalCerrarSesion p {
+  font-size: 1rem;
+  margin-bottom: 25px;
+  color: #666;
+}
+
+/* Botones */
+#modalCerrarSesion .modal-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+#modalCerrarSesion .modal-buttons button,
+#modalCerrarSesion .modal-buttons a {
+  padding: 0.4rem 3rem;
+  font-size: 1rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  border-radius: 25px; /* igual que modal roles */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+}
+
+/* Botón cancelar */
+#btnCancelarCerrar {
+  background-color: #f8f8f8;
+  color: black;
+  border: 1px solid #E5E5E5;
+}
+
+#btnCancelarCerrar:hover {
+  opacity: 0.8;
+}
+
+/* Botón confirmar */
+#modalCerrarSesion .btn-confirm {
+  background-color: #3eaeb1;
+  color: white;
+  border: none;
+}
+
+#modalCerrarSesion .btn-confirm:hover {
+  background-color: #329da1;
+}
+
+/* Botón cerrar (X) */
+#modalCerrarSesion .close-button {
+  position: absolute;
+  top: -8px;
+  right: 13px;
+  font-size: 2.5rem;
+  color: black;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+#modalCerrarSesion .close-button:hover {
+  color: #3eaeb1;
+}
+
+
 
 /*-----------------------------------------------
  Responsive movil
