@@ -72,7 +72,7 @@ def enviar_link_recuperacion_correo(correo_destino, nombre_usuario, link_recuper
         mensaje = MIMEMultipart()
         mensaje['From'] = GMAIL_CORREO
         mensaje['To'] = correo_destino
-        mensaje['Subject'] = "Recupera tu contraseña en ContrataHOY"
+        mensaje['Subject'] = "Recupera tu contraseña en CaliTrabaja"
 
         # Adjuntar el cuerpo del mensaje
         mensaje.attach(MIMEText(cuerpo_html, 'html'))

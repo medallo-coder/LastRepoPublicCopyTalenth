@@ -13,6 +13,7 @@ from app.services_movil.gestion_usuarios import datos_usuario_service, cambiar_c
 from app.services_movil.guardados import guardar_publicacion_service, obtener_guardados_service, eliminar_guardado_service
 from app.services_movil.reporte import guardar_reporte_service
 from app.services_movil.publicaciones import guardar_publicacion_usuario_service
+from app.services_movil.configuracion import enviar_link_recuperacion_service, restablecer_contraseña_service
 from flask import Blueprint, request
 
 
@@ -219,4 +220,24 @@ def publicaciones():
     resultado = guardar_publicacion_usuario_service(data)
     return jsonify(resultado), (200 if resultado["success"] else 400)
 
-    
+
+# Ruta para enviar el enlace de recuperación de contraseña
+# Esta ruta se activa al enviar el formulario de recuperación
+@users_api.route('/recuperar_contraseña', methods=['POST'])
+def recuperar_contraseña():
+        data= request.get_json() if request.is_json else request.form.to_dict()
+        resultado = enviar_link_recuperacion_service(data)
+        return jsonify(resultado), (200 if resultado["success"] else 400)
+
+        
+
+
+# Ruta para restablecer la contraseña
+# Esta ruta se activa al hacer clic en el enlace enviado al correo
+@users_api.route('/restablecer_contraseña', methods=['GET', 'POST'])
+def restablecer_contraseña(data):
+        data= request.get_json() if request.is_json else request.form.to_dict()
+        resultado = restablecer_contraseña_service(data)
+        return jsonify(resultado), (200 if resultado["success"] else 400)
+
+     

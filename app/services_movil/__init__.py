@@ -1,6 +1,6 @@
 from .autenticacion import registrar_usuario_service, iniciar_sesion_service, cerrar_sesion_service, obtener_usuario_id_autenticado
 from .inicio import inicio_service
-from .configuracion import obtener_datos_usuario_service
+from .configuracion import obtener_datos_usuario_service, enviar_link_recuperacion_service, restablecer_contraseña_service
 from .rol_service import verificar_rol
 from .gestion_usuarios import datos_usuario_service,cambiar_contrasena_usuario_service, deshabilitar_cuenta_usuario_service
 from .guardados import guardar_publicacion_service, obtener_guardados_service, eliminar_guardado_service
