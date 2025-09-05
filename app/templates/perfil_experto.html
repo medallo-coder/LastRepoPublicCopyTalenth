@@ -151,9 +151,11 @@
         </div>
 
         <!-- Botón para añadir experiencia (siempre visible) -->
+        {% if not nombre_experiencia %}
         <div class="añadir-experiencia" onclick="mostrarFormularioExperiencia()">
           + Añadir experiencia
         </div>
+        {% endif %}
 
         <!-- Estudios -->
         <div class="estudios">
