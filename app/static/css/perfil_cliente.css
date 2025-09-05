@@ -22,11 +22,12 @@
   
   /* Estilos para el cuadro de contenido */
   .cuadro {
-    width: 70%; /* Define el ancho del cuadro */
+    width: 100%; /* Define el ancho del cuadro */
     background-color: white; /* Fondo blanco */
     border: 1px solid #d1d5db; /* Borde gris claro */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
     margin-bottom: 1.5rem; /* Margen debajo */
+    max-width: 70%;
   }
   
   /* Estilo para un cuadro con bordes redondeados */
@@ -896,7 +897,9 @@
         padding: 1rem 0;
     }
 
-    .cuadro,
+    .cuadro{
+      max-width: 70%;
+    }
     .grande,
     .contenedor,
     .contenedor-columnas {

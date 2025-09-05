@@ -28,7 +28,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-right: 68px;
+    margin-right: 0px;
     max-width: 900px;
     position: relative;
     text-align: center;
@@ -151,6 +151,10 @@ button {
 
   /* Media Queries para celulares */
 @media (max-width: 480px) {
+    .container {
+        max-width: 400px;
+        margin-right: 65px;
+    }
     .contenedor {
         font-size: 18px;
     }
@@ -193,6 +197,10 @@ button {
 
 /* Reducir aún más los campos de entrada en pantallas muy pequeñas */
 @media (max-width: 391px) {
+    .container {
+        max-width: 400px;
+        margin-right: 65px;
+    }
     .register-form {
         width: 336px;
         height: 352px;

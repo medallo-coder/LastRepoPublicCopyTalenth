@@ -199,7 +199,7 @@ nav span {
     background: rgba(255, 255, 255, 0.4);
     padding: 20px;
     width: 450px;
-    height: 610px;
+    height: 680px;
     border-radius: 50px;
     margin-top: 65px;
     display: flex;
@@ -310,6 +310,9 @@ input::placeholder {
     .contenedor {
         font-size: 18px;
     }
+    .input-group {
+        width: 320px; /* Ajuste del ancho */
+    }
 
     .register-form h1 {
         font-size: 26px;
@@ -317,7 +320,7 @@ input::placeholder {
 
     .register-form {
          width: 370px;
-         height: 516px;
+         height: 615px;
          margin-top: 70px;
     }
 
@@ -354,11 +357,13 @@ input::placeholder {
 @media (max-width: 391px) {
     .register-form {
         width: 336px;
-        height: 516px;
+        height: 610px;
         margin-top: 130px;
         margin-bottom: 50px;
     }
-
+    .input-group {
+        width: 280px; /* Ajuste del ancho */
+    }
      .inp-correo input, .inp-contraseña input {
         font-size: 14px;
         padding: 6px; /* Ajuste del padding */

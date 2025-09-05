@@ -143,6 +143,10 @@ h1 {
     margin-bottom: 20px; /* espacio entre tarjetas */
   }
 }
+.tabs {
+  gap: 1rem; /* Reduce el espacio entre las pestañas */
+  justify-content: space-around; /* Distribuye las pestañas equitativamente */
+}
 
 .publicacion-img .precio {
   font-size: 13px;
@@ -277,7 +281,7 @@ button:hover,
 /* Contenedor principal centrado y responsivo */
 .cuadro {
   width: 100%;
-  max-width: 700px;           /* Anchura máxima en pantallas grandes */
+  max-width: 70%;           /* Anchura máxima en pantallas grandes */
   background-color: white;
   border: 1px solid #d1d5db;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -312,7 +316,7 @@ button:hover,
 }
 
 .tabs__tab {
-  padding: 0.7em 1.5em;
+  padding: 1rem 1.5em;
   cursor: pointer;
   position: relative;
   z-index: 1;
@@ -327,14 +331,17 @@ button:hover,
   border-radius: 8px;
   transition: all 0.3s ease;
   z-index: 0;
+  left: 0px;
+    top: 0px;
+    width: 141px;
+    height: 63px;
+}
 }
 
 /* 🔄 Responsividad adicional */
 @media (max-width: 768px) {
   .tab {
-    font-size: 1.1rem;          /* Tamaño más pequeño en móvil/tablet */
-    letter-spacing: 0.06rem;    /* Más aire entre letras */
-    padding: 0.3rem 0.5rem;     /* Menos altura visual */
+    font-size: 1rem;          /* Tamaño más pequeño en móvil/tablet */    /* Menos altura visual */
   }
 
   .tab::after {

@@ -71,7 +71,12 @@
   transition: all 0.3s ease;
   z-index: 0;
 }
-
+.element.style {
+    left: 128px;
+    top: 0px;
+    width: 150px;
+    height: 95px;
+}
 
 
 /*-----------------------------------------------
@@ -1175,7 +1180,7 @@
   }
 
   .redondo {
-    height: 3rem; /* Reduce la altura */
+    height: 70%;
     border-radius: 1.5rem; /* Reduce el radio del borde */
   }
 
