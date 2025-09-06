@@ -151,9 +151,11 @@
         </div>
 
         <!-- Botón para añadir experiencia (siempre visible) -->
+        {% if not nombre_experiencia %}
         <div class="añadir-experiencia" onclick="mostrarFormularioExperiencia()">
           + Añadir experiencia
         </div>
+        {% endif %}
 
         <!-- Estudios -->
         <div class="estudios">
@@ -444,7 +446,7 @@
             <input type="hidden" name="form_tipo2" value="perfil_principal3">
             <div class="campo">
               <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-              <input type="text" id="descripcionAñadir" name="descripcion_perfil" placeholder="Escribe la descripción">
+              <input type="text" maxlength="255" id="descripcionAñadir" name="descripcion_perfil" placeholder="Escribe la descripción">
             </div>
             <div class="botones">
               <button type="submit">Guardar</button>
