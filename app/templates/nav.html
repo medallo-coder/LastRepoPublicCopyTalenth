@@ -75,16 +75,18 @@
                 <li><a href="{{ url_for('mensajeria.mensajeria') }}"><i class="bi bi-chat-dots"></i><span>Mensajes</span></a></li>
 
 
-                {% if current_user.rol != '2' %}
-                <li>
-                    <a href="#" class="btn-cambio-rol"
-                    data-url="{{ url_for('web.convertir_a_experto') }}"
-                    data-titulo="Convertirse en Experto">
-                        <i class="bi bi-person-fill-check"></i>
-                        <span>Convertirse en Experto</span>
-                    </a>
-                </li>
-                {% endif %}
+            {% if rol_usuario == 2 %}
+            <li>
+                <a href="#" class="btn-cambio-rol"
+                data-url="{{ url_for('web.convertir_a_experto') }}"
+                data-titulo="Convertirse en Experto">
+                    <i class="bi bi-person-fill-check"></i>
+                    <span>Convertirse en Experto</span>
+                </a>
+            </li>
+            {% endif %}
+
+
 
                 <li>
                     <a href="{{ url_for('web.configuracion') }}">
@@ -125,11 +127,14 @@
 
 
 
-    <!-- Modal de confirmación -->
+<!-- Modal de confirmación -->
 <div id="modalCambioRol" class="modal" style="display:none;">
   <div class="modal-content">
-    <h2 id="modal-title">¿Estás seguro?</h2>
-    <p id="modal-text">¿Deseas cambiar tu rol?</p>
+    <h2 id="modal-title">Conviértete en Experto ahora</h2>
+    <p id="modal-text">
+      Podrás publicar tus servicios, promocionarlos y crear un perfil que atraiga clientes.<br><br>
+      ¿Deseas continuar?
+    </p>
     <div class="modal-buttons">
       <a id="btnAceptar" class="btn-confirm" href="#">Aceptar</a>
       <button id="btnCancelar">Cancelar</button>
@@ -137,13 +142,14 @@
   </div>
 </div>
 
+
 <!-- Modal cerrar sesión reorganizado -->
 <div id="modalCerrarSesion" class="modal-cerrar-sesion hidden">
   <div class="modal-content"> <!-- cambié modal-cerrar-content a modal-content para igualar estilos -->
     <h2>¿Seguro que quieres salir?</h2>
     <p>¡Te esperamos de vuelta!</p>
     <div class="modal-buttons"> <!-- contenedor de botones igual que modal de rol -->
-      <a href="{{ url_for('web.cerrar_sesion') }}" class="btn-confirm">Confirmar</a>
+      <a href="{{ url_for('web.cerrar_sesion') }}" class="btn-confirm">Cerrar sesión</a>
       <button id="btnCancelarCerrar" class="btn-cancel">Cancelar</button>
     </div>
   </div>

@@ -175,6 +175,39 @@ document.addEventListener("DOMContentLoaded", function () {
       e.stopPropagation();
     });
   });
+
+  
+  // Modal eliminar barrio
+const btnEliminarBarrio = document.getElementById("btnEliminarBarrio");
+const modalEliminarBarrio = document.getElementById("modalEliminarBarrio");
+const confirmEliminarBarrio = document.getElementById("confirmEliminarBarrio");
+const cancelEliminarBarrio = document.getElementById("cancelEliminarBarrio");
+const formEliminarBarrio = document.getElementById("formEliminarBarrio");
+
+if (btnEliminarBarrio && modalEliminarBarrio && formEliminarBarrio) {
+  // Abrir modal al hacer clic en el icono de basura
+  btnEliminarBarrio.addEventListener("click", () => {
+    modalEliminarBarrio.classList.remove("hidden");
+  });
+
+  // Confirmar eliminación: enviar formulario
+  confirmEliminarBarrio.addEventListener("click", () => {
+    formEliminarBarrio.submit();
+  });
+
+  // Cancelar eliminación: cerrar modal
+  cancelEliminarBarrio.addEventListener("click", () => {
+    modalEliminarBarrio.classList.add("hidden");
+  });
+
+  // Cerrar modal si se hace clic fuera del contenido
+  modalEliminarBarrio.addEventListener("click", (e) => {
+    if (!e.target.closest(".modal-content-delete")) {
+      modalEliminarBarrio.classList.add("hidden");
+    }
+  });
+}
+
 });
 
 // Foto de perfil

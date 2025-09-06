@@ -24,10 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function confirmarCambioRol(url, titulo) {
   document.getElementById('modalCambioRol').style.display = 'flex';
-  document.getElementById('modal-title').textContent = titulo;
-  document.getElementById('modal-text').textContent = `¿Estás seguro que deseas ${titulo.toLowerCase()}?`;
+  document.getElementById('modal-title').textContent = "Conviértete en Experto ahora";
   document.getElementById('btnAceptar').href = url;
 }
+
 
 // Modal cerrar sesión
 const modalCerrarSesion = document.getElementById('modalCerrarSesion');

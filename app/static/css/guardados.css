@@ -438,6 +438,116 @@
   }
 }
 
+/* Fondo y overlay (igual que modalCerrarSesion) */
+#confirmModal {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5); /* mismo fondo que modalCerrarSesion */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#confirmModal.hidden {
+  display: none;
+}
+
+/* Contenido del modal */
+#confirmModal .modal-content-delete {
+  background-color: #fff;
+  padding: 25px;              /* igual que modalCerrarSesion */
+  border-radius: 25px;         /* igual que modalCerrarSesion */
+  text-align: center;
+  width: 100%;
+  max-width: 400px;            /* igual que modalCerrarSesion */
+  position: relative;
+  font-family: 'Oswald', sans-serif;
+}
+
+/* Texto y títulos */
+#confirmModal h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.7rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+#confirmModal p {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  color: #666;
+}
+
+/* Botones */
+#confirmModal .modal-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+#confirmModal .modal-buttons button,
+#confirmModal .modal-buttons a {
+  padding: 0.4rem 3rem;
+  font-size: 1rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  border-radius: 25px;        /* igual que modalCerrarSesion */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+}
+
+/* Botón cancelar */
+#cancelDelete {
+  background-color: #f8f8f8;   /* igual que #btnCancelarCerrar */
+  color: black;
+  border: 1px solid #E5E5E5;
+}
+
+#cancelDelete:hover {
+  opacity: 0.8;
+}
+
+/* Botón aceptar / confirmar */
+#confirmDelete {
+  background-color: #3eaeb1;  /* rojo igual que btn-confirm */
+  color: white;
+  border: none;
+}
+
+#confirmDelete:hover {
+   opacity: 0.8;
+}
+
+
+
+/*modal de ver la imagen mas*/
+.modal-overlay {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 999;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+}
+
 /*-----------------------------------------------
   Estilos para pantallas pequeñas (móviles) carrusel
 -----------------------------------------------*/
@@ -689,71 +799,3 @@
 
 }
 
-
-/*estilos para el modal de eliminar*/
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* fondo negrito trasparente */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.modal-content-delete {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px;
-  max-width: 350px;
-  width: 90%;
-}
-
-.modal-buttons {
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-around;
-}
-
-.btn-aceptar {
-  background-color: #dc3545;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.btn-cancelar {
-  background-color: #6c757d;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-
-/*modal de ver la imagen mas*/
-.modal-overlay {
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.8);
-  z-index: 999;
-}
-
-.close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  color: white;
-  font-size: 40px;
-  cursor: pointer;
-}

@@ -433,13 +433,6 @@
 </div>
 
 
-  {% include 'footer.html' %}
-
-  <script src="{{ url_for('static', filename='js/categorias.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/errors.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/publicaciones_categorias.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/modal_reportar.js') }}"></script>
-
 <div id="modalLoginContacto" class="modal-login-contacto hidden">
     <div class="modal-login-content">
         <!-- Botón de cerrar -->
@@ -457,6 +450,14 @@
     </div>
   </div>
 
+  
+
+  {% include 'footer.html' %}
+
+  <script src="{{ url_for('static', filename='js/categorias.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/errors.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/publicaciones_categorias.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/modal_reportar.js') }}"></script>
 
 <body data-logged-in="{{ 'true' if session.get('jwt') else 'false' }}">
 </html>

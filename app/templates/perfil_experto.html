@@ -90,13 +90,12 @@
             {% if descripcion_perfil %}
             <div class="iconos">
               <i id="lapizdescripcion" class="bi bi-pencil-square" onclick="mostrarFormularioeditarDescripcion()"></i>
-              <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;">
+              <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;" class="form-eliminar">
                 <input type="hidden" name="form_tipo2" value="eliminar_descripcion">
                 <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-                <button type="submit" class="boton-icono" title="Eliminar descripción"
-                  onclick="return confirm('¿Seguro que deseas eliminar la descripción?')">
-                  <i class="bi bi-trash"></i>
-                </button>
+                  <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar la descipción?" title="Eliminar descripcion">
+                    <i class="bi bi-trash"></i>
+                  </button>
               </form>
 
             </div>
@@ -127,14 +126,14 @@
               {% if nombre_experiencia %}
               <div class="iconos">
                 <i id="lapizexperiencia" class="bi bi-pencil-square"></i>
-                <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;">
+                <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;" class="form-eliminar">
                   <input type="hidden" name="form_tipo6" value="eliminar_experiencia">
                   <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-                  <button type="submit" class="boton-icono" title="Eliminar experiencia"
-                    onclick="return confirm('Seguro que deseas eliminar la experiencia?')">
+                  <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar la experiencia?" title="Eliminar experiencia">
                     <i class="bi bi-trash"></i>
                   </button>
                 </form>
+
               </div>
               {% endif %}
 
@@ -172,12 +171,11 @@
               <div class="iconos">
                 <i id="lapizestudios" class="bi bi-pencil-square"></i>
 
-                <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;">
+                <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;" class="form-eliminar">
                   <input type="hidden" name="form_tipo5" value="eliminar_estudios">
                   <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
 
-                  <button type="submit" class="boton-icono" title="Eliminar estudios"
-                    onclick="return confirm('Seguro que deseas eliminar los estudios?')">
+                  <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar el estudio?" title="Eliminar estudios">
                     <i class="bi bi-trash"></i>
                   </button>
                 </form>
@@ -212,8 +210,11 @@
         <!-- Idiomas -->
         <div class="idiomas">
           <h2 class="titulo-idiomas">Idiomas</h2>
-          <i id="agregaridiomas" class="bi bi-plus-circle-fill"></i>
+          {% if idiomas|length < 3 %}
+            <i id="agregaridiomas" class="bi bi-plus-circle-fill"></i>
+          {% endif %}
         </div>
+
 
         {% if idiomas %}
           {% for idioma in idiomas %}
@@ -221,15 +222,14 @@
               <i class="bi bi-check2-circle icono-idioma"></i>
               <span class="idioma-nombre">{{ idioma.nombre }}</span>
 
-              <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;">
+              <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;" class="form-eliminar" >
                 <input type="hidden" name="form_tipo3" value="eliminar_idioma">
                 <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
                 <input type="hidden" name="idioma_id" value="{{ idioma.id }}"> <!-- 👈 ID individual del idioma -->
                 
-                <button type="submit" class="boton-icono" title="Eliminar idioma"
-                  onclick="return confirm('¿Seguro que deseas eliminar el idioma?')">
-                  <i class="bi bi-trash"></i>
-                </button>
+                <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar este idioma?" title="Eliminar idioma">
+                    <i class="bi bi-trash"></i>
+                  </button>
               </form>
             </div>
           {% endfor %}
@@ -241,7 +241,6 @@
             <div class="idioma-item">
               <!--<i class="bi bi-check2-circle icono-idioma"></i> -->
               <span class="idioma-nombre"></span>
-              <span class="idioma-nivel"></span>
             <!-- <i class="bi bi-trash icono-borrar"></i> -->
             </div>
           </div>
@@ -252,7 +251,9 @@
           <!-- Aptitudes -->
           <div class="idiomas">
             <h2 class="titulo-idiomas">Aptitudes</h2>
+            {% if aptitudes|length < 3 %}
             <i id="agregaraptitudes" class="bi bi-plus-circle-fill"></i>
+            {% endif %}
           </div>
 
           {% if aptitudes %}
@@ -261,11 +262,11 @@
                 <i class="bi bi-check2-circle icono-idioma"></i>
                 <span class="idioma-nombre">{{ aptitud.tipo_aptitud }}</span>
                 
-                <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;">
+                <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;" class="form-eliminar">
                   <input type="hidden" name="form_tipo4" value="eliminar_aptitud">
                   <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
                   <input type="hidden" name="tipo_aptitud" value="{{ aptitud.tipo_aptitud }}">
-                  <button type="submit" class="boton-icono" title="Eliminar aptitud" onclick="return confirm('¿Seguro que deseas eliminar esta aptitud?')">
+                  <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar esta aptitud?" title="Eliminar aptitud">
                     <i class="bi bi-trash"></i>
                   </button>
                 </form>
@@ -604,27 +605,15 @@
           <div class="campo">
             <label for="idiomaSelect"></label>
             <select id="idiomaSelect" name="nombre_idioma">
-              <option value="" disabled selected> Selecciona el idioma </option>
-              <option value="Español">Español</option>
-              <option value="Inglés">Inglés</option>
-              <option value="Francés">Francés</option>
-              <option value="Alemán">Alemán</option>
-              <option value="Portugués">Portugués</option>
+              <option value="" disabled selected>Selecciona el idioma</option>
+              {% set todos_idiomas = ['Español', 'Inglés', 'Francés', 'Alemán', 'Portugués'] %}
+              {% for idioma in todos_idiomas %}
+                {% if idioma not in idiomas|map(attribute='nombre') %}
+                  <option value="{{ idioma }}">{{ idioma }}</option>
+                {% endif %}
+              {% endfor %}
             </select>
           </div>
-          <!--
-    <div class="campo">
-      <label for="nivelSelect"></label>
-      <select id="nivelSelect" name=" nivel">
-        <option value="" disabled selected> Selecciona el nivel</option>
-        <option value="Muy básico">Muy básico</option>
-        <option value="Básico">Básico</option>
-        <option value="Intermedio">Intermedio</option>
-        <option value="Avanzado">Avanzado</option>
-        <option value="Nativo">Nativo</option>
-      </select>
-    </div>
--->
           <div class="botones">
             <button type="submit">Guardar</button>
             <button type="button" onclick="cerrarFormularioIdiomas()">Cancelar</button>
@@ -654,6 +643,18 @@
         </form>
       </div>
     </div>
+
+    <!-- Modal eliminar -->
+<div id="modalEliminar" class="modal-overlay hidden">
+  <div class="modal-content-delete">
+    <p id="textoEliminar">¿Seguro que deseas eliminar este elemento?</p>
+    <div class="modal-buttons">
+      <button id="confirmEliminar" class="btn-aceptar">Aceptar</button>
+      <button id="cancelEliminar" class="btn-cancelar">Cancelar</button>
+    </div>
+  </div>
+</div>
+
 
     <script src="{{ url_for('static', filename='js/perfil.experto.js') }}"></script>
     <script src="{{ url_for('static', filename='js/tabs.js') }}"></script>

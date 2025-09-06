@@ -27,6 +27,15 @@ from flask_login import login_required, current_user, login_user
 # Define el Blueprint para las rutas web
 web = Blueprint('web', __name__)
 
+
+@web.context_processor
+def inject_user_role():
+    if current_user.is_authenticated:
+        print(">> Usuario autenticado:", current_user.correo, "Rol:", current_user.id_rol)
+        return dict(rol_usuario=current_user.id_rol)
+    print(">> Usuario no autenticado")
+    return dict(rol_usuario=None)
+
 from app.services.publi_recientes import obtener_publicaciones_recientes_service, obtener_publicaciones_aleatorias_service
 @web.route('/')
 def inicio():

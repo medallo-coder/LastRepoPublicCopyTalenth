@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const contenidoModal = document.getElementById('contenidoTarjeta');
     const cerrarTarjetaBtn = document.getElementById('cerrarTarjeta');
 
-    const estaLogueado = document.body.getAttribute('data-logueado') === 'true';
+    const estaLogueado = document.body.getAttribute('data-logged-in') === 'true';
     const modalLogin = document.getElementById('modalLoginContacto');
     const closeLoginModal = document.getElementById('cerrarLoginContacto');
 
@@ -185,7 +185,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     const cerrarLogin = document.getElementById("cerrarLoginContacto");
-    const isLoggedIn = document.body.getAttribute("data-logged-in") === "true";
 
     // Manejo de abrir contacto
     function manejarClickContacto(e) {
@@ -199,11 +198,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         // Abrir modal login si no está logueado
-        if (!isLoggedIn) {
+        if (!estaLogueado) {
             if (modalLogin) modalLogin.classList.remove("hidden");
         } else {
             console.log("Usuario logueado: abrir modal de contacto real si aplica.");
         }
+
     }
 
     // Contactar experto en tarjetas y modal "Ver más"
