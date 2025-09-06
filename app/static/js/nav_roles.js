@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
   const botones = document.querySelectorAll('.btn-cambio-rol');
 
@@ -14,6 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btnCancelar').addEventListener('click', () => {
     document.getElementById('modalCambioRol').style.display = 'none';
   });
+
+  // 👉 Cerrar modal al hacer clic en el fondo oscuro
+  document.getElementById('modalCambioRol').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('modalCambioRol')) {
+      document.getElementById('modalCambioRol').style.display = 'none';
+    }
+  });
 });
 
 function confirmarCambioRol(url, titulo) {
@@ -23,9 +29,7 @@ function confirmarCambioRol(url, titulo) {
   document.getElementById('btnAceptar').href = url;
 }
 
-
 //hola aca estan las x
-
 document.querySelector('.modal-close').addEventListener('click', function () {
   document.getElementById('modalCambioRol').style.display = 'none';
 });
