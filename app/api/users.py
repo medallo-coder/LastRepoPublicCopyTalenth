@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, redirect
 from app.services_desktop.autenticacion import iniciar_sesion_admin_service, registrar_admin_service, cerrar_sesion_admin_service 
 from app.services_desktop.gestion_publicaciones import  gestion_publicaciones_admin_service, eliminar_publicaciones_admin_service
 from app.services_desktop.gestionar_usuarios import gestionar_usuarios_admin_service, deshabilitar_cuenta_global_service
@@ -229,15 +229,28 @@ def recuperar_contraseña():
         resultado = enviar_link_recuperacion_service(data)
         return jsonify(resultado), (200 if resultado["success"] else 400)
 
+# Ruta para restablecer la contraseña
+# Esta ruta se activa al hacer clic en el enlace enviado al correo
+@users_api.route('/formulario_movil', methods=['GET', 'POST'])
+def formulario_movil():
+        token = request.args.get("token")  # lo saca de la URL
+        if not token:
+            return jsonify({"success": False, "message": "Token faltante"}), 400
         
+        # Aquí puedes decidir:
+        # 1. Redirigir a la app móvil con el token
+        return redirect(f"http://127.0.0.1:8550/cambiar_contrasena?token={token}")
+
 
 
 # Ruta para restablecer la contraseña
 # Esta ruta se activa al hacer clic en el enlace enviado al correo
-@users_api.route('/restablecer_contraseña', methods=['GET', 'POST'])
-def restablecer_contraseña(data):
-        data= request.get_json() if request.is_json else request.form.to_dict()
-        resultado = restablecer_contraseña_service(data)
-        return jsonify(resultado), (200 if resultado["success"] else 400)
+@users_api.route('/restablecer_contraseña_datos', methods=['POST'])
+def restablecer_contraseña_datos():
+    data= request.get_json() if request.is_json else request.form.to_dict()
+    resultado = restablecer_contraseña_service(data)
+    return jsonify(resultado), (200 if resultado["success"] else 400)
+ 
 
-     
+
+

@@ -1,5 +1,5 @@
 from app.services.jwt_service import verificar_token
-from flask import session, url_for
+from flask import session, url_for, request
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.models.usuario import Usuario
 from app.models.perfiles import perfiles
@@ -9,7 +9,7 @@ from app.models.estudios import Estudios
 from app.models.experiencias import Experiencias
 from app.extensions import db
 from app.services.jwt_service import generar_token,generar_token_recuperacion 
-from app.services.notificaciones import enviar_link_recuperacion_correo
+from app.services_movil.notificaciones import enviar_link_recuperacion_correo
 import re
 
 # Servicio para obtener el nombre, rol y fecha de registro del usuario autenticado
@@ -95,7 +95,7 @@ def enviar_link_recuperacion_service(data):
     db.session.commit()  # Guardamos los cambios en la base de datos
 
     # Construir el enlace
-    link = url_for('web.restablecer_contraseña', token=token, _external=True)
+    link = url_for('users_api.formulario_movil', token=token, _external=True)
 
     
     perfil=usuario.perfiles
@@ -118,7 +118,12 @@ def enviar_link_recuperacion_service(data):
 
 # Servicio para restablecer la contraseña usando un token
 def restablecer_contraseña_service(data):
-    token = data.get("token")
+    token = session.get('jwt')
+    if not token:
+        auth_header = request.headers.get("Authorization")
+        if auth_header and auth_header.startswith("Bearer "):
+            token = auth_header.split(" ")[1]
+    
     nueva_contraseña = data.get("nueva_contraseña")
     confirmar_contraseña = data.get("confirmar_contraseña")
 

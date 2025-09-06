@@ -6,3 +6,4 @@ from .gestion_usuarios import datos_usuario_service,cambiar_contrasena_usuario_s
 from .guardados import guardar_publicacion_service, obtener_guardados_service, eliminar_guardado_service
 from .reporte import guardar_reporte_service
 from .publicaciones import guardar_publicacion_usuario_service
+from .notificaciones import enviar_notificacion_registro, enviar_link_recuperacion_correo
