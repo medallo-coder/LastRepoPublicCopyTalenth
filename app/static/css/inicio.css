@@ -1,6 +1,5 @@
 /* Contenedor padre de toda la sección */
 
-
 .main-container {
     width: 70%;
     margin: 0 auto; /* Centrado horizontal con margen superior */
@@ -296,22 +295,15 @@
   font-family: 'Oswald', sans-serif;
   font-weight: 500;
   font-size: 14px;
-  line-height: 1.3;               /* asegura un buen cálculo de líneas */
   color: black;
   margin: 0 0 4px;
   word-break: break-word;
   overflow-wrap: break-word;
-
-  display: -webkit-box;           /* necesario para Chrome/Safari */
-  -webkit-box-orient: vertical;   /* necesario para Chrome/Safari */
+  white-space: normal;
+  max-height: 3.6em;       /* 3 líneas aprox */
   overflow: hidden;
   text-overflow: ellipsis;
 
-  /* 🔑 propiedad estándar */
-  line-clamp: 2;
-
-  /* 🔑 fallback con prefijo (actualmente el que funciona) */
-  -webkit-line-clamp: 2;
 }
 
 
@@ -384,6 +376,7 @@
 }
 
 /* Estilo del botón */
+
 .contact-button {
   background-color: white;
   border: 3px solid #3EAEB1;
@@ -394,10 +387,8 @@
   font-size: 13px;
   font-family: 'Oswald', sans-serif;
   font-weight: 600;
-  display: inline-block;   /* Evita que se estire */
-  width: auto;             /* Se ajusta al contenido */
-  max-width: 160px;        /* Ancho máximo */
-  white-space: nowrap;     /* Evita salto de línea */
+  transition: all 0.3s ease;
+
 }
 
 .contact-button:hover {
@@ -556,6 +547,7 @@
 
   
 
+
 /*-----------------------------------------------
   Estilos para el modal oculto 
 -----------------------------------------------*/
@@ -684,6 +676,7 @@
   width: 100%;
   box-sizing: border-box;
 }
+
 
 
 /* Estilo para el contenedor con el título y las tarjetas */
