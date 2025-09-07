@@ -507,7 +507,7 @@
   position: absolute;
   top: 2px;
   right: 6px;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: normal;
   color: #333;
   cursor: pointer;
@@ -981,4 +981,22 @@
     font-size: 14px;
   }
 
+}
+.btn-experto {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  background-color: #3EAEB1; /* ✅ color del botón */
+  color: #fff;              /* texto en blanco */
+  border: none;
+  padding: 6px 20px;
+  border-radius: 20px;       /* mismo estilo redondeado */
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  text-decoration: none;     /* evita subrayado si es <a> */
+  display: inline-block;
+}
+
+.btn-experto:hover {
+  background-color: #2e9092; /* tono más oscuro al pasar el mouse */
 }
