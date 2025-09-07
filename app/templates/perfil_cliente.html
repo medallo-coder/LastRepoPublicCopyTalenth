@@ -259,47 +259,7 @@
           </form>
         </div>
       </div>
-
-
-      <!-- Formulario para añadir empresa -->
-      <div class="formulario-empresa" id="formulario-empresa" style="display: none;">
-        <div class="formulario-empresa-contenido">
-          <h2>Agregar empresa</h2>
-          <form method="POST" action="{{ url_for('web.perfil_cliente') }}">
-            <input type="hidden" name="form_tipo" value="nombre_empresa">
-            <div class="campo">
-              <input type="text" name="nombre_empresa" placeholder="Escribe el nombre de la empresa" required />
-            </div>
-            <div class="botones">
-              <button type="submit">Guardar</button>
-              <button type="button" onclick="cerrarFormularioEmpresa()">Cancelar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-
-      <!-- Formulario emergente para editar empresa -->
-      <div class="formulario-editar-empresa" id="formulario-editar-empresa" style="display: none;">
-        <div class="formulario-editar-empresa-contenido">
-          <h2>Editar empresa</h2>
-          <form method="POST" action="{{ url_for('web.perfil_cliente') }}">
-            <input type="hidden" name="form_tipo" value="nombre_empresa">
-            <div class="campo">
-              <label for="editar-empresa"></label>
-              <input type="text" id="editar-empresa" name="nombre_empresa" placeholder="Escribe el nuevo nombre"
-                required />
-            </div>
-            <div class="botones">
-              <button type="submit">Guardar</button>
-              <button type="button" onclick="cerrarFormularioEditarEmpresa()">Cancelar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-
-
+      
       <!-- Formulario de edición de contacto -->
       <div class="formulario-editar" id="formulario-editar" style="display: none;">
         <div class="formulario-contenido">
