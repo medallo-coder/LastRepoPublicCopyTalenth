@@ -412,17 +412,19 @@
         </div>
       </div>
 
-    {% if rol_usuario == 2 %}
+{% if rol_usuario == 2 %}
     <!-- Usuario es CLIENTE → puede convertirse en EXPERTO -->
     <li>
-        <a href="#" class="btn-cambio-rol btn btn-primary"
-            data-url="{{ url_for('web.convertir_a_experto') }}"
-            data-titulo="Convertirse en Experto">
+        <a href="#"
+           class="btn-experto btn-cambio-rol"
+           data-url="{{ url_for('web.convertir_a_experto') }}"
+           data-titulo="Convertirse en Experto">
             <i class="bi bi-person-fill-check"></i>
             Convertirse en Experto
         </a>
     </li>
 {% endif %}
+
       
     </div>
   </section>
