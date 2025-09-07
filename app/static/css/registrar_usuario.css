@@ -58,7 +58,7 @@ body {
     color: #3EAEB1;
 }
 
-.logo {
+.left-group {
     position: absolute;
     top: 20px;
     left: 20px;
@@ -67,16 +67,30 @@ body {
     align-items: center; /* Alineamos los elementos verticalmente */
 }
 
-.logo img {
+.link {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    text-decoration: none;
+}
+.link img {
     height: 40px;
     margin-right: 10px;
 }
 
-.logo span {
-    font-size: 24px;
-    font-weight: bold;
+.logo {
+    height: 40px;
+    margin-left: 10px;
 }
-
+.logo-text h1 {
+    font-size: 25px;
+    font-weight: bold;
+    color: #3eaeb1;
+    margin: 0;
+}
+.azul {
+    color: black;
+}
 
 nav span {
     font-size: 25px;

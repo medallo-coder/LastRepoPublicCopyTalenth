@@ -10,12 +10,15 @@
 </head>
 <body>
 
-   <div class="logo">
-            <!-- Ícono Vector.svg -->
-            <img src="{{ url_for('static', filename='images/Vector.svg') }}" alt="Logo">
-            <!-- Texto ContrataYA! -->
-             <span><span style="color: #3eaeb1;">Cali</span><span style="color: black;">Trabaja</span></span>
-        </div>
+    <div class="left-group">
+        <a href="/" class="link">
+            <img src="{{ url_for('static', filename='images/Vector.svg') }}" alt="logo" class="logo">
+            <div class="logo-text">
+                <h1>Cali<span class="azul">Trabaja</span></h1>
+            </div>
+        </a>
+    </div>
+
 
     <!-- Formulario de inicio de sesión -->
     <div class="register-form">
