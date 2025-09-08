@@ -81,7 +81,7 @@
   position: absolute;          /* Posición absoluta respecto a .categoria */
   bottom: 0;                  /* Se coloca en la parte inferior del contenedor */
   left: 25%;                  /* Se desplaza desde la izquierda un 25% del ancho */
-  width: 58%;                 /* El ancho de la línea es 58% del contenedor */
+  width: 50%;                 /* El ancho de la línea es 58% del contenedor */
   height: 1px;                /* Altura fina para parecer una línea */
   background-color: black;    /* Color negro para la línea */
 }
@@ -141,6 +141,9 @@
 /* Icono de estrella en color gris */
 .estrella-gris {
   color: gray;
+}
+.estrella-azul {
+  color: #3EAEB1; /* tu azul turquesa */
 }
 
 /* Contenedor para categorías */
@@ -218,7 +221,7 @@
     color: #333;                /* Color gris oscuro */
     margin-top: 10px;           /* Margen superior para separación */
     line-height: 1.4;           /* Altura de línea para mejor lectura */
-    max-width: 70%;             /* Ancho máximo para que no ocupe toda la fila */
+    max-width: 50%;             /* Ancho máximo para que no ocupe toda la fila */
 }
 
 
@@ -299,14 +302,15 @@
 }
 
 .perfil-img {
-    width: 100px;
-    height: 100px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
     object-fit: cover;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #ccc;
+     margin-top: 40px; /* <-- para bajarla */
 }
 
 .placeholder-icon {
@@ -798,4 +802,3 @@
   }
 
 }
-
