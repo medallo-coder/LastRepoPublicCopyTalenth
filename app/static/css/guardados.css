@@ -109,19 +109,32 @@
     margin-left: 3%;           /* Separación a la izquierda */
 }
 
-/* Encabezado dentro del contenido */
 .encabezado {
-  display: flex;               /* Flexbox para alinear elementos en fila */
-  align-items: center;         /* Centra verticalmente los elementos */
-  justify-content: flex-start; /* Alinea todo al inicio horizontal */
-  gap: 20px;                   /* Espacio entre los elementos hijos */
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-/* Estilo para el título h2 dentro de encabezado */
 .encabezado h2 {
-  margin: 0;                   /* Elimina margen predeterminado */
+  flex: 0 0 150px;          /* ancho fijo para todos los nombres */
+  max-width: 200px;         /* controlas lo ancho que quieres */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;  /* corta con "..." si se pasa */
 }
 
+.menu-button-container,
+.bi-trash {
+  flex-shrink: 0;  /* que no se muevan */
+}
+
+/* NUEVO → contenedor invisible que empuja los íconos
+   y permite que queden más "hacia adentro", no pegados al borde */
+.encabezado::after {
+  content: "";
+  flex: 1;         /* este ocupa el espacio libre */
+  max-width: 120px; /* controla cuánto margen fijo tienen los iconos */
+}
 /* Nombre destacado del servicio */
 .name {
     color: #3EAEB1;            /* Color azul claro */
@@ -135,13 +148,7 @@
     border: none;               /* Sin borde */
     font-size: 24px;            /* Tamaño de fuente grande */
     cursor: pointer;            /* Cambia el cursor a mano al pasar por encima */
-    margin-left: 40% !important; /* quitamos empuje */
-    display: flex;
-    align-items: center;
-    gap: 8px; /* espacio entre menú y basura */
-}
-.bi-trash {
-  margin-left: 5px; /* un pequeño respiro respecto a los tres puntos */
+    margin-left: 32%;           /* Se separa a la derecha con margen izquierdo */
 }
 
 /* Icono de estrella en color gris */
