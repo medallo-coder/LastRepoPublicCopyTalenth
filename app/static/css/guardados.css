@@ -135,7 +135,13 @@
     border: none;               /* Sin borde */
     font-size: 24px;            /* Tamaño de fuente grande */
     cursor: pointer;            /* Cambia el cursor a mano al pasar por encima */
-    margin-left: 32%;           /* Se separa a la derecha con margen izquierdo */
+    margin-left: 40% !important; /* quitamos empuje */
+    display: flex;
+    align-items: center;
+    gap: 8px; /* espacio entre menú y basura */
+}
+.bi-trash {
+  margin-left: 5px; /* un pequeño respiro respecto a los tres puntos */
 }
 
 /* Icono de estrella en color gris */
