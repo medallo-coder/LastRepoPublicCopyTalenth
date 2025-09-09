@@ -90,13 +90,12 @@
             {% if descripcion_perfil %}
             <div class="iconos">
               <i id="lapizdescripcion" class="bi bi-pencil-square" onclick="mostrarFormularioeditarDescripcion()"></i>
-              <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;">
+              <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;" class="form-eliminar">
                 <input type="hidden" name="form_tipo2" value="eliminar_descripcion">
                 <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-                <button type="submit" class="boton-icono" title="Eliminar descripción"
-                  onclick="return confirm('¿Seguro que deseas eliminar la descripción?')">
-                  <i class="bi bi-trash"></i>
-                </button>
+                  <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar la descipción?" title="Eliminar descripcion">
+                    <i class="bi bi-trash"></i>
+                  </button>
               </form>
 
             </div>
@@ -127,14 +126,14 @@
               {% if nombre_experiencia %}
               <div class="iconos">
                 <i id="lapizexperiencia" class="bi bi-pencil-square"></i>
-                <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;">
+                <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;" class="form-eliminar">
                   <input type="hidden" name="form_tipo6" value="eliminar_experiencia">
                   <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-                  <button type="submit" class="boton-icono" title="Eliminar experiencia"
-                    onclick="return confirm('Seguro que deseas eliminar la experiencia?')">
+                  <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar la experiencia?" title="Eliminar experiencia">
                     <i class="bi bi-trash"></i>
                   </button>
                 </form>
+
               </div>
               {% endif %}
 
@@ -151,9 +150,11 @@
         </div>
 
         <!-- Botón para añadir experiencia (siempre visible) -->
+        {% if not nombre_experiencia %}
         <div class="añadir-experiencia" onclick="mostrarFormularioExperiencia()">
           + Añadir experiencia
         </div>
+        {% endif %}
 
         <!-- Estudios -->
         <div class="estudios">
@@ -170,12 +171,11 @@
               <div class="iconos">
                 <i id="lapizestudios" class="bi bi-pencil-square"></i>
 
-                <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;">
+                <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;" class="form-eliminar">
                   <input type="hidden" name="form_tipo5" value="eliminar_estudios">
                   <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
 
-                  <button type="submit" class="boton-icono" title="Eliminar estudios"
-                    onclick="return confirm('Seguro que deseas eliminar los estudios?')">
+                  <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar el estudio?" title="Eliminar estudios">
                     <i class="bi bi-trash"></i>
                   </button>
                 </form>
@@ -198,8 +198,38 @@
         <div class="añadir-estudios" onclick="mostrarFormularioEstudios()">
           + Añadir estudios
         </div>
+        <!-- Ubicacion -->
+        <div class="ubicacion">
+          <h2 class="titulo-ubicacion">Ubicación</h2>
+          <h2 class="titulo-barrio"> Barrio </h2>
+          {% if direccion %}
+          <div class="item-ubicacion">
+            <div class="fila-ubicacion">
+              <p class="barrio">{{ direccion }}</p>
+              <div class="iconos">
+                <i id="lapizubicacion" class="bi bi-pencil-square" onclick="abrirFormularioEditarUbicacion()"></i>
+
+                <form method="POST" action="{{ url_for('web.perfil_cliente') }}" style="display: inline;">
+                  <input type="hidden" name="form_tipo" value="direccion">
+                  <input type="hidden" name="direccion" value="">
+                  <button type="submit" class="bi bi-trash" title="Eliminar dirección"
+                    onclick="return confirm('¿Seguro que deseas eliminar la dirección?')"></button>
+                </form>
+              </div>
+            </div>
+          </div>
+          {% else %}
+          <div class="añadir-ubicacion" onclick="mostrarFormularioUbicacion()">
+            + Añadir barrio
+          </div>
+          {% endif %}
+
+        </div>
+
+
       </div>
 
+    
 
 
       
@@ -210,8 +240,11 @@
         <!-- Idiomas -->
         <div class="idiomas">
           <h2 class="titulo-idiomas">Idiomas</h2>
-          <i id="agregaridiomas" class="bi bi-plus-circle-fill"></i>
+          {% if idiomas|length < 3 %}
+            <i id="agregaridiomas" class="bi bi-plus-circle-fill"></i>
+          {% endif %}
         </div>
+
 
         {% if idiomas %}
           {% for idioma in idiomas %}
@@ -219,15 +252,14 @@
               <i class="bi bi-check2-circle icono-idioma"></i>
               <span class="idioma-nombre">{{ idioma.nombre }}</span>
 
-              <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;">
+              <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;" class="form-eliminar" >
                 <input type="hidden" name="form_tipo3" value="eliminar_idioma">
                 <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
                 <input type="hidden" name="idioma_id" value="{{ idioma.id }}"> <!-- 👈 ID individual del idioma -->
                 
-                <button type="submit" class="boton-icono" title="Eliminar idioma"
-                  onclick="return confirm('¿Seguro que deseas eliminar el idioma?')">
-                  <i class="bi bi-trash"></i>
-                </button>
+                <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar este idioma?" title="Eliminar idioma">
+                    <i class="bi bi-trash"></i>
+                  </button>
               </form>
             </div>
           {% endfor %}
@@ -239,7 +271,6 @@
             <div class="idioma-item">
               <!--<i class="bi bi-check2-circle icono-idioma"></i> -->
               <span class="idioma-nombre"></span>
-              <span class="idioma-nivel"></span>
             <!-- <i class="bi bi-trash icono-borrar"></i> -->
             </div>
           </div>
@@ -250,7 +281,9 @@
           <!-- Aptitudes -->
           <div class="idiomas">
             <h2 class="titulo-idiomas">Aptitudes</h2>
+            {% if aptitudes|length < 3 %}
             <i id="agregaraptitudes" class="bi bi-plus-circle-fill"></i>
+            {% endif %}
           </div>
 
           {% if aptitudes %}
@@ -259,11 +292,11 @@
                 <i class="bi bi-check2-circle icono-idioma"></i>
                 <span class="idioma-nombre">{{ aptitud.tipo_aptitud }}</span>
                 
-                <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;">
+                <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;" class="form-eliminar">
                   <input type="hidden" name="form_tipo4" value="eliminar_aptitud">
                   <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
                   <input type="hidden" name="tipo_aptitud" value="{{ aptitud.tipo_aptitud }}">
-                  <button type="submit" class="boton-icono" title="Eliminar aptitud" onclick="return confirm('¿Seguro que deseas eliminar esta aptitud?')">
+                  <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar esta aptitud?" title="Eliminar aptitud">
                     <i class="bi bi-trash"></i>
                   </button>
                 </form>
@@ -436,23 +469,50 @@
         </div>
       </div>
 
-      <!-- Formulario para añadir descripción -->
-      <div id="formulario-añadir-descripcion" style="display:none;">
-        <div class="formulario-contenido-descripcion">
-          <h2>Añadir Descripción</h2>
-          <form method="POST" action="{{ url_for('web.perfil_experto') }}">
-            <input type="hidden" name="form_tipo2" value="perfil_principal3">
-            <div class="campo">
-              <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-              <input type="text" id="descripcionAñadir" name="descripcion_perfil" placeholder="Escribe la descripción">
-            </div>
-            <div class="botones">
-              <button type="submit">Guardar</button>
-              <button type="button" onclick="cerrarFormularioDescripcion()">Cancelar</button>
-            </div>
-          </form>
-        </div>
+      <!-- Formulario para editar descripción -->
+<div id="formulario-editar-descripcion" style="display:none;">
+  <div class="formulario-contenido-descripcion">
+    <h2>Editar Descripción</h2>
+    <form method="POST" action="{{ url_for('web.perfil_experto') }}">
+      <input type="hidden" name="form_tipo2" value="editar_descripcion">
+      <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
+      
+      <div class="campo">
+        <!-- Textarea con límite -->
+        <textarea
+          id="descripcionEditar"
+          name="descripcion_perfil"
+          maxlength="255"
+          placeholder="Editar tu descripción"
+          rows="4"
+          cols="50">{{ descripcion_perfil }}</textarea>
+        
+        <!-- Contador -->
+        <small id="contadorEditar">0 / 255</small>
       </div>
+      
+      <div class="botones">
+        <button type="submit">Guardar</button>
+        <button type="button" onclick="cerrarFormularioeditarDescripcion()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Script para actualizar el contador en EDITAR
+  const textareaEditar = document.getElementById('descripcionEditar');
+  const contadorEditar = document.getElementById('contadorEditar');
+  const maxEditar = textareaEditar.getAttribute('maxlength');
+
+  // Inicializar el contador con el valor que tenga cargado
+  contadorEditar.textContent = `${textareaEditar.value.length} / ${maxEditar}`;
+
+  textareaEditar.addEventListener('input', () => {
+    const longitud = textareaEditar.value.length;
+    contadorEditar.textContent = `${longitud} / ${maxEditar}`;
+  });
+</script>
 
       <!-- Formulario para editar descripción -->
       <div id="formulario-editar-descripcion" style="display:none;">
@@ -560,39 +620,6 @@
         </div>
       </div>
 
-      <!-- Formulario emergente para editar estudios -->
-      <div class="formulario-editar-estudios" id="formulario-editar-estudios">
-        <div class="formulario-editar-estudios-contenido">
-          <h2>Editar estudios</h2>
-          <form method="POST" action="{{ url_for('web.perfil_experto') }}">
-            <div class="campo">
-              <input type="hidden" name="form_tipo5" value="editar_estudios">
-              <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-
-
-              <div class="campo"></div>
-              <input type="text" id="editar-titulo" name="titulo_obtenido" value="{{titulo_obtenido}}" required
-                maxlength="100">
-            </div>
-            <div class="campo">
-              <input type="text" id="editar-lugar" name="institucion" value="{{institucion}}" required maxlength="100">
-            </div>
-            <div class="campo">
-              <input type="date" id="editar-fechaDesde" name="fecha_inicio" value="{{fecha_inicio}}" required
-                maxlength="50">
-            </div>
-            <div class="campo">
-              <input type="date" id="editar-fechaHasta" name="fecha_fin" value="{{fecha_fin}}" required maxlength="50">
-            </div>
-            <div class="botones">
-              <button type="submit">Guardar</button>
-              <button type="button" onclick="cerrarFormularioEditarEstudios()">Cancelar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
     <!-- Formulario superpuesto para Añadir Idioma -->
     <div class="formulario-idioma" id="formularioIdioma" style="display: none;">
       <div class="formulario-contenido">
@@ -602,14 +629,34 @@
           <div class="campo">
             <label for="idiomaSelect"></label>
             <select id="idiomaSelect" name="nombre_idioma">
-              <option value="" disabled selected> Selecciona el idioma </option>
-              <option value="Español">Español</option>
-              <option value="Inglés">Inglés</option>
-              <option value="Francés">Francés</option>
-              <option value="Alemán">Alemán</option>
-              <option value="Portugués">Portugués</option>
+              <option value="" disabled selected>Selecciona el idioma</option>
+              {% set todos_idiomas = ['Español', 'Inglés', 'Francés', 'Alemán', 'Portugués'] %}
+              {% for idioma in todos_idiomas %}
+                {% if idioma not in idiomas|map(attribute='nombre') %}
+                  <option value="{{ idioma }}">{{ idioma }}</option>
+                {% endif %}
+              {% endfor %}
             </select>
           </div>
+
+          <!-- Formulario emergente para editar barrio -->
+      <div class="formulario-ubicacion-editar" id="formularioUbicacionEditar" style="display: none;">
+        <div class="formulario-editar-ubicacion-contenido">
+          <h2>Editar barrio</h2>
+          <form method="POST" action="{{ url_for('web.perfil_cliente') }}">
+            <input type="hidden" name="form_tipo" value="direccion">
+            <div class="campo">
+              <label for="editar-barrio"></label>
+              <input type="text" id="editar-barrio" name="direccion" placeholder="Escribe el nuevo barrio" required />
+            </div>
+            <div class="botones">
+              <button type="submit">Guardar</button>
+              <button type="button" onclick="cerrarFormularioEditarUbicacion()">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
           <!--
     <div class="campo">
       <label for="nivelSelect"></label>
@@ -623,6 +670,7 @@
       </select>
     </div>
 -->
+
           <div class="botones">
             <button type="submit">Guardar</button>
             <button type="button" onclick="cerrarFormularioIdiomas()">Cancelar</button>
@@ -652,6 +700,18 @@
         </form>
       </div>
     </div>
+
+    <!-- Modal eliminar -->
+<div id="modalEliminar" class="modal-overlay hidden">
+  <div class="modal-content-delete">
+    <p id="textoEliminar">¿Seguro que deseas eliminar este elemento?</p>
+    <div class="modal-buttons">
+      <button id="confirmEliminar" class="btn-aceptar">Aceptar</button>
+      <button id="cancelEliminar" class="btn-cancelar">Cancelar</button>
+    </div>
+  </div>
+</div>
+
 
     <script src="{{ url_for('static', filename='js/perfil.experto.js') }}"></script>
     <script src="{{ url_for('static', filename='js/tabs.js') }}"></script>

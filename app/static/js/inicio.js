@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const contenidoModal = document.getElementById('contenidoTarjeta');
     const cerrarTarjetaBtn = document.getElementById('cerrarTarjeta');
 
-    const estaLogueado = document.body.getAttribute('data-logueado') === 'true';
+    const estaLogueado = document.body.getAttribute('data-logged-in') === 'true';
     const modalLogin = document.getElementById('modalLoginContacto');
     const closeLoginModal = document.getElementById('cerrarLoginContacto');
 
@@ -184,20 +184,57 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // --- Modal de login contacto ---
-    const contactButtons = document.querySelectorAll('.contact-button');
-    contactButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            if (!estaLogueado) {
-                modalLogin.classList.remove('hidden');
-            } else {
-                console.log("Usuario logueado, se puede contactar al experto.");
-            }
-        });
+    const cerrarLogin = document.getElementById("cerrarLoginContacto");
+
+    // Manejo de abrir contacto
+    function manejarClickContacto(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Guardar si modal "Ver más" estaba abierto
+        if (modalTarjeta && !modalTarjeta.classList.contains("hidden")) {
+            modalTarjeta.dataset.prevOpen = "true";
+            modalTarjeta.classList.add("hidden"); // cerrar modal "Ver más"
+        }
+
+        // Abrir modal login si no está logueado
+        if (!estaLogueado) {
+            if (modalLogin) modalLogin.classList.remove("hidden");
+        } else {
+            console.log("Usuario logueado: abrir modal de contacto real si aplica.");
+        }
+
+    }
+
+    // Contactar experto en tarjetas y modal "Ver más"
+    document.querySelectorAll(".contact-button").forEach(btn => {
+        btn.addEventListener("click", manejarClickContacto);
     });
 
-    closeLoginModal.addEventListener('click', function () {
-        modalLogin.classList.add('hidden');
+    // Cerrar modal login y reactivar modal "Ver más" si estaba abierto
+    if (cerrarLogin) {
+        cerrarLogin.addEventListener("click", () => {
+            if (modalLogin) modalLogin.classList.add("hidden");
+
+            if (modalTarjeta && modalTarjeta.dataset.prevOpen === "true") {
+                modalTarjeta.classList.remove("hidden");
+                modalTarjeta.dataset.prevOpen = "false";
+            }
+        });
+    }
+
+    // Contactar experto dentro de modal "Ver más" (al hacer click en Ver Más)
+    document.addEventListener("click", function (e) {
+        if (e.target && e.target.classList.contains("ver-mas")) {
+            setTimeout(() => {
+                const botonModalContacto = document.querySelector("#modalTarjeta .contact-button");
+                if (botonModalContacto) {
+                    // Aseguramos que solo se agregue una vez
+                    botonModalContacto.addEventListener("click", manejarClickContacto, { once: true });
+                }
+            }, 200);
+        }
+
     });
 
 });

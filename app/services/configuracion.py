@@ -10,6 +10,9 @@ from app.models.experiencias import Experiencias
 from app.extensions import db
 from app.services.jwt_service import generar_token,generar_token_recuperacion 
 from app.services.notificaciones import enviar_link_recuperacion_correo
+import re
+
+
 # Servicio para cambiar la contraseña
 def cambiar_contrasena_service(data):
     actual_contrasena = data.get("actual_contrasena")
@@ -238,6 +241,9 @@ def restablecer_contraseña_service(data):
     # Validar longitud mínima de la contraseña
     if len(nueva_contraseña) < 6:
         return {"success": False, "message": "La contraseña debe tener al menos 6 caracteres."}
+    
+    if not re.search(r'[A-Z]', nueva_contraseña):
+        return {"success": False, "message": "La contraseña debe incluir al menos una letra mayúscula. Ejemplo: 'Contraseña123'."}
 
     # Verificar el token (con la nueva función de verificación)
     resultado_token = verificar_token(token)

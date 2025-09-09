@@ -49,6 +49,7 @@
               <!-- Botón Reportar con data-* -->
               <a href="javascript:void(0);"
                  class="btn-link abrir-modal-reporte"
+                 data-publicacion-id="{{ pub.publicacion_id }}"
                  data-usuario-reportado="{{ pub.usuario.usuario_id }}"
                  data-usuario="{{ current_user.id }}">
                  <i class="bi bi-exclamation-circle"></i><span>Reportar</span>

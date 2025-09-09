@@ -1,6 +1,5 @@
 /* Contenedor padre de toda la sección */
 
-
 .main-container {
     width: 70%;
     margin: 0 auto; /* Centrado horizontal con margen superior */
@@ -16,7 +15,7 @@
   justify-content: space-between;
   align-items: flex-end;
   border-bottom: 2px solid #f8f8f8;
-  padding-bottom: 10px;
+  margin-bottom: 2rem;
 }
 
 .no-login-title {
@@ -222,7 +221,7 @@
 /* Estilo para el contenedor con el título y las tarjetas */
   .contenedor {
     width: 100%; /* Ancho del contenedor */
-    height: 27rem; /* Altura ajustada */
+    height: 28rem; /* Altura ajustada */
     background-color: white; /* Fondo blanco */
     border: 1px solid #6b7280; /* Borde gris oscuro */
     border-radius: 1rem; /* Bordes redondeados */
@@ -304,7 +303,9 @@
   max-height: 3.6em;       /* 3 líneas aprox */
   overflow: hidden;
   text-overflow: ellipsis;
+
 }
+
 
 .ver-mas {
   font-family: 'Oswald', sans-serif;
@@ -375,6 +376,7 @@
 }
 
 /* Estilo del botón */
+
 .contact-button {
   background-color: white;
   border: 3px solid #3EAEB1;
@@ -386,6 +388,7 @@
   font-family: 'Oswald', sans-serif;
   font-weight: 600;
   transition: all 0.3s ease;
+
 }
 
 .contact-button:hover {
@@ -493,9 +496,9 @@
   }
   .menu-close-btn {
   position: absolute;
-  top: 2px;          
-  right: 6px;        
-  font-size: 20px;   
+  top: 2px;
+  right: 6px;
+  font-size: 30px;
   font-weight: normal;
   color: #333;
   cursor: pointer;
@@ -543,6 +546,7 @@
 }
 
   
+
 
 /*-----------------------------------------------
   Estilos para el modal oculto 
@@ -674,10 +678,11 @@
 }
 
 
+
 /* Estilo para el contenedor con el título y las tarjetas */
   .contenedor-destacados {
     width: 100%; /* Ancho del contenedor */
-    height: 27rem; /* Altura ajustada */
+    height: 28rem; /* Altura ajustada */
     background-color: white; /* Fondo blanco */
     border-radius: 1rem; /* Bordes redondeados */
     display: flex; /* Flexbox para centrar el contenido */
@@ -755,7 +760,7 @@
 }
 
 .boton {
-   font-family: 'Oswald', sans-serif;
+  font-family: 'Oswald', sans-serif;
   font-weight: 500;
   background-color: #3EAEB1;
   color: #fff;
@@ -814,7 +819,7 @@
 
 .modal-login-content {
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 15px;
   padding: 40px 30px;
   max-width: 420px;
   width: 90%;
@@ -852,12 +857,27 @@
 
 /* Texto link: CREAR CUENTA */
 .modal-login-content .link-modal {
-  color: #3eaeb1;
+  display: block;                /* Igual que btn-modal */
+  width: 100%;                   /* Ocupa todo el ancho del modal */
+  text-align: center;            /* Centrar texto */
+  background-color: #f8f8f8;
+  color: black;
+  border: 1px solid #E5E5E5;
   font-size: 1rem;
-  text-decoration: underline;
-  display: inline-block;
+  text-decoration: none;         /* Quitamos el subrayado */
   margin-top: 15px;
+  padding: 12px 0;               /* Igual altura que btn-modal */
+  border-radius: 6px;            /* Bordes redondeados */
+  font-weight: bold;             /* Igual que btn-modal */
+  transition: background-color 0.3s, color 0.3s;
 }
+
+/* Hover para que tenga efecto similar a btn-modal */
+.modal-login-content .link-modal:hover {
+   opacity: 0.8;
+}
+
+
 
 /* Botón cerrar (X) más grande y más pegado al borde */
 .close-button {
@@ -882,163 +902,94 @@
   Estilos para responsive 
 -----------------------------------------------*/
 
-
-/* --- Media Queries --- */
-
-/* Large devices (laptops and desktops) */
+/* Tablets grandes y laptops pequeñas (hasta 1200px) */
 @media (max-width: 1200px) {
-    .main-container {
-        width: 85%;
-    }
+  .main-container {
+    width: 85%;
+  }
+  .contenedor {
+    height: auto; /* Ajusta la altura automática */
+  }
+  .contenedor-destacados {
+    height: auto; /* Ajusta la altura automática */
+  }
 
-    .frase {
-        font-size: 1.8rem;
-    }
+  .titulo-categorias,
+  .titulo-interes,
+  .titulo-frases {
+    font-size: 1.8rem;
+  }
 
-    .titulo-categorias {
-        font-size: 2rem;
-    }
-
-    .titulo-interes {
-        font-size: 2rem;
-    }
+  .card-tarjeta {
+    flex: 0 0 300px; /* Más compacto */
+    height: auto;
+  }
 }
 
-/* Medium devices (tablets, 768px and up) */
+/* Tablets y pantallas medianas (hasta 992px) */
 @media (max-width: 992px) {
-    .card-tarjeta {
-        flex: 0 0 300px; /* Ancho de tarjeta ajustado para tabletas */
-        height: auto; /* Altura automática */
-        padding: 12px; /* Relleno ajustado */
-    }
+  .main-container {
+    width: 80%;
+    gap: 25px;
+  }
 
-    .card-tarjeta img {
-        width: 90px; /* Ancho de imagen ajustado */
-        height: 90px; /* Altura de imagen ajustada */
-    }
+  .login-title,
+  .no-login-title {
+    font-size: 3rem;
+  }
 
-    .nombre {
-        font-size: 19px; /* Tamaño de fuente ajustado */
-    }
+  .frase {
+    font-size: 1.6rem;
+  }
 
-    .profesion {
-        font-size: 15px; /* Tamaño de fuente ajustado */
-    }
+  .categoria {
+    width: 90px;
+  }
 
-    .descripcion-titulo,
-    .descripcion-texto {
-        font-size: 14px; /* Tamaño de fuente ajustado */
-    }
+  .categoria img {
+    width: 80px;
+    height: 80px;
+  }
 
-    .menu-button {
-        font-size: 18px; /* Tamaño de botón de menú ajustado */
-    }
+  .nombre-categoria {
+    font-size: 1rem;
+  }
 
-    .menu-button-container {
-        top: 0px; /* Reajusta la posición superior para el tamaño del botón */
-        right: 0px; /* Reajusta la posición derecha */
-    }
+  .card-tarjeta {
+    flex: 0 0 260px;
+    gap: 10px;
+    height: auto;
+  }
+
+  .card-tarjeta img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .nombre {
+    font-size: 16px;
+  }
+  .profesion,
+  .descripcion-texto {
+    font-size: 14px;
+  }
+
+}
+.btn-experto {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  background-color: #3EAEB1; /* ✅ color del botón */
+  color: #fff;              /* texto en blanco */
+  border: none;
+  padding: 6px 20px;
+  border-radius: 20px;       /* mismo estilo redondeado */
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  text-decoration: none;     /* evita subrayado si es <a> */
+  display: inline-block;
 }
 
-/* Dispositivos pequeños (teléfonos en horizontal, 768px y menos) */
-@media (max-width: 768px) {
-    .card-tarjeta {
-        flex: 0 0 260px; /* Reduce aún más el ancho de la tarjeta */
-         max-width: 500px; /* un límite razonable */
-    min-height: 320px; /* más altura mínima */
-        padding: 10px; /* Relleno ajustado */
-    }
-
-    .card-tarjeta img {
-        width: 80px; /* Ancho de imagen más pequeño */
-        height: 80px; /* Altura de imagen más pequeña */
-    }
-    .contenedor {
-    width: 100%; /* Ancho del contenedor */
-    height: 30rem; /* Altura ajustada */
-    background-color: white; /* Fondo blanco */
-    border: 1px solid #6b7280; /* Borde gris oscuro */
-    border-radius: 1rem; /* Bordes redondeados */
-    display: flex; /* Flexbox para centrar el contenido */
-    flex-direction: column; /* Colocar el contenido en una columna (título + slider) */
-    position: relative; /* Posición relativa para iconos u otros elementos */
-    overflow: hidden; /* Ocultar el desbordamiento */
-    padding: 15px; /* Espaciado interno */
-}
-
-    .nombre {
-        font-size: 18px; /* Tamaño de fuente ajustado */
-    }
-
-    .profesion {
-        font-size: 14px; /* Tamaño de fuente ajustado */
-    }
-
-    .descripcion-titulo,
-    .descripcion-texto {
-        font-size: 13px; /* Tamaño de fuente ajustado */
-    }
-
-    .menu-button {
-        font-size: 16px; /* Tamaño de botón de menú más pequeño */
-    }
-}
-
-/* Dispositivos extra pequeños (teléfonos en vertical, 575px y menos) */
-@media (max-width: 575px) {
-    .card-tarjeta {
-        flex: 0 0 90%; /* La tarjeta ocupa casi todo el ancho en las pantallas más pequeñas */
-        max-width: 400px; /* Evita que se haga demasiado ancha en pantallas pequeñas ligeramente más grandes */
-        margin: 0 auto; /* Centra la tarjeta cuando ocupa casi todo el ancho */
-        padding: 8px; /* Relleno aún más ajustado */
-    }
-    .slider {
-        justify-content: start; /* Centra las tarjetas en el slider cuando solo una es visible */
-    }
-    .card-tarjeta img {
-        width: 70px; /* Ancho de imagen más pequeño */
-        height: 70px; /* Altura de imagen más pequeña */
-        margin-bottom: 5px; /* Ajusta el margen para la imagen más pequeña */
-    }
-
-    .nombre {
-        font-size: 17px; /* Tamaño de fuente ajustado */
-        margin-top: 2px; /* Margen superior más pequeño */
-    }
-
-    .profesion {
-        font-size: 12px; /* Tamaño de fuente ajustado */
-        margin-top: 2px; /* Margen superior más pequeño */
-    }
-
-    .descripcion-titulo,
-    .descripcion-texto {
-        font-size: 11px; /* Tamaño de fuente ajustado */
-    }
-
-    .ver-mas {
-        font-size: 0.7rem; /* Tamaño de fuente más pequeño para 'Ver más' */
-    }
-
-    .menu-button {
-        font-size: 14px; /* Tamaño de botón de menú más pequeño */
-        padding: 3px; /* Relleno más pequeño */
-    }
-
-    .menu-button-container {
-        top: -5px; /* Ajusta la posición ligeramente hacia arriba */
-        right: -5px; /* Ajusta la posición ligeramente hacia la izquierda */
-    }
-
-    .menu-completo {
-        top: 20px; /* Ajusta la posición superior del menú desplegable */
-        width: 100px; /* Menú ligeramente más estrecho */
-        font-size: 12px; /* Tamaño de fuente del menú */
-    }
-    .menu-completo button span {
-        font-size: 12px; /* Tamaño de fuente del texto de los botones del menú */
-    }
-    .menu-completo i {
-        font-size: 14px; /* Tamaño de los íconos en el menú */
-    }
+.btn-experto:hover {
+  background-color: #2e9092; /* tono más oscuro al pasar el mouse */
 }

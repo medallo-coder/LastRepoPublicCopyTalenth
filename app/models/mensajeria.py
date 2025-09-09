@@ -20,6 +20,6 @@ class Mensajeria(db.Model):
             'emisor':     self.emisor.usuario_id,
             'receptor':   self.receptor.usuario_id,
             'texto':      self.texto,
-            'fecha':      self.fecha.isoformat(),
+            'fecha': self.fecha if isinstance(self.fecha, str) else self.fecha.isoformat(),
             'leido':      self.leido
         }

@@ -83,12 +83,12 @@
               <div class="iconos">
                 <i id="lapizubicacion" class="bi bi-pencil-square" onclick="abrirFormularioEditarUbicacion()"></i>
 
-                <form method="POST" action="{{ url_for('web.perfil_cliente') }}" style="display: inline;">
+                <form method="POST" action="{{ url_for('web.perfil_cliente') }}" style="display: inline;" id="formEliminarBarrio">
                   <input type="hidden" name="form_tipo" value="direccion">
                   <input type="hidden" name="direccion" value="">
-                  <button type="submit" class="bi bi-trash" title="Eliminar dirección"
-                    onclick="return confirm('¿Seguro que deseas eliminar la dirección?')"></button>
+                  <button type="button" id="btnEliminarBarrio" class="bi bi-trash" title="Eliminar dirección"></button>
                 </form>
+
               </div>
             </div>
           </div>
@@ -100,33 +100,9 @@
 
         </div>
 
-        <!-- Sección de empresa -->
-        <div class="empresa">
-          <p class="empresa-registrada">Empresa registrada</p>
-          <h2 class="titulo-empresa">¿Perteneces a una empresa?</h2>
-
-          <!-- Información de la empresa -->
-          <div class="item-empresa" {% if not nombre_empresa %}style="display: none;" {% endif %}>
-            <div class="empresaicon">
-              <h3 class="nombre_empresa" id="nombreMostrado">NOMBRE </h3>
-              <div class="iconos">
-                <i id="lapizempresa" class="bi bi-pencil-square" onclick="mostrarFormularioEditar()"></i>
-                <i class="bi bi-trash"></i>
-              </div>
-            </div>
-          </div>
-
-          <!-- Botón para añadir empresa -->
-          <div class="añadir-empresa" id="btnAñadirEmpresa" {% if nombre_empresa %}style="display: none;" {% endif %}>
-            <span onclick="mostrarFormularioEmpresa()">+ Añadir nombre</span>
-          </div>
-
-
-        </div>
-
       </div>
 
-      <!-- Carrucel-->
+      <!-- Carrucel calificaciones-->
 
       <div class="contenedor">
         <h2 id="titulo-favoritos">Calificaciones</h2>
@@ -283,47 +259,7 @@
           </form>
         </div>
       </div>
-
-
-      <!-- Formulario para añadir empresa -->
-      <div class="formulario-empresa" id="formulario-empresa" style="display: none;">
-        <div class="formulario-empresa-contenido">
-          <h2>Agregar empresa</h2>
-          <form method="POST" action="{{ url_for('web.perfil_cliente') }}">
-            <input type="hidden" name="form_tipo" value="nombre_empresa">
-            <div class="campo">
-              <input type="text" name="nombre_empresa" placeholder="Escribe el nombre de la empresa" required />
-            </div>
-            <div class="botones">
-              <button type="submit">Guardar</button>
-              <button type="button" onclick="cerrarFormularioEmpresa()">Cancelar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-
-      <!-- Formulario emergente para editar empresa -->
-      <div class="formulario-editar-empresa" id="formulario-editar-empresa" style="display: none;">
-        <div class="formulario-editar-empresa-contenido">
-          <h2>Editar empresa</h2>
-          <form method="POST" action="{{ url_for('web.perfil_cliente') }}">
-            <input type="hidden" name="form_tipo" value="nombre_empresa">
-            <div class="campo">
-              <label for="editar-empresa"></label>
-              <input type="text" id="editar-empresa" name="nombre_empresa" placeholder="Escribe el nuevo nombre"
-                required />
-            </div>
-            <div class="botones">
-              <button type="submit">Guardar</button>
-              <button type="button" onclick="cerrarFormularioEditarEmpresa()">Cancelar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-
-
+      
       <!-- Formulario de edición de contacto -->
       <div class="formulario-editar" id="formulario-editar" style="display: none;">
         <div class="formulario-contenido">
@@ -365,6 +301,17 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal eliminar barrio -->
+<div id="modalEliminarBarrio" class="modal-overlay hidden">
+  <div class="modal-content-delete">
+    <p>¿Seguro que deseas eliminar este barrio?</p>
+    <div class="modal-buttons">
+      <button id="confirmEliminarBarrio" class="btn-aceptar">Aceptar</button>
+      <button id="cancelEliminarBarrio" class="btn-cancelar">Cancelar</button>
+    </div>
+  </div>
+</div>
 
 
     <script src="{{ url_for('static', filename='js/perfil_cliente.js') }}"></script>

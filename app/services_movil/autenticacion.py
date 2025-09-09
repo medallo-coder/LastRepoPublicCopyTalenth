@@ -1,5 +1,5 @@
-from app.services.jwt_service import generar_token, verificar_token
-from app.services.notificaciones import enviar_notificacion_registro
+from app.services_movil.jwt_service import generar_token, verificar_token
+from app.services_movil.notificaciones import enviar_notificacion_registro
 from app.services.perfil_experto import insertar_perfil_id
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.models.usuario import Usuario

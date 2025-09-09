@@ -229,7 +229,76 @@ textarea::placeholder {
   background: #f0f0f0;
 }
 
-/* ---------------- MENSAJES ---------------- */
+
+/* Imagen y precio */
+.publicacion-img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.publicacion-img img {
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.publicaciones-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* espacio entre tarjetas */
+}
+
+
+
+@media (max-width: 576px) {
+  .publicaciones-grid {
+    display: block; /* Apila verticalmente */
+  }
+
+  .publicacion-card {
+    width: 100%;
+    margin-bottom: 20px; /* espacio entre tarjetas */
+  }
+}
+.tabs {
+  gap: 1rem; /* Reduce el espacio entre las pestañas */
+  justify-content: space-around; /* Distribuye las pestañas equitativamente */
+}
+
+.publicacion-img .precio {
+  font-size: 13px;
+  color: #444;
+  margin-top: 5px;
+}
+
+/* Info */
+.publicacion-info {
+  margin-left: 15px;
+  flex: 1;
+}
+
+.publicacion-info .nombre {
+  font-size: 24px;
+  color: #000000;
+  margin-bottom: 4px;
+}
+
+.publicacion-info .titulo {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.publicacion-info .descripcion {
+  font-size: 13px;
+  color: #444;
+  margin-bottom: 3px;
+}
+
+/* Sin publicaciones */
+
 .sin-publicaciones {
   text-align: center;
   font-size: 15px;
@@ -249,7 +318,105 @@ textarea::placeholder {
   font-size: 16px;
 }
 
-/* ---------------- PESTAÑAS ---------------- */
+
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  width: 95%;
+  max-width: 600px;
+  margin: 0 auto; /* Centra horizontalmente */
+  display: block;
+  padding: 10px 12px;
+  background: #d9d9d9;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+}
+
+
+input::placeholder,
+textarea::placeholder {
+  color: #555;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.btn-secondary {
+  background: #f8f8f8;
+  color: black;
+  padding: 0.4rem 3rem;
+  border-radius: 20px;
+  border: 1px solid #E5E5E5;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: 'Oswald', sans-serif;
+  text-decoration: none;
+}
+
+.btn-primary {
+  cursor: pointer;
+  color: #ffffff;
+  border: none;
+  background-color: #3eaeb1;
+  font-family: 'Oswald', sans-serif;
+  padding: 8px 8%;
+  border-radius: 20px;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+button:hover,
+.btn-secondary:hover {
+  background-color: #d9d9d9;
+}
+
+.btn-primary:hover {
+  background-color: #3eaeb1;
+  color: white;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;      /* Centra los botones horizontalmente */
+  gap: 56px;                    /* Espacio entre botones */
+  margin-top: 20px;            /* Espacio por encima de los botones */
+}
+
+
+
+/*nav de navegacion entre perfil  y publicaciones*/
+
+/* Contenedor principal centrado y responsivo */
+.cuadro {
+  width: 100%;
+  max-width: 70%;           /* Anchura máxima en pantallas grandes */
+  background-color: white;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 auto 1.5rem auto; /* Centrado horizontal + margen inferior */
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Estilo para el cuadro redondo */
+.redondo {
+  height: 5rem;
+  border-radius: 2rem;
+  border: 1px solid #6b7280;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contenedor de pestañas centrado y adaptativo */
+/* Estilos para las pestañas de navegación */
+
 .tabs {
   width: 100%;
   display: flex;
@@ -264,7 +431,7 @@ textarea::placeholder {
 }
 
 .tabs__tab {
-  padding: 0.7em 1.5em;
+  padding: 1rem 1.5em;
   cursor: pointer;
   position: relative;
   z-index: 1;
@@ -279,6 +446,10 @@ textarea::placeholder {
   border-radius: 8px;
   transition: all 0.3s ease;
   z-index: 0;
+  left: 0px;
+    top: 0px;
+    width: 141px;
+    height: 63px;
 }
 
 
@@ -314,12 +485,14 @@ textarea::placeholder {
   display: flex;
   justify-content: center;
   align-items: center;
+  max-width: 70%;
 }
 
 /* ---------------- RESPONSIVE ---------------- */
 @media (max-width: 768px) {
-  .publicaciones-grid {
-    display: block;
+
+  .tab {
+    font-size: 1rem;          /* Tamaño más pequeño en móvil/tablet */    /* Menos altura visual */
   }
 
   .publicacion-card {

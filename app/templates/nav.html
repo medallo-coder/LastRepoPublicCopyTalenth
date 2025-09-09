@@ -64,46 +64,49 @@
                 <h1 style="color: black;">Explora en <span style="color: #3eaeb1;">Cali</span><span style="color: black;">Trabaja</span></h1>
             </div>
 
-            <ul class="nav_link">
-                <li><a href="{{ url_for('web.inicio') }}"><i class="bi bi-house-door"></i><span>Inicio</span></a></li>
-                <li><a href="{{ url_for('web.perfil_general') }}"><i class="bi bi-person-fill"></i><span>perfil</span></a></li>
+        <ul class="nav_link">
+            <!-- Siempre visibles -->
+            <li><a href="{{ url_for('web.inicio') }}"><i class="bi bi-house-door"></i><span>Inicio</span></a></li>
+            <li><a href="{{ url_for('web.publicaciones') }}"><i class="bi bi-grid"></i><span>Publicaciones</span></a></li>
 
-
-                <li><a href="{{ url_for('web.publicaciones') }}"><i class="bi bi-grid"></i><span>Publicaciones</span></a></li>
+            {% if session.get('jwt') %}
+                <!-- Solo si el usuario tiene sesión iniciada -->
+                <li><a href="{{ url_for('web.perfil_general') }}"><i class="bi bi-person-fill"></i><span>Perfil</span></a></li>
                 <li><a href="{{ url_for('mensajeria.mensajeria') }}"><i class="bi bi-chat-dots"></i><span>Mensajes</span></a></li>
 
-{% if rol_usuario == 2 %}
-    <!-- Usuario es CLIENTE → puede convertirse en EXPERTO -->
-    <li>
-        <a href="#" class="btn-cambio-rol"
-           data-url="{{ url_for('web.convertir_a_experto') }}"
-           data-titulo="Convertirse en Experto">
-            <i class="bi bi-person-fill-check"></i>
-            <span>Convertirse en Experto</span>
-        </a>
-    </li>
-{% endif %}
 
-<li>
-    <a href="{{ url_for('web.configuracion') }}">
-        <i class="bi bi-gear"></i>
-        <span>Configuración</span>
-    </a>
-</li>
-
-{% if session.get('jwt') %}
-    <li class="cerrar-li">
-        <form action="{{ url_for('web.cerrar_sesion') }}" method="POST" class="cerrar-form">
-            <button type="submit">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Cerrar Sesión</span>
-            </button>
-        </form>
-    </li>
-{% endif %}
+            {% if rol_usuario == 2 %}
+            <li>
+                <a href="#" class="btn-cambio-rol"
+                data-url="{{ url_for('web.convertir_a_experto') }}"
+                data-titulo="Convertirse en Experto">
+                    <i class="bi bi-person-fill-check"></i>
+                    <span>Convertirse en Experto</span>
+                </a>
+            </li>
+            {% endif %}
 
 
-            </ul>
+                <li>
+                    <a href="{{ url_for('web.configuracion') }}">
+                        <i class="bi bi-gear"></i>
+                        <span>Configuración</span>
+                    </a>
+                </li>
+
+                <li class="cerrar-li">
+                    <form action="{{ url_for('web.cerrar_sesion') }}" method="POST" class="cerrar-form">
+                        <button type="submit">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Cerrar Sesión</span>
+                        </button>
+                    </form>
+                </li>
+
+            {% endif %}
+        </ul>
+
+
 
             <i class="bi bi-brightness-high-fill" id="theme-toggle"></i>
 
@@ -118,19 +121,42 @@
         </nav>
     </div>
 
+  
 
 
-    <!-- Modal de confirmación -->
+
+
+<!-- Modal de confirmación -->
 <div id="modalCambioRol" class="modal" style="display:none;">
   <div class="modal-content">
-    <h2 id="modal-title">¿Estás seguro?</h2>
-    <p id="modal-text">¿Deseas cambiar tu rol?</p>
+    <h2 id="modal-title">Conviértete en Experto ahora</h2>
+    <p id="modal-text">
+      Podrás publicar tus servicios, promocionarlos y crear un perfil que atraiga clientes.<br><br>
+      ¿Deseas continuar?
+    </p>
     <div class="modal-buttons">
       <a id="btnAceptar" class="btn-confirm" href="#">Aceptar</a>
       <button id="btnCancelar">Cancelar</button>
     </div>
   </div>
 </div>
+
+
+<!-- Modal cerrar sesión reorganizado -->
+<div id="modalCerrarSesion" class="modal-cerrar-sesion hidden">
+  <div class="modal-content"> <!-- cambié modal-cerrar-content a modal-content para igualar estilos -->
+    <h2>¿Seguro que quieres salir?</h2>
+    <p>¡Te esperamos de vuelta!</p>
+    <div class="modal-buttons"> <!-- contenedor de botones igual que modal de rol -->
+      <a href="{{ url_for('web.cerrar_sesion') }}" class="btn-confirm">Cerrar sesión</a>
+      <button id="btnCancelarCerrar" class="btn-cancel">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+
+
+
 
 
 <!-- Script del modal -->

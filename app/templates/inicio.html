@@ -29,13 +29,7 @@
       <p class="bienvenidos">BIENVENIDOS A</p>
       <p><span class="cali">CALI</span> TRABAJA</p>
     </div>
-    <div class="app-icons">
-      <p>Obtener aplicación</p>
-      <div class="icons">
-        <i class="bi bi-google-play"></i>
-        <i class="bi bi-windows"></i>
-      </div>
-    </div>
+    
   </div>
   {% else %}
   <!-- ENCABEZADO PARA USUARIOS LOGUEADOS -->
@@ -186,7 +180,8 @@
                   <i class="bi bi-person-fill"></i><span>Ver perfil</span>
                 </a>
                 <!-- Contenedor de mensajes dinámicos -->
-              {% if session.get('jwt') %}
+                
+                {% if session.get('jwt') %}
                 <a href="javascript:void(0);" class="guardar-btn" data-id="{{ pub.publicacion_id }}">
                   {% if pub.publicacion_id in publicaciones_guardadas_ids %}
                     <i class="bi bi-bookmark-dash"></i><span>Eliminar</span>
@@ -197,8 +192,8 @@
 
                 <a href="javascript:void(0);" class="btn-link abrir-modal-reporte" data-publicacion-id="{{ pub.publicacion_id }}" data-usuario-reportado="{{ pub.usuario.usuario_id }}" data-usuario="{{ current_user.id }}">
                   <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
+                  {% endif %}
                 </a>
-              {% endif %}
               </div>
             </div>
           <!----fin manu-->
@@ -289,7 +284,7 @@
                   <i class="bi bi-person-fill"></i><span>Ver perfil</span>
                 </a>
                 <!-- Contenedor de mensajes dinámicos -->
-        
+                 {% if session.get('jwt') %}
                 <a href="javascript:void(0);" class="guardar-btn" data-id="{{ pub.publicacion_id }}">
                   {% if pub.publicacion_id in publicaciones_guardadas_ids %}
                     <i class="bi bi-bookmark-dash"></i><span>Eliminar</span>
@@ -300,6 +295,7 @@
 
                 <a href="javascript:void(0);" class="btn-link abrir-modal-reporte" data-publicacion-id="{{ pub.publicacion_id }}" data-usuario-reportado="{{ pub.usuario.usuario_id }}" data-usuario="{{ current_user.id }}">
                   <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
+                  {% endif %}
                 </a>
               </div>
             </div>
@@ -416,7 +412,20 @@
         </div>
       </div>
 
-      <button class="boton">Convertirse en Experto</button>
+{% if rol_usuario == 2 %}
+    <!-- Usuario es CLIENTE → puede convertirse en EXPERTO -->
+    <li>
+        <a href="#"
+           class="btn-experto btn-cambio-rol"
+           data-url="{{ url_for('web.convertir_a_experto') }}"
+           data-titulo="Convertirse en Experto">
+            <i class="bi bi-person-fill-check"></i>
+            Convertirse en Experto
+        </a>
+    </li>
+{% endif %}
+
+      
     </div>
   </section>
   {% endif %}
@@ -455,18 +464,24 @@
   <script src="{{ url_for('static', filename='js/modal_reportar.js') }}"></script>
 
   <div id="modalLoginContacto" class="modal-login-contacto hidden">
-  <div class="modal-login-content">
-    <button id="cerrarLoginContacto" class="close-button">&times;</button>
-    <h2>¡Hola! Para contactar a un experto, <br> inicia sesión</h2>
-    <a href="{{ url_for('web.iniciar_sesion') }}" class="btn-modal">Ingresar</a>
-    <a href="{{ url_for('web.registrarse') }}" class="link-modal">Crear cuenta</a>
+    <div class="modal-login-content">
+        <!-- Botón de cerrar -->
+        <button id="cerrarLoginContacto" class="close-button">&times;</button>
+
+        <!-- Mensaje de inicio de sesión -->
+        <h2>
+            ¡Hola! Para contactar a un experto, <br>
+            inicia sesión
+        </h2>
+
+        <!-- Botones de acción -->
+        <a href="{{ url_for('web.iniciar_sesion') }}" class="btn-modal">Ingresar</a>
+        <a href="{{ url_for('web.registrarse') }}" class="link-modal">Crear cuenta</a>
+    </div>
   </div>
-</div>
 
 
-
-
-</body>
+<body data-logged-in="{{ 'true' if session.get('jwt') else 'false' }}">
 
 
 </html>

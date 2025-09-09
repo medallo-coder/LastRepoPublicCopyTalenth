@@ -174,4 +174,58 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+    const modalLogin = document.getElementById("modalLoginContacto");
+    const cerrarLogin = document.getElementById("cerrarLoginContacto");
+    const isLoggedIn = document.body.getAttribute("data-logged-in") === "true";
+
+    // Función para abrir modal login/contacto
+    function manejarClickContacto(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Guardar si modal de ver más estaba abierto
+        if (modalTarjeta && !modalTarjeta.classList.contains("hidden")) {
+            modalTarjeta.dataset.prevOpen = "true";
+            modalTarjeta.classList.add("hidden");
+        }
+
+        // Abrir modal login si no está logueado
+        if (!isLoggedIn) {
+            if (modalLogin) modalLogin.classList.remove("hidden");
+        } else {
+            console.log("Usuario logueado: abrir modal de contacto real si aplica.");
+        }
+    }
+
+    // Asignar evento a todos los botones “Contactar experto”
+    document.querySelectorAll(".contact-button").forEach(btn => {
+        btn.addEventListener("click", manejarClickContacto);
+    });
+
+    // Cerrar modal login y reactivar modal “Ver más” si estaba abierto
+    if (cerrarLogin) {
+        cerrarLogin.addEventListener("click", () => {
+            if (modalLogin) modalLogin.classList.add("hidden");
+
+            // Reactivar modal de ver más si estaba abierto
+            if (modalTarjeta && modalTarjeta.dataset.prevOpen === "true") {
+                modalTarjeta.classList.remove("hidden");
+                modalTarjeta.dataset.prevOpen = "false";
+            }
+        });
+    }
+
+    // Reaplicar evento para botón contactar dentro del modal "Ver más"
+    document.addEventListener("click", function (e) {
+        if (e.target && e.target.classList.contains("ver-mas")) {
+            setTimeout(() => {
+                const botonModalContacto = document.querySelector("#modalTarjeta .contact-button");
+                if (botonModalContacto) {
+                    botonModalContacto.addEventListener("click", manejarClickContacto, { once: true });
+                }
+            }, 200);
+        }
+    });
+
 });

@@ -4,6 +4,7 @@ from flask import Blueprint, request, jsonify, render_template
 from flask_login import login_required, current_user
 from flask_socketio import emit, join_room
 from datetime import datetime
+from sqlalchemy import or_, func, case
 
 from app.extensions import db, socketio
 from app.models.mensajeria import Mensajeria
@@ -12,6 +13,7 @@ from app.models.perfiles import perfiles
 
 mensajeria_bp = Blueprint('mensajeria', __name__, url_prefix='/mensajeria')
 
+user_sid_map = {}  # Guarda: user_id → socket.id
 
 # ─── RUTAS HTTP ──────────────────────────────────────────────────────────────
 
@@ -52,69 +54,63 @@ def enviar_mensaje():
     return jsonify({'message': 'Mensaje enviado correctamente.'}), 201
 
 
+from sqlalchemy import case
+
 @mensajeria_bp.route('/conversaciones/<int:usuario_id>', methods=['GET'])
 def obtener_conversaciones(usuario_id):
-    mensajes = Mensajeria.query.filter(
-        (Mensajeria.id_emisor   == usuario_id) |
-        (Mensajeria.id_receptor == usuario_id)
-    ).order_by(Mensajeria.fecha.desc()).all()
+    try:
+        mensajes = Mensajeria.query.filter(
+            or_(
+                Mensajeria.id_emisor == usuario_id,
+                Mensajeria.id_receptor == usuario_id
+            )
+        ).order_by(Mensajeria.fecha.desc()).all()
 
-    
+        conversaciones = {}
 
+        for m in mensajes:
+            otro_id = m.id_receptor if m.id_emisor == usuario_id else m.id_emisor
+            if otro_id not in conversaciones:
+                conversaciones[otro_id] = {
+                    'ultimo_texto': m.texto,
+                    'hora': m.fecha.strftime('%H:%M'),
+                    'pendientes': 0,
+                    'fecha': m.fecha
+                }
+            if m.id_receptor == usuario_id and not m.leido:
+                conversaciones[otro_id]['pendientes'] += 1
 
-    contactos = {}
-    for m in mensajes:
-        otro_id = m.id_receptor if m.id_emisor == usuario_id else m.id_emisor
-        if otro_id not in contactos:
-            u      = Usuario.query.get(otro_id)
-            perfil = perfiles.query.filter_by(id_usuario=otro_id).first()
-
+        resultado = []
+        for otro_id, datos in conversaciones.items():
+            usuario = Usuario.query.get(otro_id)
+            if not usuario:
+                continue
+            perfil = perfiles.query.filter_by(id_usuario=usuario.usuario_id).first()
             nombre = (
                 f"{perfil.primer_nombre or ''} {perfil.primer_apellido or ''}".strip()
                 if perfil and perfil.primer_nombre
-                else u.correo.split('@')[0]
+                else usuario.correo.split('@')[0]
             )
             foto = perfil.foto_perfil if perfil and perfil.foto_perfil else 'default.jpg'
-            
-            pendientes = Mensajeria.query.filter_by(
-                id_emisor=otro_id,
-                id_receptor=usuario_id,
-                leido=False
-            ).count()
 
-            contactos[otro_id] = {
-                'usuario_id':     u.usuario_id,
-                'correo':         u.correo,
-                'nombre':         nombre,
-                'foto':           foto,
-                'ultimo_mensaje': m.texto,
-                'fecha':          m.fecha.strftime('%Y-%m-%d %H:%M:%S'),
-                'pendientes': pendientes
-            }
+            resultado.append({
+                'usuario_id': usuario.usuario_id,
+                'correo': usuario.correo,
+                'nombre': nombre,
+                'foto': foto,
+                'ultimo_texto': datos['ultimo_texto'],
+                'hora': datos['hora'],
+                'pendientes': datos['pendientes']
+            })
 
-    return jsonify(list(contactos.values())), 200
+        # Ordenar por fecha del último mensaje
+        resultado.sort(key=lambda x: x['hora'], reverse=True)
 
+        return jsonify(resultado), 200
 
-@mensajeria_bp.route('/<int:id_emisor>/<int:id_receptor>', methods=['GET'])
-def obtener_mensajes(id_emisor, id_receptor):
-    historial = Mensajeria.query.filter(
-        ((Mensajeria.id_emisor   == id_emisor)   & (Mensajeria.id_receptor == id_receptor)) |
-        ((Mensajeria.id_emisor   == id_receptor) & (Mensajeria.id_receptor == id_emisor))
-    ).order_by(Mensajeria.fecha.asc()).all()
-
-    resultado = [
-        {
-            'mensaje_id':  m.mensaje_id,
-            'id_emisor':   m.id_emisor,
-            'id_receptor': m.id_receptor,
-            'texto':       m.texto,
-            'fecha':       m.fecha.strftime('%Y-%m-%d %H:%M:%S'),
-            'leido':       getattr(m, 'leido', False)
-        }
-        for m in historial
-    ]
-
-    return jsonify(resultado), 200
+    except Exception as e:
+        print("❌ Error en obtener_conversaciones:", e)
+        return jsonify({'error': 'Error interno en conversaciones'}), 500
 
 
 @mensajeria_bp.route('/usuarios', methods=['GET'])
@@ -139,6 +135,10 @@ def obtener_usuarios():
         })
 
     return jsonify(resultados), 200
+
+def _obtener_sid_de_usuario(user_id):
+    return user_sid_map.get(int(user_id))
+
 
 
 # ─── HELPERS ─────────────────────────────────────────────────────────────────
@@ -192,7 +192,7 @@ def handle_join(data):
         emit('message_read', {'mensaje_id': ids}, room=_room_name(user_id, other_id))
         
         # Avisar solo al otro usuario que refresque su lista
-        sid_otro = obtener_sid_usuario(other_id)  # tu función para mapear user_id → sid
+        sid_otro = _obtener_sid_de_usuario(other_id)  # tu función para mapear user_id → sid
         if sid_otro:
             emit('update_conversations', {}, to=sid_otro)
 
@@ -220,6 +220,11 @@ def handle_send(data):
     join_room(room)  # Asegura que el emisor esté en la sala
     emit('new_message', payload, room=room)
     print("🔥 servidor emitió new_message a room:", room, "con payload:", payload)
+    # 🔔 Notificar al receptor que hay un nuevo mensaje y debe refrescar la lista
+    sid_receptor = _obtener_sid_de_usuario(mensaje.id_receptor)
+    if sid_receptor:
+        emit('update_conversations', {}, to=sid_receptor)
+
 
 @socketio.on('message_seen')
 def handle_seen(data):
@@ -258,3 +263,19 @@ def handle_stop_typing(data):
     room = _room_name(user_id, other_id)
     if room:
         emit('stop_typing', data, room=room)
+
+@socketio.on('identify')
+def identify_user(data):
+    user_id = data.get('user_id')
+    if user_id:
+        user_sid_map[int(user_id)] = request.sid
+        print(f"✅ Usuario {user_id} identificado con SID {request.sid}")
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    # Eliminar cualquier mapeo que use este SID
+    for uid, sid in list(user_sid_map.items()):
+        if sid == request.sid:
+            print(f"🔌 Usuario {uid} desconectado")
+            del user_sid_map[uid]
+            break

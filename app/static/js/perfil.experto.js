@@ -194,6 +194,35 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("formularioAptitudes").style.display = "flex";
     });
   }
+
+  const modalEliminar = document.getElementById('modalEliminar');
+const textoEliminar = document.getElementById('textoEliminar');
+const btnConfirmar = document.getElementById('confirmEliminar');
+const btnCancelar = document.getElementById('cancelEliminar');
+
+let formActual = null;
+
+// Abrir modal al hacer clic en botón eliminar
+document.querySelectorAll('.btn-eliminar').forEach(btn => {
+  btn.addEventListener('click', () => {
+    formActual = btn.closest('form');
+    textoEliminar.textContent = btn.dataset.texto; // personaliza mensaje
+    modalEliminar.classList.remove('hidden');
+  });
+});
+
+// Confirmar eliminación
+btnConfirmar.addEventListener('click', () => {
+  if(formActual) formActual.submit();
+});
+
+// Cancelar eliminación
+btnCancelar.addEventListener('click', () => {
+  modalEliminar.classList.add('hidden');
+  formActual = null;
+});
+
+
 });
 
 // Cerrar formularios al hacer clic fuera

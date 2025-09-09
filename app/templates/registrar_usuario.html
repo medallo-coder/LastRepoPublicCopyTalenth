@@ -10,11 +10,13 @@
 </head>
 <body>
 
-    <div class="logo">
-        <!-- Ícono Vector.svg -->
-        <img src="{{ url_for('static', filename='images/Vector.svg') }}" alt="Logo">
-        <!-- Texto ContrataYA! -->
-        <span><span style="color: #3eaeb1;">Cali</span><span style="color: black;">Trabaja</span></span>
+   <div class="left-group">
+        <a href="/" class="link">
+            <img src="{{ url_for('static', filename='images/Vector.svg') }}" alt="logo" class="logo">
+            <div class="logo-text">
+                <h1>Cali<span class="azul">Trabaja</span></h1>
+            </div>
+        </a>
     </div>
 
     <!-- Mostrar errores y mensajes -->
@@ -52,9 +54,10 @@
             <div id="password-req-error" style="color: red; font-size: 13px; margin-left: 10px; display: none;"></div>
 
             <div id="password-requirements" style="font-size: 12px; color: #666; margin-left: 10px; margin-top: 5px;">
-            <p><span id="req-length" style="color: red;">&#x25CB;</span> Al menos 6 caracteres</p>
-            <p><span id="req-uppercase" style="color: red;">&#x25CB;</span> Al menos 1 letra mayúscula</p>
+                <p><span id="req-length"><i class="bi bi-x-circle text-danger"></i></span> Al menos 6 caracteres</p>
+                <p><span id="req-uppercase"><i class="bi bi-x-circle text-danger"></i></span> Al menos 1 letra mayúscula</p>
             </div>
+
 
 
             <div class="input-group">

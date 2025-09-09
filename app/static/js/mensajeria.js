@@ -3,35 +3,42 @@ console.log('🔄 mensajeria.js inicializado');
 
 const socket = io(); // conecta al mismo origen
 const userId = +document.getElementById('currentUserId').value;
+socket.emit('identify', { user_id: userId }); // 🟢 Identifica al usuario al conectarse
 let chatPartner = null;
+
+function scrollToBottom() {
+  const chatContainer = document.getElementById('chatContainer');
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+}
 
 // Función para renderizar un mensaje con timestamp y visto
 function renderMessage(m) {
-  console.log("🧱 renderMessage:", m);
   const div = document.createElement('div');
-  div.classList.add(m.emisor === userId ? 'sent' : 'received');
+  div.classList.add('message', m.emisor === userId ? 'sent' : 'received');
   if (m.leido && m.emisor === userId) div.classList.add('read');
   div.dataset.mensajeId = m.mensaje_id;
 
   // Texto
-  const textSpan = document.createElement('span');
-  textSpan.textContent = m.texto;
-  div.appendChild(textSpan);
+  const textP = document.createElement('p');
+  textP.textContent = m.texto;
+  div.appendChild(textP);
 
-  // Timestamp
-  const ts = document.createElement('span');
-  ts.className = 'timestamp';
-  ts.textContent = new Date(m.fecha).toLocaleTimeString();
-  div.appendChild(ts);
+  // Contenedor de hora + visto
+  const meta = document.createElement('span');
+  meta.className = 'timestamp';
 
-  // Icono de visto (solo para mensajes enviados por ti)
+  const hora = document.createElement('span');
+  hora.textContent = new Date(m.fecha).toLocaleTimeString();
+  meta.appendChild(hora);
+
   if (m.emisor === userId) {
     const visto = document.createElement('span');
     visto.className = 'visto';
     visto.textContent = m.leido ? '✔✔' : '✔';
-    div.appendChild(visto);
+    meta.appendChild(visto);
   }
 
+  div.appendChild(meta);
   return div;
 }
 
@@ -39,29 +46,43 @@ function refreshConversations() {
   fetch(`/mensajeria/conversaciones/${userId}`)
     .then(res => res.json())
     .then(users => {
-      const ul = document.getElementById('conversationsList');
-      ul.innerHTML = '';
+      const panel = document.getElementById('conversationsPanel');
+      panel.innerHTML = '';
       users.forEach(u => {
-        const li = document.createElement('li');
-        li.textContent = u.nombre;
+        const div = document.createElement('div');
+        div.className = 'conversation';
+        div.innerHTML = `
+        <div class="left">
+            <img src="/static/uploads/${u.foto}" alt="Perfil" />
+            <div>
+              <h2>${u.nombre}</h2>
+              <small>${u.ultimo_texto}</small>
+            </div>
+          </div>
+          <div class="right">
+            <button class="menu-btn"><i class="bi bi-three-dots"></i></button>
+            <span class="time">${u.hora}</span>
+            <div class="badge" style="${u.pendientes > 0 ? '' : 'display: none;'}">${u.pendientes}</div>
+            <div class="contact-menu oculto">
+              <!-- opciones -->
+            </div>
+          </div>
+        `;
 
-        if (u.pendientes && u.pendientes > 0) {
-          const badge = document.createElement('span');
-          badge.className = 'badge';
-          badge.textContent = u.pendientes;
-          li.appendChild(badge);
-        }
-
-        li.dataset.id = u.usuario_id;
-        li.onclick = () => {
+        div.querySelector('.left').onclick = () => {
           chatPartner = u.usuario_id;
+          document.getElementById('chatUserName').textContent = u.nombre;
+          document.getElementById('chatProfilePhoto').src = `/static/uploads/${u.foto}`;
+          document.getElementById('chatContainer').innerHTML = '';
           socket.emit('join_chat', { user_id: userId, other_user_id: chatPartner });
-          refreshConversations(); // ← resalta pendientes
+          refreshConversations();
         };
-        ul.appendChild(li);
+
+        panel.appendChild(div);
       });
     });
 }
+
 refreshConversations();
 // 2) Recibe e imprime historial
 socket.on('chat_history', msgs => {
@@ -77,6 +98,7 @@ socket.on('chat_history', msgs => {
   setTimeout(() => {
     c.scrollTop = c.scrollHeight;
   }, 50);
+  requestAnimationFrame(scrollToBottom);
 });
 
 // 3) Enviar mensaje
@@ -135,6 +157,7 @@ socket.on('new_message', m => {
     console.log("🔔 Mensaje fuera del chat activo");
     refreshConversations(); // 👈 sube contador
   }
+  requestAnimationFrame(scrollToBottom);
 });
 
 // 5) Escuchar confirmación de lectura
@@ -152,6 +175,8 @@ socket.on('message_read', data => {
       msgDiv.appendChild(visto);
     }
     visto.textContent = '✔✔';
+    visto.style.color = '#4fc3f7';
+
   });
 
   console.log("🔄 Refrescando conversaciones tras lectura");

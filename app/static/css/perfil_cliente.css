@@ -1,11 +1,15 @@
-/* Establece el comportamiento del box model para todos los elementos */
+ /*-----------------------------------------------
+    Principal
+  -----------------------------------------------*/
 * {
     box-sizing: border-box; /* Hace que el ancho y alto incluyan padding y border */
     margin: 0; /* Elimina el margen por defecto */
     padding: 0; /* Elimina el padding por defecto */
   }
   
-  /* Estilos generales para el body */
+ /*-----------------------------------------------
+    Body
+  -----------------------------------------------*/
   .cliente {
     background-color: #f8f8f8; /* Color de fondo de la página */
     display: flex; /* Usamos Flexbox para distribuir los elementos */
@@ -22,11 +26,12 @@
   
   /* Estilos para el cuadro de contenido */
   .cuadro {
-    width: 70%; /* Define el ancho del cuadro */
+    width: 100%; /* Define el ancho del cuadro */
     background-color: white; /* Fondo blanco */
     border: 1px solid #d1d5db; /* Borde gris claro */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
     margin-bottom: 1.5rem; /* Margen debajo */
+    max-width: 70%;
   }
   
   /* Estilo para un cuadro con bordes redondeados */
@@ -83,9 +88,9 @@
 }
   
   
-  /*-----------------------------------------------
-    Estilos para contenedor con información principal 
-  -----------------------------------------------*/
+/*-----------------------------------------------
+   Estilos para contenedor con información principal 
+-----------------------------------------------*/
   
   /* Estilo para un cuadro grande con contenido centrado */
   .grande {
@@ -282,9 +287,9 @@
 }
   
   
-  /*-----------------------------------------------
-    Estilos para contenedor de la izquierda
-  -----------------------------------------------*/
+/*-----------------------------------------------
+  Estilos para contenedor de la izquierda
+-----------------------------------------------*/
   
   /* Estilo para la columna izquierda */
   .columna-izquierda {
@@ -357,7 +362,7 @@
   
   /*-----------------------------------------------
   Estilos para formulario añadir barrio
------------------------------------------------*/
+  -----------------------------------------------*/
 
   .formulario-ubicacion {
     position: fixed;
@@ -452,122 +457,7 @@
   
   
   /*-----------------------------------------------
-    Estilos para empresa
-  -----------------------------------------------*/
- 
-
-  .titulo-empresa {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 400;
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-    padding: 0 25px;
-}
-
-  .empresa-registrada{
-      font-family: 'Oswald', sans-serif;
-      font-weight: 700; /* Bold */
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      padding: 0 25px;
-      display: none;
-        
-  }
-
-  .nombre_empresa {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 500;
-    font-size: 1.2rem;
-    margin: 0;
-  }
-
-  .direccion {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 300;
-    margin: 0;
-    font-size: 1.2rem;
-    padding: 0 50px;
-  }
-
-  .añadir-empresa {
-    color: #3eaeb1;
-    font-family: 'Oswald', sans-serif;
-    font-weight: 500;
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 0 25px;
-    margin-top: 1rem;
-    transition: color 0.3s;
-  }
-
-  .añadir-empresa:hover {
-    color: #2d8284;
-  }
-
-  .empresaicon {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 50px;
-    margin: 0;
-  }
-
-  #lapizempresa,
-  .bi-trash {
-    font-size: 1.7rem;
-    color: #3eaeb1;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-
-  #lapizempresa:hover,
-  .bi-trash:hover {
-    color: #292929;
-  }
-
-  .formulario-empresa,
-  .formulario-editar-empresa {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-
-  .formulario-empresa-contenido,
-  .formulario-editar-empresa-contenido {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 20px;
-    width: 400px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  }
-
-  .formulario-empresa-contenido h2,
-  .formulario-editar-empresa-contenido h2 {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 700;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    text-align: center;
-    color: #3eaeb1;
-  }
-
-  .campo {
-    margin-bottom: 1rem;
-  }
-
-  .campo input {
-    width: 100%;
-    padding: 0.5rem;
-    font-size: 1rem;
-  }
-  
-  /*-----------------------------------------------
-    Estilos para contenedor de te podria interesar 
+    Estilos para contenedor de calificaciones
   -----------------------------------------------*/
   
   /* Estilo para el contenedor con el título y las tarjetas */
@@ -602,66 +492,21 @@
     justify-content: center;
   }
   
-  
-/* Estilo para las estrellas (calificación) */
-.estrellasTarjetas {
-  display: flex; /* Flexbox para alinear las estrellas */
-  justify-content: left; /* Centrado horizontal */
-  font-size: 1rem; /* Tamaño de fuente para las estrellas */
-  color: #3EAEB1; /* Color azul */
-  gap: 0.1rem; /* Espacio entre las estrellas */
-} 
+    
+  /* Estilo para las estrellas (calificación) */
+  .estrellasTarjetas {
+    display: flex; /* Flexbox para alinear las estrellas */
+    justify-content: left; /* Centrado horizontal */
+    font-size: 1rem; /* Tamaño de fuente para las estrellas */
+    color: #3EAEB1; /* Color azul */
+    gap: 0.1rem; /* Espacio entre las estrellas */
+  } 
 
-.nombre {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500; /* Medium */
-  font-size: 20px;
-  color: black;
-}
-
-.profesion {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 400; /* Regular */
-  font-size: 16px;
-  color: black;
-  margin-top: 10px;
-  }
-
-.descripcion-titulo {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 400; /* Regular */
-  font-size: 16px;
-  color: rgba(0, 0, 0, 0.7); /* Negro al 70% */
-  margin: 4px 0 2px;
-}
-
-.descripcion-texto {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  color: black;
-  margin: 0;
-}
-
-.ver-mas {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500;
-  color: #3EAEB1;
-  font-size: 0.9rem;
-  cursor: pointer;
-  display: inline-block;
-  margin-top: 2px;
-  margin-bottom: 10px; /* espacio entre Ver más y el botón */
-}
-
-
- 
-.price {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500; /* Medium */
-  color: #666666;
-  font-size: 12px;
-
+  .nombre {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500; /* Medium */
+    font-size: 20px;
+    color: black;
   }
   
   
@@ -834,69 +679,155 @@
   
  .hidden {
   visibility: hidden; /* Se asegura de que el espacio se mantenga aunque el "Ver más" no sea visible */
-}
+  }
 
   
 
-/*-----------------------------------------------
-  Estilos para el modal oculto 
------------------------------------------------*/
-/* Modal oculto por defecto */
-/* Modal oculto por defecto */
-.modal {
-  display: none;
+  /*-----------------------------------------------
+    Estilos para el modal oculto 
+  -----------------------------------------------*/
+
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    z-index: 9999;
+  }
+
+  .modal:not(.hidden) {
+    display: flex;
+  }
+
+  /* Contenedor del modal */
+  .modal-content {
+    position: relative;
+    width: 45%; /* Ancho más estrecho (ajústalo a tu gusto) */
+    max-width: 450px; /* Máximo ancho */
+    height: auto; /* Altura automática según el contenido */
+    max-height: 100vh; /* La altura máxima será el 90% de la altura de la ventana */
+    border-radius: 12px;
+    background-color: white; /* Fondo blanco para el contenido */
+    overflow-y: auto; /* Permite desplazamiento si el contenido es muy largo */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+  }
+
+
+  /* Botón de cerrar */
+  .close-button {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 22px;
+    color: #000000;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+  }
+
+  .close-button:hover {
+    color: #3eaeb1;
+  }
+
+ /*-----------------------------------------------
+    Estilos para modal eliminar barrio
+  -----------------------------------------------*/
+
+#modalEliminarBarrio {
   position: fixed;
-  top: 0;
+  z-index: 9999;
   left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-  z-index: 9999;
-}
-
-.modal:not(.hidden) {
+  background-color: rgba(0,0,0,0.5); /* mismo fondo que modalCerrarSesion */
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Contenedor del modal */
-.modal-content {
+#modalEliminarBarrio.hidden {
+  display: none;
+}
+
+/* Contenido del modal */
+#modalEliminarBarrio .modal-content-delete {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 25px;       /* igual que modalCerrarSesion */
+  text-align: center;
+  width: 100%;
+  max-width: 400px;           /* igual que modalCerrarSesion */
   position: relative;
-  width: 45%; /* Ancho más estrecho (ajústalo a tu gusto) */
-  max-width: 450px; /* Máximo ancho */
-  height: auto; /* Altura automática según el contenido */
-  max-height: 100vh; /* La altura máxima será el 90% de la altura de la ventana */
-  border-radius: 12px;
-  background-color: white; /* Fondo blanco para el contenido */
-  overflow-y: auto; /* Permite desplazamiento si el contenido es muy largo */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+  font-family: 'Oswald', sans-serif;
 }
 
+/* Texto */
+#modalEliminarBarrio p {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  color: #666;
+}
 
-/* Botón de cerrar */
-.close-button {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  font-size: 22px;
-  color: #000000;
-  background: none;
-  border: none;
+/* Botones */
+#modalEliminarBarrio .modal-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+#modalEliminarBarrio .modal-buttons button {
+  padding: 0.4rem 3rem;
+  font-size: 1rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  border-radius: 25px;
   cursor: pointer;
-  z-index: 10;
+  transition: background-color 0.3s;
 }
 
-.close-button:hover {
-  color: #3eaeb1;
+/* Botón cancelar */
+#cancelEliminarBarrio {
+  background-color: #f8f8f8;
+  color: black;
+  border: 1px solid #E5E5E5;
 }
-/*------- Estilos para pantallas más pequeñas (móviles) -------*/
+
+#cancelEliminarBarrio:hover {
+  opacity: 0.8;
+}
+
+/* Botón aceptar */
+#confirmEliminarBarrio {
+  background-color: #3eaeb1;
+  color: white;
+  border: none;
+}
+
+#confirmEliminarBarrio:hover {
+  opacity: 0.8;
+}
+
+ /*-----------------------------------------------
+    Estilos para pantallas más pequeñas (móviles)
+  -----------------------------------------------*/
+
 @media (max-width: 768px) {
     body {
         padding: 1rem 0;
     }
 
-    .cuadro,
+    .cuadro{
+      max-width: 70%;
+    }
     .grande,
     .contenedor,
     .contenedor-columnas {
