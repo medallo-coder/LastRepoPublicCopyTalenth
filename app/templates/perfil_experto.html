@@ -195,14 +195,41 @@
 
 
         <!-- Botón para añadirestudios -->
-        {% if not titulo_obtenido %}
-          <div class="añadir-estudios" onclick="mostrarFormularioEstudios()">
-            + Añadir estudios
+        <div class="añadir-estudios" onclick="mostrarFormularioEstudios()">
+          + Añadir estudios
+        </div>
+        <!-- Ubicacion -->
+        <div class="ubicacion">
+          <h2 class="titulo-ubicacion">Ubicación</h2>
+          <h2 class="titulo-barrio"> Barrio </h2>
+          {% if direccion %}
+          <div class="item-ubicacion">
+            <div class="fila-ubicacion">
+              <p class="barrio">{{ direccion }}</p>
+              <div class="iconos">
+                <i id="lapizubicacion" class="bi bi-pencil-square" onclick="abrirFormularioEditarUbicacion()"></i>
+
+                <form method="POST" action="{{ url_for('web.perfil_cliente') }}" style="display: inline;">
+                  <input type="hidden" name="form_tipo" value="direccion">
+                  <input type="hidden" name="direccion" value="">
+                  <button type="submit" class="bi bi-trash" title="Eliminar dirección"
+                    onclick="return confirm('¿Seguro que deseas eliminar la dirección?')"></button>
+                </form>
+              </div>
+            </div>
           </div>
-        {% endif %}
+          {% else %}
+          <div class="añadir-ubicacion" onclick="mostrarFormularioUbicacion()">
+            + Añadir barrio
+          </div>
+          {% endif %}
+
+        </div>
+
 
       </div>
 
+    
 
 
       
@@ -442,23 +469,50 @@
         </div>
       </div>
 
-      <!-- Formulario para añadir descripción -->
-      <div id="formulario-añadir-descripcion" style="display:none;">
-        <div class="formulario-contenido-descripcion">
-          <h2>Añadir Descripción</h2>
-          <form method="POST" action="{{ url_for('web.perfil_experto') }}">
-            <input type="hidden" name="form_tipo2" value="perfil_principal3">
-            <div class="campo">
-              <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-              <input type="text" maxlength="255" id="descripcionAñadir" name="descripcion_perfil" placeholder="Escribe la descripción">
-            </div>
-            <div class="botones">
-              <button type="submit">Guardar</button>
-              <button type="button" onclick="cerrarFormularioDescripcion()">Cancelar</button>
-            </div>
-          </form>
-        </div>
+      <!-- Formulario para editar descripción -->
+<div id="formulario-editar-descripcion" style="display:none;">
+  <div class="formulario-contenido-descripcion">
+    <h2>Editar Descripción</h2>
+    <form method="POST" action="{{ url_for('web.perfil_experto') }}">
+      <input type="hidden" name="form_tipo2" value="editar_descripcion">
+      <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
+      
+      <div class="campo">
+        <!-- Textarea con límite -->
+        <textarea
+          id="descripcionEditar"
+          name="descripcion_perfil"
+          maxlength="255"
+          placeholder="Editar tu descripción"
+          rows="4"
+          cols="50">{{ descripcion_perfil }}</textarea>
+        
+        <!-- Contador -->
+        <small id="contadorEditar">0 / 255</small>
       </div>
+      
+      <div class="botones">
+        <button type="submit">Guardar</button>
+        <button type="button" onclick="cerrarFormularioeditarDescripcion()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Script para actualizar el contador en EDITAR
+  const textareaEditar = document.getElementById('descripcionEditar');
+  const contadorEditar = document.getElementById('contadorEditar');
+  const maxEditar = textareaEditar.getAttribute('maxlength');
+
+  // Inicializar el contador con el valor que tenga cargado
+  contadorEditar.textContent = `${textareaEditar.value.length} / ${maxEditar}`;
+
+  textareaEditar.addEventListener('input', () => {
+    const longitud = textareaEditar.value.length;
+    contadorEditar.textContent = `${longitud} / ${maxEditar}`;
+  });
+</script>
 
       <!-- Formulario para editar descripción -->
       <div id="formulario-editar-descripcion" style="display:none;">
@@ -566,39 +620,6 @@
         </div>
       </div>
 
-      <!-- Formulario emergente para editar estudios -->
-      <div class="formulario-editar-estudios" id="formulario-editar-estudios">
-        <div class="formulario-editar-estudios-contenido">
-          <h2>Editar estudios</h2>
-          <form method="POST" action="{{ url_for('web.perfil_experto') }}">
-            <div class="campo">
-              <input type="hidden" name="form_tipo5" value="editar_estudios">
-              <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-
-
-              <div class="campo"></div>
-              <input type="text" id="editar-titulo" name="titulo_obtenido" value="{{titulo_obtenido}}" required
-                maxlength="100">
-            </div>
-            <div class="campo">
-              <input type="text" id="editar-lugar" name="institucion" value="{{institucion}}" required maxlength="100">
-            </div>
-            <div class="campo">
-              <input type="date" id="editar-fechaDesde" name="fecha_inicio" value="{{fecha_inicio}}" required
-                maxlength="50">
-            </div>
-            <div class="campo">
-              <input type="date" id="editar-fechaHasta" name="fecha_fin" value="{{fecha_fin}}" required maxlength="50">
-            </div>
-            <div class="botones">
-              <button type="submit">Guardar</button>
-              <button type="button" onclick="cerrarFormularioEditarEstudios()">Cancelar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
     <!-- Formulario superpuesto para Añadir Idioma -->
     <div class="formulario-idioma" id="formularioIdioma" style="display: none;">
       <div class="formulario-contenido">
@@ -617,6 +638,39 @@
               {% endfor %}
             </select>
           </div>
+
+          <!-- Formulario emergente para editar barrio -->
+      <div class="formulario-ubicacion-editar" id="formularioUbicacionEditar" style="display: none;">
+        <div class="formulario-editar-ubicacion-contenido">
+          <h2>Editar barrio</h2>
+          <form method="POST" action="{{ url_for('web.perfil_cliente') }}">
+            <input type="hidden" name="form_tipo" value="direccion">
+            <div class="campo">
+              <label for="editar-barrio"></label>
+              <input type="text" id="editar-barrio" name="direccion" placeholder="Escribe el nuevo barrio" required />
+            </div>
+            <div class="botones">
+              <button type="submit">Guardar</button>
+              <button type="button" onclick="cerrarFormularioEditarUbicacion()">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+          <!--
+    <div class="campo">
+      <label for="nivelSelect"></label>
+      <select id="nivelSelect" name=" nivel">
+        <option value="" disabled selected> Selecciona el nivel</option>
+        <option value="Muy básico">Muy básico</option>
+        <option value="Básico">Básico</option>
+        <option value="Intermedio">Intermedio</option>
+        <option value="Avanzado">Avanzado</option>
+        <option value="Nativo">Nativo</option>
+      </select>
+    </div>
+-->
+
           <div class="botones">
             <button type="submit">Guardar</button>
             <button type="button" onclick="cerrarFormularioIdiomas()">Cancelar</button>
