@@ -470,10 +470,24 @@ def guardar_publicacion(publicacion_id):
 
 @web.route('/mis_guardados')
 def guardados():
-    
-    publicaciones = obtener_guardados_service()
-    return render_template('guardados.html', publicaciones=publicaciones)
+    # Verificar autenticación con tu service
+    auth_result = verificar_autenticacion_service()
+    if not auth_result.get("authenticated"):
+        flash(auth_result.get("message", "Debes iniciar sesión."), "error")
+        return redirect(url_for('web.iniciar_sesion'))
 
+    # Obtener publicaciones guardadas
+    publicaciones = obtener_guardados_service()
+
+    # Obtener ID del usuario logueado desde tu service
+    datos_usuario = obtener_datos_usuario_service()
+    id_usuario_logueado = datos_usuario.get("usuario_id")
+
+    return render_template(
+        'guardados.html',
+        publicaciones=publicaciones,
+        id_usuario_logueado=id_usuario_logueado
+    )
 # Ruta para eliminar un guardado@web.route('/mis-guardados/eliminar/<int:publicacion_id>')
 @web.route('/mis-guardados/eliminar/<int:publicacion_id>', methods=['POST'])
 def eliminar_guardado(publicacion_id):
