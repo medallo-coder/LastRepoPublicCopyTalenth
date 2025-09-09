@@ -14,6 +14,7 @@ from app.services.jwt_service import verificar_token
 from flask import send_from_directory
 from app.models import Usuario  # Importa el modelo de Usuario
 from app.models import Categorias  # Importa el modelo de Categorias
+from werkzeug.security import check_password_hash
 from werkzeug.utils import secure_filename
 
 import os
@@ -179,6 +180,29 @@ def deshabilitar_cuenta():
         return redirect(url_for('web.inicio'))  # Redirige a la página principal o donde prefieras
 
     return redirect(url_for('web.configuracion'))
+
+
+# Ruta para validar la contraseña y abrir modal 
+@web.route('/configuracion/validar_contrasena', methods=['POST'])
+def validar_contrasena_ajax():
+    data = request.get_json()
+    contrasena = data.get("contrasena")
+    token = session.get('jwt')
+    if not token:
+        return jsonify({"success": False, "message": "No estás autenticado."}), 401
+
+    resultado_token = verificar_token(token)
+    if not resultado_token["valid"]:
+        return jsonify({"success": False, "message": resultado_token["message"]}), 401
+
+    usuario = Usuario.query.get(resultado_token["payload"].get('usuario_id'))
+    if not usuario:
+        return jsonify({"success": False, "message": "Usuario no encontrado."}), 404
+
+    if not check_password_hash(usuario.contrasena, contrasena):
+        return jsonify({"success": False, "message": "La contraseña es incorrecta."}), 403
+
+    return jsonify({"success": True})
 
 
 # Ruta para enviar el enlace de recuperación de contraseña
@@ -589,6 +613,12 @@ def guardar_mi_publicacion():
 
     data = dict(request.form)
     data['usuario_id'] = usuario_id
+
+    # ✅ Validación de longitud máxima para la descripción
+    descripcion = data.get("descripcion_publicacion", "")
+    if len(descripcion) > 200:
+        flash("La descripción no puede tener más de 200 caracteres.", "danger")
+        return redirect(url_for('web.mis_publicaciones'))
 
     # ✅ Corregir claves si vienen con nombres del formulario como 'id_categoria'
     if 'id_categoria' in data:
