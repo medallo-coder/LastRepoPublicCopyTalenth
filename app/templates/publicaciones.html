@@ -268,7 +268,6 @@
 </style>
 </head>
 
-
 <body class="flex flex-col min-h-screen pt-[120px]" style="background-color: #F8F8F8;">
   {% include 'nav.html' %}
   {% include 'errors.html' %}
@@ -382,8 +381,16 @@
                 <a href="{{ url_for('web.perfil_experto_publico', usuario_id=pub.usuario.usuario_id) }}" class="flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1]"><i class="bi bi-person-fill text-[16px] mr-2"></i>Ver perfil</a>
                 {% if session.get('jwt') %}
                 <a href="javascript:void(0);" class="guardar-btn flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1]" data-id="{{ pub.publicacion_id }}"><i class="bi bi-bookmark-check text-[16px] mr-2"></i>Guardar</a>
-                <a href="#" class="flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1] abrir-modal-reporte"><i class="bi bi-exclamation-circle text-[16px] mr-2"></i><span>Reportar</span> 
-                {% endif %} </a>
+                
+                <!-- 🔹 Botón Reportar corregido -->
+                <a href="javascript:void(0);" 
+                   class="flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1] abrir-modal-reporte"
+                   data-publicacion-id="{{ pub.publicacion_id }}"
+                   data-usuario-reportado="{{ pub.usuario.usuario_id }}"
+                   data-usuario="{{ current_user.id }}">
+                   <i class="bi bi-exclamation-circle text-[16px] mr-2"></i><span>Reportar</span>
+                </a>
+                {% endif %}
               </div>
             </div>
 
@@ -432,17 +439,16 @@
 
     </div> <!-- AQUÍ cierra la grilla -->
   </div> <!-- AQUÍ cierra el contenedor w-[70vw] -->
-   <!-- Modal Tarjeta -->
-<!-- Modal Ver Más -->
-<div id="modalTarjeta" class="modal hidden">
-  <div class="modal-content">
-    <button id="cerrarTarjeta" class="close-button">&times;</button>
-    <div id="contenidoTarjeta"></div>
+
+  <!-- Modal Tarjeta -->
+  <div id="modalTarjeta" class="modal hidden">
+    <div class="modal-content">
+      <button id="cerrarTarjeta" class="close-button">&times;</button>
+      <div id="contenidoTarjeta"></div>
+    </div>
   </div>
-</div>
 
-
-<div id="modalLoginContacto" class="modal-login-contacto hidden">
+  <div id="modalLoginContacto" class="modal-login-contacto hidden">
     <div class="modal-login-content">
         <!-- Botón de cerrar -->
         <button id="cerrarLoginContacto" class="close-button">&times;</button>
@@ -459,8 +465,6 @@
     </div>
   </div>
 
-  
-
   {% include 'footer.html' %}
 
   <script src="{{ url_for('static', filename='js/categorias.js') }}"></script>
@@ -468,5 +472,5 @@
   <script src="{{ url_for('static', filename='js/publicaciones_categorias.js') }}"></script>
   <script src="{{ url_for('static', filename='js/modal_reportar.js') }}"></script>
 
-<body data-logged-in="{{ 'true' if session.get('jwt') else 'false' }}">
+  <body data-logged-in="{{ 'true' if session.get('jwt') else 'false' }}">
 </html>
