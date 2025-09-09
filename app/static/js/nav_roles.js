@@ -15,9 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // 👉 Cerrar modal al hacer clic en el fondo oscuro
-  document.getElementById('modalCambioRol').addEventListener('click', (e) => {
-    if (e.target === document.getElementById('modalCambioRol')) {
-      document.getElementById('modalCambioRol').style.display = 'none';
+  const modalCambioRol = document.getElementById('modalCambioRol');
+  modalCambioRol.addEventListener('click', (e) => {
+    if (e.target === modalCambioRol) { // solo si toco el fondo
+      modalCambioRol.style.display = 'none';
     }
   });
 });
@@ -33,7 +34,6 @@ function confirmarCambioRol(url, titulo) {
 const modalCerrarSesion = document.getElementById('modalCerrarSesion');
 const btnCerrarSesion = document.querySelector('.cerrar-li button'); // tu botón cerrar sesión
 const btnCancelarCerrar = document.getElementById('btnCancelarCerrar');
-const cerrarModalCerrar = document.getElementById('cerrarModalCerrar');
 
 // Abrir modal al hacer clic en cerrar sesión
 if(btnCerrarSesion){
@@ -43,20 +43,21 @@ if(btnCerrarSesion){
     });
 }
 
-// Cerrar modal al hacer clic en cancelar o X
+// Cerrar modal al hacer clic en cancelar
 btnCancelarCerrar.addEventListener('click', () => modalCerrarSesion.classList.add('hidden'));
-cerrarModalCerrar.addEventListener('click', () => modalCerrarSesion.classList.add('hidden'));
 
-// Cerrar modal al hacer clic fuera del contenido
+// 👉 Cerrar modal al hacer clic fuera del contenido
 modalCerrarSesion.addEventListener('click', (e) => {
-    if(e.target === modalCerrarSesion){
+    if(e.target === modalCerrarSesion){ // solo fondo
         modalCerrarSesion.classList.add('hidden');
     }
 });
 
 
-
 //hola aca estan las x
-document.querySelector('.modal-close').addEventListener('click', function () {
-  document.getElementById('modalCambioRol').style.display = 'none';
-});
+const btnClose = document.querySelector('.modal-close');
+if (btnClose) {
+  btnClose.addEventListener('click', function () {
+    document.getElementById('modalCambioRol').style.display = 'none';
+  });
+}
