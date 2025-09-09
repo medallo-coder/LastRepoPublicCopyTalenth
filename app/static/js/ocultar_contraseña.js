@@ -1,18 +1,22 @@
-//ojo de ocultar o ver contraseña
-const toggles = document.querySelectorAll(".toggle-pass");
+document.addEventListener("DOMContentLoaded", () => {
+    const toggles = document.querySelectorAll(".toggle-pass");
 
-    toggles.forEach((icon, index) => {
-        const input = document.getElementById(`pass${index + 1}`);
+    toggles.forEach((icon) => {
+        // Si tiene el atributo data-target, usa ese ID
+        const targetId = icon.getAttribute("data-target");
+
+        // Si no tiene data-target, intenta encontrar el input anterior (para login/registro antiguos)
+        const input = targetId
+            ? document.getElementById(targetId)
+            : icon.previousElementSibling;
+
+        if (!input) return;
 
         icon.addEventListener("click", () => {
-            if (input.type === "password") {
-                input.type = "text";
-                icon.classList.remove('bi-eye-fill');
-                icon.classList.add('bi-eye-slash-fill');
-            } else {
-                input.type = "password";
-                icon.classList.add('bi-eye-fill');
-                icon.classList.remove('bi-eye-slash-fill');
-            }
+            const isPassword = input.type === "password";
+            input.type = isPassword ? "text" : "password";
+            icon.classList.toggle("bi-eye-fill", !isPassword);
+            icon.classList.toggle("bi-eye-slash-fill", isPassword);
         });
     });
+});

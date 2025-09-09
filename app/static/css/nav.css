@@ -1,3 +1,6 @@
+/*-----------------------------------------------
+ Estilos RESET Y FUENTE
+-----------------------------------------------*/
 @font-face {
     font-family: 'Oswald Variable';
     font-style: normal;
@@ -7,48 +10,50 @@
 }
 
 /*-----------------------------------------------
- Estilos RESET Y FUENTE
+ Estilos RESET Y FUENTE: 
+ Aplica a todos los elementos un box-sizing border-box para manejo de padding/margin, 
+ además establece la fuente 'Oswald' que se usa en todo el nav y el header.
 -----------------------------------------------*/
-
- * {
+* {
     box-sizing: border-box;
     font-family: 'Oswald', sans-serif;
     font-weight: 500; 
     padding: 0;
     margin: 0;
     list-style: none;
-
-  }
+}
 
 /*-----------------------------------------------
- Estilos para header
+ Estilos para header (nav principal)
 -----------------------------------------------*/
-
 .header_nav {
-    background-color: #F8F8F8;
-    height: 80px;
-    width: 100%;
-    border-bottom: 2px solid #828282;
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    gap: 15px;
-    flex-wrap: nowrap;
-    position: fixed;
+    background-color: #F8F8F8; /* Fondo gris claro para la barra superior */
+    height: 80px; /* Altura fija para la barra */
+    width: 100%; /* Ocupa todo el ancho */
+    border-bottom: 2px solid #828282; /* Línea inferior que separa del contenido */
+    display: flex; /* Flexbox para distribuir elementos */
+    align-items: center; /* Centrar verticalmente */
+    padding: 0 20px; /* Espaciado horizontal */
+    gap: 15px; /* Espacio entre elementos hijos */
+    flex-wrap: nowrap; /* No permitir que se rompa línea */
+    position: fixed; /* Fija la barra en la parte superior */
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
-    transition: transform 0.3s ease-in-out;
-    
+    z-index: 1000; /* Encima de otros elementos */
+    transition: transform 0.3s ease-in-out; /* Para animar ocultar o mostrar */
 }
 
-/* Clase para ocultar el nav */
+/*-----------------------------------------------
+ Clase para ocultar el nav con transición arriba 
+-----------------------------------------------*/
 .header_nav.hide {
   transform: translateY(-100%);
 }
 
-/* Menú hamburguesa */
+/*-----------------------------------------------
+ Menú hamburguesa (icono de 3 barras para móvil)
+-----------------------------------------------*/
 .menu {
     height: 50px;
     width: 50px;
@@ -56,16 +61,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    top: 25px;
+    gap: 8px; /* Separación entre barras */
+    cursor: pointer; /* Cambia cursor al pasar */
+    top: 25px; /* Posicionamiento dentro del header */
     left: 20px;
-    z-index: 9999;
+    z-index: 9999; /* Muy arriba para estar clickeable */
     background-color: transparent;
     margin-left: -6px;
 }
 
-/* Barras del menú */
+/*-----------------------------------------------
+ Barras del menú hamburguesa: rectángulos negros 
+-----------------------------------------------*/
 .bar {
     height: 3px;
     width: 30px;
@@ -73,67 +80,70 @@
     transition: 200ms ease-in-out;
 }
 
+/*-----------------------------------------------
+ Animación de transformación cuando el menú está activo (cerrar)
+-----------------------------------------------*/
 .menu.active .bar:nth-last-child(1) {
     transform: translateY(-11px) rotate(-45deg);
 }
 .menu.active .bar:nth-last-child(2) {
-    opacity: 0;
+    opacity: 0; /* Oculta la barra central */
 }
 .menu.active .bar:nth-last-child(3) {
     transform: translateY(11px) rotate(45deg);
 }
 
 /*-----------------------------------------------
- Estilos para logo
+ Estilos para logo dentro del nav 
 -----------------------------------------------*/
-
 .link {
     display: flex;
     align-items: center;
     gap: 10px;
-    text-decoration: none;
+    text-decoration: none; /* Quita subrayado del enlace */
 }
 
 .logo {
-    height: 40px;
-    margin-left: 20px;
+    height: 40px; /* Tamaño del ícono/logo SVG */
+    margin-left: 20px; /* Separación a la izquierda */
 }
+
 .logo-text h1 {
     font-size: 28px;
     font-weight: bold;
-    color: #3eaeb1;
+    color: #3eaeb1; /* Color azul para parte del texto */
     margin: 0;
 }
+
 .azul {
-    color: black;
+    color: black; /* Se usa para cambiar el color "Trabaja" en el logo a negro */
 }
 
-.left-group{
+.left-group {
     display: flex;
     margin-left: 10px;
 }
 
 /*-----------------------------------------------
- Estilos para icono favoritos
+ Contenedor derecho del header (botones, íconos)
 -----------------------------------------------*/
-
 .header-right {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-left: auto;
+    margin-left: auto; /* Empuja este contenedor a la derecha */
     flex-shrink: 0;
     transition: all 1s ease-out;
 }
 
+/* Cambia el color al pasar el mouse sobre los íconos */
 .header-right i:hover{
     color: #3EAEB1;
 }
 
 /*-----------------------------------------------
- Estilos para botones
+ Estilos para los botones de registro, inicio y cerrar sesión
 -----------------------------------------------*/
-
 .ulregistro {
     display: flex;
     align-items: center;
@@ -141,7 +151,9 @@
     margin-top: 15px;
     margin-right: 20px;
 }
-.btreg, .btini, .btcerrar{
+
+/* Botones comparten estilos base */
+.btreg, .btini, .btcerrar {
     text-decoration: none;
     border: 2px solid #3EAEB1;
     border-radius: 50px;
@@ -152,6 +164,8 @@
     min-width: 120px;
     text-align: center;
 }
+
+/* Color y fondo específicos para cada botón */
 .btcerrar {
     background-color: #3EAEB1;
     color: white;
@@ -164,6 +178,8 @@
     background-color: #3EAEB1;
     color: white;
 }
+
+/* Hover para botones, invierte colores */
 .btreg:hover {
     background-color: #3EAEB1;
     color: white;
@@ -178,9 +194,8 @@
 }
 
 /*-----------------------------------------------
- Estilos para favorito
+ Estilos para icono de favoritos (estrella/bookmark)
 -----------------------------------------------*/
-
 .ulfavorito {
     margin-left: -20px;
     margin-right: 10px;
@@ -188,16 +203,15 @@
 .estrella {
     font-size: 40px;
     color: black;
-    top: 55px;
+    top: 55px; /* Parece posicionar el icono verticalmente */
 }
 
 /*-----------------------------------------------
- Estilos para sidebar
+ Sidebar lateral oculto/invisible por defecto
 -----------------------------------------------*/
-
 .sidebar {
     border-right: 1px solid black;
-    width: 0px;
+    width: 0px; /* Oculto inicialmente */
     height: 100%;
     position: fixed;
     left: 0;
@@ -205,15 +219,17 @@
     z-index: 100;
     overflow-y: auto;
     background-color: #ffffff;
-    transition: width 0.5s ease;
+    transition: width 0.5s ease; /* Animación para mostrar/ocultar */
 }
 
+/* Sidebar visible al hacer click (clase .click) */
 .sidebar.click {
-    width: 300px;
-    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.4);
-    z-index: 1001;
+    width: 300px; /* Ancho visible */
+    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.4); /* Fondo oscuro semi-transparente */
+    z-index: 1001; /* Encima del nav */
 }
 
+/* Enlaces dentro del sidebar */
 .sidebar a {
     display: flex;
     align-items: center;
@@ -224,15 +240,16 @@
     background-color: white;
     color: black;
 }
+
+/* Hover para los enlaces del sidebar */
 .sidebar a:hover {
     border: 2px solid black;
     color: #3EAEB1;
 }
 
 /*-----------------------------------------------
- Estilos para header sidebar
+ Estilos para encabezado dentro del sidebar
 -----------------------------------------------*/
-
 .header-side {
     background-color: #ffffff;
     height: auto;
@@ -254,6 +271,7 @@
     display: inline;
 }
 
+/* Márgenes específicos para estilos de texto extra dentro de h2 */
 .header-side .H2E- {
     margin-right: 5px;
 }
@@ -262,7 +280,9 @@
     margin-left: -6px;
 }
 
-/* Estilo general para íconos */
+/*-----------------------------------------------
+ Estilos para íconos dentro del sidebar
+-----------------------------------------------*/
 .nav_link {
     padding-left: 0;
     margin-left: 0;
@@ -272,10 +292,10 @@
     margin-left: 0;
 }
 .nav_link i {
-    font-size: 25px;
+    font-size: 25px; /* Tamaño de los iconos */
 }
 
-/* Estilo general de enlaces del sidebar */
+/* Estilo general para enlaces dentro del sidebar */
 .sidebar a {
     padding: 10px 10px 10px 10px;
     margin-left: 0;
@@ -283,13 +303,13 @@
     justify-content: flex-start;
 }
 
-/* Línea divisoria para separar "Cerrar Sesión" */
+/* Línea divisoria antes de "Cerrar Sesión" en sidebar */
 .cerrar-li {
     border-top: 1px solid #666666;
     padding-top: 2px;
 }
 
-/* Botón que se comporta como enlace */
+/* Botón "Cerrar sesión" dentro del sidebar como formulario */
 .cerrar-form {
     display: flex;
     align-items: center;
@@ -320,19 +340,22 @@
     color: black;
 }
 
-/* Hover opcional para mantener estilo con los otros ítems */
+/* Hover para botón cerrar sesión */
 .cerrar-form button:hover span,
 .cerrar-form button:hover i {
-    color: #3eaeb1; /* Cambia por el color principal de tu sitio */
+    color: #3eaeb1; /* Color azul del sitio */
 }
 
-
-/* Ocultar botones del menú lateral en desktop */
+/*-----------------------------------------------
+ Ocultar botones del menú lateral en desktop
+-----------------------------------------------*/
 .ulregistro-mobile {
     display: none;
 }
 
-/*sol icono*/
+/*-----------------------------------------------
+ Iconos de sol y luna para tema oscuro/claro
+-----------------------------------------------*/
 .bi-brightness-high-fill {
   font-size: 42px;
   position: absolute;
@@ -343,7 +366,6 @@
   cursor: pointer;
 }
 
-/*luna icono*/
 .bi-moon-fill{
   font-size: 32px;
   position: absolute;
@@ -354,9 +376,118 @@
   cursor: pointer;
 }
 
+/*-----------------------------------------------
+ MODAL CERRAR SESION
+-----------------------------------------------*/
+
+#modalCerrarSesion {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5); /* mismo fondo que modal roles */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#modalCerrarSesion.hidden {
+  display: none;
+}
+
+/* Contenido del modal */
+#modalCerrarSesion .modal-content {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 25px; /* igual que modal roles */
+  text-align: center;
+  width: 100%;
+  max-width: 400px; /* igual que modal roles */
+  position: relative;
+  font-family: 'Oswald', sans-serif;
+}
+
+/* Texto y títulos */
+#modalCerrarSesion h2 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #000000;
+}
+
+#modalCerrarSesion p {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+/* Botones */
+#modalCerrarSesion .modal-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+#modalCerrarSesion .modal-buttons button,
+#modalCerrarSesion .modal-buttons a {
+  padding: 0.4rem 3rem;
+  font-size: 1rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  border-radius: 25px; /* igual que modal roles */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+}
+
+/* Botón cancelar */
+#btnCancelarCerrar {
+  background-color: #f8f8f8;
+  color: black;
+  border: 1px solid #E5E5E5;
+}
+
+#btnCancelarCerrar:hover {
+  opacity: 0.8;
+}
+
+/* Botón confirmar */
+#modalCerrarSesion .btn-confirm {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+}
+
+#modalCerrarSesion .btn-confirm:hover {
+  background-color: #c82333;
+}
+
+/* Botón cerrar (X) */
+#modalCerrarSesion .close-button {
+  position: absolute;
+  top: -8px;
+  right: 13px;
+  font-size: 2.5rem;
+  color: black;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+#modalCerrarSesion .close-button:hover {
+  color: #3eaeb1;
+}
+
 
 /*-----------------------------------------------
- MODO OSCURO
+ MODO OSCURO: colores invertidos para fondo y texto
 -----------------------------------------------*/
 
 .dark-mode {
@@ -420,109 +551,6 @@
 
 .dark-mode .sidebar .nav_link li a{
     background-color: #212529;
-}
-
- /* Modal cerrar sesión ajustado igual que roles */
-#modalCerrarSesion {
-  position: fixed;
-  z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5); /* mismo fondo que modal roles */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#modalCerrarSesion.hidden {
-  display: none;
-}
-
-/* Contenido del modal */
-#modalCerrarSesion .modal-content {
-  background-color: #fff;
-  padding: 25px;
-  border-radius: 25px; /* igual que modal roles */
-  text-align: center;
-  width: 100%;
-  max-width: 400px; /* igual que modal roles */
-  position: relative;
-  font-family: 'Oswald', sans-serif;
-}
-
-/* Texto y títulos */
-#modalCerrarSesion h2 {
-    font-family: 'Oswald', sans-serif;
-  font-size: 1.7rem;
-  margin-bottom: 15px;
-  color: #333;
-}
-
-#modalCerrarSesion p {
-    font-family: 'Oswald', sans-serif;
-  font-size: 1.2rem;
-  margin-bottom: 25px;
-  color: #666;
-}
-
-/* Botones */
-#modalCerrarSesion .modal-buttons {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-#modalCerrarSesion .modal-buttons button,
-#modalCerrarSesion .modal-buttons a {
-  padding: 0.4rem 3rem;
-  font-size: 1rem;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500;
-  border-radius: 25px; /* igual que modal roles */
-  cursor: pointer;
-  transition: background-color 0.3s;
-  text-decoration: none;
-}
-
-/* Botón cancelar */
-#btnCancelarCerrar {
-  background-color: #f8f8f8;
-  color: black;
-  border: 1px solid #E5E5E5;
-}
-
-#btnCancelarCerrar:hover {
-  opacity: 0.8;
-}
-
-/* Botón confirmar */
-#modalCerrarSesion .btn-confirm {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-}
-
-#modalCerrarSesion .btn-confirm:hover {
-  background-color: #c82333;
-}
-
-/* Botón cerrar (X) */
-#modalCerrarSesion .close-button {
-  position: absolute;
-  top: -8px;
-  right: 13px;
-  font-size: 2.5rem;
-  color: black;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-#modalCerrarSesion .close-button:hover {
-  color: #3eaeb1;
 }
 
 

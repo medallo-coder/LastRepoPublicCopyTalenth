@@ -61,20 +61,28 @@
   z-index: 9999;
 }
 
+#modalTarjeta .tarjeta {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
 .modal.hidden {
   display: none;
 }
 
 .modal-content {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px;
-  max-width: 600px;
-  width: 90%;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  overflow-y: auto;      /* Scroll interno si es muy largo */
-  max-height: 90vh;      /* Nunca se sale de la pantalla */
   position: relative;
+  width: 80%;           
+  max-width: 650px;     
+  min-width: 420px;     
+  height: auto;
+  max-height: 60vh;     
+  border-radius: 12px;
+  background-color: white;
+  overflow-y: auto;     
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  padding: 5px 10px; /* 🔑 menos padding */
 }
 
 /* Scroll bonito */
@@ -93,7 +101,7 @@
 .close-button {
   position: absolute;
   top: 10px;
-  right: 40px;
+  right: 40px; 
   font-size: 40px;
   color: #000;
   background: none;
@@ -109,38 +117,38 @@
 /* Tarjeta dentro del modal */
 #modalTarjeta .card-tarjeta {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  text-align: left;
+  flex-direction: row !important;
+  align-items: center !important;   /* ✅ centra vertical */
+  text-align: left !important;
   gap: 12px;
-  width: 100%;
+
+  width: 100% !important;
   max-width: 650px;
-  height: auto;
-  padding: 20px;
-  box-sizing: border-box;
-  background: transparent;
-  border: none;
-  box-shadow: none;
+  height: auto !important;
+  flex: none !important;
+  padding: 10px;
 }
 
-/* Imagen dentro de tarjeta modal */
+/* Imagen igual que en inicio */
 #modalTarjeta .card-tarjeta img {
   flex-shrink: 0;
-  width: 120px;
+  width: 125px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  align-self: flex-start;
+  align-self: center;
 }
 
-/* Contenido de texto */
+/* Contenido en columna */
 #modalTarjeta .card-content {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px;
   width: 100%;
   box-sizing: border-box;
 }
+
+
 /* Fuerza que dentro del modal se vea completo */
 .descripcion-modal {
   max-height: none !important;
@@ -157,6 +165,7 @@
   word-break: break-word;
   line-height: 1.5;
   font-size: 15px;
+  margin-bottom: 15px;
 }
 
 
@@ -386,7 +395,7 @@
               {% else %}
                 <!-- Icono de Bootstrap como reemplazo -->
                 <i class="bi bi-person-circle flex items-center justify-center rounded-full shadow"
-                  style="width: 6rem; height: 6rem; font-size: 4rem; color: #3EAEB1; background-color: #f8f8f8;"></i>
+                  style="width: 6rem; height: 6rem; font-size: 6rem; color: #3EAEB1; background-color: #f8f8f8;"></i>
               {% endif %}
               
               <span class="text-[#666666] text-xs sm:text-xs block text-center font-medium">

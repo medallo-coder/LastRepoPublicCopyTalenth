@@ -107,6 +107,7 @@
   font-size: 2.2rem; /* Tamaño de la fuente */
   color: black; /* Color del texto */
   text-align: center; /* Alineación centrada */
+  margin-bottom: 1rem;
 }
 
 /* Contenedor de contenido centrado */
@@ -1135,6 +1136,31 @@
 
 .arrow-btn:hover svg {
   transform: scale(1.1);
+}
+
+
+  /* Estilo compartido para la foto y el icono de reemplazo */
+.perfil-img {
+    width: 8rem; /* Ancho del círculo */
+    height: 8rem; /* Altura del círculo */
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+/* Solo para el icono cuando no hay imagen */
+.placeholder-icon {
+    font-size: 8rem; /* Ajusta tamaño del icono dentro del mismo contenedor */
+    color: #3EAEB1; /* Color del icono */
+    background-color: #f8f8f8; /* Misma base que la imagen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 

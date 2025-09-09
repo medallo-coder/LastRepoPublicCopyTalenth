@@ -93,7 +93,8 @@
 
           <div class="form-group">
             <label>Descripción</label>
-            <textarea name="descripcion_publicacion" placeholder="Describe tu publicación">{{ publicacion.descripcion_publicacion if publicacion is defined and publicacion else '' }}</textarea>
+            <textarea id="descripcion" name="descripcion_publicacion" placeholder="Describe tu publicación">{{ publicacion.descripcion_publicacion if publicacion is defined and publicacion else '' }}</textarea>
+            <div class="char-count" id="contadorCaracteres">0/200 caracteres</div>
           </div>
 
           <div class="form-actions">

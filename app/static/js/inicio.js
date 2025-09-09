@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
     dropdownMenus.forEach((menu) => menu.addEventListener('click', (e) => e.stopPropagation()));
 
     // --- Descripción y Ver Más con modal ---
+    // --- Descripción y Ver Más con modal ---
     const modalTarjeta = document.getElementById('modalTarjeta');
     const contenidoModal = document.getElementById('contenidoTarjeta');
     const cerrarTarjetaBtn = document.getElementById('cerrarTarjeta');
@@ -79,24 +80,55 @@ document.addEventListener("DOMContentLoaded", function() {
     const modalLogin = document.getElementById('modalLoginContacto');
     const closeLoginModal = document.getElementById('cerrarLoginContacto');
 
-    document.querySelectorAll('.card-tarjeta').forEach(tarjeta => {
-        const descripcionElem = tarjeta.querySelector('.descripcion');
-        const verMasBtn = tarjeta.querySelector('.ver-mas');
-        if (!descripcionElem || !verMasBtn) return;
+    // Función para límite de caracteres según pantalla
+    function getDescripcionLimit() {
+        if (window.innerWidth <= 480) { // Celulares
+            return 45;
+        } else if (window.innerWidth <= 768) { // Tablets
+            return 65;
+        } else { // Escritorio
+            return 75;
+        }
+    }
 
-        const textoOriginal = descripcionElem.textContent.trim();
-        if (textoOriginal.length > 70) {
-            descripcionElem.textContent = textoOriginal.substring(0, 70) + '...';
-            verMasBtn.classList.remove('hidden');
+    // Función para aplicar recorte dinámico en todas las tarjetas
+    function aplicarDescripcionResponsive() {
+        const limite = getDescripcionLimit();
 
-            verMasBtn.addEventListener('click', () => {
+        document.querySelectorAll('.card-tarjeta').forEach(tarjeta => {
+            const descripcionElem = tarjeta.querySelector('.descripcion');
+            const verMasBtn = tarjeta.querySelector('.ver-mas');
+            if (!descripcionElem || !verMasBtn) return;
+
+            // Guardar descripción completa en data-completa si aún no existe
+            if (!descripcionElem.dataset.completa) {
+                descripcionElem.dataset.completa = descripcionElem.textContent.trim();
+            }
+
+            const textoOriginal = descripcionElem.dataset.completa;
+
+            if (textoOriginal.length > limite) {
+                descripcionElem.textContent = textoOriginal.substring(0, limite) + '...';
+                verMasBtn.classList.remove('hidden');
+            } else {
+                descripcionElem.textContent = textoOriginal;
+                verMasBtn.classList.add('hidden');
+            }
+
+            // Evento del botón "Ver más"
+            verMasBtn.onclick = () => {
                 const tarjetaClonada = tarjeta.cloneNode(true);
 
+                // Poner la descripción completa
                 tarjetaClonada.querySelector('.descripcion').textContent = textoOriginal;
 
-                // Eliminar solo elementos que no deben aparecer en modal
-                const verMasClon = tarjetaClonada.querySelector('.ver-mas'); if (verMasClon) verMasClon.remove();
-                const menuClon = tarjetaClonada.querySelector('.menu-button-container'); if (menuClon) menuClon.remove();
+                // Quitar "Ver más" en el modal
+                const verMasClon = tarjetaClonada.querySelector('.ver-mas');
+                if (verMasClon) verMasClon.remove();
+
+                // Quitar menú en el modal
+                const menuClon = tarjetaClonada.querySelector('.menu-button-container');
+                if (menuClon) menuClon.remove();
 
                 // Botón de contacto dentro del modal
                 const contactBtn = tarjetaClonada.querySelector('.contact-button');
@@ -113,11 +145,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 contenidoModal.innerHTML = '';
                 contenidoModal.appendChild(tarjetaClonada);
                 modalTarjeta.classList.remove('hidden');
-            });
-        } else {
-            verMasBtn.classList.add('hidden');
-        }
-    });
+            };
+        });
+    }
+
+    // Aplicar al cargar la página
+    aplicarDescripcionResponsive();
+
+    // Reaplicar cuando cambia el tamaño de la ventana
+    window.addEventListener('resize', aplicarDescripcionResponsive);
 
     // Cerrar modal de tarjeta
     cerrarTarjetaBtn.addEventListener('click', () => {
@@ -135,6 +171,7 @@ document.addEventListener("DOMContentLoaded", function() {
             modalLogin.classList.add('hidden');
         }
     });
+
 
     // --- Guardar publicaciones ---
     document.querySelectorAll('.guardar-btn').forEach(btn => {

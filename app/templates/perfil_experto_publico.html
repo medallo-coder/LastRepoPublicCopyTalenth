@@ -33,11 +33,10 @@
 
         {% if perfil.foto_perfil %}
        <!-- Círculo con ícono debajo del título -->
-        
-          
-            <img src="{{ url_for('web.perfil_foto', filename=perfil.foto_perfil) }}" alt="Foto de perfil" class="image" />
-          
-        
+        <img src="{{ url_for('web.perfil_foto', filename=perfil.foto_perfil) }}" alt="Foto de perfil" class="image" />
+        {% else %}
+        <!-- Icono de Bootstrap como reemplazo -->
+        <i class="bi bi-person-circle perfil-img placeholder-icon"></i>
         {% endif %}
     
     <div class="estrellas">

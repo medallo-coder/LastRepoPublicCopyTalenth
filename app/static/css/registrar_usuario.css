@@ -1,10 +1,16 @@
+/*-----------------------------------------------
+    Reset general y fuente personalizada
+  -----------------------------------------------*/
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Oswald Variable';
 }
-/* oswald-latin-wght-normal */
+
+/*-----------------------------------------------
+    Fuente Oswald Variable (peso de 200 a 700)
+  -----------------------------------------------*/
 @font-face {
     font-family: 'Oswald Variable';
     font-style: normal;
@@ -12,8 +18,11 @@
     font-weight: 200 700;
     src: url(https://cdn.jsdelivr.net/fontsource/fonts/oswald:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
     unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-  }
+}
 
+/*-----------------------------------------------
+    Estilos generales del body
+  -----------------------------------------------*/
 body {
     background: #e0e0e0;
     display: flex;
@@ -22,6 +31,9 @@ body {
     height: 100vh;
 }
 
+/*-----------------------------------------------
+    Contenedor principal centrado
+  -----------------------------------------------*/
 .container {
     display: flex;
     flex-direction: column;
@@ -33,7 +45,10 @@ body {
     text-align: center;
 }
 
-.contenedor{
+/*-----------------------------------------------
+    Contenedor de botones y navegación superior
+  -----------------------------------------------*/
+.contenedor {
     display: flex;
     padding: 20px;
     width: 450px;
@@ -43,151 +58,194 @@ body {
     padding-bottom: 130px;
 }
 
-.bt-registro{
-  margin-left: 695px;
-
+/*-----------------------------------------------
+    Botón de registro (alineación derecha)
+  -----------------------------------------------*/
+.bt-registro {
+    margin-left: 695px;
 }
 
-.bt-iniciarsesion{
-  margin-right: 30px;
-  color: black;
-   text-decoration: none;
+/*-----------------------------------------------
+    Botón de iniciar sesión
+  -----------------------------------------------*/
+.bt-iniciarsesion {
+    margin-right: 30px;
+    color: black;
+    text-decoration: none;
 }
 
+/*-----------------------------------------------
+    Hover del botón de iniciar sesión
+  -----------------------------------------------*/
 .bt-iniciarsesion:hover {
     color: #3EAEB1;
 }
 
+/*-----------------------------------------------
+    Grupo izquierdo con logo y texto
+  -----------------------------------------------*/
 .left-group {
     position: absolute;
     top: 20px;
     left: 20px;
     z-index: 100;
-    display: flex; /* Usamos flexbox para alinear los elementos */
-    align-items: center; /* Alineamos los elementos verticalmente */
+    display: flex;
+    align-items: center;
 }
 
+/*-----------------------------------------------
+    Estilos del enlace y logo
+  -----------------------------------------------*/
 .link {
     display: flex;
     align-items: center;
     gap: 1px;
     text-decoration: none;
 }
+
 .link img {
     height: 40px;
     margin-right: 10px;
 }
 
+/*-----------------------------------------------
+    Logo y texto al lado
+  -----------------------------------------------*/
 .logo {
     height: 40px;
     margin-left: 10px;
 }
+
 .logo-text h1 {
     font-size: 25px;
     font-weight: bold;
     color: #3eaeb1;
     margin: 0;
 }
+
 .azul {
     color: black;
 }
 
+/*-----------------------------------------------
+    Estilo del span de navegación
+  -----------------------------------------------*/
 nav span {
     font-size: 25px;
     margin: 0 10px;
     cursor: pointer;
     color: #141413;
     font-weight: bold;
-
 }
 
+/*-----------------------------------------------
+    Checkbox invisible para el interruptor (toggle)
+  -----------------------------------------------*/
 .toggle-checkbox {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
 }
 
+/*-----------------------------------------------
+    Base del interruptor (toggle)
+  -----------------------------------------------*/
 .toggle-slot {
-  font-size: 10px;
-  position: relative;
-  height: 3.5em;
-  width: 7em;
-  border: 0px solid transparent;
-  border-radius: 10em;
-  background-color: #fff;
-  transition: background-color 250ms;
-
+    font-size: 10px;
+    position: relative;
+    height: 3.5em;
+    width: 7em;
+    border: 0px solid transparent;
+    border-radius: 10em;
+    background-color: #fff;
+    transition: background-color 250ms;
 }
 
 .toggle-checkbox:checked ~ .toggle-slot {
-  background-color: #fff;
+    background-color: #fff;
 }
 
+/*-----------------------------------------------
+    Botón circular del interruptor
+  -----------------------------------------------*/
 .toggle-button {
-  transform: translate(0.3em, 0.25em);
-  position: absolute;
-  height: 3em;
-  width: 3em;
-  border-radius: 50%;
-  background-color: #D9D9D9;
-  box-shadow: inset 0px 0px 0px 0.75em #3EAEB1;
-  transition: background-color 250ms, border-color 250ms, transform 500ms cubic-bezier(.26,2,.46,.71);
+    transform: translate(0.3em, 0.25em);
+    position: absolute;
+    height: 3em;
+    width: 3em;
+    border-radius: 50%;
+    background-color: #D9D9D9;
+    box-shadow: inset 0px 0px 0px 0.75em #3EAEB1;
+    transition: background-color 250ms, border-color 250ms, transform 500ms cubic-bezier(.26,2,.46,.71);
 }
 
 .toggle-checkbox:checked ~ .toggle-slot .toggle-button {
-  background-color: #D9D9D9;
-  box-shadow: inset 0px 0px 0px 0.75em #3EAEB1;
-  transform: translate(3.65em, 0.25em);
+    background-color: #D9D9D9;
+    box-shadow: inset 0px 0px 0px 0.75em #3EAEB1;
+    transform: translate(3.65em, 0.25em);
 }
 
+/*-----------------------------------------------
+    Icono del sol
+  -----------------------------------------------*/
 .sun-icon {
-  position: absolute;
-  height: 6em;
-  width: 6em;
-  color: #ffbb52;
+    position: absolute;
+    height: 6em;
+    width: 6em;
+    color: #ffbb52;
 }
 
+/*-----------------------------------------------
+    Wrapper del icono del sol
+  -----------------------------------------------*/
 .sun-icon-wrapper {
-  position: absolute;
-  height: 6em;
-  width: 6em;
-  opacity: 1;
-  transform: translate(2em, 2em) rotate(15deg);
-  transform-origin: 50% 50%;
-  transition: opacity 150ms, transform 500ms cubic-bezier(.26,2,.46,.71);
+    position: absolute;
+    height: 6em;
+    width: 6em;
+    opacity: 1;
+    transform: translate(2em, 2em) rotate(15deg);
+    transform-origin: 50% 50%;
+    transition: opacity 150ms, transform 500ms cubic-bezier(.26,2,.46,.71);
 }
 
 .toggle-checkbox:checked ~ .toggle-slot .sun-icon-wrapper {
-  opacity: 0;
-  transform: translate(3em, 2em) rotate(0deg);
+    opacity: 0;
+    transform: translate(3em, 2em) rotate(0deg);
 }
 
+/*-----------------------------------------------
+    Icono de la luna
+  -----------------------------------------------*/
 .moon-icon {
-  position: absolute;
-  height: 6em;
-  width: 6em;
-  color: white;
+    position: absolute;
+    height: 6em;
+    width: 6em;
+    color: white;
 }
 
+/*-----------------------------------------------
+    Wrapper del icono de luna
+  -----------------------------------------------*/
 .moon-icon-wrapper {
-  position: absolute;
-  height: 6em;
-  width: 6em;
-  opacity: 0;
-  transform: translate(11em, 2em) rotate(0deg);
-  transform-origin: 50% 50%;
-  transition: opacity 150ms, transform 500ms cubic-bezier(.26,2.5,.46,.71);
+    position: absolute;
+    height: 6em;
+    width: 6em;
+    opacity: 0;
+    transform: translate(11em, 2em) rotate(0deg);
+    transform-origin: 50% 50%;
+    transition: opacity 150ms, transform 500ms cubic-bezier(.26,2.5,.46,.71);
 }
 
 .toggle-checkbox:checked ~ .toggle-slot .moon-icon-wrapper {
-  opacity: 1;
-  transform: translate(2em, 2em) rotate(-15deg);
+    opacity: 1;
+    transform: translate(2em, 2em) rotate(-15deg);
 }
 
-
+/*-----------------------------------------------
+    Estilos para switch alternativo (no toggle)
+  -----------------------------------------------*/
 .switch {
     position: relative;
 }
@@ -208,7 +266,10 @@ nav span {
     font-size: 18px;
     color: #D3CEC4;
 }
-/* Formulario de registro */
+
+/*-----------------------------------------------
+    Formulario de registro
+  -----------------------------------------------*/
 .register-form {
     background: rgba(255, 255, 255, 0.4);
     padding: 20px;
@@ -218,7 +279,6 @@ nav span {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
 }
 
 .register-form h1 {
@@ -227,7 +287,9 @@ nav span {
     font-size: 35px;
 }
 
-/* Campos de entrada */
+/*-----------------------------------------------
+    Grupos de entrada (input group)
+  -----------------------------------------------*/
 .input-group {
     display: flex;
     align-items: center;
@@ -238,19 +300,37 @@ nav span {
     border-radius: 5px;
 }
 
+/*-----------------------------------------------
+    Grupo para contraseña (ajuste de margen)
+  -----------------------------------------------*/
 .password-group {
     margin-bottom: 10px !important;
 }
 
-/* Iconos */
+/*-----------------------------------------------
+    Iconos dentro de inputs
+  -----------------------------------------------*/
+/*-----------------------------------------------
+    Ícono del ojo (mostrar/ocultar contraseña)
+  -----------------------------------------------*/
+
+/* Íconos generales */
 .input-icon {
-    margin: 0 10px;
+    font-size: 28px; /* Correo y candado */
     color: #3eaeb1;
-    font-size: 28px;
+    margin: 0 10px;
 }
 
+/* Ícono del ojito  */
+.eye-icon {
+    font-size: 20px;
+    color: #333;
+    cursor: pointer;
+}
 
-/* Input general */
+/*-----------------------------------------------
+    Input general dentro de .input-group
+  -----------------------------------------------*/
 .input-group input {
     border: none;
     outline: none;
@@ -259,13 +339,17 @@ nav span {
     font-size: 20px;
 }
 
-/* Íconos del toggle password */
+/*-----------------------------------------------
+    Iconos para mostrar/ocultar contraseña
+  -----------------------------------------------*/
 .toggle-pass {
     cursor: pointer;
     color: #333;
 }
 
-/* Botón de enviar */
+/*-----------------------------------------------
+    Botón de registro (submit)
+  -----------------------------------------------*/
 .bt-login {
     width: 170px;
     height: 60px;
@@ -280,24 +364,27 @@ nav span {
     font-weight: bold;
 }
 
-/* Enlace inferior */
+/*-----------------------------------------------
+    Enlace inferior: ¿Ya tienes una cuenta?
+  -----------------------------------------------*/
 .bt-recuperar-pasword {
-    display: block;            
-    text-align: center;        
+    display: block;
+    text-align: center;
     color: #000;
     font-size: 19px;
     text-decoration: none;
     font-weight: bold;
-    margin-top: 20px;          
+    margin-top: 20px;
 }
-
 
 .bt-recuperar-pasword:hover {
     color: #3eaeb1;
     text-decoration: none;
 }
 
-/* Placeholder */
+/*-----------------------------------------------
+    Placeholder de los inputs
+  -----------------------------------------------*/
 input::placeholder {
     color: rgb(0, 0, 0);
     font-weight: bold;
@@ -305,76 +392,57 @@ input::placeholder {
     cursor: pointer;
 }
 
-
-/* Estilos para la validacion de contraseña*/
-
+/*-----------------------------------------------
+    Requisitos de contraseña
+  -----------------------------------------------*/
 #password-requirements {
-  margin: 0px 0px 10px 5px; 
-  font-size: 15px;   
-  line-height: 1.2;
+    margin: 0 0 10px 5px;
+    font-size: 15px;
+    line-height: 1.2;
 }
 
 #password-requirements p {
-  margin: 3px 0;
-  display: flex;
-  align-items: center;
-  font-weight: 600;
-  color: #666;   /* ✅ aplica solo al texto dentro del <p> */
-}
-
-#password-requirements span i {
-  font-size: 25px;   /* ícono más grande */
-  margin-right: 10px;
-}
-
-/* Mantén el texto gris pero permite que los iconos tengan su color */
-#password-requirements {
-  margin: 0 0 10px 5px;
-  font-size: 15px;
-  line-height: 1.2;
-}
-
-#password-requirements p {
-  margin: 1px 0;
-  display: flex;
-  align-items: center;
-  font-weight: 600;
-  color: #666;  /* texto gris */
+    margin: 1px 0;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #666;
 }
 
 #password-requirements span {
-  width: 30px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
+    width: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
 }
 
-/* tamaño del icono */
 #password-requirements span i {
-  font-size: 20px;
-  line-height: 1;
-  vertical-align: middle;
+    font-size: 20px;
+    line-height: 1;
+    vertical-align: middle;
 }
 
-/* si no usas bootstrap, define los colores que necesitas */
+/*-----------------------------------------------
+    Colores personalizados para íconos de validación
+  -----------------------------------------------*/
 #password-requirements span i.text-danger {
-  color: #dc3545 !important;   /* rojo */
+    color: #dc3545 !important;
 }
+
 #password-requirements span i.text-success {
-  color: #198754 !important;   /* verde */
+    color: #198754 !important;
 }
 
-
-
-
-/* Media Queries para celulares */
+/*-----------------------------------------------
+    Media queries para móviles (hasta 480px)
+  -----------------------------------------------*/
 @media (max-width: 480px) {
     .contenedor {
         font-size: 18px;
     }
     .input-group {
-        width: 320px; /* Ajuste del ancho */
+        width: 320px;
     }
 
     .register-form h1 {
@@ -382,41 +450,40 @@ input::placeholder {
     }
 
     .register-form {
-         width: 370px;
-         height: 615px;
-         margin-top: 70px;
+        width: 370px;
+        height: 615px;
+        margin-top: 70px;
     }
 
-    .inp-correo input, .inp-contraseña input {
+    .inp-correo input,
+    .inp-contraseña input {
         font-size: 14px;
-        padding: 6px; /* Ajuste del padding */
+        padding: 6px;
     }
 
-    .inp-correo {
-        width: 300px;
-    }
-
-    .inp-contraseña{
+    .inp-correo,
+    .inp-contraseña {
         width: 300px;
     }
 
     button.bt-login {
         font-size: 16px;
-        width: 80%; /* Ajuste del ancho */
-        margin: 20px auto 10px; /* Centrado y márgenes */
+        width: 80%;
+        margin: 20px auto 10px;
         margin-bottom: -15px;
-        display: block; /* Asegura el centrado */
-        height: 40px; /* Ajuste de la altura */
+        display: block;
+        height: 40px;
     }
 
     .bt-recuperar-pasword {
         font-size: 15px;
-        margin-left: 82px; /*para centrarlo*/
+        margin-left: 82px;
     }
-
 }
 
-/* Reducir aún más los campos de entrada en pantallas muy pequeñas */
+/*-----------------------------------------------
+    Media query para pantallas menores a 391px
+  -----------------------------------------------*/
 @media (max-width: 391px) {
     .register-form {
         width: 336px;
@@ -424,29 +491,28 @@ input::placeholder {
         margin-top: 130px;
         margin-bottom: 50px;
     }
+
     .input-group {
-        width: 280px; /* Ajuste del ancho */
+        width: 280px;
     }
-     .inp-correo input, .inp-contraseña input {
+
+    .inp-correo input,
+    .inp-contraseña input {
         font-size: 14px;
-        padding: 6px; /* Ajuste del padding */
+        padding: 6px;
     }
 
-    .inp-correo {
+    .inp-correo,
+    .inp-contraseña {
         width: 250px;
     }
 
-    .inp-contraseña{
-        width: 250px;
-    }
-
-    button.bt-login{
+    button.bt-login {
         margin-bottom: -15px;
     }
 
     .bt-recuperar-pasword {
         font-size: 14px;
-        margin-left: 61px; /*para centrarlo*/
+        margin-left: 61px;
     }
 }
-

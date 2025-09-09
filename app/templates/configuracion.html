@@ -39,14 +39,23 @@
       <h2 class="titulo-secundario">Cambiar contraseña</h2>
       <form id="passwordForm" action="{{ url_for('web.cambiar_contraseña') }}" method="POST">
         <!-- Solo pedimos nueva y confirmar porque la lógica actual no usa la actual -->
-        <label>Actual contraseña</label>
-        <input id="actual_contrasena" type="password" name="actual_contrasena" required>
+       <label>Actual contraseña</label>
+        <div class="password-wrapper">
+            <input id="pass1" type="password" name="actual_contrasena" required>
+            <i class="bi bi-eye-fill toggle-pass" data-target="pass1"></i>
+        </div>
 
-        <label>Nueva contraseña</label>
-        <input id="nueva_contrasena" type="password" name="nueva_contrasena" required>
+      <label>Nueva contraseña</label>
+      <div class="password-wrapper">
+          <input id="pass2" type="password" name="nueva_contrasena" required>
+          <i class="bi bi-eye-fill toggle-pass" data-target="pass2"></i>
+      </div>
 
-        <label>Repetir nueva contraseña</label>
-        <input id="confirmar_contrasena" type="password" name="confirmar_contrasena" required>
+      <label>Repetir nueva contraseña</label>
+      <div class="password-wrapper">
+          <input id="pass3" type="password" name="confirmar_contrasena" required>
+          <i class="bi bi-eye-fill toggle-pass" data-target="pass3"></i>
+      </div>
 
         <div class="flex">
           <button type="submit" class="btn-primary">Guardar cambios</button>
@@ -71,11 +80,17 @@
           <p>Tu perfil y tus servicios dejarán de ser visibles para los usuarios.</p>
           <p>Importante: La desactivación no elimina tus datos; tu cuenta quedará registrada pero deshabilitada.</p>
         </div>
-        <label>Ingresar contraseña </label>
-        <input id="confirmarEliminar" type="password" name="contrasena" required>
+        <label>Ingresar contraseña</label>
+        <div class="password-wrapper">
+          <input id="pass4" type="password" name="contrasena" required>
+          <i class="bi bi-eye-fill toggle-pass" data-target="pass4"></i>
+        </div>
+        <p id="mensajeErrorEliminar" class="error-text"></p>
+
+
 
         <div class="flex">
-          <button type="submit" class="btn-primary">Eliminar</button>
+         <button type="button" id="btnEliminarCuentaForm" class="btn-primary">Eliminar</button>
           <button type="button" id="cancelarEliminarBtn" class="btn-secondary">Cancelar</button>
         </div>
       </form>
@@ -83,60 +98,23 @@
 
   </div>
 
-  <script>
-    document.getElementById('cambiarContraseñaBtn').addEventListener('click', () => {
-      const formulario = document.getElementById('formularioCambio');
-      formulario.classList.remove('hidden');
-      formulario.scrollIntoView({ behavior: 'smooth' });
-      document.getElementById('cambiarContraseñaBtn').style.display = 'none';
-    });
+<!-- Modal eliminar cuenta -->
+<div id="modalEliminarCuenta" class="modal-eliminar-cuenta hidden">
+  <div class="modal-eliminar-content">
+    <h2>Nos entristece que quieras irte</h2>
+    <p>Esta acción es permanente y no podrás recuperar tu información, publicaciones ni contactos. </p>
+    <p>¿Estás seguro de que deseas eliminar tu cuenta?</p>
+    <div class="modal-eliminar-buttons">
+      <button type="button" id="confirmarEliminarBtn" class="btn-eliminar-confirm">Eliminar</button>
+      <button id="cancelarEliminarModalBtn" class="btn-eliminar-cancel">Cancelar</button>
+    </div>
+  </div>
+</div>
 
-    document.getElementById('cancelarBtn').addEventListener('click', () => {
-      const formulario = document.getElementById('formularioCambio');
-      formulario.classList.add('hidden');
-      document.getElementById('passwordForm').reset();
-      document.getElementById('cambiarContraseñaBtn').style.display = 'inline-block';
-    });
 
-    document.getElementById('eliminarCuentaBtn').addEventListener('click', () => {
-      const formulario = document.getElementById('formularioEliminar');
-      formulario.classList.remove('hidden');
-      formulario.scrollIntoView({ behavior: 'smooth' });
-      document.getElementById('eliminarCuentaBtn').style.display = 'none';
-    });
-
-    document.getElementById('cancelarEliminarBtn').addEventListener('click', () => {
-      const formulario = document.getElementById('formularioEliminar');
-      formulario.classList.add('hidden');
-      document.getElementById('eliminarForm').reset();
-      document.getElementById('eliminarCuentaBtn').style.display = 'inline-block';
-    });
-  </script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const fechaRegistroText = document.getElementById('fecha_registro').textContent;
-        
-        // Suponemos que la fecha viene en formato "2025-05-01" o similar
-        const fecha = new Date(fechaRegistroText);
-
-        // Diccionario de meses en español
-        const mesesEspanol = [
-            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
-            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-        ];
-
-        // Obtenemos el mes (0 basado) y el año
-        const mes = fecha.getMonth();  // Esto devolverá un número entre 0 y 11
-        const anio = fecha.getFullYear();
-
-        // Formateamos la fecha en el formato deseado
-        const fechaFormateada = `Se unió en ${mesesEspanol[mes]} de ${anio}`;
-
-        // Actualizamos el contenido del <p> con la fecha formateada
-        document.getElementById('fecha_registro').textContent = fechaFormateada;
-    });
-</script>
-
+  
+<script src="{{ url_for('static', filename='js/configuracion.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ocultar_contraseña.js') }}"></script>
 <!-- Modificación Camilo: Incluí el footer correctamente antes de </body>. -->
 {% include 'footer.html' %}
 </body>

@@ -141,4 +141,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
   });
+
+   const textarea = document.getElementById('descripcion');
+  const contador = document.getElementById('contadorCaracteres');
+  const maxCaracteres = 200;
+
+  if (textarea && contador) {
+    // Mostrar caracteres actuales si ya hay texto
+    contador.textContent = `${textarea.value.length}/${maxCaracteres} caracteres`;
+
+    textarea.addEventListener('input', () => {
+      let texto = textarea.value;
+
+      // Limitar caracteres
+      if (texto.length > maxCaracteres) {
+        texto = texto.substring(0, maxCaracteres);
+        textarea.value = texto;
+      }
+
+      // Actualizar contador
+      contador.textContent = `${texto.length}/${maxCaracteres} caracteres`;
+
+      // Cambiar color
+      contador.classList.remove('limit-reached', 'warning');
+
+      if (texto.length >= maxCaracteres) {
+        contador.classList.add('limit-reached');
+      } else if (texto.length >= maxCaracteres - 20) {
+        contador.classList.add('warning');
+      }
+    });
+  }
+
 });

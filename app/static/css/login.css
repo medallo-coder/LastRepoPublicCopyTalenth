@@ -1,10 +1,16 @@
+/*-----------------------------------------------
+    Principal
+  -----------------------------------------------*/
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Oswald Variable';
 }
-/* oswald-latin-wght-normal */
+
+/*-----------------------------------------------
+    Fuente personalizada (Oswald Variable)
+  -----------------------------------------------*/
 @font-face {
     font-family: 'Oswald Variable';
     font-style: normal;
@@ -12,8 +18,11 @@
     font-weight: 200 700;
     src: url(https://cdn.jsdelivr.net/fontsource/fonts/oswald:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
     unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-  }
+}
 
+/*-----------------------------------------------
+    Estilos del <body>
+  -----------------------------------------------*/
 body {
     background: #e0e0e0;
     display: flex;
@@ -22,6 +31,9 @@ body {
     height: 100vh;
 }
 
+/*-----------------------------------------------
+    Contenedor general
+  -----------------------------------------------*/
 .container {
     display: flex;
     flex-direction: column;
@@ -33,7 +45,10 @@ body {
     text-align: center;
 }
 
-.contenedor{
+/*-----------------------------------------------
+    Contenedor superior con los botones de login y registro
+  -----------------------------------------------*/
+.contenedor {
     display: flex;
     padding: 20px;
     width: 450px;
@@ -42,26 +57,29 @@ body {
     font-weight: bold;
 }
 
-.bt-registro{
-  margin-left: 65px;
+.bt-registro {
+    margin-left: 65px;
 }
 
-.bt-iniciarsesion{
-   margin-right: 30px;
-   color: black;
-   text-decoration: none;
+.bt-iniciarsesion {
+    margin-right: 30px;
+    color: black;
+    text-decoration: none;
 }
 .bt-iniciarsesion:hover {
     color: #3EAEB1;
 }
 
+/*-----------------------------------------------
+    Logo e ícono de la página (parte superior izquierda)
+  -----------------------------------------------*/
 .left-group {
     position: absolute;
     top: 20px;
     left: 20px;
     z-index: 100;
-    display: flex; /* Usamos flexbox para alinear los elementos */
-    align-items: center; /* Alineamos los elementos verticalmente */
+    display: flex;
+    align-items: center;
 }
 
 .link {
@@ -89,36 +107,41 @@ body {
     color: black;
 }
 
+/*-----------------------------------------------
+    Navegación o spans de la parte superior
+  -----------------------------------------------*/
 nav span {
     font-size: 25px;
     margin: 0 10px;
     cursor: pointer;
     color: #141413;
     font-weight: bold;
-
 }
 
-
-
-   .register-form {
-        background: rgba(255, 255, 255, 0.4);
-        padding: 20px;
-        width: 450px;
-        height: 470px;
-        border-radius: 50px;
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+/*-----------------------------------------------
+    Estilos del formulario de login
+  -----------------------------------------------*/
+.register-form {
+    background: rgba(255, 255, 255, 0.4);
+    padding: 20px;
+    width: 450px;
+    height: 470px;
+    border-radius: 50px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .register-form h1 {
-        color: #3eaeb1;
-        margin-bottom: -1px;
-        font-size: 35px;
-    }
+    color: #3eaeb1;
+    margin-bottom: -1px;
+    font-size: 35px;
+}
 
-
+/*-----------------------------------------------
+    Campos de correo y contraseña
+  -----------------------------------------------*/
 .inp-correo, .inp-contraseña {
     display: flex;
     align-items: center;
@@ -136,31 +159,33 @@ nav span {
     margin: 5px 10px 0px 5px;
 }
 
-    
-/* Iconos */
+/*-----------------------------------------------
+    Iconos dentro de los campos de entrada
+  -----------------------------------------------*/
 .input-icon {
     margin: 0 10px;
     color: #3eaeb1;
     font-size: 28px;
-    
-} 
+}
 
-/* Botón centrado */
-    .bt-login {
-        width: 170px;
-        height: 60px;
-        font-size: 20px;
-        margin-top: 70px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: auto;
-        margin-right: auto;
-    }
+/*-----------------------------------------------
+    Botón de iniciar sesión
+  -----------------------------------------------*/
+.bt-login {
+    width: 170px;
+    height: 60px;
+    font-size: 20px;
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-
-
-
+/*-----------------------------------------------
+    Estilos para los inputs de texto
+  -----------------------------------------------*/
 .inp-correo input, .inp-contraseña input {
     border: none;
     outline: none;
@@ -170,67 +195,85 @@ nav span {
     font-size: 20px;
 }
 
+/*-----------------------------------------------
+    Ícono del ojo (mostrar/ocultar contraseña)
+  -----------------------------------------------*/
 
-/*logo ojo*/
-    .bi {
-    font-size: 30px;
+/* Íconos generales */
+.input-icon {
+    font-size: 28px; /* Correo y candado */
+    color: #3eaeb1;
+    margin: 0 10px;
+}
+
+/* Ícono del ojito  */
+.eye-icon {
+    font-size: 20px;
+    color: #333;
     cursor: pointer;
-    transform: none;
-    }
+}
 
-    input::placeholder {
-        color: rgb(0, 0, 0);
-        font-weight: bold;
-        opacity: 0.6;
-        cursor: pointer;
-    }
+
+
+
+/*-----------------------------------------------
+    Placeholder de los inputs
+  -----------------------------------------------*/
+input::placeholder {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+/*-----------------------------------------------
+    Botones (general)
+  -----------------------------------------------*/
 button {
     background: #d9d9d9;
     color: #333;
     border: none;
     padding: 8px;
-    width: 170px; /* Reducimos el ancho */
-    height: 55px; /* Reducimos la altura */
+    width: 170px;
+    height: 55px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 18px; /* Ajustamos el tamaño del texto */
+    font-size: 18px;
     font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto; /* Esto lo mantiene centrado */
+    margin: 0 auto;
 }
 
-/* Íconos del toggle password */
-.toggle-pass {
+/*-----------------------------------------------
+    Enlaces: "¿Olvidaste tu contraseña?" y "Crea una cuenta"
+  -----------------------------------------------*/
+.recuperar-creacion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.bt-recuperar-pasword {
+    color: #000000;
+    font-size: 19px;
+    text-decoration: none;
     cursor: pointer;
-    color: #333;
-    flex-shrink: 0;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-  /* Contenedor para los enlaces centrados */
-    .recuperar-creacion {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 15px;
-    }
+.bt-recuperar-pasword:hover {
+    color: #3eaeb1;
+    text-decoration: none;
+}
 
-    .bt-recuperar-pasword {
-        color: #000000;
-        font-size: 19px;
-        text-decoration: none;
-        cursor: pointer;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    .bt-recuperar-pasword:hover {
-        color: #3eaeb1;
-        text-decoration: none;
-    }
-
-    .login-error {
+/*-----------------------------------------------
+    Mensaje de error de login
+  -----------------------------------------------*/
+.login-error {
     color: red;
     font-size: 15px;
     margin-top: -12px;
@@ -240,8 +283,9 @@ button {
     text-align: left;
 }
 
-
-    /* Media Queries para celulares */
+/*-----------------------------------------------
+    Media query para pantallas pequeñas (< 480px)
+  -----------------------------------------------*/
 @media (max-width: 480px) {
     .contenedor {
         font-size: 18px;
@@ -252,41 +296,38 @@ button {
     }
 
     .register-form {
-         width: 370px;
-         height: 360px;
-         margin-top: 70px;
+        width: 370px;
+        height: 360px;
+        margin-top: 70px;
     }
 
     .inp-correo input, .inp-contraseña input {
         font-size: 14px;
-        padding: 6px; /* Ajuste del padding */
+        padding: 6px;
     }
 
-    .inp-correo {
-        width: 300px;
-    }
-
-    .inp-contraseña{
+    .inp-correo, .inp-contraseña {
         width: 300px;
     }
 
     button.bt-login {
         font-size: 16px;
-        width: 80%; /* Ajuste del ancho */
-        margin: 20px auto 10px; /* Centrado y márgenes */
+        width: 80%;
+        margin: 20px auto 10px;
         margin-bottom: 22px;
-        display: block; /* Asegura el centrado */
-        height: 40px; /* Ajuste de la altura */
+        display: block;
+        height: 40px;
     }
 
     .bt-recuperar-pasword {
         font-size: 15px;
-        margin-left: 6px; /*para centrarlo*/
+        margin-left: 6px;
     }
-
 }
 
-/* Reducir aún más los campos de entrada en pantallas muy pequeñas */
+/*-----------------------------------------------
+    Media query para pantallas muy pequeñas (< 391px)
+  -----------------------------------------------*/
 @media (max-width: 391px) {
     .register-form {
         width: 336px;
@@ -295,25 +336,21 @@ button {
         margin-bottom: 50px;
     }
 
-     .inp-correo input, .inp-contraseña input {
+    .inp-correo input, .inp-contraseña input {
         font-size: 14px;
-        padding: 6px; /* Ajuste del padding */
+        padding: 6px;
     }
 
-    .inp-correo {
+    .inp-correo, .inp-contraseña {
         width: 250px;
     }
 
-    .inp-contraseña{
-        width: 250px;
-    }
-
-    button.bt-login{
+    button.bt-login {
         margin-bottom: 20px;
     }
 
     .bt-recuperar-pasword {
         font-size: 14px;
-        margin-left: 10px; /*para centrarlo*/
+        margin-left: 10px;
     }
 }

@@ -488,6 +488,26 @@ button:hover,
   max-width: 70%;
 }
 
+/*descipcion mas de 200 */
+
+.char-count {
+  font-size: 0.9em;
+  color: #555;
+  margin-top: 5px;
+}
+
+.char-count.limit-reached {
+  color: red;
+  font-weight: bold;
+}
+
+.char-count.warning {
+  color: #b13838;
+  font-weight: 600;
+}
+
+
+
 /* ---------------- RESPONSIVE ---------------- */
 @media (max-width: 768px) {
 
