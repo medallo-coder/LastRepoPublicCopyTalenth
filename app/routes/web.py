@@ -257,10 +257,16 @@ def publicaciones():
     elif tiempo == "mes":
         desde = datetime.now() - timedelta(days=30)
         publicaciones_query = publicaciones_query.filter(Publicaciones.fecha >= desde)
-    # Si no hay filtro, no aplicamos nada
 
     # Ordenar de más reciente a más antigua
     publicaciones = publicaciones_query.order_by(Publicaciones.fecha.desc()).all()
+
+    # 🔑 Obtener id del usuario logueado
+    auth_result = verificar_autenticacion_service()
+    id_usuario_logueado = None
+    if auth_result.get("authenticated"):
+        datos_usuario = obtener_datos_usuario_service()
+        id_usuario_logueado = datos_usuario.get("usuario_id")
 
     return render_template(
         'publicaciones.html',
@@ -268,6 +274,7 @@ def publicaciones():
         categorias=categorias,
         total_resultados=len(publicaciones),
         categoria_seleccionada=categoria_id,
+        id_usuario_logueado=id_usuario_logueado   # 👈 se pasa al template
     )
 
 
