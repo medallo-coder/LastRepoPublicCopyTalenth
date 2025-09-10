@@ -264,7 +264,6 @@
 
 
 
-
 </style>
 </head>
 
@@ -272,7 +271,7 @@
   {% include 'nav.html' %}
   {% include 'errors.html' %}
   
-  <div class="w-[70vw] mx-auto flex flex-col">
+  <div class="w-[70vw] mx-auto flex flex-col mb-10">
 
     <!-- Botón de Filtros para pantallas pequeñas -->
     <div class="lg:hidden flex justify-start px-4 mb-4">
@@ -325,7 +324,7 @@
             <p class="text-lg font-semibold text-black">Categorías</p>
             <button type="button" id="toggleCategorias" class="text-[#3EAEB1] text-lg"><i class="bi bi-chevron-down"></i></button>
           </div>
-          <div id="categorias" class="mt-1 space-y-1.5 hidden">
+          <div id="categorias" class="mt-1 space-y-1.5 ">
             <label class="flex items-center space-x-2 cursor-pointer category" data-categoria-id="">
               <input type="radio" name="categoria_id" value="" class="category-radio" {% if not categoria_seleccionada %}checked{% endif %} />
               <span class="text-[#666666] text-base">Todas</span>

@@ -483,7 +483,7 @@
     position: absolute;
     right: 0;
     top: 30px;
-    width: 120px;
+    width: 125px;
     background-color: #F8F8F8;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -496,10 +496,13 @@
   }
   .menu-close-btn {
   position: absolute;
-  top: 2px;
+  top: 4px;
   right: 6px;
-  font-size: 30px;
-  font-weight: normal;
+  font-size: 19px;
+  
+  font-weight: 700; /* texto en negrita */
+
+  font-family: Arial, Helvetica, sans-serif !important; /* FORZA que no use Oswald */
   color: #333;
   cursor: pointer;
   transition: color 0.2s ease;
