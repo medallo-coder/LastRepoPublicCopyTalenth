@@ -225,16 +225,11 @@ document.querySelectorAll('.contact-button').forEach(btn => {
           <p class="descripcion-titulo">Descripción:</p>
           <p class="descripcion descripcion-texto">
             {{ pub.descripcion_publicacion }}
-            <span class="ver-mas hidden">Ver más</span>
           </p>
-<<<<<<< HEAD
-
-=======
           <span class="ver-mas hidden">Ver más</span>
           <form action="{{ url_for('mensajeria.iniciar_chat_con_experto', experto_id=pub.usuario.usuario_id) }}" method="POST">
             <button type="submit" class="contact-button">Contactar experto</button>
           </form>
->>>>>>> 75dd8c2ef36b71a3b7957b89cd8c8cc5bb2d38af
 
         </div>
       </div> <!-- fin tarjeta -->

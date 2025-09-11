@@ -142,6 +142,7 @@
     font-family: 'Oswald', sans-serif; /* Tipografía Oswald */
 }
 
+
 /* Botón menú sin fondo ni borde */
 .menu1 {
     background: none;           /* Sin fondo */
@@ -564,6 +565,50 @@
   font-size: 40px;
   cursor: pointer;
 }
+
+/* Contenedor para cuando no hay guardados */
+.no-guardados {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Más arriba */
+  text-align: center;
+  min-height: calc(80vh); /* Centrado vertical aproximado, más arriba */
+  padding: 50px 20px 20px 20px; /* Más espacio arriba */
+  font-family: 'Oswald', sans-serif;
+  color: #3EAEB1; /* Azul verdoso principal */
+}
+
+.no-guardados h3 {
+  font-size: 1.5rem; /* Más pequeño */
+  margin-bottom: 10px;
+  color: #3EAEB1;
+}
+
+.no-guardados p {
+  font-size: 0.95rem; /* Más pequeño */
+  color: #555; 
+  max-width: 350px;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.no-guardados .btn-explorar {
+  display: inline-block;
+  background-color: #3EAEB1; 
+  color: white;
+  padding: 8px 20px; /* Más pequeño */
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.no-guardados .btn-explorar:hover {
+  background-color: #2c8a8f; 
+}
+
 
 /*-----------------------------------------------
   Estilos para pantallas pequeñas (móviles) carrusel

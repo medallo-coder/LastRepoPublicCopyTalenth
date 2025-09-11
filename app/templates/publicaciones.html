@@ -369,17 +369,25 @@
                 <span class="menu-close-btn block text-right text-lg font-bold cursor-pointer mb-1" onclick="cerrarMenu(this)">x</span>
                 <a href="{{ url_for('web.perfil_experto_publico', usuario_id=pub.usuario.usuario_id) }}" class="flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1]"><i class="bi bi-person-fill text-[16px] mr-2"></i>Ver perfil</a>
                 {% if session.get('jwt') %}
-                <a href="javascript:void(0);" class="guardar-btn flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1]" data-id="{{ pub.publicacion_id }}"><i class="bi bi-bookmark-check text-[16px] mr-2"></i>Guardar</a>
-                
-                <!-- 🔹 Botón Reportar corregido -->
-                <a href="javascript:void(0);" 
-                   class="flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1] abrir-modal-reporte"
-                   data-publicacion-id="{{ pub.publicacion_id }}"
-                   data-usuario-reportado="{{ pub.usuario.usuario_id }}"
-                   data-usuario="{{ current_user.id }}">
-                   <i class="bi bi-exclamation-circle text-[16px] mr-2"></i><span>Reportar</span>
-                </a>
-                {% endif %}
+<a href="javascript:void(0);" 
+   class="guardar-btn flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1]" 
+   data-id="{{ pub.publicacion_id }}">
+   {% if pub.publicacion_id in publicaciones_guardadas_ids %}
+      <i class="bi bi-bookmark-dash text-[16px] mr-2"></i><span>Eliminar</span>
+   {% else %}
+      <i class="bi bi-bookmark-check text-[16px] mr-2"></i><span>Guardar</span>
+   {% endif %}
+</a>
+
+<a href="javascript:void(0);" 
+   class="flex items-center w-full px-2 py-[6px] text-left text-[14px] hover:text-[#3EAEB1] abrir-modal-reporte"
+   data-publicacion-id="{{ pub.publicacion_id }}"
+   data-usuario-reportado="{{ pub.usuario.usuario_id }}"
+   data-usuario="{{ current_user.id }}">
+   <i class="bi bi-exclamation-circle text-[16px] mr-2"></i><span>Reportar</span>
+</a>
+{% endif %}
+
               </div>
             </div>
 
@@ -460,6 +468,7 @@
   <script src="{{ url_for('static', filename='js/errors.js') }}"></script>
   <script src="{{ url_for('static', filename='js/publicaciones_categorias.js') }}"></script>
   <script src="{{ url_for('static', filename='js/modal_reportar.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/inicio.js') }}"></script>
 
   <body data-logged-in="{{ 'true' if session.get('jwt') else 'false' }}">
 </html>

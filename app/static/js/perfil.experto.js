@@ -62,6 +62,20 @@ function cerrarFormularioeditarDescripcion() {
   document.getElementById('formulario-editar-descripcion').style.display = 'none';
 }
 
+// Ubicacion
+
+function mostrarFormularioUbicacion() {
+  document.getElementById('formularioUbicacion').style.display = 'flex';
+}
+
+function cerrarFormularioUbicacion() {
+  document.getElementById('formularioUbicacion').style.display = 'none';
+}
+
+function cerrarFormularioEditarUbicacion() {
+  document.getElementById('formularioUbicacionEditar').style.display = 'none';
+}
+
 // Experiencia
 function mostrarFormularioExperiencia() {
   document.getElementById('formulario-experiencia').style.display = 'flex';
@@ -179,6 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+
   // Mostrar formulario Idioma
   const btnAgregarIdiomas = document.getElementById("agregaridiomas");
   if (btnAgregarIdiomas) {
@@ -195,7 +210,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  const modalEliminar = document.getElementById('modalEliminar');
+const modalEliminar = document.getElementById('modalEliminar');
 const textoEliminar = document.getElementById('textoEliminar');
 const btnConfirmar = document.getElementById('confirmEliminar');
 const btnCancelar = document.getElementById('cancelEliminar');
@@ -213,7 +228,7 @@ document.querySelectorAll('.btn-eliminar').forEach(btn => {
 
 // Confirmar eliminación
 btnConfirmar.addEventListener('click', () => {
-  if(formActual) formActual.submit();
+  if (formActual) formActual.submit();
 });
 
 // Cancelar eliminación
@@ -221,6 +236,15 @@ btnCancelar.addEventListener('click', () => {
   modalEliminar.classList.add('hidden');
   formActual = null;
 });
+
+// Cerrar modal al hacer clic fuera del contenido
+modalEliminar.addEventListener('click', (e) => {
+  if (e.target === modalEliminar) { // Solo si clic fuera del contenido
+    modalEliminar.classList.add('hidden');
+    formActual = null;
+  }
+});
+
 
 
 });
@@ -233,7 +257,9 @@ document.addEventListener('mousedown', function (event) {
     '.formulario-experiencia-contenido',
     '.formulario-editar-experiencia-contenido',
     '.formulario-estudios-contenido',
-    '.formulario-editar-estudios-contenido'
+    '.formulario-editar-estudios-contenido',
+    '.formulario-ubicacion-contenido',        
+    '.formulario-editar-ubicacion-contenido'  
   ];
 
   const formularios = [
@@ -245,7 +271,9 @@ document.addEventListener('mousedown', function (event) {
     'formulario-estudios',
     'formulario-editar-estudios',
     'formularioIdioma',
-    'formularioAptitudes'
+    'formularioAptitudes',
+    'formularioUbicacion',    
+    'formularioUbicacionEditar' 
   ];
 
   formularios.forEach((id, i) => {
@@ -259,3 +287,64 @@ document.addEventListener('mousedown', function (event) {
     }
   });
 });
+
+
+// Guardar nuevo barrio FRONTENDDD  -- SOLO VISUAL
+function guardarNuevoBarrio() {
+  const input = document.getElementById('nuevo-barrio');
+  const valor = input.value.trim();
+  if (valor === '') return;
+
+  const ubicacionDiv = document.querySelector('.ubicacion');
+
+  // Si ya existe, lo reemplazamos
+  let itemUbicacion = ubicacionDiv.querySelector('.item-ubicacion');
+  if (!itemUbicacion) {
+    itemUbicacion = document.createElement('div');
+    itemUbicacion.className = 'item-ubicacion';
+    itemUbicacion.innerHTML = `
+      <div class="fila-ubicacion">
+        <p class="barrio"></p>
+        <div class="iconos">
+          <i id="lapizubicacion" class="bi bi-pencil-square" onclick="abrirFormularioEditarUbicacion()"></i>
+          <i class="bi bi-trash" onclick="eliminarBarrio()"></i>
+        </div>
+      </div>
+    `;
+    ubicacionDiv.appendChild(itemUbicacion);
+  }
+
+  itemUbicacion.querySelector('.barrio').textContent = valor;
+  cerrarFormularioUbicacion();
+  document.querySelector('.añadir-ubicacion')?.classList.add('hidden');
+}
+
+// Guardar edición de barrio
+function guardarEdicionBarrio() {
+  const input = document.getElementById('editar-barrio');
+  const valor = input.value.trim();
+  if (valor === '') return;
+
+  const barrioP = document.querySelector('.item-ubicacion .barrio');
+  if (barrioP) barrioP.textContent = valor;
+
+  cerrarFormularioEditarUbicacion();
+}
+
+// Abrir formulario editar barrio
+function abrirFormularioEditarUbicacion() {
+  const barrioP = document.querySelector('.item-ubicacion .barrio');
+  if (barrioP) {
+    document.getElementById('editar-barrio').value = barrioP.textContent;
+    document.getElementById('formularioUbicacionEditar').style.display = 'flex';
+  }
+}
+
+// Eliminar barrio
+function eliminarBarrio() {
+  const item = document.querySelector('.item-ubicacion');
+  if (item) {
+    item.remove();
+    document.querySelector('.añadir-ubicacion')?.classList.remove('hidden');
+  }
+}

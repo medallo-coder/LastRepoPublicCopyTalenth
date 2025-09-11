@@ -261,6 +261,7 @@ def publicaciones():
 
     # Obtener todas las categorías para los filtros
     categorias = Categorias.query.all()
+    publicaciones_query = Publicaciones.query
 
     # Base query
     publicaciones_query = Publicaciones.query
@@ -285,12 +286,16 @@ def publicaciones():
     # Ordenar de más reciente a más antigua
     publicaciones = publicaciones_query.order_by(Publicaciones.fecha.desc()).all()
 
-    # 🔑 Obtener id del usuario logueado
+     # Usuario logueado
     auth_result = verificar_autenticacion_service()
     id_usuario_logueado = None
+    publicaciones_guardadas_ids = []
+
     if auth_result.get("authenticated"):
         datos_usuario = obtener_datos_usuario_service()
         id_usuario_logueado = datos_usuario.get("usuario_id")
+        publicaciones_guardadas = obtener_guardados_service()
+        publicaciones_guardadas_ids = [p.publicacion_id for p in publicaciones_guardadas]
 
     return render_template(
         'publicaciones.html',
@@ -298,7 +303,8 @@ def publicaciones():
         categorias=categorias,
         total_resultados=len(publicaciones),
         categoria_seleccionada=categoria_id,
-        id_usuario_logueado=id_usuario_logueado   # 👈 se pasa al template
+        id_usuario_logueado=id_usuario_logueado,
+        publicaciones_guardadas_ids=publicaciones_guardadas_ids  # 👈 importante
     )
 
 

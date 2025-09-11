@@ -111,7 +111,41 @@
         </div>
         {% endif %}
 
-      
+
+        <!-- Ubicacion -->
+        <div class="ubicacion">
+          <div class="titulo-izquierda">
+            <span>Ubicación</span>
+          </div>
+          <h2 class="titulo-barrio"> Barrio </h2>
+          {% if direccion %}
+          <div class="item-ubicacion">
+            <div class="fila-ubicacion">
+              <p class="barrio">{{ direccion }}</p>
+              <div class="iconos">
+                <i id="lapizubicacion" class="bi bi-pencil-square" onclick="abrirFormularioEditarUbicacion()"></i>
+
+                <form method="POST" action="{{ url_for('#') }}" style="display: inline;" id="fform-eliminar">
+                  <input type="hidden" name="form_tipo5" value="eliminar_ubicacion">
+                  <input type="hidden" name="direccion" value="">
+                  <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar el barrio?" title="Eliminar estudios">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </form>
+
+                
+
+              </div>
+            </div>
+          </div>
+          {% else %}
+          <div class="añadir-ubicacion" onclick="mostrarFormularioUbicacion()">
+            + Añadir barrio
+          </div>
+          {% endif %}
+
+        </div>
+        
         <!-- Experiencia -->
         <div class="experiencia">
           <div class="titulo-izquierda">
@@ -494,6 +528,41 @@
         </div>
       </div>
 
+      
+      <!-- Formulario emergente para añadir barrio -->
+      <div class="formulario-ubicacion" id="formularioUbicacion" style="display: none;">
+        <div class="formulario-ubicacion-contenido">
+          <h2>Agregar barrio</h2>
+          <form onsubmit="return false;">
+            <div class="campo">
+              <input type="text" id="nuevo-barrio" placeholder="Escribe el nombre del barrio" required />
+            </div>
+            <div class="botones">
+              <button type="submit" onclick="guardarNuevoBarrio()">Guardar</button>
+              <button type="button" onclick="cerrarFormularioUbicacion()">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+     
+
+      <!-- Formulario emergente para editar barrio -->
+      <div class="formulario-ubicacion-editar" id="formularioUbicacionEditar" style="display: none;">
+        <div class="formulario-editar-ubicacion-contenido">
+          <h2>Editar barrio</h2>
+          <form onsubmit="return false;">
+            <div class="campo">
+              <input type="text" id="editar-barrio" placeholder="Escribe el nuevo barrio" required />
+            </div>
+            <div class="botones">
+              <button type="button" onclick="guardarEdicionBarrio()">Guardar</button>
+              <button type="button" onclick="cerrarFormularioEditarUbicacion()">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
 
       <!-- Formulario emergente para añadir experiencia -->
       <div class="formulario-experiencia" id="formulario-experiencia">
@@ -582,7 +651,7 @@
         </div>
       </div>
 
-    <!-- Formulario superpuesto para Añadir Idioma -->
+  
     <!-- Formulario superpuesto para Añadir Idioma -->
 <div class="formulario-idioma" id="formularioIdioma" style="display: none;">
   <div class="formulario-contenido">
@@ -610,48 +679,6 @@
     </form>
   </div>
 </div>
-
-
-          <!-- Formulario emergente para editar barrio -->
-      <div class="formulario-ubicacion-editar" id="formularioUbicacionEditar" style="display: none;">
-        <div class="formulario-editar-ubicacion-contenido">
-          <h2>Editar barrio</h2>
-          <form method="POST" action="{{ url_for('web.perfil_cliente') }}">
-            <input type="hidden" name="form_tipo" value="direccion">
-            <div class="campo">
-              <label for="editar-barrio"></label>
-              <input type="text" id="editar-barrio" name="direccion" placeholder="Escribe el nuevo barrio" required />
-            </div>
-            <div class="botones">
-              <button type="submit">Guardar</button>
-              <button type="button" onclick="cerrarFormularioEditarUbicacion()">Cancelar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-      
-          <!--
-    <div class="campo">
-      <label for="nivelSelect"></label>
-      <select id="nivelSelect" name=" nivel">
-        <option value="" disabled selected> Selecciona el nivel</option>
-        <option value="Muy básico">Muy básico</option>
-        <option value="Básico">Básico</option>
-        <option value="Intermedio">Intermedio</option>
-        <option value="Avanzado">Avanzado</option>
-        <option value="Nativo">Nativo</option>
-      </select>
-    </div>
--->
-
-          <div class="botones">
-            <button type="submit">Guardar</button>
-            <button type="button" onclick="cerrarFormularioIdiomas()">Cancelar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-
 
     <!-- Formulario superpuesto para Añadir Aptitudes -->
     <div class="formulario-aptitudes" id="formularioAptitudes" style="display: none;">

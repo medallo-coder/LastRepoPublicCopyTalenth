@@ -89,7 +89,12 @@
       </div>
     </div>
     {% else %}
-      <p>No tienes publicaciones guardadas aún.</p>
+      <div class="no-guardados">
+        <h3>¡Aún no tienes publicaciones guardadas!</h3>
+        <p>Cuando guardes publicaciones, aparecerán aquí para que las encuentres fácilmente.</p>
+        <a href="{{ url_for('web.publicaciones') }}"class="btn-explorar">Explorar publicaciones</a>
+      </div>
+
     {% endfor %}
   </div>
 

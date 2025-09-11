@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  confirmBtn.addEventListener('click', () => {
+    confirmBtn.addEventListener('click', () => {
     if (!selectedPubId) return;
 
     fetch(`/mis-guardados/eliminar/${selectedPubId}`, {
@@ -77,7 +77,18 @@ document.addEventListener('DOMContentLoaded', () => {
       mostrarMensaje(data.message, data.success ? 'success' : 'danger');
 
       if (data.success && selectedElement) {
+        // Eliminar la publicación del DOM
         selectedElement.remove();
+
+        // 👇 Verificar si ya no quedan publicaciones
+        const publicacionesRestantes = document.querySelectorAll('.categoria');
+        if (publicacionesRestantes.length === 0) {
+          // Mostrar contenedor "No hay guardados"
+          const noGuardados = document.querySelector('.no-guardados');
+          if (noGuardados) {
+            noGuardados.style.display = 'flex';
+          }
+        }
       }
     })
     .catch(err => {
@@ -90,6 +101,20 @@ document.addEventListener('DOMContentLoaded', () => {
       selectedElement = null;
     });
   });
+
+  // Dentro de tu fetch al eliminar publicación
+if (data.success && selectedElement) {
+  selectedElement.remove();
+
+  const publicacionesRestantes = document.querySelectorAll('.categoria');
+  if (publicacionesRestantes.length === 0) {
+    const noGuardados = document.querySelector('.no-guardados');
+    if (noGuardados) {
+      noGuardados.style.display = 'flex';
+    }
+  }
+}
+
 
   cancelBtn.addEventListener('click', () => {
     modal.style.display = 'none';
