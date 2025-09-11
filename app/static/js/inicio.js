@@ -225,8 +225,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Manejo de abrir contacto
     function manejarClickContacto(e) {
-        e.preventDefault();
-        e.stopPropagation();
+        //e.preventDefault();
+        //e.stopPropagation();
 
         // Guardar si modal "Ver más" estaba abierto
         if (modalTarjeta && !modalTarjeta.classList.contains("hidden")) {

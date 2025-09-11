@@ -5,6 +5,7 @@ from flask_login import login_required, current_user
 from flask_socketio import emit, join_room
 from datetime import datetime
 from sqlalchemy import or_, func, case
+from flask import redirect, url_for, session
 
 from app.extensions import db, socketio
 from app.models.mensajeria import Mensajeria
@@ -279,3 +280,25 @@ def handle_disconnect():
             print(f"🔌 Usuario {uid} desconectado")
             del user_sid_map[uid]
             break
+
+@mensajeria_bp.route('/iniciar_chat/<int:experto_id>', methods=['POST'])
+@login_required
+def iniciar_chat_con_experto(experto_id):
+    print(f"📨 Contacto iniciado con el experto {experto_id}")
+
+    if experto_id == current_user.usuario_id:
+        return redirect(url_for('mensajeria.mensajeria'))
+
+    # Crea mensaje automático
+    mensaje = Mensajeria(
+        id_emisor=current_user.usuario_id,
+        id_receptor=experto_id,
+        texto="Hola, estoy interesado en tus servicios",
+        fecha=datetime.utcnow()
+    )
+    db.session.add(mensaje)
+    db.session.commit()
+
+    session['abrir_chat_con'] = experto_id  # 🔥 marca para abrir al renderizar mensajeria.html
+    return redirect(url_for('mensajeria.mensajeria'))
+

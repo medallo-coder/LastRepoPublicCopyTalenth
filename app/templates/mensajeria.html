@@ -67,6 +67,9 @@
         <div id="messageBar">
           <div class="input-container">
             <input type="hidden" id="currentUserId" value="{{ current_user.usuario_id }}" />
+            {% if session.get('abrir_chat_con') %}
+              <input type="hidden" id="abrirChatCon" value="{{ session.pop('abrir_chat_con') }}">
+            {% endif %}
             <input type="text" id="messageInput" placeholder="Escribe un mensaje…" autocomplete="off" />
             <button id="sendBtn"><i class="bi bi-send-fill"></i></button>
           </div>
@@ -92,6 +95,8 @@
       }
     });
   </script>
+  <input type="hidden" id="chatPartnerInicial" value="{{ session.pop('abrir_chat_con', '') }}">
+
 
 </body>
 </html>

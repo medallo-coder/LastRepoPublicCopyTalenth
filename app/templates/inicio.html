@@ -12,6 +12,24 @@
   <link rel="icon" type="image/png" href="https://i.postimg.cc/26ZkKCPm/Vector.png">
 </head>
 
+<script>
+document.querySelectorAll('.contact-button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expertoId = btn.dataset.id;
+
+    // Verifica que el ID sea válido
+    if (!expertoId) return;
+
+    // Crear un formulario oculto para enviar POST
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = `/mensajeria/iniciar_chat_con_experto/${expertoId}`;
+    document.body.appendChild(form);
+    form.submit();
+  });
+});
+</script>
+
 <body>
 
   
@@ -209,10 +227,10 @@
             {{ pub.descripcion_publicacion }}
           </p>
           <span class="ver-mas hidden">Ver más</span>
+          <form action="{{ url_for('mensajeria.iniciar_chat_con_experto', experto_id=pub.usuario.usuario_id) }}" method="POST">
+            <button type="submit" class="contact-button">Contactar experto</button>
+          </form>
 
-          <div class="boton-container">
-            <button class="contact-button">Contactar experto</button>
-          </div>
         </div>
       </div> <!-- fin tarjeta -->
       {% endfor %}
@@ -314,10 +332,10 @@
              {{ pub.descripcion_publicacion }}
           </p>
           <span class="ver-mas hidden">Ver más</span>
+          <form action="{{ url_for('mensajeria.iniciar_chat_con_experto', experto_id=pub.usuario.usuario_id) }}" method="POST">
+            <button type="submit" class="contact-button">Contactar experto</button>
+          </form>
 
-          <div class="boton-container">
-            <button class="contact-button">Contactar experto</button>
-          </div>
         </div>
       </div> <!-- fin tarjeta -->
       {% endfor %}
