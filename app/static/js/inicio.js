@@ -80,16 +80,15 @@ document.addEventListener("DOMContentLoaded", function() {
     const modalLogin = document.getElementById('modalLoginContacto');
     const closeLoginModal = document.getElementById('cerrarLoginContacto');
 
-    // Función para límite de caracteres según pantalla
-    function getDescripcionLimit() {
-        if (window.innerWidth <= 480) { // Celulares
-            return 45;
-        } else if (window.innerWidth <= 768) { // Tablets
-            return 65;
-        } else { // Escritorio
-            return 75;
-        }
-    }
+   // Función que devuelve el límite de caracteres según el tamaño de pantalla
+   function getDescripcionLimit() {
+    if (window.innerWidth <= 480) return 25;       // Celulares
+    if (window.innerWidth <= 768) return 35;       // Tablets vertical
+    if (window.innerWidth <= 1024) return 55;      // Tablets horizontal
+    if (window.innerWidth <= 1366) return 35;   
+    if (window.innerWidth <= 1600) return 78;     // Laptops grandes
+    return 125;                                    // Pantallas muy grandes
+  }
 
     // Función para aplicar recorte dinámico en todas las tarjetas
     function aplicarDescripcionResponsive() {

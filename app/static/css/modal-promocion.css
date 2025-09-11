@@ -32,6 +32,7 @@
 .modal-contenido p {
   margin: 10px 0;
   line-height: 1.5;
+  color: #666;
 }
 
 /* Botones */
@@ -53,10 +54,18 @@
   
 }
 
+.btn-obtener:hover {
+  opacity: 0.8;
+}
+
 .btn-cancelar {
   background-color: #f8f8f8;
   color: black;
   padding: 0.4rem 3rem;
   border-radius: 25px;
   border: 1px solid #E5E5E5
+}
+
+.btn-cancelar:hover {
+  opacity: 0.8;
 }

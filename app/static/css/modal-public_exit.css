@@ -1,40 +1,73 @@
 .modal-promocionar {
-  display: none;
+  display: none; /* Se activa con JS */
   position: fixed;
   z-index: 1000;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
+  left: 0; 
+  top: 0;
+  width: 100%; 
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+
+  /* Centrar con flexbox */
+  display: flex;
+  justify-content: center; /* horizontal */
+  align-items: center;     /* vertical */
 }
 
 .modal-contenido-promocionar {
   background-color: white;
-  margin: 10% auto;
   padding: 30px;
   width: 80%;
   max-width: 500px;
-  border-radius: 12px;
+  border-radius: 25px; /* para que sea igual al modal de eliminar */
   text-align: center;
+  font-family: 'Oswald', sans-serif;
+  color: #606060;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+
+.modal-contenido-promocionar h2 {
+  color: #000;
+  margin-bottom: 15px;
+}
+
+.modal-contenido-promocionar p {
+  margin: 10px 0;
+  line-height: 1.5;
+  color: #666;
 }
 
 .botones-promocionar {
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }
 
 .btn-confirmar-promocionar,
 .btn-cancelar-promocionar {
   padding: 0.4rem 3rem;
-  margin: 5px;
-  border: none;
-  border-radius: 8px;
+  border-radius: 25px;
   cursor: pointer;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  transition: opacity 0.3s;
 }
 
 .btn-confirmar-promocionar {
-  background-color: #28a745;
+  background-color: #3eaeb1; /* mismo color que el de aceptar */
   color: white;
+  border: none;
 }
 
 .btn-cancelar-promocionar {
-  background-color: #ccc;
+  background-color: #f8f8f8; /* mismo color que el de cancelar */
+  color: black;
+  border: 1px solid #E5E5E5;
+}
+
+.btn-confirmar-promocionar:hover,
+.btn-cancelar-promocionar:hover {
+  opacity: 0.8;
 }

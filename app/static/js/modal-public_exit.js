@@ -1,11 +1,23 @@
+// Abrir modal
 function abrirModalPromocionar() {
-  document.getElementById("modalPromocionarPublicacion").style.display = "block";
+  const modal = document.getElementById("modalPromocionarPublicacion");
+  if(modal) modal.style.display = "flex";
 }
 
+// Cerrar modal
 function cerrarModalPromocionar() {
-  document.getElementById("modalPromocionarPublicacion").style.display = "none";
+  const modal = document.getElementById("modalPromocionarPublicacion");
+  if(modal) modal.style.display = "none";
 }
 
-function redirigirAPromocion() {
-  window.location.href = "/promocionar-publicacion";  // Cambia si tienes otra ruta real
-}
+// Cierre haciendo clic fuera del contenido
+document.addEventListener("DOMContentLoaded", function() {
+  const modal = document.getElementById("modalPromocionarPublicacion");
+  if(modal) {
+    modal.addEventListener("click", function(e) {
+      if(e.target === modal) {
+        cerrarModalPromocionar();
+      }
+    });
+  }
+});

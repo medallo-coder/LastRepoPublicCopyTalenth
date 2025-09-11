@@ -1,21 +1,20 @@
-/* Estilos generales */
-@font-face {
-    font-family: 'Oswald Variable';
-    font-style: normal;
-    font-display: swap;
-    font-weight: 200 700;
-    src: url(https://cdn.jsdelivr.net/fontsource/fonts/oswald:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
-    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+
+/* Fondo general de toda la pantalla */
+body {
+  background-color: #f8f8f8;
+  margin: 0;
+  padding: 0;
 }
 
 .container {
-    width: 100%;
-    max-width: 1024px;
-    margin: 120px auto; /* ✅ centra horizontalmente en el body */
+    width: 70%;       /* ✅ ocupa el 70% de la pantalla */
+    max-width: none;  /* ✅ elimina la limitación de 1024px */
+    margin: 120px auto; 
     display: flex;
     flex-direction: column;
     gap: 24px;
-  }
+}
+
 
 /* Tarjetas */
 .card {
@@ -26,12 +25,15 @@
     padding: 24px;
 }
 .card2 {
+   height: 5rem; /* Define la altura del cuadro */
+    border-radius: 2rem; /* Bordes redondeados */
+    border: 1px solid #6b7280; /* Borde gris oscuro */
+    display: flex; /* Usamos flexbox */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
     background-color: white;
-    border-radius: 16px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    border: 1px solid gray;
-    padding: 4px;
 }
+
 .header {
     text-align: center;
 }
@@ -217,9 +219,38 @@ input, select {
     padding: 10px 0; /* Espacio interno arriba y abajo */
   }
 .titulo-principal {
-    color: #3EAEB1;
-    font-weight: bold;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: #3EAEB1; /* Negro por defecto */
+  transition: color 0.3s ease;
+  text-decoration: none;
+  position: relative; /* Para el ::after */
+  display: inline-block; /* Necesario para que el subrayado se ajuste al texto */
 }
+
+/* Subrayado animado */
+.titulo-principal::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px; /* espacio debajo del texto */
+  height: 2px;
+  width: 0;
+  background-color: #3EAEB1;
+  transition: width 0.3s ease;
+}
+
+/* Hover: color + subrayado */
+.titulo-principal:hover {
+  color: #3EAEB1;
+}
+
+.titulo-principal:hover::after {
+  width: 100%;
+}
+
 
 .titulo-secundario {
     color: #3EAEB1;
@@ -271,6 +302,65 @@ input, select {
     right: 10px;
     cursor: pointer;
     color: #333;
+}
+
+/*-----------------------------------------------
+ REQUISITOS DE CONTRASEÑAS / COINCIDEN 
+-----------------------------------------------*/
+
+
+#password-requirements {
+  margin: 0 0 10px 5px;
+  font-size: 5px;
+  line-height: 1.2;
+}
+
+#password-requirements p,
+#password-match p,
+#password-error p {
+  margin: 1px 0;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: #666;
+  font-size: 15px;
+}
+
+#password-match,
+#password-error {
+  margin: -5px 0 10px 12px;
+  font-size: 5px;
+  line-height: 1.2;
+  display: none;
+}
+
+#password-requirements span,
+#password-match span,
+#password-error span {
+  width: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+#password-requirements span i,
+#password-match span i,
+#password-error span i {
+  font-size: 17px;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+#password-requirements span i.text-danger,
+#password-match span i.text-danger,
+#password-error span i.text-danger {
+  color: #dc3545 !important;
+}
+
+#password-requirements span i.text-success,
+#password-match span i.text-success {
+  color: #198754 !important;
 }
 
 

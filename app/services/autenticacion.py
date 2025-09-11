@@ -54,6 +54,13 @@ def registrar_usuario_service(data):
         primer_nombre=primer_nombre,
         primer_apellido=primer_apellido,
     )
+
+        # 🔹 Normalizar: primera letra en mayúscula, resto en minúscula
+    if primer_nombre:
+        primer_nombre = primer_nombre.strip().capitalize()
+    if primer_apellido:
+        primer_apellido = primer_apellido.strip().capitalize()
+        
     db.session.add(nuevo_perfil)
     db.session.flush()
 

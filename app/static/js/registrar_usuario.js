@@ -1,6 +1,7 @@
 const form = document.querySelector("form");
 const pass1 = document.getElementById("pass1");
 const pass2 = document.getElementById("pass2");
+const passwordMatch = document.getElementById("password-match");
 
 // Spans de los requisitos visuales
 const reqLength = document.getElementById("req-length");
@@ -17,6 +18,33 @@ function setReqVisual(okNode, ok) {
     okNode.innerHTML = '<i class="bi bi-x-circle text-danger"></i>';
   }
 }
+
+function checkPasswordsLive() {
+  if (pass2.value.length > 0) {
+    passwordMatch.style.display = "block";
+    if (pass1.value === pass2.value) {
+      passwordMatch.innerHTML = `
+        <p>
+          <span><i class="bi bi-check-circle-fill text-success"></i></span>
+          Contraseñas coinciden
+        </p>`;
+    } else {
+      passwordMatch.innerHTML = `
+        <p>
+          <span><i class="bi bi-x-circle text-danger"></i></span>
+          Contraseñas no coinciden
+        </p>`;
+    }
+  } else {
+    passwordMatch.style.display = "none";
+    passwordMatch.innerHTML = "";
+  }
+}
+
+
+// Escuchamos en ambos campos
+pass1.addEventListener("input", checkPasswordsLive);
+pass2.addEventListener("input", checkPasswordsLive);
 
 
 function resetReqVisualsToDefault() {

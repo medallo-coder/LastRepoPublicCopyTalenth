@@ -118,5 +118,112 @@ modalEliminarCuenta.addEventListener('click', (event) => {
   if (event.target === modalEliminarCuenta) {
     modalEliminarCuenta.classList.add('hidden');
   }
+
+  
 });
 
+// =======================
+// Validación de contraseñas (Cambio contraseña)
+// =======================
+
+const formCambio = document.getElementById("passwordForm");
+const passNueva = document.getElementById("pass2");
+const passConfirmar = document.getElementById("pass3");
+
+// Spans de requisitos
+const reqLength = document.getElementById("req-length");
+const reqUppercase = document.getElementById("req-uppercase");
+
+// Mensajes
+const mismatchMsg = document.getElementById("password-error");
+const reqMsg = document.getElementById("password-req-error");
+const passwordMatch = document.getElementById("password-match");
+
+function setReqVisual(okNode, ok) {
+  okNode.innerHTML = ok
+    ? '<i class="bi bi-check-circle-fill text-success"></i>'
+    : '<i class="bi bi-x-circle text-danger"></i>';
+}
+
+function resetReqVisualsToDefault() {
+  setReqVisual(reqLength, false);
+  setReqVisual(reqUppercase, false);
+}
+
+function updateRequirementsLive() {
+  const v = passNueva.value || "";
+  const lengthOK = v.length >= 6;
+  const upperOK = /[A-Z]/.test(v);
+
+  setReqVisual(reqLength, lengthOK);
+  setReqVisual(reqUppercase, upperOK);
+
+  return { lengthOK, upperOK };
+}
+
+// Feedback en vivo requisitos
+passNueva.addEventListener("input", () => {
+  updateRequirementsLive();
+  reqMsg.style.display = "none";
+  reqMsg.innerHTML = "";
+});
+
+// Feedback en vivo coincidencia
+function checkPasswordsLive() {
+  if (passConfirmar.value.length > 0) {
+    passwordMatch.style.display = "block";
+    if (passNueva.value === passConfirmar.value) {
+      passwordMatch.innerHTML = `
+        <p><span><i class="bi bi-check-circle-fill text-success"></i></span>
+        Contraseñas coinciden</p>`;
+    } else {
+      passwordMatch.innerHTML = `
+        <p><span><i class="bi bi-x-circle text-danger"></i></span>
+        Contraseñas no coinciden</p>`;
+    }
+  } else {
+    passwordMatch.style.display = "none";
+    passwordMatch.innerHTML = "";
+  }
+}
+passNueva.addEventListener("input", checkPasswordsLive);
+passConfirmar.addEventListener("input", checkPasswordsLive);
+
+// Validación al enviar formulario
+formCambio.addEventListener("submit", function (event) {
+  mismatchMsg.style.display = "none";
+  reqMsg.style.display = "none";
+  reqMsg.innerHTML = "";
+
+  const { lengthOK, upperOK } = updateRequirementsLive();
+
+  if (!lengthOK || !upperOK) {
+    event.preventDefault();
+    const faltantes = [];
+    if (!lengthOK) faltantes.push("• Al menos 6 caracteres");
+    if (!upperOK) faltantes.push("• Al menos 1 letra mayúscula");
+
+    reqMsg.innerHTML = "La contraseña no cumple los requisitos:<br>" + faltantes.join("<br>");
+    reqMsg.style.display = "block";
+
+    passNueva.value = "";
+    passConfirmar.value = "";
+    resetReqVisualsToDefault();
+    passNueva.focus();
+    return;
+  }
+
+  if (passNueva.value !== passConfirmar.value) {
+    event.preventDefault();
+    mismatchMsg.style.display = "block";
+    mismatchMsg.innerHTML = `
+      <p><span><i class="bi bi-x-circle text-danger"></i></span>
+      Las contraseñas no coinciden</p>`;
+
+    passNueva.value = "";
+    passConfirmar.value = "";
+    resetReqVisualsToDefault();
+    passNueva.focus();
+    return;
+  }
+});

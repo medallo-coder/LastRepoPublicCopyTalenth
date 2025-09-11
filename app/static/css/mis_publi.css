@@ -20,7 +20,7 @@ body {
 }
 
 /* General para cuadros y cards */
-.card, .cuadro {
+.card {
   background: #fff;
   border-radius: 14px;
   border: 1px solid #ccc;
@@ -192,6 +192,7 @@ textarea::placeholder {
 }
 
 /* Menú superior derecho */
+/* Acciones menú (tres puntos) */
 .acciones-menu {
   position: absolute;
   top: 8px;
@@ -204,30 +205,70 @@ textarea::placeholder {
   padding: 4px;
 }
 
-.menu-opciones {
+/* Reutilizamos el mismo estilo de .menu-completo */
+.acciones-menu .menu-completo {
   display: none;
   position: absolute;
   right: 0;
-  top: 24px;
-  background: #fff;
-  border: 1px solid #ddd;
+  top: 30px;
+  width: 140px;
+  background-color: #F8F8F8;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  min-width: 100px;
+  padding: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   z-index: 10;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  color: black;
 }
 
-.menu-opciones a {
-  display: block;
-  padding: 8px 10px;
+.acciones-menu .menu-completo a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 6px 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
   text-decoration: none;
-  color: #000;
-  font-size: 13px;
+  color: black;
 }
 
-.menu-opciones a:hover {
-  background: #f0f0f0;
+.acciones-menu .menu-completo a span {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
 }
+
+.acciones-menu .menu-completo a:hover i,
+.acciones-menu .menu-completo a:hover span {
+  color: #3EAEB1;
+}
+
+.acciones-menu .menu-completo i {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+/* Botón de cerrar (x) */
+.acciones-menu .menu-close-btn {
+  position: absolute;
+  top: 2px;
+  right: 8px;
+  font-size: 20px;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  line-height: 1;
+}
+
+.acciones-menu .menu-close-btn:hover {
+  color: #3EAEB1;
+}
+
 
 
 /* Imagen y precio */
@@ -393,18 +434,18 @@ button:hover,
 /*nav de navegacion entre perfil  y publicaciones*/
 
 /* Contenedor principal centrado y responsivo */
+/* NAV entre perfil y publicaciones */
 .cuadro {
-  width: 100%;
-  max-width: 70%;           /* Anchura máxima en pantallas grandes */
+  width: 70%;                 /* mismo ancho siempre */
+  max-width: 840px;           /* 👈 límite igual al container */
   background-color: white;
   border: 1px solid #d1d5db;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 0 auto 1.5rem auto; /* Centrado horizontal + margen inferior */
-  padding: 1rem;
+  margin: 0 auto 1.5rem auto; /* centrado */
+  padding: 0;
   box-sizing: border-box;
 }
 
-/* Estilo para el cuadro redondo */
 .redondo {
   height: 5rem;
   border-radius: 2rem;
@@ -413,6 +454,8 @@ button:hover,
   justify-content: center;
   align-items: center;
 }
+
+
 
 /* Contenedor de pestañas centrado y adaptativo */
 /* Estilos para las pestañas de navegación */
@@ -431,13 +474,13 @@ button:hover,
 }
 
 .tabs__tab {
-  padding: 1rem 1.5em;
+  padding: 0.7em 1.5em; /* 👈 mismo que perfil */
+  font-size: 22px;
+  font-weight: bold;
+  color: #3eaeb1;
   cursor: pointer;
   position: relative;
   z-index: 1;
-  font-weight: bold;
-  color: #3eaeb1;
-  font-size: 22px;
 }
 
 .active_tab {
@@ -571,52 +614,95 @@ button:hover,
   margin-bottom: 6px;
 }
 
-/* ---------------- MODAL ---------------- */
-.modal-eliminar {
+/* ---------------- MODAL ELIMINAR ---------------- */
+#modalEliminar {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5); /* mismo fondo que modalCerrarSesion */
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 9999;
 }
 
-.modal-eliminar.hidden {
+#modalEliminar.hidden {
   display: none;
 }
 
-.modal-contenido {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  position: relative;
-  width: 300px;
+#modalEliminar .modal-content-delete {
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 25px; /* mismo que modalCerrarSesion */
   text-align: center;
+  width: 100%;
+  max-width: 400px;    /* igual que modalCerrarSesion */
+  position: relative;
+  font-family: 'Oswald', sans-serif;
 }
 
-.modal-cerrar {
+/* Botón de cerrar */
+#modalEliminar .modal-cerrar {
   position: absolute;
   top: 8px;
   right: 12px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
   cursor: pointer;
-  font-size: 20px;
+  transition: color 0.2s ease;
 }
 
-.modal-acciones {
-  margin-top: 15px;
+#modalEliminar .modal-cerrar:hover {
+  color: #3EAEB1;
+}
+
+/* Texto del modal */
+#modalEliminar p {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+  color: #666;
+}
+
+/* Contenedor de botones */
+#modalEliminar .modal-buttons {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 15px;
 }
 
-.modal-acciones a {
-  background-color: #3eaeb1;
-  color: white;
-  border: none;
+/* Botones */
+#modalEliminar .modal-buttons button {
   padding: 0.4rem 3rem;
+  font-size: 1rem;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
   border-radius: 25px;
   cursor: pointer;
-  font-weight: bold;
-  text-decoration: none;
+  transition: background-color 0.3s;
+  border: none;
+}
+
+/* Botón cancelar */
+#cancelEliminar {
+  background-color: #f8f8f8;
+  color: black;
+  border: 1px solid #E5E5E5;
+}
+
+#cancelEliminar:hover {
+  opacity: 0.8;
+}
+
+/* Botón aceptar */
+#confirmEliminar {
+  background-color: #3EAEB1;
+  color: white;
+}
+
+#confirmEliminar:hover {
+  opacity: 0.8;
 }

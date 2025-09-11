@@ -40,15 +40,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const tarjetas = document.querySelectorAll('.tarjeta');
 
   // Función que devuelve el límite de caracteres según el tamaño de pantalla
-  function getDescripcionLimit() {
-    if (window.innerWidth <= 480) { // Celulares
-      return 45;
-    } else if (window.innerWidth <= 768) { // Tablets
-      return 55;
-    } else { // Pantallas grandes
-      return 125;
-    }
+   function getDescripcionLimit() {
+    if (window.innerWidth <= 480) return 25;       // Celulares
+    if (window.innerWidth <= 768) return 35;       // Tablets vertical
+    if (window.innerWidth <= 1024) return 55;      // Tablets horizontal
+    if (window.innerWidth <= 1366) return 35;   
+    if (window.innerWidth <= 1600) return 78;     // Laptops grandes
+    return 125;                                    // Pantallas muy grandes
   }
+
 
   // Función para aplicar el recorte dinámico a TODAS las tarjetas
   function aplicarDescripcionResponsive() {
@@ -126,6 +126,15 @@ if (img && img.tagName === "IMG") {
   cerrarModal.addEventListener('click', () => {
     document.getElementById('modalTarjeta').classList.add('hidden');
   });
+
+  // --- Cerrar modal al hacer clic fuera del contenido ---
+const modalTarjeta = document.getElementById('modalTarjeta');
+modalTarjeta.addEventListener('click', (e) => {
+  if (e.target === modalTarjeta) {  
+    modalTarjeta.classList.add('hidden');
+  }
+});
+
 });
 
 
@@ -253,8 +262,4 @@ radios.forEach(radio => {
     }
   });
 });
-
-
-
-// manejo de categorias y subcategorias 
 

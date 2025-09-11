@@ -354,7 +354,7 @@ nav span {
     width: 170px;
     height: 60px;
     font-size: 20px;
-    margin-top: 25px;
+    margin-top: 20px;
     margin-left: 100px;
     background: #d9d9d9;
     color: #333;
@@ -397,7 +397,7 @@ input::placeholder {
   -----------------------------------------------*/
 #password-requirements {
     margin: 0 0 10px 5px;
-    font-size: 15px;
+    font-size: 12px;
     line-height: 1.2;
 }
 
@@ -418,7 +418,7 @@ input::placeholder {
 }
 
 #password-requirements span i {
-    font-size: 20px;
+    font-size: 17px;
     line-height: 1;
     vertical-align: middle;
 }
@@ -433,6 +433,77 @@ input::placeholder {
 #password-requirements span i.text-success {
     color: #198754 !important;
 }
+
+
+/*-----------------------------------------------
+    Contraseñas coinciden
+  -----------------------------------------------*/
+
+#password-match {
+    margin: -5px 0 10px 12px;   /* igual que #password-requirements */
+    font-size: 12px;        /* igual que requisitos */
+    line-height: 1.2;
+    display: none;          /* oculto por defecto */
+}
+
+#password-match p {
+    margin: 1px 0;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #666;
+}
+
+#password-match span {
+    width: 30px;            /* mismo ancho que requisitos */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+#password-match span i {
+    font-size: 17px;        /* igual a requisitos */
+    line-height: 1;
+    vertical-align: middle;
+}
+
+/* Colores consistentes con requisitos */
+#password-match span i.text-danger {
+    color: #dc3545 !important;
+}
+#password-match span i.text-success {
+    color: #198754 !important;
+}
+
+#password-error {
+    margin: 0 0 10px 12px;
+    font-size: 12px;
+    line-height: 1.2;
+}
+
+#password-error p {
+    margin: 1px 0;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #dc3545; /* rojo */
+}
+
+#password-error span {
+    width: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+#password-error span i {
+    font-size: 17px;
+    line-height: 1;
+    vertical-align: middle;
+}
+
 
 /*-----------------------------------------------
     Media queries para móviles (hasta 480px)

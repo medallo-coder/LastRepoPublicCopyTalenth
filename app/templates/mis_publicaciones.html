@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/mis_publi.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/modal-promocion.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/modal-public_exit.css') }}">
-
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
@@ -110,17 +109,25 @@
       {% for pub in publicaciones %}
         {% if pub.titulo and pub.descripcion_publicacion %}
           <div class="publicacion-card">
-            <div class="acciones-menu">
-              <div class="menu-trigger" onclick="toggleMenu(this)">⋯</div>
-              <div class="menu-opciones">
-                <a href="{{ url_for('web.editar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">Editar</a>
-                <a href="#" class="btn-eliminar-modal" data-url="{{ url_for('web.eliminar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">Eliminar</a>
-                <a href="#" onclick="abrirModalPromocionar()">Promocionar</a>
+  <div class="acciones-menu">
+  <i class="bi bi-three-dots menu-trigger" onclick="toggleMenu(this)"></i>
+  <div class="menu-completo"> <!-- Usamos la misma clase del otro -->
+    <span class="menu-close-btn" onclick="cerrarMenu(this)">x</span>
+    
+    <a href="{{ url_for('web.editar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">
+      <i class="bi bi-pencil-square"></i><span>Editar</span>
+    </a>
+    
+    <a href="#" class="btn-eliminar-modal" data-url="{{ url_for('web.eliminar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">
+      <i class="bi bi-trash"></i><span>Eliminar</span>
+    </a>
+    
+    <a href="#" onclick="abrirModalPromocionar()">
+      <i class="bi bi-megaphone"></i><span>Promocionar</span>
+    </a>
+  </div>
+</div>
 
-
-
-              </div>
-            </div>
 
             <div class="publicacion-img">
              {% if pub.usuario.perfiles.foto_perfil %}
@@ -149,7 +156,7 @@
               <p class="descripcion"><strong>Subcategoría:</strong> {{ pub.subcategoria.nombre_subcategoria if pub.subcategoria else 'Sin subcategoría' }}</p>
               <p class="descripcion"><strong>Descripción:</strong> 
                 {% if pub.descripcion_publicacion %}
-                  {{ pub.descripcion_publicacion[:100] }}{% if pub.descripcion_publicacion|length > 100 %}...{% endif %}
+                  {{ pub.descripcion_publicacion }}
                 {% else %}
                   Sin descripción
                 {% endif %}
@@ -167,21 +174,6 @@
 
   </div>
 
-
-
-  <!-- modal para eliminar -->
-{% for pub in publicaciones %}
-  <div id="modalEliminar" class="modal-eliminar hidden">
-  <div class="modal-contenido">
-    <span class="modal-cerrar" id="cerrarModalEliminar">&times;</span>
-    <p>¿Estás seguro que deseas eliminar esta publicación?</p>
-    <div class="modal-acciones">
-      <a href="{{ url_for('web.eliminar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">Eliminar</a>
-      <button id="cancelarEliminar" class="btn btn-secondary">Cancelar</button>
-    </div>
-  </div>
-</div>
-{% endfor %}
 
 
 <!-- Modal Promoción -->
@@ -202,7 +194,7 @@
 </div>
 
 <!-- Modal para promocionar publicación ya existente -->
-<div class="modal-promocionar" id="modalPromocionarPublicacion">
+<div class="modal-promocionar" id="modalPromocionarPublicacion" style="display: none;">
   <div class="modal-contenido-promocionar">
     <h2>🚀 Promociona tu publicación</h2>
     <p>Haz que más personas vean tu publicación destacándola por un valor adicional.</p>
@@ -214,6 +206,19 @@
     </div>
   </div>
 </div>
+
+<!-- Modal eliminar -->
+<div id="modalEliminar" class="hidden">
+  <div class="modal-content-delete">
+    <p id="textoEliminar">¿Seguro que deseas eliminar esta publicación?</p>
+    <div class="modal-buttons">
+      <button id="confirmEliminar">Aceptar</button>
+      <button id="cancelEliminar">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+
 
 
 <script>

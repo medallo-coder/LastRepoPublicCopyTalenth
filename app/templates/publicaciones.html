@@ -295,73 +295,63 @@
     <!-- Grilla principal -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-10 gap-2 sm:gap-3 lg:gap-4">
 
-      <!-- cuadro servicio -->
-      <div id="cuadroServicio" class="bg-white p-2 rounded-lg shadow-md col-span-2 h-20 flex-col justify-center text-left hidden lg:flex">
-        <span class="text-[#666666] text-sm uppercase tracking-wide font-medium">Categoría</span>
-        <span id="categoriaTexto" class="text-black text-base font-medium">Todas</span>
-      </div>
+      <div class="col-span-2 flex flex-col gap-4">
+        <!-- cuadro servicio -->
+        <div id="cuadroServicio" class="bg-white p-2 rounded-lg shadow-md col-span-2 h-20 flex-col justify-center text-left hidden lg:flex">
+          <span class="text-[#666666] text-sm uppercase tracking-wide font-medium">Categoría</span>
+          <span id="categoriaTexto" class="text-black text-base font-medium">Todas</span>
+        </div>
 
-      <!-- paginación -->
-      <div class="w-full lg:w-full mx-auto bg-white p-6 rounded-lg shadow-md col-span-12 lg:col-span-8 h-20 flex justify-center items-center">
-        <nav class="flex items-center gap-5">
-          <button class="text-black text-2xl font-bold">&lt;</button>
-          <button class="w-8 h-8 flex items-center justify-center rounded-full bg-[#3EAEB1] text-black font-bold">1</button>
-          <button class="text-black text-lg">2</button>
-          <button class="text-black text-lg">3</button>
-          <button class="text-black text-lg">4</button>
-          <span class="text-black text-lg">...</span>
-          <button class="text-black text-2xl font-bold">&gt;</button>
-        </nav>
-      </div>
+        
+        <!-- filtros -->
+        <div id="cuadroFiltros" class="bg-white p-2 rounded-lg shadow-md col-span-2 h-auto flex flex-col justify-start hidden lg:flex">
+          <p class="text-[#666666] text-lg mb-3 font-normal">Filtrar por:</p>
 
-      <!-- filtros -->
-      <div id="cuadroFiltros" class="bg-white p-2 rounded-lg shadow-md col-span-2 h-auto flex flex-col justify-start hidden lg:flex">
-        <p class="text-[#666666] text-lg mb-3 font-normal">Filtrar por:</p>
-
-        <form id="filtroForm" method="GET" action="{{ url_for('web.publicaciones') }}">
-          <!-- Categorías -->
-          <div class="flex items-center justify-between mb-3">
-            <p class="text-lg font-semibold text-black">Categorías</p>
-            <button type="button" id="toggleCategorias" class="text-[#3EAEB1] text-lg"><i class="bi bi-chevron-down"></i></button>
-          </div>
-          <div id="categorias" class="mt-1 space-y-1.5 ">
-            <label class="flex items-center space-x-2 cursor-pointer category" data-categoria-id="">
-              <input type="radio" name="categoria_id" value="" class="category-radio" {% if not categoria_seleccionada %}checked{% endif %} />
-              <span class="text-[#666666] text-base">Todas</span>
-            </label>
-            {% for cat in categorias %}
-            <label class="flex items-center space-x-2 cursor-pointer category" data-categoria-id="{{ cat.categoria_id }}">
-              <input type="radio" name="categoria_id" value="{{ cat.categoria_id }}" class="category-radio" {% if categoria_seleccionada==cat.categoria_id %}checked{% endif %} />
-              <span class="text-[#666666] text-base">{{ cat.tipo_categoria }}</span>
-            </label>
-            {% endfor %}
-          </div>
-
-          <!-- Subcategorías -->
-          <div id="subcategoriasSection" class="hidden mt-3">
+          <form id="filtroForm" method="GET" action="{{ url_for('web.publicaciones') }}">
+            <!-- Categorías -->
             <div class="flex items-center justify-between mb-3">
-              <p class="text-lg font-semibold text-black">Subcategorías</p>
-              <button type="button" id="toggleSubcategorias" class="text-[#3EAEB1] text-lg"><i class="bi bi-chevron-down"></i></button>
+              <p class="text-lg font-semibold text-black">Categorías</p>
+              <button type="button" id="toggleCategorias" class="text-[#3EAEB1] text-lg"><i class="bi bi-chevron-down"></i></button>
             </div>
-            <div id="subcategorias" class="mt-1 space-y-1.5 hidden"></div>
-          </div>
+            <div id="categorias" class="mt-1 space-y-1.5 ">
+              <label class="flex items-center space-x-2 cursor-pointer category" data-categoria-id="">
+                <input type="radio" name="categoria_id" value="" class="category-radio" {% if not categoria_seleccionada %}checked{% endif %} />
+                <span class="text-[#666666] text-base">Todas</span>
+              </label>
+              {% for cat in categorias %}
+              <label class="flex items-center space-x-2 cursor-pointer category" data-categoria-id="{{ cat.categoria_id }}">
+                <input type="radio" name="categoria_id" value="{{ cat.categoria_id }}" class="category-radio" {% if categoria_seleccionada==cat.categoria_id %}checked{% endif %} />
+                <span class="text-[#666666] text-base">{{ cat.tipo_categoria }}</span>
+              </label>
+              {% endfor %}
+            </div>
 
-          <div class="mt-4">
-            <button type="submit" class="bg-[#3EAEB1] text-white px-4 py-2 rounded-lg w-full text-center text-sm font-semibold hover:bg-[#33989A] transition">Aplicar Filtros</button>
-          </div>
-        </form>
+            <!-- Subcategorías -->
+            <div id="subcategoriasSection" class="hidden mt-3">
+              <div class="flex items-center justify-between mb-3">
+                <p class="text-lg font-semibold text-black">Subcategorías</p>
+                <button type="button" id="toggleSubcategorias" class="text-[#3EAEB1] text-lg"><i class="bi bi-chevron-down"></i></button>
+              </div>
+              <div id="subcategorias" class="mt-1 space-y-1.5 hidden"></div>
+            </div>
 
-        <div class="mt-5">
-          <p class="text-lg font-semibold text-black">Fecha de publicación</p>
-          <ul class="mt-2 space-y-1.5 text-base">
-            {% set tiempo_actual = request.args.get('tiempo') %}
-            {% set categoria_id = request.args.get('categoria_id') %}
-            {% set subcategoria_id = request.args.get('subcategoria_id') %}
-            <li><a href="{{ url_for('web.publicaciones', categoria_id=categoria_id, subcategoria_id=subcategoria_id) }}" class="{% if tiempo_actual == 'todos' %}text-[#3EAEB1] font-bold{% else %}text-[#666666] hover:text-[#3EAEB1]{% endif %}">Todos</a></li>
-            <li><a href="{{ url_for('web.publicaciones', categoria_id=categoria_id, subcategoria_id=subcategoria_id, tiempo='24h') }}" class="{% if tiempo_actual == '24h' %}text-[#3EAEB1] font-bold{% else %}text-[#666666] hover:text-[#3EAEB1]{% endif %}">Últimas 24 horas</a></li>
-            <li><a href="{{ url_for('web.publicaciones', categoria_id=categoria_id, subcategoria_id=subcategoria_id, tiempo='semana') }}" class="{% if tiempo_actual == 'semana' %}text-[#3EAEB1] font-bold{% else %}text-[#666666] hover:text-[#3EAEB1]{% endif %}">Esta semana</a></li>
-            <li><a href="{{ url_for('web.publicaciones', categoria_id=categoria_id, subcategoria_id=subcategoria_id, tiempo='mes') }}" class="{% if tiempo_actual == 'mes' %}text-[#3EAEB1] font-bold{% else %}text-[#666666] hover:text-[#3EAEB1]{% endif %}">Este mes</a></li>
-          </ul>
+            <div class="mt-4">
+              <button type="submit" class="bg-[#3EAEB1] text-white px-4 py-2 rounded-lg w-full text-center text-sm font-semibold hover:bg-[#33989A] transition">Aplicar Filtros</button>
+            </div>
+          </form>
+
+          <div class="mt-5">
+            <p class="text-lg font-semibold text-black">Fecha de publicación</p>
+            <ul class="mt-2 space-y-1.5 text-base">
+              {% set tiempo_actual = request.args.get('tiempo') %}
+              {% set categoria_id = request.args.get('categoria_id') %}
+              {% set subcategoria_id = request.args.get('subcategoria_id') %}
+              <li><a href="{{ url_for('web.publicaciones', categoria_id=categoria_id, subcategoria_id=subcategoria_id) }}" class="{% if tiempo_actual == 'todos' %}text-[#3EAEB1] font-bold{% else %}text-[#666666] hover:text-[#3EAEB1]{% endif %}">Todos</a></li>
+              <li><a href="{{ url_for('web.publicaciones', categoria_id=categoria_id, subcategoria_id=subcategoria_id, tiempo='24h') }}" class="{% if tiempo_actual == '24h' %}text-[#3EAEB1] font-bold{% else %}text-[#666666] hover:text-[#3EAEB1]{% endif %}">Últimas 24 horas</a></li>
+              <li><a href="{{ url_for('web.publicaciones', categoria_id=categoria_id, subcategoria_id=subcategoria_id, tiempo='semana') }}" class="{% if tiempo_actual == 'semana' %}text-[#3EAEB1] font-bold{% else %}text-[#666666] hover:text-[#3EAEB1]{% endif %}">Esta semana</a></li>
+              <li><a href="{{ url_for('web.publicaciones', categoria_id=categoria_id, subcategoria_id=subcategoria_id, tiempo='mes') }}" class="{% if tiempo_actual == 'mes' %}text-[#3EAEB1] font-bold{% else %}text-[#666666] hover:text-[#3EAEB1]{% endif %}">Este mes</a></li>
+            </ul>
+          </div>
         </div>
       </div>
 
