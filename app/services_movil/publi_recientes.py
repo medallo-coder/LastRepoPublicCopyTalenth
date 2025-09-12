@@ -10,7 +10,8 @@ def map_to_card(pub):
         "costo": pub["costo"],
         "calificacion": pub["calificacion"],
         "publicacion_id": pub["publicacion_id"],
-        "usuario_id": pub["usuario_id"]
+        "usuario_id": pub["usuario_id"],
+        "foto_perfil": pub["foto_perfil"]
     }
 
 

@@ -62,7 +62,7 @@ def subir_foto_perfil_service(file):
     ext = os.path.splitext(secure_filename(file.filename))[1]
     filename = f"{uuid.uuid4().hex}{ext}"
 
-    carpeta = os.path.join(current_app.root_path, 'uploads', 'perfiles')
+    carpeta = os.path.join(current_app.root_path, 'static', 'uploads', 'perfiles')
     os.makedirs(carpeta, exist_ok=True)
 
     ruta_archivo = os.path.join(carpeta, filename)

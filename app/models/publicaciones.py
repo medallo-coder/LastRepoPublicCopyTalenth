@@ -36,5 +36,6 @@ class Publicaciones(db.Model):
             "descripcion": self.descripcion_publicacion,
             "categoria": self.categoria.tipo_categoria if self.categoria else None,
             "calificacion":4,
-            "subcategoria": self.subcategoria.nombre_subcategoria if self.subcategoria else None
+            "subcategoria": self.subcategoria.nombre_subcategoria if self.subcategoria else None,
+            "foto_perfil": self.usuario.perfiles.foto_perfil
          }

@@ -3,13 +3,17 @@
 from flask import Flask
 from flask_login import LoginManager
 from config import Config
-
+from flask_cors import CORS
 from app.extensions import db, migrate, socketio
 
 def create_app():
     # 1) Instancia de Flask
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    
+    # 🔹 Habilitar CORS en toda la app
+    CORS(app, resources={r"/*": {"origins": "*"}})
 
     # 2) Inicializa extensiones
     db.init_app(app)

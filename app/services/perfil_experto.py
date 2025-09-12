@@ -616,7 +616,7 @@ def subir_foto_perfil_service_experto(file):
         return {"success": False, "message": "Perfil no encontrado."}
 
     filename = secure_filename(file.filename)
-    carpeta = os.path.join(current_app.root_path, 'uploads/perfiles')  # ✅ nueva ruta
+    carpeta = os.path.join(current_app.root_path, 'static', 'uploads', 'perfiles')
     os.makedirs(carpeta, exist_ok=True)
     ruta_archivo = os.path.join(carpeta, filename)
     file.save(ruta_archivo)

@@ -352,10 +352,9 @@ from werkzeug.utils import secure_filename
 
 @web.route('/uploads/perfiles/<filename>')
 def perfil_foto(filename):
-    carpeta = os.path.join(current_app.root_path, 'uploads', 'perfiles')
+    carpeta = os.path.join(current_app.root_path, 'static', 'uploads', 'perfiles')
     safe_filename = secure_filename(filename)
     return send_from_directory(carpeta, safe_filename)
-
 
 # Ruta para visualizar el perfil del experto
 @web.route('/perfil_experto', methods=['GET', 'POST'])
