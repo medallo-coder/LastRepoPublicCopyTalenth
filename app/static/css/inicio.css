@@ -924,8 +924,13 @@
   }
 
   .card-tarjeta {
-    flex: 0 0 300px; /* Más compacto */
-    height: auto;
+    flex: none; /* Más compacto */
+    height: 260px;
+    width: 400px;
+    gap: 20px;
+  }
+  .card-content {
+    padding-bottom: 40px; /* espacio para el botón */
   }
 }
 
@@ -935,7 +940,9 @@
     width: 80%;
     gap: 25px;
   }
-
+  .contenedor {
+    height: 465px; /* Ajusta la altura */
+  }
   .login-title,
   .no-login-title {
     font-size: 3rem;
@@ -959,9 +966,10 @@
   }
 
   .card-tarjeta {
-    flex: 0 0 260px;
+    flex: none; /* Más compacto */
     gap: 10px;
-    height: auto;
+    height: 280px;
+    width: 370px;
   }
 
   .card-tarjeta img {
