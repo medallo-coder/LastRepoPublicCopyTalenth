@@ -117,3 +117,91 @@ section {
 section img {
     width: 500px;
 }
+
+/* ===================== */
+/* RESPONSIVE ADAPTATION */
+/* ===================== */
+
+/* Laptops medianas (1366px o menos) */
+@media (max-width: 1366px) {
+    .container {
+        gap: 20px;
+    }
+
+    .contenido {
+        max-width: 65%;
+        padding-right: 30px;
+    }
+
+    .button {
+        font-size: 20px;
+        padding: 8px 20px;
+    }
+}
+
+/* Tablets y pantallas pequeñas (900px o menos) */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .contenido {
+        max-width: 100%;
+        padding-right: 0;
+    }
+
+    .menu-lateral {
+        position: static;
+        width: 100%;
+        margin: 20px 0;
+        max-height: none;
+        border-top: 1px solid #ddd;
+        padding-top: 10px;
+    }
+
+    .ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 15px;
+    }
+
+    .button {
+        font-size: 16px;
+        min-height: auto;
+        padding: 5px 10px;
+    }
+}
+
+/* Celulares (600px o menos) */
+@media (max-width: 600px) {
+    .menu-lateral {
+        display: none; /* 🚀 en móviles NO se muestra el menú lateral */
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .contenido {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    section img {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+}
