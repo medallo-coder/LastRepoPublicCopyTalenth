@@ -6,28 +6,42 @@
 .contenido {
     flex: 1;
     max-width: 70%;
-    padding-right: 60px; /* separación con el menú */
+    padding-right: 60px;
+    /* separación con el menú */
 }
 
+/* Menu lateral */
 /* Menu lateral */
 .menu-lateral {
     width: 30%;
     position: sticky;
-    top: 20px;
+    top: 120px;
     align-self: flex-start;
     text-align: left;
-    margin-left: 40px; 
+    margin-left: 80px;
+
+    /* Ajustes de scroll */
+    max-height: 80vh; /* ocupa máximo 80% de la pantalla */
+    overflow-y: auto;
+    scrollbar-width: none; /* oculta scrollbar en Firefox */
 }
 
-/* Estilos del menú*/
+/* Oculta scrollbar en Chrome, Edge y Safari */
+.menu-lateral::-webkit-scrollbar {
+    display: none;
+}
+
+/* Centrar mejor el contenido del menú */
 .ul {
-    width: fit-content;
-    height: fit-content;
-    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%; /* ocupa toda la altura del aside */
     list-style: none;
-    margin: 100px auto; /* centrado horizontalmente */
+    margin: 0; /* quitamos el margin que lo empujaba hacia abajo */
     padding: 0;
 }
+
 
 .li {
     margin-bottom: 10px;
@@ -44,10 +58,16 @@
     cursor: pointer;
     position: relative;
     padding-left: 11px;
-    text-align: center;
+    text-align: left;
     transition: 0.1s;
     z-index: 1;
+    width: 100%; /* todos los botones ocupan el mismo ancho */
+    white-space: normal; 
+    word-wrap: break-word; 
+    line-height: 1.4;
+    min-height: 50px; 
 }
+
 
 .p {
     z-index: 2;
@@ -55,7 +75,8 @@
 }
 
 .button:hover {
-    color: #fff; /* color hover del texto */
+    color: #fff;
+    /* color hover del texto */
 }
 
 .button::before {
@@ -63,28 +84,36 @@
     position: absolute;
     width: 6px;
     height: 6px;
-    background-color: #3eaeb1; /* color base del rombo */
+    background-color: #3eaeb1;
+    /* color base del rombo */
     left: -10px;
     top: 50%;
-    transform: translateY(-50%) rotate(45deg); /* rotación fija a rombo */
+    transform: translateY(-50%) rotate(45deg);
+    /* rotación fija a rombo */
     transition: all 0.3s ease;
     z-index: -1;
 }
 
 .button:hover::before {
-    width: calc(100% - 20px); 
+    width: calc(100% - 20px);
     height: 40px;
     top: 50%;
-    left: 10px; /* centrado */
+    left: 10px;
+    /* centrado */
     transform: translateY(-50%) rotate(0deg);
     border-radius: 3px;
     background-color: #3eaeb1;
 }
 
 .button:active::before {
-    background-color: #3eaeb1; /* color al hacer clic */
+    background-color: #3eaeb1;
+    /* color al hacer clic */
 }
 
 section {
     margin-bottom: 60px;
+}
+
+section img {
+    width: 500px;
 }
