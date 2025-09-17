@@ -7,6 +7,7 @@
     padding-top: 120px;
     flex-direction: column;
     gap: 40px; /* Espacio entre header y slider */
+    
 }
 
 /* Estilo para encabezado sin login */
@@ -298,14 +299,10 @@
   color: black;
   margin: 0 0 4px;
   word-break: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
-  max-height: 3.6em;       /* 3 líneas aprox */
-  overflow: hidden;
-  text-overflow: ellipsis;
-
+  overflow: visible;   /* Antes: hidden */
+  max-height: none;    /* Antes: 3.6em */
+  text-overflow: unset; /* Antes: ellipsis */
 }
-
 
 .ver-mas {
   font-family: 'Oswald', sans-serif;
@@ -394,6 +391,12 @@
 .contact-button:hover {
   background-color: #3EAEB1;
   color: #ffffff; /* Cambia el color del texto si deseas */
+}
+
+.card-content form {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* centra solo el botón */
 }
 
 /* Asegura que los contenidos dentro de .card-content estén en columna */
