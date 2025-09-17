@@ -256,11 +256,18 @@ def deshabilitar_cuenta_global_service(data):
     if usuario.estado == "deshabilitado":
         return{"success": False, "message": "El usuario ya esta deshabilitado"}
     
-    # En caso de estar activo lo cambiamos a deshabilitado
-    if usuario.estado == "activo":
-        usuario.estado = "deshabilitado"
-        db.session.commit()
+    
 
+    
+    # En caso de estar activo lo cambiamos a deshabilitado
+    if usuario.estado == "activo" or usuario.estado == "Bloqueado temporalmente":
+        usuario.estado = "deshabilitado"
+
+        for publicacion in usuario.publicaciones:
+            if publicacion.estado == "activo":
+                publicacion.estado = "desactivada"
+        
+        db.session.commit()
         return {"success": True, "message": f"El usuario con ID {usuario_id} ha sido deshabilitado"}
 
 

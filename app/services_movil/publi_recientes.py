@@ -16,9 +16,9 @@ def map_to_card(pub):
 
 
 def obtener_publicaciones_recientes_service(limit=10):
-    pubs = db.session.query(Publicaciones).order_by(Publicaciones.fecha.desc()).limit(limit).all()
+    pubs = db.session.query(Publicaciones).filter_by(estado="activo").filter_by(destacada="no").order_by(Publicaciones.fecha.desc()).limit(limit).all()
     return [map_to_card(p.to_dict()) for p in pubs]
 
 def obtener_publicaciones_aleatorias_service(limit=10):
-    pubs = db.session.query(Publicaciones).limit(limit).all()
+    pubs = db.session.query(Publicaciones).filter_by(estado="activo").filter_by(destacada="si").order_by(Publicaciones.fecha.desc()).limit(limit).all()
     return [map_to_card(p.to_dict()) for p in pubs]
