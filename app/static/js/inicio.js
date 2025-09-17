@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (window.innerWidth <= 768) return 35;       // Tablets vertical
     if (window.innerWidth <= 1024) return 55;      // Tablets horizontal
     if (window.innerWidth <= 1366) return 35;   
-    if (window.innerWidth <= 1600) return 78;     // Laptops grandes
+    if (window.innerWidth <= 1600) return 70;     // Laptops grandes
     return 125;                                    // Pantallas muy grandes
   }
 
@@ -130,13 +130,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (menuClon) menuClon.remove();
 
                 // Botón de contacto dentro del modal
-                const contactBtn = tarjetaClonada.querySelector('.contact-button');
+                 const contactBtn = tarjetaClonada.querySelector('.contact-button');
                 if (contactBtn) {
-                    contactBtn.addEventListener('click', function () {
+                    contactBtn.addEventListener('click', function(e) {
+                        const estaLogueado = document.body.getAttribute('data-logged-in') === 'true';
                         if (!estaLogueado) {
+                            e.preventDefault(); // 🚫 Evita la redirección
                             modalLogin.classList.remove('hidden');
                         } else {
-                            console.log("Usuario logueado, se puede contactar al experto.");
+                            console.log("Usuario logueado: abrir modal de contacto real si aplica.");
                         }
                     });
                 }
@@ -243,9 +245,19 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Contactar experto en tarjetas y modal "Ver más"
-    document.querySelectorAll(".contact-button").forEach(btn => {
-        btn.addEventListener("click", manejarClickContacto);
+   document.querySelectorAll(".contact-button").forEach(btn => {
+    btn.addEventListener("click", function(e) {
+        const estaLogueado = document.body.getAttribute('data-logged-in') === 'true';
+        
+        if (!estaLogueado) {
+            e.preventDefault(); // 🚫 Evita que se envíe el form
+            const modalLogin = document.getElementById('modalLoginContacto');
+            if (modalLogin) modalLogin.classList.remove('hidden');
+        }
+        // Si está logueado, el form se envía normalmente
     });
+});
+
 
     // Cerrar modal login y reactivar modal "Ver más" si estaba abierto
     if (cerrarLogin) {

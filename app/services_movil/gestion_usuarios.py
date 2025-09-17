@@ -156,6 +156,8 @@ def datos_usuario_service():
 
     datos_usuario={
         "nombre": perfil.primer_nombre,
+        "apellido": perfil.primer_apellido,
+        "nombre_completo": f"{perfil.primer_nombre} {perfil.primer_apellido}",
         "fecha_registro": fecha_formateada,
         "rol": rol.tipo_rol
     }
