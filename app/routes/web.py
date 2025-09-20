@@ -284,7 +284,7 @@ def publicaciones():
         publicaciones_query = publicaciones_query.filter(Publicaciones.fecha >= desde)
 
     # Ordenar de más reciente a más antigua
-    publicaciones = publicaciones_query.order_by(Publicaciones.fecha.desc()).all()
+    publicaciones = publicaciones_query.filter_by(estado = "activo").order_by(Publicaciones.fecha.desc()).all()
 
      # Usuario logueado
     auth_result = verificar_autenticacion_service()

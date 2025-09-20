@@ -30,6 +30,7 @@ def obtener_publicaciones_filtradas_service(categoria_id=None, subcategoria_id=N
     elif categoria_id:
         query = query.filter(Publicaciones.categoria_id == categoria_id)
 
+
     publicaciones = query.order_by(Publicaciones.fecha.desc()).all()
     total = query.count()
 
