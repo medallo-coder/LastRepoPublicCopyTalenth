@@ -227,9 +227,11 @@ document.querySelectorAll('.contact-button').forEach(btn => {
             {{ pub.descripcion_publicacion }}
           </p>
           <span class="ver-mas hidden">Ver más</span>
-          <form action="{{ url_for('mensajeria.iniciar_chat_con_experto', experto_id=pub.usuario.usuario_id) }}" method="POST">
-            <button type="submit" class="contact-button">Contactar experto</button>
-          </form>
+          <div class="boton-container">
+            <form action="{{ url_for('mensajeria.iniciar_chat_con_experto', experto_id=pub.usuario.usuario_id) }}" method="POST">
+              <button type="submit" class="contact-button">Contactar experto</button>
+            </form>
+          </div>
 
         </div>
       </div> <!-- fin tarjeta -->
@@ -332,9 +334,11 @@ document.querySelectorAll('.contact-button').forEach(btn => {
              {{ pub.descripcion_publicacion }}
           </p>
           <span class="ver-mas hidden">Ver más</span>
-          <form action="{{ url_for('mensajeria.iniciar_chat_con_experto', experto_id=pub.usuario.usuario_id) }}" method="POST">
-            <button type="submit" class="contact-button">Contactar experto</button>
-          </form>
+          <div class="boton-container">
+            <form action="{{ url_for('mensajeria.iniciar_chat_con_experto', experto_id=pub.usuario.usuario_id) }}" method="POST">
+              <button type="submit" class="contact-button">Contactar experto</button>
+            </form>
+          </div>
 
         </div>
       </div> <!-- fin tarjeta -->
