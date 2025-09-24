@@ -271,7 +271,8 @@
   font-size: 20px;
   color: black;
   margin-top: 5px; /* Antes: 10px */
-
+  text-align: left;  /* 🔑 fuerza alineación a la izquierda */
+  width: 100%;       /* 🔑 asegura ocupar todo el espacio */
 
 }
 
@@ -909,6 +910,8 @@
 -----------------------------------------------*/
 
 /* Tablets grandes y laptops pequeñas (hasta 1200px) */
+
+
 @media (max-width: 1200px) {
   .main-container {
     width: 85%;
@@ -936,6 +939,36 @@
     padding-bottom: 40px; /* espacio para el botón */
   }
 }
+
+@media (max-width: 1024px) {
+  .main-container {
+    width: 85%;
+  }
+  .contenedor {
+    height: auto; /* Ajusta la altura automática */
+  }
+  .contenedor-destacados {
+    height: auto; /* Ajusta la altura automática */
+  }
+
+  .titulo-categorias,
+  .titulo-interes,
+  .titulo-frases {
+    font-size: 1.8rem;
+  }
+
+  .card-tarjeta {
+    flex: none; /* Más compacto */
+    height: auto;
+    width: 400px;
+    gap: 20px;
+  }
+  
+  .card-content button {
+  margin-top: 2px !important; /* separa el botón de Ver más */
+}
+}
+
 
 /* Tablets y pantallas medianas (hasta 992px) */
 @media (max-width: 992px) {
@@ -1006,4 +1039,216 @@
 
 .btn-experto:hover {
   background-color: #2e9092; /* tono más oscuro al pasar el mouse */
+}
+
+@media (max-width: 768px){
+  .nombre {
+    text-align: left;  
+    width: 100%;       
+     margin-left: -13px; 
+     
+  }
+}
+@media (max-width: 576px) {
+  .titulo-interes {
+  margin-top: 15px;   /* 🔽 baja un poco el título */
+  
+}
+  .contenedor {
+    width: 95vw !important;              
+    margin-left: calc(-48vw + 50%);
+    padding: 0 10px;                      
+    height: auto;                         
+  }
+  .nombre {
+    text-align: left;  
+    width: 100%;       
+     margin-left: -13px; 
+  }
+  #card-destacados {
+    width: 100% !important;  
+    height: auto;
+    
+  }
+  #flechas {
+  margin-top: 2px;   
+  margin-bottom: 10px;
+  }
+
+  .contenedor-destacados {
+    width: 100% !important;     
+    margin: 0 auto;             
+    padding: 0;                 
+    background: none;           
+    border-radius: 0;           
+    box-shadow: none;   
+  }
+ 
+  #card2 {
+    width: 100% !important;  
+    height: auto;
+     
+  }
+   .arrows{
+    margin-top: 2px;   
+  margin-bottom: 10px;
+  }
+  
+  
+  
+
+}
+
+@media (max-width: 540px) {
+  .titulo-interes {
+  margin-top: 15px;   /* 🔽 baja un poco el título */
+  
+}
+  .contenedor {
+    width: 95vw !important;              
+    margin-left: calc(-48vw + 50%);
+    padding: 0 10px;                      
+    height: auto;                         
+  }
+  .nombre {
+    text-align: left;  
+    width: 100%;       
+     margin-left: -13px; 
+  }
+  #card-destacados {
+    width: 80% !important;  
+    height: auto;
+    
+  }
+
+  .contenedor-destacados {
+    width: 100% !important;     
+    margin: 0 auto;             
+    padding: 0;                 
+    background: none;           
+    border-radius: 0;           
+    box-shadow: none;   
+  }
+ 
+  #card2 {
+    width: 100% !important;  
+    height: auto;
+     
+  }
+  
+  #flechas {
+  margin-top: 2px;   
+  margin-bottom: 10px;
+  }
+  
+  .arrows{
+    margin-top: 2px;   
+  margin-bottom: 10px;
+  }
+
+}
+
+@media (max-width: 576px) {
+  .titulo-interes {
+  margin-top: 15px;   /* 🔽 baja un poco el título */
+  
+}
+  .contenedor {
+    width: 95vw !important;              
+    margin-left: calc(-48vw + 50%);
+    padding: 0 10px;                      
+    height: auto;                         
+  }
+  .nombre {
+    text-align: left;  
+    width: 100%;       
+     margin-left: -13px; 
+  }
+  #card-destacados {
+    width: 100% !important;  
+    height: auto;
+    
+  }
+  #flechas {
+  margin-top: 2px;   
+  margin-bottom: 10px;
+  }
+
+  .contenedor-destacados {
+    width: 100% !important;     
+    margin: 0 auto;             
+    padding: 0;                 
+    background: none;           
+    border-radius: 0;           
+    box-shadow: none;   
+  }
+ 
+  #card2 {
+    width: 100% !important;  
+    height: auto;
+     
+  }
+   .arrows{
+    margin-top: 2px;   
+  margin-bottom: 10px;
+  }
+
+  .modal-content {
+    width: 95% !important;   /* ocupa casi todo el ancho */
+    min-width: auto !important; /* 🔑 evita que se fuerce 420px */
+    max-width: 95% !important;
+    padding: 15px !important; /* un poco más de respiro */ 
+  }
+    
+  
+
+}
+
+@media (max-width: 344px) {
+  .titulo-interes {
+  margin-top: 15px;   /* 🔽 baja un poco el título */
+  
+}
+  .contenedor {
+    width: 95vw !important;              
+    margin-left: calc(-48vw + 50%);
+    padding: 0 10px;                      
+    height: auto;                         
+  }
+  .nombre {
+    text-align: left;  
+    width: 100%;       
+     margin-left: -13px; 
+  }
+  #card-destacados {
+    width: 95% !important;  
+    height: auto;
+    
+  }
+
+  .contenedor-destacados {
+    width: 100% !important;     
+    margin: 0 auto;             
+    padding: 0;                 
+    background: none;           
+    border-radius: 0;           
+    box-shadow: none;   
+  }
+ 
+  #card2 {
+    width: 100% !important;  
+    height: auto;
+     
+  }
+  
+  #flechas {
+  margin-top: 2px;   
+  margin-bottom: 10px;
+  }
+  
+  .arrows{
+    margin-top: 2px;   
+  margin-bottom: 10px;
+  }
+
 }

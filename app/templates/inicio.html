@@ -166,7 +166,7 @@ document.querySelectorAll('.contact-button').forEach(btn => {
 
           <!-- Tarjeta 1 -->
       {% for pub in publicaciones_aleatorias %}
-      <div class="card-tarjeta">
+      <div class="card-tarjeta" id="card-destacados">
         <div class="image-price-container">
 
           {% if pub.usuario.perfiles.foto_perfil %}
@@ -243,7 +243,7 @@ document.querySelectorAll('.contact-button').forEach(btn => {
     </div> <!-- fin slider -->
   </div> <!-- fin slider-container -->
    <!-- Flechas -->
-    <div class="arrows">
+    <div class="arrows" id="flechas">
       <button class="arrow-btn" id="arrowPromosLeft">
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" stroke="#35A9AE" stroke-width="2.5" viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="10" />
@@ -276,7 +276,7 @@ document.querySelectorAll('.contact-button').forEach(btn => {
 
       <!-- Tarjeta 1 -->
       {% for pub in publicaciones_recientes %}
-      <div class="card-tarjeta">
+      <div class="card-tarjeta" id="card2">
         <div class="image-price-container">
            {% if pub.usuario.perfiles.foto_perfil %}
             <img src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" alt="Foto de perfil" />
