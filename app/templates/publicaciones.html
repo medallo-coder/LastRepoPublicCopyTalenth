@@ -264,6 +264,8 @@
 
 
 
+
+
 </style>
 </head>
 
@@ -297,14 +299,14 @@
 
       <div class="col-span-2 flex flex-col gap-4">
         <!-- cuadro servicio -->
-        <div id="cuadroServicio" class="bg-white p-2 rounded-lg shadow-md col-span-2 h-20 flex-col justify-center text-left hidden lg:flex">
+        <div id="cuadroServicio"  class="bg-white p-2 rounded-lg shadow-md col-span-2 h-20 flex flex-col justify-center text-left ">
           <span class="text-[#666666] text-sm uppercase tracking-wide font-medium">Categoría</span>
           <span id="categoriaTexto" class="text-black text-base font-medium">Todas</span>
         </div>
 
         
         <!-- filtros -->
-        <div id="cuadroFiltros" class="bg-white p-2 rounded-lg shadow-md col-span-2 h-auto flex flex-col justify-start hidden lg:flex">
+        <div id="cuadroFiltros" class=" bg-white p-2 rounded-lg shadow-md col-span-12 sm:col-span-2 h-auto flex flex-col justify-start hidden lg:flex w-full">
           <p class="text-[#666666] text-lg mb-3 font-normal">Filtrar por:</p>
 
           <form id="filtroForm" method="GET" action="{{ url_for('web.publicaciones') }}">
@@ -361,7 +363,7 @@
       <div class="w-full col-span-12 lg:col-span-8">
         <div class="relative w-full min-h-[800px] grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
           {% for pub in publicaciones_generales %}
-          <div class="tarjeta bg-white p-4 rounded-lg shadow-md border border-gray-300 flex flex-col lg:flex-row gap-3 lg:gap-4 items-center lg:items-start text-center lg:text-left relative font-[Oswald] h-full">
+          <div class="tarjeta w-full max-w-[900px] bg-white p-4 rounded-lg shadow-md border border-gray-300 flex  lg:flex-row gap-3 lg:gap-4 items-center lg:items-start text-center lg:text-left relative font-[Oswald] h-full">
             <!-- Menú -->
             <div class="absolute top-2 right-4 menu-button-container">
               <button class="menu-button"><i class="bi bi-three-dots text-xl sm:text-2xl"></i></button>
