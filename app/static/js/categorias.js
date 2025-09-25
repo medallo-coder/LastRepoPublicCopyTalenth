@@ -15,25 +15,76 @@ document.querySelectorAll(".menu-button").forEach((btn) => {
       menu.classList.add("hidden");
     });
   });
+const btnToggle = document.getElementById('toggleFiltros');
+const panel = document.getElementById('panelFiltros');
+const contenidoFiltrosMobile = document.getElementById('contenidoFiltrosMobile');
 
-  const btnToggle = document.getElementById('toggleFiltros');
-    const panel = document.getElementById('panelFiltros');
-    const cerrar = document.getElementById('cerrarFiltros');
-    const contenidoFiltrosMobile = document.getElementById('contenidoFiltrosMobile');
+// Crear overlay si no existe
+let overlay = document.getElementById('overlayFiltros');
+if (!overlay) {
+  overlay = document.createElement('div');
+  overlay.id = 'overlayFiltros';
+  overlay.style.position = 'fixed';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.width = '100%';
+  overlay.style.height = '100%';
+  overlay.style.background = 'rgba(0,0,0,0.4)'; // negro claro
+  overlay.style.zIndex = '40'; // menos que el panel (50)
+  overlay.style.display = 'none';
+  document.body.appendChild(overlay);
+}
 
-    btnToggle.addEventListener('click', () => {
-      const servicio = document.getElementById('cuadroServicio').cloneNode(true);
-      const filtros = document.getElementById('cuadroFiltros').cloneNode(true);
-      filtros.classList.remove('hidden');
-      contenidoFiltrosMobile.innerHTML = '';
-      contenidoFiltrosMobile.appendChild(servicio);
-      contenidoFiltrosMobile.appendChild(filtros);
-      panel.classList.remove('hidden');
+btnToggle.addEventListener('click', () => {
+  // Clonar filtros
+  const filtros = document.getElementById('cuadroFiltros').cloneNode(true);
+  filtros.classList.remove('hidden');
+
+  // Limpiar y agregar al panel móvil
+  contenidoFiltrosMobile.innerHTML = '';
+  contenidoFiltrosMobile.appendChild(filtros);
+
+  // Mostrar panel y overlay
+  panel.classList.remove('hidden');
+  overlay.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+
+  // 🔹 Asignar evento a la X dentro del panel móvil
+  const cerrarMobile = panel.querySelector('#cerrarFiltros');
+  if (cerrarMobile) {
+    cerrarMobile.onclick = cerrarPanel;
+  }
+
+  // 🔹 Cerrar panel al hacer clic en el overlay
+  overlay.onclick = cerrarPanel;
+
+  // 🔹 Eventos internos (categorías/subcategorías)
+  const toggleCategoriasMobile = filtros.querySelector("#toggleCategorias");
+  const categoriasMobile = filtros.querySelector("#categorias");
+
+  if (toggleCategoriasMobile) {
+    toggleCategoriasMobile.addEventListener("click", () => {
+      categoriasMobile.classList.toggle("hidden");
     });
+  }
 
-    cerrar.addEventListener('click', () => {
-      panel.classList.add('hidden');
+  const toggleSubcategoriasMobile = filtros.querySelector("#toggleSubcategorias");
+  const subcategoriasMobile = filtros.querySelector("#subcategorias");
+
+  if (toggleSubcategoriasMobile) {
+    toggleSubcategoriasMobile.addEventListener("click", () => {
+      subcategoriasMobile.classList.toggle("hidden");
     });
+  }
+});
+
+// Función para cerrar panel y overlay
+function cerrarPanel() {
+  panel.classList.add('hidden');
+  overlay.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
 
     // TARJETAS - DESCRIPCIÓN Y VER MÁS
 document.addEventListener('DOMContentLoaded', () => {

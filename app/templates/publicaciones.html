@@ -263,7 +263,27 @@
 }
 
 
+body.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
 
+
+@media (max-width: 768px) {
+  #panelFiltros {
+    top: 80px;
+    bottom: 0; /* para que ocupe hasta abajo */
+    height: auto; /* deja que crezca si hay scroll */
+    max-height: 100vh; /* asegura que nunca sea mayor que la pantalla */
+    overflow-y: auto; /* para que aparezca scroll si es necesario */
+  }
+  #cuadroServicio {
+  width: 80%;
+  max-width: 100%; /* evita que se agrande demasiado */
+  box-sizing: border-box;
+}
+
+}
 
 
 </style>
@@ -281,7 +301,7 @@
     </div>
 
     <!-- Panel flotante para filtros en pantallas pequeñas -->
-    <div id="panelFiltros" class="fixed top-0 left-0 w-1/2 h-full bg-white z-50 p-4 shadow-lg hidden overflow-y-auto">
+    <div id="panelFiltros" class="fixed top-0 left-0  h-full bg-white z-50 p-4 shadow-lg hidden overflow-y-auto">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-black text-xl font-bold">Filtros</h2>
         <button id="cerrarFiltros" class="text-black text-2xl">&times;</button>
