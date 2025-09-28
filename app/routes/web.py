@@ -601,7 +601,31 @@ def mis_publicaciones():
     if not usuario_id:
         flash("Debes iniciar sesión para ver tus publicaciones", "warning")
         return redirect(url_for('web.iniciar_sesion'))
-
+    
+     # 🔹 Capturar si viene de Mercado Pago con promo=ok
+    promo_status = request.args.get("promo")
+    if promo_status == "ok":
+        publicacion_id = session.pop("promo_publicacion_id", None)
+        if publicacion_id:
+            publicacion = Publicaciones.query.get(publicacion_id)
+            if publicacion and publicacion.usuario_id == usuario_id:
+                publicacion.destacada = "si"
+                db.session.commit()
+                flash("¡Tu publicación ahora es destacada 🚀!", "success")
+        else:
+            # Revisar si ya hay un slot vacío para este usuario
+            slot = Publicaciones.query.filter_by(usuario_id=usuario_id, titulo=None).first()
+            if not slot:
+                nueva = Publicaciones(
+                    usuario_id=usuario_id,
+                    fecha=datetime.now(),
+                    estado="activo",
+                    destacada="si"
+                )
+                db.session.add(nueva)
+                db.session.commit()
+                flash("¡Has desbloqueado una nueva publicación!", "success")
+    
     publicaciones = obtener_mis_publicaciones_service(usuario_id)
     categorias = obtener_categorias_service()
     subcategorias = obtener_subcategorias_service()
@@ -624,7 +648,8 @@ def mis_publicaciones():
         tiene_publicaciones=tiene_publicaciones,
         cantidad_actual=conteo["cantidad_actual"],
         limite_maximo=conteo["limite_maximo"],
-        cantidad_destacadas=cantidad_destacadas  # 👈 Ahora sí se pasa al template
+        cantidad_destacadas=cantidad_destacadas,
+        slots_vacios=conteo["slots_vacios"]  # 👈 Ahora sí se pasa al template
     )
 
 
@@ -644,6 +669,11 @@ def guardar_mi_publicacion():
     descripcion = data.get("descripcion_publicacion", "")
     if len(descripcion) > 200:
         flash("La descripción no puede tener más de 200 caracteres.", "danger")
+        return redirect(url_for('web.mis_publicaciones'))
+    
+    titulo = data.get("titulo")
+    if not titulo:
+        flash("Debe contener el titulo.","danger")
         return redirect(url_for('web.mis_publicaciones'))
 
     # ✅ Corregir claves si vienen con nombres del formulario como 'id_categoria'
@@ -690,7 +720,8 @@ def editar_mi_publicacion(publicacion_id):
         publicacion=publicacion,
         tiene_publicaciones=tiene_publicaciones,
         cantidad_actual=conteo["cantidad_actual"],
-        limite_maximo=conteo["limite_maximo"]
+        limite_maximo=conteo["limite_maximo"],
+        slots_vacios=conteo["slots_vacios"]  # 👈 Ahora sí se pasa al template
     )
 
 
@@ -730,16 +761,71 @@ def obtener_subcategorias(categoria_id):
 
 
 from app.services.mercado_pago_services.m_pago_service import crear_preferencia_pago
-
 @web.route('/obtener-promocion')
 def obtener_promocion():
+    usuario_id = obtener_usuario_id_autenticado()
+    if not usuario_id:
+        flash("Debes iniciar sesión para continuar", "warning")
+        return redirect(url_for('web.login'))
+
+    # Validar si ya hay otra destacada
+    ya_destacada = Publicaciones.query.filter(
+        Publicaciones.usuario_id == usuario_id,
+        Publicaciones.destacada == "si"
+    ).first()
+
+    if ya_destacada:
+        flash("Ya tienes una publicación destacada. No puedes promocionar otra.", "danger")
+        return redirect(url_for('web.mis_publicaciones'))
+
+    # Crear preferencia en Mercado Pago
     url = crear_preferencia_pago(
-        titulo="Promocionar publicación",
+        titulo=f"Promoción de tu publicación",
         precio=10000,
         cantidad=1,
-        email_comprador="test_user_XXXXXXX@testuser.com"
+        email_comprador="test_user_5067314673306232306@testuser.com"
     )
+
     return redirect(url)
+
+@web.route('/promocionar-publicacion/<int:publicacion_id>')
+def promocionar_publicacion(publicacion_id):
+    usuario_id = obtener_usuario_id_autenticado()
+    if not usuario_id:
+        flash("Debes iniciar sesión para continuar", "warning")
+        return redirect(url_for('web.login'))
+
+    # Verificar que la publicación existe y pertenece al usuario
+    publicacion = Publicaciones.query.get(publicacion_id)
+    if not publicacion or publicacion.usuario_id != usuario_id:
+        flash("No puedes promocionar esta publicación.", "danger")
+        return redirect(url_for('web.mis_publicaciones'))
+
+    # Validar que no haya otra destacada
+    ya_destacada = Publicaciones.query.filter(
+        Publicaciones.usuario_id == usuario_id,
+        Publicaciones.destacada == "si"
+    ).first()
+
+    if ya_destacada:
+        flash("Ya tienes una publicación destacada. No puedes promocionar otra.", "danger")
+        return redirect(url_for('web.mis_publicaciones'))
+
+    # Crear preferencia en Mercado Pago
+    url = crear_preferencia_pago(
+        titulo=f"Promoción de tu publicación: {publicacion.titulo}",
+        precio=10000,
+        cantidad=1,
+        email_comprador="test_user_5067314673306232306@testuser.com"
+    )
+
+    # Guardar en sesión el ID de la publicación que está en promoción
+    session["promo_publicacion_id"] = publicacion_id
+
+    return redirect(url)
+
+
+
 
 from datetime import date
 from app.extensions import db
