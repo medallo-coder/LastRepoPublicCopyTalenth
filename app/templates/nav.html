@@ -44,7 +44,7 @@
                         <li class="liiniciarsesion"><a href="{{ url_for('web.iniciar_sesion') }}" class="btini">Iniciar Sesión</a></li>
                     {% endif %}
                 </ul>
-
+                {% if session.get('jwt') %}
                 <!-- Estrella al final -->
                 <ul class="ulfavorito">
                     <li class="lifavorito">
@@ -53,6 +53,7 @@
                         </a>
                     </li>
                 </ul>
+                {% endif %}
             </div>
         </nav>
     </header>
