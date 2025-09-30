@@ -23,10 +23,11 @@ def crear_preferencia_pago(titulo, precio, cantidad, email_comprador):
             "email": email_comprador  # Email del comprador
         },
         "back_urls": {
-            "success": "https://www.tusitio.com/pago-exitoso",
-            "failure": "https://www.tusitio.com/pago-fallido",
-            "pending": "https://www.tusitio.com/pago-pendiente"
+            "success": "https://lauren-extenuatory-joaquin.ngrok-free.dev/mis-publicaciones?promo=ok",
+            "failure": "https://lauren-extenuatory-joaquin.ngrok-free.dev/mis-publicaciones?promo=fail",
+            "pending": "https://lauren-extenuatory-joaquin.ngrok-free.dev/mis-publicaciones?promo=pending"
         },
+
         "auto_return": "approved"
     }
 

@@ -54,6 +54,17 @@
 /*-----------------------------------------------
  Menú hamburguesa (icono de 3 barras para móvil)
 -----------------------------------------------*/
+.close-btn {
+    position: absolute;
+    top:-15px;/* Ajusta más arriba o más abajo */
+    right: 5px; /* Ajusta separación de la derecha */
+    background: none;
+    border: none;
+    font-size: 40px;
+    
+    color: #333;
+    cursor: pointer;
+}
 .menu {
     height: 50px;
     width: 50px;
@@ -669,6 +680,20 @@
     .ulregistro {
         display: none;
     }
+    .ulregistro-mobile a {
+    display: flex;                /* Hace que el <a> sea contenedor flex */
+    align-items: center;          /* Centra verticalmente el texto */
+    justify-content: center;      /* Centra horizontalmente */
+    font-size: 16px;
+    padding: 10px 20px;           /* Espaciado interno */
+    border: 2px solid #3EAEB1;
+    border-radius: 50px;
+    width: 80%;
+    max-width: 250px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;           /* Extra seguridad en caso de varias líneas */
+}
 
     .menu-mobile-buttons {
         display: flex;

@@ -26,16 +26,24 @@
     </div>
   </div>
 
-{% if cantidad_actual < limite_maximo %}
-  {% if cantidad_actual == 1 and cantidad_destacadas == 0 %}
-    <p class="mostrar-form-link" onclick="mostrarModal()">+ Nueva publicación</p>
-  {% else %}
-    <p id="mostrarFormulario" class="mostrar-form-link"
-       {% if publicacion is defined and publicacion %}style="display:none;"{% endif %}>
-       + Nueva publicación
-    </p>
-  {% endif %}
+{% if cantidad_actual == 0 %}
+  <!-- Caso: no tiene ninguna publicación aún → gratis -->
+  <p id="mostrarFormulario" class="mostrar-form-link">+ Nueva publicación</p>
+
+{% elif cantidad_destacadas == 0 and cantidad_actual == 1 %}
+  <!-- Caso: ya tiene 1 normal, pero ninguna destacada → ofrecer destacada -->
+  <p class="mostrar-form-link" onclick="mostrarModal()">+ Nueva publicación destacada</p>
+
+{% elif cantidad_actual < limite_maximo or slots_vacios > 0 %}
+  <!-- Caso: ya tiene destacada pero queda espacio extra -->
+  <p id="mostrarFormulario" class="mostrar-form-link"
+     {% if publicacion is defined and publicacion %}style="display:none;"{% endif %}>
+     + Nueva publicación
+  </p>
 {% endif %}
+
+
+
 
 
 
@@ -68,6 +76,12 @@
             <label>Precio</label>
             <input type="number" name="precio" step="0.01" placeholder="Ej: 150.00" value="{{ publicacion.precio if publicacion is defined and publicacion else '' }}">
           </div>
+          
+          {% if publicacion and publicacion.destacada == "si" %}
+          <input type="hidden" name="destacada" value="si">
+          {% else %}
+          <input type="hidden" name="destacada" value="no">
+          {% endif %}
 
           <div class="form-group">
   <label>Categoría</label>
@@ -121,10 +135,14 @@
     <a href="#" class="btn-eliminar-modal" data-url="{{ url_for('web.eliminar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">
       <i class="bi bi-trash"></i><span>Eliminar</span>
     </a>
-    
-    <a href="#" onclick="abrirModalPromocionar()">
-      <i class="bi bi-megaphone"></i><span>Promocionar</span>
-    </a>
+    {% if pub.destacada == "no" and cantidad_destacadas == 0 %}
+  <a href="{{ url_for('web.promocionar_publicacion', publicacion_id=pub.publicacion_id) }}">
+    <i class="bi bi-megaphone"></i><span>Promocionar</span>
+  </a>
+{% endif %}
+
+
+
   </div>
 </div>
 
