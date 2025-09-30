@@ -9,7 +9,7 @@ from app.services_desktop.gestion_admin import datos_admin_service, deshabilitar
 from app.services_desktop.gestionar_usuarios import datos_expertos_service, datos_clientes_service
 from app.services_movil.autenticacion import registrar_usuario_service, iniciar_sesion_service, cerrar_sesion_service, obtener_usuario_id_autenticado
 from app.services_movil.inicio import inicio_service
-from app.services_movil.gestion_usuarios import datos_usuario_service, cambiar_contrasena_usuario_service, deshabilitar_cuenta_usuario_service
+from app.services_movil.gestion_usuarios import datos_usuario_service, cambiar_contrasena_usuario_service, deshabilitar_cuenta_usuario_service, validar_contrasena_usuario_service
 from app.services_movil.guardados import guardar_publicacion_service, obtener_guardados_service, eliminar_guardado_service
 from app.services_movil.reporte import guardar_reporte_service
 from app.services_movil.publicaciones import guardar_publicacion_usuario_service
@@ -178,11 +178,19 @@ def cambiar_contraseña_usuario():
     resultado = cambiar_contrasena_usuario_service(data)
     return jsonify(resultado), (200 if resultado["success"]else 400)
 
+@users_api.route('/validar_contrasena_usuario', methods=['POST'])
+def validar_contrasena_usuario():
+    data = request.get_json() if request.is_json else request.form.to_dict()
+    resultado = validar_contrasena_usuario_service(data)
+    return jsonify(resultado), (200 if resultado["success"] else 400)
+
+
 @users_api.route('/deshabilitar_cuenta_usuario', methods=['POST'])
 def deshabilitar_cuenta_usuario():
-    data= request.get_json() if request.is_json else request.form.to_dict()
+    data = request.get_json() if request.is_json else request.form.to_dict()
     resultado = deshabilitar_cuenta_usuario_service(data)
-    return jsonify(resultado), (200 if resultado["success"]else 400)
+    return jsonify(resultado), (200 if resultado["success"] else 400)
+
 
 # Ruta para la sección de guardados (requiere sesión)
 @users_api.route('/guardar-publicacion', methods=['POST'])
