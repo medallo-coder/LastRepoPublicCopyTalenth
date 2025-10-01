@@ -4,7 +4,7 @@ from app.services.configuracion import cambiar_contrasena_service,obtener_datos_
 from app.services.perfil_cliente import actualizar_perfil_cliente_service, subir_foto_perfil_service
 from app.services.perfil_experto import actualizar_perfil_experto_service, actualizar_perfil_experto_service2, actualizar_perfil_experto_service3,actualizar_perfil_experto_service4
 from app.services.perfil_experto import eliminar_idioma, eliminar_aptitud,eliminar_estudios,editar_estudios,actualizar_experiencia,eliminar_experiencia,editar_experiencia
-from app.services.perfil_experto import actualizar_perfil_experto_service5,eliminar_descripcion,editar_descripcion, subir_foto_perfil_service_experto, obtener_idiomas_perfil, obtener_aptitudes_perfil
+from app.services.perfil_experto import actualizar_perfil_experto_service5,eliminar_descripcion,editar_descripcion, subir_foto_perfil_service_experto, obtener_idiomas_perfil, obtener_aptitudes_perfil, actualizar_barrio_service, editar_barrio, eliminar_barrio
 from app.services.rol_service import verificar_rol, cambiar_rol_a_experto_service, cambiar_rol_a_cliente_service
 from app.services.mis_publicaciones import obtener_mis_publicaciones_service, obtener_categorias_service, obtener_subcategorias_service, obtener_publicacion_por_id_service, guardar_mi_publicacion_service, eliminar_publicacion_service, contar_publicaciones_usuario, obtener_subcategorias_por_categoria_service
 from app.services.perfil_publico import obtener_perfil_publico_service
@@ -421,6 +421,17 @@ def perfil_experto():
 
         elif form_tipo == 'editar_descripcion':
             resultado = editar_descripcion(data)
+        
+        elif form_tipo == 'ubicacion':
+            campos = ['direccion']
+            resultado = actualizar_barrio_service(data, campos=campos)
+
+        elif form_tipo == 'editar_ubicacion':
+            resultado = editar_barrio(data)
+
+        elif form_tipo == 'eliminar_ubicacion':
+            resultado = eliminar_barrio(data)
+
 
         elif form_tipo == 'foto_perfil':
             file = request.files.get('foto')
@@ -446,7 +457,7 @@ def perfil_experto():
         segundo_nombre=(resultado.get("segundo_nombre") or "").title(),
         primer_apellido=resultado.get("primer_apellido", "").title(),
         segundo_apellido=(resultado.get("segundo_apellido") or "").title(),
-        descripcion_perfil=(resultado.get("descripcion_perfil") or "").title(),
+        descripcion_perfil=(resultado.get("descripcion_perfil") or "").capitalize(),
         nombre_idioma=(resultado.get("nombre_idioma") or "").title(),
         tipo_aptitud=(resultado.get("tipo_aptitud") or "").title(),
         institucion=(resultado.get("institucion") or "").title(),
@@ -458,6 +469,7 @@ def perfil_experto():
         fecha_inicio_experiencia=resultado.get("fecha_inicio_experiencia", ""),
         fecha_fin_experiencia=resultado.get("fecha_fin_experiencia", ""),
         foto_perfil=resultado.get("foto_perfil", ""),
+        direccion=resultado.get("direccion", ""),
         idiomas=idiomas,
         aptitudes=aptitudes  #  AÑADIDO: pasar la lista de aptitudes al HTML
     )

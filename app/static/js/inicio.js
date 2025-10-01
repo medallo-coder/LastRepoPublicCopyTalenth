@@ -83,11 +83,11 @@ document.addEventListener("DOMContentLoaded", function() {
    // Función que devuelve el límite de caracteres según el tamaño de pantalla
    function getDescripcionLimit() {
     if (window.innerWidth <= 480) return 25;       // Celulares
-    if (window.innerWidth <= 768) return 35;       // Tablets vertical
-    if (window.innerWidth <= 1024) return 55;      // Tablets horizontal
-    if (window.innerWidth <= 1366) return 35;   
-    if (window.innerWidth <= 1600) return 70;     // Laptops grandes
-    return 125;                                    // Pantallas muy grandes
+    if (window.innerWidth <= 768) return 30;       // Tablets vertical
+    if (window.innerWidth <= 1024) return 35;      // Tablets horizontal
+    if (window.innerWidth <= 1366) return 40;   
+    if (window.innerWidth <= 1600) return 50;     // Laptops grandes
+    return 70;                                    // Pantallas muy grandes
   }
 
     // Función para aplicar recorte dinámico en todas las tarjetas

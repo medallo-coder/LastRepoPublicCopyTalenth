@@ -74,7 +74,7 @@
 
           <div class="form-group">
             <label>Precio</label>
-            <input type="number" name="precio" step="0.01" placeholder="Ej: 150.00" value="{{ publicacion.precio if publicacion is defined and publicacion else '' }}">
+            <input type="number" name="precio" step="0.01" placeholder="Ingresa el precio por hora" value="{{ publicacion.precio if publicacion is defined and publicacion else '' }}">
           </div>
           
           {% if publicacion and publicacion.destacada == "si" %}
@@ -154,7 +154,7 @@
             {% else %}
               <i class="bi bi-person-circle perfil-img placeholder-icon"></i>
             {% endif %}
-              <p class="precio"><strong>Precio:</strong> ${{ pub.precio }}</p>
+             <p class="precio"><strong>Precio:</strong> ${{ "{:,.0f}".format(pub.precio|float) }}</p>
               {% if pub.destacada == 'si' %}
               <p class="destacada">Promocionada</p>
               {% endif %}

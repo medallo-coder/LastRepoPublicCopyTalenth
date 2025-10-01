@@ -160,11 +160,11 @@ def datos_usuario_service():
    
 
     datos_usuario={
-        "nombre": perfil.primer_nombre,
-        "apellido": perfil.primer_apellido,
-        "nombre_completo": f"{perfil.primer_nombre} {perfil.primer_apellido}",
+        "nombre": perfil.primer_nombre.title(),
+        "apellido": perfil.primer_apellido.title(),
+        "nombre_completo": f"{perfil.primer_nombre.title()} {perfil.primer_apellido.title()}",
         "fecha_registro": fecha_formateada,
-        "rol": rol.tipo_rol
+        "rol": rol.tipo_rol.title()
     }
     
     return{"success": True, "usuario":datos_usuario}

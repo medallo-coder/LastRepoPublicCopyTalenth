@@ -87,7 +87,7 @@
 /* Estilo para un cuadro grande con contenido centrado */
 .grande {
   width: 70%; /* Ancho de la caja */
-  height: 20rem; /* Altura ajustada */
+  min-height: 20rem; /* Altura ajustada */
   background-color: white; /* Fondo blanco */
   border: 1px solid #6b7280; /* Borde gris oscuro */
   border-radius: 1rem; /* Bordes redondeados */
@@ -289,7 +289,8 @@
 /* Estilo para la columna izquierda */
 .columna-izquierda {
   flex: 2; /* Ocupa el doble de espacio que la columna derecha */
-  height: 38rem; /* Altura ajustada */
+  min-height: 42rem;   /* Altura mínima */
+  height: auto;
   background-color: white; /* Fondo blanco */
   border: 1px solid #6b7280; /* Borde gris oscuro */
   border-radius: 1rem; /* Bordes redondeados */
@@ -1237,122 +1238,8 @@
   }
 
 
-  /*-----------------------------------------------
-    Estilos para la editar información principal
-  -----------------------------------------------*/
 
-  /* Estilos para el formulario superpuesto */
-  .formulario-editar {
-    position: fixed; /* Fijo en la pantalla */
-    top: 0;
-    left: 0;
-    width: 100%; /* Ocupa toda la pantalla */
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
-    display: none; /* Inicialmente oculto */
-    justify-content: center; /* Centrado horizontal y vertical */
-    align-items: center;
-    z-index: 1000; /* Asegura que el formulario esté por encima de todo */
-  }
-
-  /* Contenedor del formulario */
-  .formulario-contenido {
-    background-color: white; /* Fondo blanco */
-    padding: 2rem; /* Espaciado interno */
-    border-radius: 20px; /* Bordes redondeados */
-    width: 400px; /* Ancho fijo */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Sombra sutil */
-  }
-
-  /* Título del formulario "Editar contacto" */
-  .formulario-contenido h2 {
-    font-family: 'Oswald', sans-serif; /* Fuente Oswald */
-    font-weight: 700; /* Negrita */
-    font-size: 2rem; /* Tamaño de fuente */
-    margin-bottom: 3rem; /* Espacio debajo del título */
-    text-align: center; /* Alineación centrada */
-    color: #3eaeb1; /* Color azul */
-  }
-
-  /* Estilos para los campos del formulario */
-  .campo {
-    
-    margin-bottom: 1.5rem; /* Espacio debajo de cada campo */
-  }
-
-  .campo input {
-    width: 100%; /* Ancho completo */
-    padding: 0.8rem; /* Espaciado interno */
-    font-size: 1rem; /* Tamaño de la fuente */
-    font-family: 'Oswald', sans-serif; /* Fuente Oswald */
-    font-weight: 700; /* Peso de la fuente regular */
-    border: 1px solid #d1d5db; /* Borde gris claro */
-    border-radius: 10px; /* Bordes redondeados */
-    background-color: #d9d9d9; /* Color de fondo de los inputs */
-    color: rgba(0, 0, 0, 0.7); /* Color del texto */
-  }
-
-  /* Estilo para los botones del formulario */
-  .botones {
-    display: flex; /* Flexbox para centrar los botones */
-    justify-content: center; /* Centrado horizontal */
-    gap: 1rem; /* Espacio entre los botones */
-    margin-top: 3rem; /* Margen superior */
-  }
-
-  .botones button {
-    padding: 0.4rem 3rem; /* Padding más grande para botones */
-    font-size: 1rem; /* Tamaño de la fuente */
-    font-family: 'Oswald', sans-serif; /* Fuente Oswald */
-    font-weight: 500; /* Peso de la fuente medium */
-    background-color: #3eaeb1; /* Fondo azul */
-    color: white; /* Color del texto */
-    border: none; /* Sin borde */
-    border-radius: 25px; /* Bordes redondeados */
-    cursor: pointer; /* Cambia el cursor */
-    transition: background-color 0.3s; /* Transición suave para el cambio de color */
-  }
-
-  .botones button[type="button"] {
-    background-color: #f8f8f8; /* Fondo gris claro para el botón "Cancelar" */
-    color: black; /* Color negro para el texto */
-    border: 1px solid #E5E5E5; /* Borde gris claro */
-  }
-
-  /* Efecto hover para los botones */
-  .botones button:hover {
-    opacity: 0.8; /* Desvanecimiento al pasar el mouse */
-  }
-
-
-  /*-----------------------------------------------
-    Estilos para las columnas izquierda y derecha
-  -----------------------------------------------*/
-
-  /* Estilo para el contenedor de columnas */
-  .contenedor-columnas {
-    width: 65%; /* Ancho del contenedor */
-    display: flex; /* Flexbox para distribuir las columnas */
-    gap: 1.5rem; /* Espacio entre las columnas */
-  }
-
-  /*-----------------------------------------------
-    Estilos para contenedor de la izquierda
-  -----------------------------------------------*/
-
-  /* Estilo para la columna izquierda */
-  .columna-izquierda {
-    flex: 2; /* Ocupa el doble de espacio que la columna derecha */
-    height: 38rem; /* Altura ajustada */
-    background-color: white; /* Fondo blanco */
-    border: 1px solid #6b7280; /* Borde gris oscuro */
-    border-radius: 1rem; /* Bordes redondeados */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    margin-bottom: 1.5rem; /* Margen debajo */
-
-  }
-
-
+ 
   /*-----------------------------------------------
     Estilos para descripción
   -----------------------------------------------*/

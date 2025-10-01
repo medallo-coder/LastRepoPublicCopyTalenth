@@ -112,39 +112,40 @@
         {% endif %}
 
 
-        <!-- Ubicacion -->
+       <!-- Ubicacion -->
         <div class="ubicacion">
           <div class="titulo-izquierda">
             <span>Ubicación</span>
           </div>
-          <h2 class="titulo-barrio"> Barrio </h2>
+          <h2 class="titulo-barrio">Barrio</h2>
+
           {% if direccion %}
           <div class="item-ubicacion">
             <div class="fila-ubicacion">
               <p class="barrio">{{ direccion }}</p>
               <div class="iconos">
+                <!-- Editar -->
                 <i id="lapizubicacion" class="bi bi-pencil-square" onclick="abrirFormularioEditarUbicacion()"></i>
 
-                <form method="POST" action="{{ url_for('#') }}" style="display: inline;" id="fform-eliminar">
-                  <input type="hidden" name="form_tipo5" value="eliminar_ubicacion">
-                  <input type="hidden" name="direccion" value="">
-                  <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar el barrio?" title="Eliminar estudios">
+                <!-- Eliminar -->
+                <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;" id="form-eliminar">
+                  <input type="hidden" name="form_tipo3" value="eliminar_ubicacion">
+                  <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
+                  <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar el barrio?" title="Eliminar barrio">
                     <i class="bi bi-trash"></i>
                   </button>
                 </form>
-
-                
-
               </div>
             </div>
           </div>
+
           {% else %}
           <div class="añadir-ubicacion" onclick="mostrarFormularioUbicacion()">
             + Añadir barrio
           </div>
           {% endif %}
-
         </div>
+
         
         <!-- Experiencia -->
         <div class="experiencia">
@@ -227,11 +228,12 @@
           </div>
         </div>
 
-
+        {% if not titulo_obtenido %}
         <!-- Botón para añadirestudios -->
         <div class="añadir-estudios" onclick="mostrarFormularioEstudios()">
           + Añadir estudios
         </div>
+        {% endif %}
         
 
       </div>
@@ -529,40 +531,40 @@
       </div>
 
       
-      <!-- Formulario emergente para añadir barrio -->
-      <div class="formulario-ubicacion" id="formularioUbicacion" style="display: none;">
-        <div class="formulario-ubicacion-contenido">
-          <h2>Agregar barrio</h2>
-          <form onsubmit="return false;">
-            <div class="campo">
-              <input type="text" id="nuevo-barrio" placeholder="Escribe el nombre del barrio" required />
-            </div>
-            <div class="botones">
-              <button type="submit" onclick="guardarNuevoBarrio()">Guardar</button>
-              <button type="button" onclick="cerrarFormularioUbicacion()">Cancelar</button>
-            </div>
-          </form>
-        </div>
+        <!-- Añadir barrio -->
+    <div class="formulario-ubicacion" id="formularioUbicacion" style="display: none;">
+      <div class="formulario-ubicacion-contenido">
+        <h2>Agregar barrio</h2>
+        <form method="POST" action="{{ url_for('web.perfil_experto') }}">
+          <input type="hidden" name="form_tipo5" value="ubicacion">
+          <div class="campo">
+            <input type="text" name="direccion" id="nuevo-barrio" placeholder="Escribe el nombre del barrio" required />
+          </div>
+          <div class="botones">
+            <button type="submit">Guardar</button>
+            <button type="button" onclick="cerrarFormularioUbicacion()">Cancelar</button>
+          </div>
+        </form>
       </div>
+    </div>
 
-     
-
-      <!-- Formulario emergente para editar barrio -->
-      <div class="formulario-ubicacion-editar" id="formularioUbicacionEditar" style="display: none;">
-        <div class="formulario-editar-ubicacion-contenido">
-          <h2>Editar barrio</h2>
-          <form onsubmit="return false;">
-            <div class="campo">
-              <input type="text" id="editar-barrio" placeholder="Escribe el nuevo barrio" required />
-            </div>
-            <div class="botones">
-              <button type="button" onclick="guardarEdicionBarrio()">Guardar</button>
-              <button type="button" onclick="cerrarFormularioEditarUbicacion()">Cancelar</button>
-            </div>
-          </form>
-        </div>
+    <!-- Editar barrio -->
+    <div class="formulario-ubicacion-editar" id="formularioUbicacionEditar" style="display: none;">
+      <div class="formulario-editar-ubicacion-contenido">
+        <h2>Editar barrio</h2>
+        <form method="POST" action="{{ url_for('web.perfil_experto') }}">
+          <input type="hidden" name="form_tipo5" value="editar_ubicacion">
+          <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
+          <div class="campo">
+            <input type="text" name="direccion" id="editar-barrio" value="{{ direccion }}" required />
+          </div>
+          <div class="botones">
+            <button type="submit">Guardar</button>
+            <button type="button" onclick="cerrarFormularioEditarUbicacion()">Cancelar</button>
+          </div>
+        </form>
       </div>
-
+    </div>
 
       <!-- Formulario emergente para añadir experiencia -->
       <div class="formulario-experiencia" id="formulario-experiencia">

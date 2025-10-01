@@ -195,6 +195,74 @@ def actualizar_perfil_experto_service4(data, campos= None ):
         return {"success": False, "message": f"Error al agregar estudios: {str(e)}"}
     
    
+def actualizar_barrio_service(data, campos=None):
+    token = session.get('jwt')
+    if not token:
+        return {"success": False, "message": "No estás autenticado."}
+
+    resultado_token = verificar_token(token)
+    if not resultado_token["valid"]:
+        return {"success": False, "message": resultado_token["message"]}
+
+    usuario_id = resultado_token["payload"].get("usuario_id")
+    perfil = perfiles.query.filter_by(id_usuario=usuario_id).first()
+
+    if not perfil:
+        return {"success": False, "message": "Perfil no encontrado."}
+
+    direccion = data.get('direccion')
+    if not direccion:
+        return {"success": False, "message": "Debes ingresar un barrio."}
+
+    try:
+        db.session.execute(
+            text("UPDATE perfiles SET direccion = :direccion WHERE id_perfil = :perfil"),
+            {"direccion": direccion, "perfil": perfil.id_perfil}
+        )
+        db.session.commit()
+        return {"success": True, "message": "Barrio añadido correctamente."}
+    except Exception as e:
+        db.session.rollback()
+        return {"success": False, "message": f"Error al guardar barrio: {str(e)}"}
+
+
+def editar_barrio(data):
+    id_perfil = data.get("id_perfil")
+    direccion = data.get("direccion")
+
+    if not id_perfil or not direccion:
+        return {"success": False, "message": "Datos incompletos."}
+
+    try:
+        db.session.execute(
+            text("UPDATE perfiles SET direccion = :direccion WHERE id_perfil = :perfil"),
+            {"direccion": direccion, "perfil": id_perfil}
+        )
+        db.session.commit()
+        return {"success": True, "message": "Barrio editado correctamente."}
+    except Exception as e:
+        db.session.rollback()
+        return {"success": False, "message": f"Error al editar barrio: {str(e)}"}
+
+
+def eliminar_barrio(data):
+    id_perfil = data.get("id_perfil")
+
+    if not id_perfil:
+        return {"success": False, "message": "ID no proporcionado."}
+
+    try:
+        db.session.execute(
+            text("UPDATE perfiles SET direccion = NULL WHERE id_perfil = :perfil"),
+            {"perfil": id_perfil}
+        )
+        db.session.commit()
+        return {"success": True, "message": "Barrio eliminado correctamente."}
+    except Exception as e:
+        db.session.rollback()
+        return {"success": False, "message": f"Error al eliminar barrio: {str(e)}"}
+
+
 def obtener_idiomas_perfil():
     token = session.get('jwt')
     if not token:
