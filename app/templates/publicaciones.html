@@ -76,7 +76,7 @@
   position: relative;
   width: 80%;           
   max-width: 650px;     
-  min-width: 420px;     
+  min-width: 470px;     
   height: auto;
   max-height: 60vh;     
   border-radius: 12px;
@@ -280,16 +280,8 @@ body.no-scroll {
   
 }
 
+  
 @media (max-width: 768px) {
-
-  #panelFiltros {
-    top: 80px;
-    bottom: 0; /* para que ocupe hasta abajo */
-    height: auto; /* deja que crezca si hay scroll */
-    max-height: 100vh; /* asegura que nunca sea mayor que la pantalla */
-    overflow-y: auto; /* para que aparezca scroll si es necesario */
-  }
-  @media (max-width: 768px) {
 
   #panelFiltros {
     top: 80px;
@@ -310,12 +302,14 @@ body.no-scroll {
     max-width: 140%; /* evita que se agrande demasiado */
     
   }
-}
+
   #Tarjetas {
     width: 101%;
     max-width: 140%; /* evita que se agrande demasiado */
     
   }
+
+  
 }
 
 @media (max-width: 820px){
@@ -334,6 +328,12 @@ body.no-scroll {
     max-width: 140%; /* evita que se agrande demasiado */
     
   }
+  .modal-content {
+    width: 90% !important;       /* más pequeño */
+    min-width: 0 !important;     /* elimina el límite de 470px */
+    max-width: 80% !important;   /* que no se pase */
+    max-height: 75vh !important; /* más alto en móviles */
+  }
 }
 
 @media (max-width: 375px) {
@@ -342,6 +342,23 @@ body.no-scroll {
     max-width: 140%; /* evita que se agrande demasiado */
     
   }
+   .modal-content {
+    width: 95% !important;       
+    min-width: 0 !important;  
+    max-width: 95% !important;   
+    max-height: 90vh !important; 
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 70px;
+  }
+
+  .modal-content .contact-button {
+    margin-top: auto;         
+    align-self: center;   
+  }
+  
+  
 }
 
 @media (max-width: 360px) {
@@ -355,6 +372,13 @@ body.no-scroll {
     width: 103%;
     max-width: 140%; /* evita que se agrande demasiado */
     
+  }
+
+  .modal-content {
+    width: 80% !important;       /* más pequeño */
+    min-width: 0 !important;     /* elimina el límite de 470px */
+    max-width: 80% !important;   /* que no se pase */
+    max-height: 75vh !important; /* más alto en móviles */
   }
 }
 
