@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.14.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CaliTrabaja: Referencia del espacio de nombres app.services_desktop.perfil_usuarios</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">CaliTrabaja
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.14.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Buscar',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('namespaceapp_1_1services__desktop_1_1perfil__usuarios.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Referencia del espacio de nombres app.services_desktop.perfil_usuarios</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funciones</h2></td></tr>
+<tr class="memitem:ad34df0c30957a86125d9c6f41e5c57dd" id="r_ad34df0c30957a86125d9c6f41e5c57dd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad34df0c30957a86125d9c6f41e5c57dd">perfil_usuarios_admin_service</a> ()</td></tr>
+</table>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Documentación de funciones</h2>
+<a id="ad34df0c30957a86125d9c6f41e5c57dd" name="ad34df0c30957a86125d9c6f41e5c57dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad34df0c30957a86125d9c6f41e5c57dd">&#9670;&#160;</a></span>perfil_usuarios_admin_service()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">app.services_desktop.perfil_usuarios.perfil_usuarios_admin_service </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definición en la línea <a class="el" href="perfil__usuarios_8py_source.html#l00007">7</a> del archivo <a class="el" href="perfil__usuarios_8py_source.html">perfil_usuarios.py</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">    7</span><span class="keyword">def </span>perfil_usuarios_admin_service():</div>
+<div class="line"><span class="lineno">    8</span>    token = session.get(<span class="stringliteral">&#39;jwt&#39;</span>)</div>
+<div class="line"><span class="lineno">    9</span> </div>
+<div class="line"><span class="lineno">   10</span>      <span class="comment"># Si no hay token en sesión, intenta obtenerlo del header Authorization</span></div>
+<div class="line"><span class="lineno">   11</span>    <span class="keywordflow">if</span> <span class="keywordflow">not</span> token:</div>
+<div class="line"><span class="lineno">   12</span>        auth_header = request.headers.get(<span class="stringliteral">&quot;Authorization&quot;</span>)</div>
+<div class="line"><span class="lineno">   13</span>        <span class="keywordflow">if</span> auth_header <span class="keywordflow">and</span> auth_header.startswith(<span class="stringliteral">&quot;Bearer &quot;</span>):</div>
+<div class="line"><span class="lineno">   14</span>            token = auth_header.split(<span class="stringliteral">&quot; &quot;</span>)[1]</div>
+<div class="line"><span class="lineno">   15</span>    </div>
+<div class="line"><span class="lineno">   16</span>    </div>
+<div class="line"><span class="lineno">   17</span>    <span class="keywordflow">if</span> <span class="keywordflow">not</span> token:</div>
+<div class="line"><span class="lineno">   18</span>        <span class="keywordflow">return</span> {<span class="stringliteral">&quot;success&quot;</span>: <span class="keyword">False</span>, <span class="stringliteral">&quot;message&quot;</span>: <span class="stringliteral">&quot;Token  no enviado.&quot;</span>}</div>
+<div class="line"><span class="lineno">   19</span>    </div>
+<div class="line"><span class="lineno">   20</span>    </div>
+<div class="line"><span class="lineno">   21</span>    resultado= verificar_token(token)</div>
+<div class="line"><span class="lineno">   22</span>    <span class="keywordflow">if</span> <span class="keywordflow">not</span> resultado[<span class="stringliteral">&quot;valid&quot;</span>]:</div>
+<div class="line"><span class="lineno">   23</span>        <span class="keywordflow">return</span> {<span class="stringliteral">&quot;success&quot;</span>: <span class="keyword">False</span>, <span class="stringliteral">&quot;message&quot;</span>: <span class="stringliteral">&quot;No estas autenticado &quot;</span>}</div>
+<div class="line"><span class="lineno">   24</span>    </div>
+<div class="line"><span class="lineno">   25</span>    usuario_id = resultado[<span class="stringliteral">&quot;payload&quot;</span>].get(<span class="stringliteral">&quot;usuario_id&quot;</span>)</div>
+<div class="line"><span class="lineno">   26</span>    </div>
+<div class="line"><span class="lineno">   27</span>    usuario_admin = Usuario.query.filter_by(usuario_id=usuario_id).first()</div>
+<div class="line"><span class="lineno">   28</span> </div>
+<div class="line"><span class="lineno">   29</span>    <span class="keywordflow">if</span> <span class="keywordflow">not</span> usuario_admin:</div>
+<div class="line"><span class="lineno">   30</span>        <span class="keywordflow">return</span>{<span class="stringliteral">&quot;success&quot;</span>: <span class="keyword">False</span>, <span class="stringliteral">&quot;message&quot;</span>: <span class="stringliteral">&quot;Usuario no encontrado&quot;</span>}</div>
+<div class="line"><span class="lineno">   31</span>    </div>
+<div class="line"><span class="lineno">   32</span>    <span class="keywordflow">if</span> usuario_admin.id_rol != 3:</div>
+<div class="line"><span class="lineno">   33</span>        <span class="keywordflow">return</span>{<span class="stringliteral">&quot;success&quot;</span>: <span class="keyword">False</span>, <span class="stringliteral">&quot;message&quot;</span>: <span class="stringliteral">&quot;No tienes permisos de administrador&quot;</span>}</div>
+<div class="line"><span class="lineno">   34</span>    </div>
+<div class="line"><span class="lineno">   35</span> </div>
+<div class="line"><span class="lineno">   36</span>    <span class="comment"># Hacemos un filtro para que nos traiga los perfiles, pero de los usuarios que tengan rol de cliente y experto.</span></div>
+<div class="line"><span class="lineno">   37</span>    perfiless = perfiles.query.join(Usuario).filter(Usuario.id_rol.in_([1,2])).all()</div>
+<div class="line"><span class="lineno">   38</span> </div>
+<div class="line"><span class="lineno">   39</span>    <span class="comment"># Guardamos los perfiles en el array lista_perfiles</span></div>
+<div class="line"><span class="lineno">   40</span>    lista_perfiles= []</div>
+<div class="line"><span class="lineno">   41</span> </div>
+<div class="line"><span class="lineno">   42</span>    <span class="keywordflow">for</span>  perfil <span class="keywordflow">in</span> perfiless:</div>
+<div class="line"><span class="lineno">   43</span>        lista_perfiles.append({</div>
+<div class="line"><span class="lineno">   44</span>            <span class="stringliteral">&quot;id_perfil&quot;</span>: perfil.id_perfil,</div>
+<div class="line"><span class="lineno">   45</span>            <span class="stringliteral">&quot;id_usuario&quot;</span>: perfil.id_usuario,</div>
+<div class="line"><span class="lineno">   46</span>            <span class="stringliteral">&quot;primer_nombre&quot;</span>: perfil.primer_nombre,</div>
+<div class="line"><span class="lineno">   47</span>            <span class="stringliteral">&quot;segundo_nombre&quot;</span>: perfil.segundo_nombre,</div>
+<div class="line"><span class="lineno">   48</span>            <span class="stringliteral">&quot;primer_apellido&quot;</span>: perfil.primer_apellido,</div>
+<div class="line"><span class="lineno">   49</span>            <span class="stringliteral">&quot;segundo_apellido&quot;</span>: perfil.segundo_apellido,</div>
+<div class="line"><span class="lineno">   50</span>            <span class="stringliteral">&quot;especialidad&quot;</span>: perfil.especialidad,</div>
+<div class="line"><span class="lineno">   51</span>            <span class="stringliteral">&quot;direccion&quot;</span>: perfil.direccion,</div>
+<div class="line"><span class="lineno">   52</span>            <span class="stringliteral">&quot;foto_perfil&quot;</span>: perfil.foto_perfil, </div>
+<div class="line"><span class="lineno">   53</span>            <span class="stringliteral">&quot;descripcion_perfil&quot;</span>: perfil.descripcion_perfil</div>
+<div class="line"><span class="lineno">   54</span>        })</div>
+<div class="line"><span class="lineno">   55</span>    </div>
+<div class="line"><span class="lineno">   56</span>    <span class="keywordflow">return</span> {<span class="stringliteral">&quot;success&quot;</span>: <span class="keyword">True</span>, <span class="stringliteral">&quot;lista_perfiles&quot;</span>: lista_perfiles}</div>
+</div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespaceapp.html">app</a></li><li class="navelem"><a href="namespaceapp_1_1services__desktop.html">services_desktop</a></li><li class="navelem"><a href="namespaceapp_1_1services__desktop_1_1perfil__usuarios.html">perfil_usuarios</a></li>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
+  </ul>
+</div>
+</body>
+</html>

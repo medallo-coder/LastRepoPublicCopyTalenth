@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.14.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CaliTrabaja: Archivo de código fuente app/services_movil/publi_recientes.py</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">CaliTrabaja
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.14.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Buscar',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('services__movil_2publi__recientes_8py_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">publi_recientes.py</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="services__movil_2publi__recientes_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="namespaceapp_1_1services__movil_1_1publi__recientes.html">    1</a></span><span class="comment"># app/services_movil/publicaciones.py (ejemplo)</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="keyword">from</span> <a class="code hl_namespace" href="namespaceapp_1_1models_1_1publicaciones.html">app.models.publicaciones</a> <span class="keyword">import</span> Publicaciones</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">from</span> app <span class="keyword">import</span> db</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="foldopen" id="foldopen00005" data-start="" data-end="">
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="namespaceapp_1_1services__movil_1_1publi__recientes.html#a6d0f85ed9b3925116c6be19ea73f21b3">    5</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceapp_1_1services__movil_1_1publi__recientes.html#a6d0f85ed9b3925116c6be19ea73f21b3">map_to_card</a>(pub):</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="keywordflow">return</span> {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>        <span class="stringliteral">&quot;nombre&quot;</span>: pub[<span class="stringliteral">&quot;nombre&quot;</span>],</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>        <span class="stringliteral">&quot;categoria&quot;</span>: pub[<span class="stringliteral">&quot;categoria&quot;</span>],</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>        <span class="stringliteral">&quot;descripcion&quot;</span>: pub[<span class="stringliteral">&quot;descripcion&quot;</span>],</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        <span class="stringliteral">&quot;costo&quot;</span>: pub[<span class="stringliteral">&quot;costo&quot;</span>],</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        <span class="stringliteral">&quot;calificacion&quot;</span>: pub[<span class="stringliteral">&quot;calificacion&quot;</span>],</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        <span class="stringliteral">&quot;publicacion_id&quot;</span>: pub[<span class="stringliteral">&quot;publicacion_id&quot;</span>],</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        <span class="stringliteral">&quot;usuario_id&quot;</span>: pub[<span class="stringliteral">&quot;usuario_id&quot;</span>],</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="stringliteral">&quot;foto_perfil&quot;</span>: pub[<span class="stringliteral">&quot;foto_perfil&quot;</span>]</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    }</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+</div>
+<div class="foldopen" id="foldopen00018" data-start="" data-end="">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="namespaceapp_1_1services__movil_1_1publi__recientes.html#a7c5cab8925686b0cd06e4c826c279cc3">   18</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceapp_1_1services__movil_1_1publi__recientes.html#a7c5cab8925686b0cd06e4c826c279cc3">obtener_publicaciones_recientes_service</a>(limit=10):</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    pubs = db.session.query(Publicaciones).filter_by(estado=<span class="stringliteral">&quot;activo&quot;</span>).filter_by(destacada=<span class="stringliteral">&quot;no&quot;</span>).order_by(Publicaciones.fecha.desc()).limit(limit).all()</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">return</span> [<a class="code hl_function" href="namespaceapp_1_1services__movil_1_1publi__recientes.html#a6d0f85ed9b3925116c6be19ea73f21b3">map_to_card</a>(p.to_dict()) <span class="keywordflow">for</span> p <span class="keywordflow">in</span> pubs]</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+</div>
+<div class="foldopen" id="foldopen00022" data-start="" data-end="">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="namespaceapp_1_1services__movil_1_1publi__recientes.html#a104605dbf2e2d26d77f2eedb640a9ae1">   22</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceapp_1_1services__movil_1_1publi__recientes.html#a104605dbf2e2d26d77f2eedb640a9ae1">obtener_publicaciones_aleatorias_service</a>(limit=10):</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    pubs = db.session.query(Publicaciones).filter_by(estado=<span class="stringliteral">&quot;activo&quot;</span>).filter_by(destacada=<span class="stringliteral">&quot;si&quot;</span>).order_by(Publicaciones.fecha.desc()).limit(limit).all()</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">return</span> [<a class="code hl_function" href="namespaceapp_1_1services__movil_1_1publi__recientes.html#a6d0f85ed9b3925116c6be19ea73f21b3">map_to_card</a>(p.to_dict()) <span class="keywordflow">for</span> p <span class="keywordflow">in</span> pubs]</div>
+</div>
+<div class="ttc" id="anamespaceapp_1_1models_1_1publicaciones_html"><div class="ttname"><a href="namespaceapp_1_1models_1_1publicaciones.html">app.models.publicaciones</a></div><div class="ttdef"><b>Definition</b> <a href="models_2publicaciones_8py_source.html#l00001">publicaciones.py:1</a></div></div>
+<div class="ttc" id="anamespaceapp_1_1services__movil_1_1publi__recientes_html_a104605dbf2e2d26d77f2eedb640a9ae1"><div class="ttname"><a href="namespaceapp_1_1services__movil_1_1publi__recientes.html#a104605dbf2e2d26d77f2eedb640a9ae1">app.services_movil.publi_recientes.obtener_publicaciones_aleatorias_service</a></div><div class="ttdeci">obtener_publicaciones_aleatorias_service(limit=10)</div><div class="ttdef"><b>Definition</b> <a href="#l00022">publi_recientes.py:22</a></div></div>
+<div class="ttc" id="anamespaceapp_1_1services__movil_1_1publi__recientes_html_a6d0f85ed9b3925116c6be19ea73f21b3"><div class="ttname"><a href="namespaceapp_1_1services__movil_1_1publi__recientes.html#a6d0f85ed9b3925116c6be19ea73f21b3">app.services_movil.publi_recientes.map_to_card</a></div><div class="ttdeci">map_to_card(pub)</div><div class="ttdef"><b>Definition</b> <a href="#l00005">publi_recientes.py:5</a></div></div>
+<div class="ttc" id="anamespaceapp_1_1services__movil_1_1publi__recientes_html_a7c5cab8925686b0cd06e4c826c279cc3"><div class="ttname"><a href="namespaceapp_1_1services__movil_1_1publi__recientes.html#a7c5cab8925686b0cd06e4c826c279cc3">app.services_movil.publi_recientes.obtener_publicaciones_recientes_service</a></div><div class="ttdeci">obtener_publicaciones_recientes_service(limit=10)</div><div class="ttdef"><b>Definition</b> <a href="#l00018">publi_recientes.py:18</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_d422163b96683743ed3963d4aac17747.html">app</a></li><li class="navelem"><a href="dir_591cbd31bc4d9ab4fd42a965e02f305b.html">services_movil</a></li><li class="navelem"><a href="services__movil_2publi__recientes_8py.html">publi_recientes.py</a></li>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
+  </ul>
+</div>
+</body>
+</html>

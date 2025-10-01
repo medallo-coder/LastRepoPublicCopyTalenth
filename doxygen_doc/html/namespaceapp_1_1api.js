@@ -1,0 +1,37 @@
+var namespaceapp_1_1api =
+[
+    [ "users", "namespaceapp_1_1api_1_1users.html", [
+      [ "cambiar_contraseña_admin", "namespaceapp_1_1api_1_1users.html#a7bf5fe0aa0f882b55942c13e6d4e066e", null ],
+      [ "cambiar_contraseña_usuario", "namespaceapp_1_1api_1_1users.html#a455ea09738ce0586231033e222f84caf", null ],
+      [ "cerrar_sesion", "namespaceapp_1_1api_1_1users.html#a8e8b217f60cbf0795fdb632716b64423", null ],
+      [ "cerrar_sesion_admin", "namespaceapp_1_1api_1_1users.html#a52d5671d0c1ec443197e2ca429ecda06", null ],
+      [ "datos_admin_", "namespaceapp_1_1api_1_1users.html#a5cf89b812bd530f4e688d7111b230733", null ],
+      [ "datos_clientes", "namespaceapp_1_1api_1_1users.html#a651d6dba49d5211ca3729ce66e57f56f", null ],
+      [ "datos_expertos", "namespaceapp_1_1api_1_1users.html#a1e098e1d800e99fdeabe53a4adf7c60e", null ],
+      [ "datos_usuario_", "namespaceapp_1_1api_1_1users.html#ac2750944a9210315fe9f365d033d47ba", null ],
+      [ "deshabilitar_cuenta_admin_usu", "namespaceapp_1_1api_1_1users.html#a4d46d134e69b4ec768e8a70ee24e4cbb", null ],
+      [ "deshabilitar_cuenta_global", "namespaceapp_1_1api_1_1users.html#a09b3410e3ad249754f3a95ea1721f802", null ],
+      [ "deshabilitar_cuenta_usuario", "namespaceapp_1_1api_1_1users.html#ad1525e536062163a2308ce315c8a1949", null ],
+      [ "deshabilitar_cuentas_admin", "namespaceapp_1_1api_1_1users.html#aaf9153b372444af051ba06db6c6eab25", null ],
+      [ "eliminar_guardado", "namespaceapp_1_1api_1_1users.html#a2e290d8252e1ea4aa0cc4fcc455bf099", null ],
+      [ "eliminar_publicaciones_admin", "namespaceapp_1_1api_1_1users.html#a480654400daf55329394503e0a375841", null ],
+      [ "formulario_movil", "namespaceapp_1_1api_1_1users.html#a4d6c7895b107df0f1274e17c89aba3f8", null ],
+      [ "gestion_publicaciones_admin", "namespaceapp_1_1api_1_1users.html#aa3f2b022ff8afc5086fa5f629e1d0903", null ],
+      [ "gestion_reportes_admin", "namespaceapp_1_1api_1_1users.html#aa0b099e3e4c74ceeda735a5df82885ae", null ],
+      [ "gestionar_usuarios_admin", "namespaceapp_1_1api_1_1users.html#a28e6eac847b685cc315e015cf95b5b9c", null ],
+      [ "guardados", "namespaceapp_1_1api_1_1users.html#abce2e0c514273dfb09c05afc75a8b073", null ],
+      [ "guardar_publicacion", "namespaceapp_1_1api_1_1users.html#a158de2aa04cd8ef6676ecf9e86f3b2d5", null ],
+      [ "guardar_reporte", "namespaceapp_1_1api_1_1users.html#a26fbff7b5417054754ed12b4f497fc0d", null ],
+      [ "iniciar_sesion", "namespaceapp_1_1api_1_1users.html#a0eb6d364b5a676e47d2726f465f7d8c8", null ],
+      [ "iniciar_session_admin", "namespaceapp_1_1api_1_1users.html#a0c5898609e1e09f56b7867d2636b4144", null ],
+      [ "inicio", "namespaceapp_1_1api_1_1users.html#a731c3d85f85a344a906fa3ae5d7890fd", null ],
+      [ "perfil_usuarios_admin", "namespaceapp_1_1api_1_1users.html#a26634fa5fd5ccdd279c9fe1ca9158c2b", null ],
+      [ "publicaciones", "namespaceapp_1_1api_1_1users.html#a5d13a14ffdf97ca20d8e3cf24ed61d37", null ],
+      [ "recuperar_contraseña", "namespaceapp_1_1api_1_1users.html#a64e1033f961cb5881542233694efe2d6", null ],
+      [ "registrar_sesion_admin", "namespaceapp_1_1api_1_1users.html#aa61b27dc43a2b2bf6c3e37cdaef40afa", null ],
+      [ "registrar_usuario", "namespaceapp_1_1api_1_1users.html#abea7a479cef25ccfed270ab615678dcd", null ],
+      [ "restablecer_contraseña_datos", "namespaceapp_1_1api_1_1users.html#a7b542197ca39fd03d0a4b765efdb649a", null ],
+      [ "validar_contrasena_usuario", "namespaceapp_1_1api_1_1users.html#a7066b53977a4b7e1b7e971bda93f47d9", null ],
+      [ "users_api", "namespaceapp_1_1api_1_1users.html#ae9609c940b8c491c47a4e8947b3af7a4", null ]
+    ] ]
+];

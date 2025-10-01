@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.14.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CaliTrabaja: Archivo de código fuente app/services_movil/publicaciones.py</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">CaliTrabaja
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.14.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Buscar',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('services__movil_2publicaciones_8py_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">publicaciones.py</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="services__movil_2publicaciones_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="namespaceapp_1_1services__movil_1_1publicaciones.html">    1</a></span><span class="comment">#Funcion para publicaciones generales interfaz</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime, timedelta </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">from</span> <a class="code hl_namespace" href="namespaceapp_1_1models_1_1categorias.html">app.models.categorias</a> <span class="keyword">import</span> Categorias</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">from</span> <a class="code hl_namespace" href="namespaceapp_1_1models_1_1publicaciones.html">app.models.publicaciones</a> <span class="keyword">import</span> Publicaciones</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="foldopen" id="foldopen00008" data-start="" data-end="">
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="namespaceapp_1_1services__movil_1_1publicaciones.html#a755e3039725f6066cd777770b782376a">    8</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceapp_1_1services__movil_1_1publicaciones.html#a755e3039725f6066cd777770b782376a">guardar_publicacion_usuario_service</a>(data):</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    categoria_id = data.get(<span class="stringliteral">&#39;categoria_id&#39;</span>)</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    subcategoria_id = data.get(<span class="stringliteral">&#39;subcategoria_id&#39;</span>)</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    tiempo = data.get(<span class="stringliteral">&#39;tiempo&#39;</span>)  <span class="comment"># Puede ser &#39;24h&#39;, &#39;semana&#39;, &#39;mes&#39;, etc.</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="comment"># Obtener todas las categorías para los filtros</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    categorias = Categorias.query.all()</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="comment"># Base query</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    publicaciones_query = Publicaciones.query</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">if</span> categoria_id:</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        publicaciones_query = publicaciones_query.filter_by(categoria_id=categoria_id)</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">if</span> subcategoria_id:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        publicaciones_query = publicaciones_query.filter_by(subcategoria_id=subcategoria_id)</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="comment"># Filtro por tiempo</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">if</span> tiempo == <span class="stringliteral">&quot;24h&quot;</span>:</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        desde = datetime.now() - timedelta(hours=24)</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        publicaciones_query = publicaciones_query.filter(Publicaciones.fecha &gt;= desde)</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">elif</span> tiempo == <span class="stringliteral">&quot;semana&quot;</span>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        desde = datetime.now() - timedelta(days=7)</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        publicaciones_query = publicaciones_query.filter(Publicaciones.fecha &gt;= desde)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">elif</span> tiempo == <span class="stringliteral">&quot;mes&quot;</span>:</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        desde = datetime.now() - timedelta(days=30)</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        publicaciones_query = publicaciones_query.filter(Publicaciones.fecha &gt;= desde)</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="comment"># Si no hay filtro, no aplicamos nada</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="comment"># Ordenar de más reciente a más antigua</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    publicaciones = publicaciones_query.order_by(Publicaciones.fecha.desc()).all()</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">return</span>{<span class="stringliteral">&quot;success&quot;</span>:<span class="keyword">True</span>,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <span class="stringliteral">&quot;publicaciones_generales&quot;</span>:[p.to_dict() <span class="keywordflow">for</span> p <span class="keywordflow">in</span> publicaciones],</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <span class="stringliteral">&quot;categorias&quot;</span>:[c.to_dict() <span class="keywordflow">for</span> c <span class="keywordflow">in</span> categorias],</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>              <span class="stringliteral">&quot;total_resultados&quot;</span>: len(publicaciones),</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>              <span class="stringliteral">&quot;categoria_selecionada&quot;</span>: categoria_id}</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    </div>
+</div>
+<div class="ttc" id="anamespaceapp_1_1models_1_1categorias_html"><div class="ttname"><a href="namespaceapp_1_1models_1_1categorias.html">app.models.categorias</a></div><div class="ttdef"><b>Definition</b> <a href="categorias_8py_source.html#l00001">categorias.py:1</a></div></div>
+<div class="ttc" id="anamespaceapp_1_1models_1_1publicaciones_html"><div class="ttname"><a href="namespaceapp_1_1models_1_1publicaciones.html">app.models.publicaciones</a></div><div class="ttdef"><b>Definition</b> <a href="models_2publicaciones_8py_source.html#l00001">publicaciones.py:1</a></div></div>
+<div class="ttc" id="anamespaceapp_1_1services__movil_1_1publicaciones_html_a755e3039725f6066cd777770b782376a"><div class="ttname"><a href="namespaceapp_1_1services__movil_1_1publicaciones.html#a755e3039725f6066cd777770b782376a">app.services_movil.publicaciones.guardar_publicacion_usuario_service</a></div><div class="ttdeci">guardar_publicacion_usuario_service(data)</div><div class="ttdef"><b>Definition</b> <a href="#l00008">publicaciones.py:8</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_d422163b96683743ed3963d4aac17747.html">app</a></li><li class="navelem"><a href="dir_591cbd31bc4d9ab4fd42a965e02f305b.html">services_movil</a></li><li class="navelem"><a href="services__movil_2publicaciones_8py.html">publicaciones.py</a></li>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
+  </ul>
+</div>
+</body>
+</html>

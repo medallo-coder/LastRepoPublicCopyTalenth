@@ -1,0 +1,8 @@
+var searchData=
+[
+  ['user_5fsid_5fmap_0',['user_sid_map',['../namespaceapp_1_1services_1_1mensajeria.html#ae7a6075c654714054205fd70d024333b',1,'app::services::mensajeria']]],
+  ['users_5fapi_1',['users_api',['../namespaceapp_1_1api_1_1users.html#ae9609c940b8c491c47a4e8947b3af7a4',1,'app::api::users']]],
+  ['usuario_2',['usuario',['../classapp_1_1models_1_1guardados_1_1_guardados.html#ad5ff88c4392b9ea09eab082b7aba40b5',1,'app.models.guardados.Guardados.usuario'],['../classapp_1_1models_1_1perfiles_1_1perfiles.html#a8cc7921d0b516ce76922d31f1c6af762',1,'app.models.perfiles.perfiles.usuario'],['../classapp_1_1models_1_1publicaciones_1_1_publicaciones.html#a666fac06d2de87c37a0104212e850403',1,'app.models.publicaciones.Publicaciones.usuario'],['../classapp_1_1models_1_1rese_xC3_xB1as_1_1_rese_xC3_xB1as.html#af17b6d028660b55c5a7be4c2e20ee98d',1,'app.models.reseñas.Reseñas.usuario']]],
+  ['usuario_5fid_3',['usuario_id',['../classapp_1_1models_1_1guardados_1_1_guardados.html#a876aed161d3965b2f7b1ce4ebce903ea',1,'app.models.guardados.Guardados.usuario_id'],['../classapp_1_1models_1_1publicaciones_1_1_publicaciones.html#a9b6a0fe95c97481af1f30e493e622408',1,'app.models.publicaciones.Publicaciones.usuario_id'],['../classapp_1_1models_1_1rese_xC3_xB1as_1_1_rese_xC3_xB1as.html#a443fc8fdf1b35b1935369ce9d61f8cde',1,'app.models.reseñas.Reseñas.usuario_id'],['../classapp_1_1models_1_1usuario_1_1_usuario.html#a1910e8061fbff0dcf2acb3847db7da98',1,'app.models.usuario.Usuario.usuario_id']]],
+  ['usuarios_4',['usuarios',['../classapp_1_1models_1_1roles_1_1_roles.html#ae4fdb4b5a766b9bf92f06ae4d62d948c',1,'app::models::roles::Roles']]]
+];

@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.14.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>CaliTrabaja: Archivo de código fuente app/models/usuario.py</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">CaliTrabaja
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.14.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Buscar',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('usuario_8py_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Cargando...</div>
+<div class="SRStatus" id="Searching">Buscando...</div>
+<div class="SRStatus" id="NoMatches">Nada coincide</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">usuario.py</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="usuario_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="namespaceapp_1_1models_1_1usuario.html">    1</a></span><span class="keyword">from</span> <a class="code hl_namespace" href="namespaceapp_1_1extensions.html">app.extensions</a> <span class="keyword">import</span> db</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">from</span> werkzeug.security <span class="keyword">import</span> generate_password_hash, check_password_hash</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">from</span> flask_login <span class="keyword">import</span> UserMixin</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="foldopen" id="foldopen00008" data-start="" data-end="">
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html">    8</a></span><span class="keyword">class </span><a class="code hl_class" href="classapp_1_1models_1_1usuario_1_1_usuario.html">Usuario</a>(db.Model, UserMixin):  <span class="comment">#Hereda de UserMixin (mensajeria)</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    __tablename__ = <span class="stringliteral">&#39;usuarios&#39;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#a1910e8061fbff0dcf2acb3847db7da98">   11</a></span>    usuario_id = db.Column(db.Integer, primary_key=<span class="keyword">True</span>, autoincrement=<span class="keyword">True</span>, nullable=<span class="keyword">False</span>)</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#a2fc6b0857b38292fcc2f0d8b190a6d83">   12</a></span>    contrasena = db.Column(db.String(255), nullable=<span class="keyword">False</span>)</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#ad126410dd36268d24531b5576ddf9263">   13</a></span>    fecha_registro = db.Column(db.DateTime, nullable=<span class="keyword">False</span>, default=datetime.utcnow)</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#a50aa728de33ed35f7e80f452dcf2aa7c">   14</a></span>    correo = db.Column(db.String(50), unique=<span class="keyword">True</span>, nullable=<span class="keyword">False</span>)</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#a698d86283f569808bcc50ed0be318e70">   15</a></span>    estado = db.Column(db.String(20), default=<span class="stringliteral">&#39;activo&#39;</span>)</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#a96a8839d335f63e55ce04fd13d348207">   16</a></span>    intentos_fallidos = db.Column(db.Integer, default=0)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#aae5af85dc34ce88d3a6aabe1b8b3a679">   17</a></span>    bloqueado_hasta = db.Column(db.DateTime, nullable=<span class="keyword">True</span>) </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#a0cebb3f0b832ceff5b64f5618a6d90e2">   18</a></span>    token_recuperacion = db.Column(db.String(255), nullable=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#ab30c68504677a69348e9697f4d06c83d">   20</a></span>    id_rol  = db.Column(db.Integer, db.ForeignKey(<span class="stringliteral">&#39;roles.id_rol&#39;</span>), nullable=<span class="keyword">False</span>, default=2)  </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#ab07195184d60fcc3a16bb3b07a5b332d">   22</a></span>    rol = db.relationship(<span class="stringliteral">&#39;Roles&#39;</span>, back_populates=<span class="stringliteral">&#39;usuarios&#39;</span>)</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#a951d508e6677ac4c0fce113b96909d01">   24</a></span>    perfiles = db.relationship(<span class="stringliteral">&#39;perfiles&#39;</span>, back_populates=<span class="stringliteral">&#39;usuario&#39;</span>, uselist=<span class="keyword">False</span>, passive_deletes=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#ac7e03ca7165d280ea93d3c374e98c694">   25</a></span>    publicaciones = db.relationship(<span class="stringliteral">&#39;Publicaciones&#39;</span>, back_populates=<span class="stringliteral">&#39;usuario&#39;</span>, passive_deletes=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#aa7996e6928922c21b6a449bc369cf385">   26</a></span>    reseñas = db.relationship(<span class="stringliteral">&#39;Reseñas&#39;</span>, back_populates=<span class="stringliteral">&#39;usuario&#39;</span>, passive_deletes=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    id_rol = db.Column(db.Integer, db.ForeignKey(<span class="stringliteral">&#39;roles.id_rol&#39;</span>), nullable=<span class="keyword">False</span>, default=2)  </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    rol = db.relationship(<span class="stringliteral">&#39;Roles&#39;</span>, back_populates=<span class="stringliteral">&#39;usuarios&#39;</span>)</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    perfiles = db.relationship(<span class="stringliteral">&#39;perfiles&#39;</span>, back_populates=<span class="stringliteral">&#39;usuario&#39;</span>, uselist=<span class="keyword">False</span>)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    publicaciones = db.relationship(<span class="stringliteral">&#39;Publicaciones&#39;</span>, back_populates=<span class="stringliteral">&#39;usuario&#39;</span>)</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    reseñas = db.relationship(<span class="stringliteral">&#39;Reseñas&#39;</span>, back_populates=<span class="stringliteral">&#39;usuario&#39;</span>)</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#a3de57585fc2c7abff01b1f6b3198b658">   34</a></span>    guardados = db.relationship(<span class="stringliteral">&#39;Guardados&#39;</span>, back_populates=<span class="stringliteral">&#39;usuario&#39;</span>, passive_deletes=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#aa20bb94fd088a238fca93b94b7c4356e">   36</a></span>    reportes_hechos = db.relationship(<span class="stringliteral">&#39;Reportes&#39;</span>, foreign_keys=<span class="stringliteral">&#39;Reportes.reportador_id&#39;</span>, back_populates=<span class="stringliteral">&#39;reportador&#39;</span>)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#ae59020cd50e2d5ca70a699ec34dee48d">   37</a></span>    reportes_asignados = db.relationship(<span class="stringliteral">&#39;Reportes&#39;</span>, foreign_keys=<span class="stringliteral">&#39;Reportes.reportado_id&#39;</span>, back_populates=<span class="stringliteral">&#39;asignado&#39;</span>)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="comment">#se añadio la funcion is_active y get_id (mensajeria)</span></div>
+<div class="foldopen" id="foldopen00040" data-start="" data-end="">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#a6a36f68ec6058c0494538030f3c7caa5">   40</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classapp_1_1models_1_1usuario_1_1_usuario.html#a6a36f68ec6058c0494538030f3c7caa5">is_active</a>(self):</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">return</span> <span class="keyword">True</span>  <span class="comment"># Usuario siempre activo</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+</div>
+<div class="foldopen" id="foldopen00043" data-start="" data-end="">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#aab2de7756e1213ae14831e33bc8e5b52">   43</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classapp_1_1models_1_1usuario_1_1_usuario.html#aab2de7756e1213ae14831e33bc8e5b52">get_id</a>(self):</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">return</span> str(self.<a class="code hl_variable" href="classapp_1_1models_1_1usuario_1_1_usuario.html#a1910e8061fbff0dcf2acb3847db7da98">usuario_id</a>)  <span class="comment"># Devuelve el ID del usuario</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+</div>
+<div class="foldopen" id="foldopen00047" data-start="" data-end="">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#aa0e33cd11d89a7690b2a17f63bb186f4">   47</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classapp_1_1models_1_1usuario_1_1_usuario.html#aa0e33cd11d89a7690b2a17f63bb186f4">__repr__</a>(self):</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">return</span> f<span class="stringliteral">&quot;&lt;Usuario {self.correo}&gt;&quot;</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+</div>
+<div class="foldopen" id="foldopen00050" data-start="" data-end="">
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#ac7f03ee2f97d2d6eda011230a8fd3ded">   50</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classapp_1_1models_1_1usuario_1_1_usuario.html#ac7f03ee2f97d2d6eda011230a8fd3ded">set_password</a>(self, password):</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="stringliteral">&quot;&quot;&quot;Genera el hash de la contraseña y lo guarda.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        self.<a class="code hl_variable" href="classapp_1_1models_1_1usuario_1_1_usuario.html#a2fc6b0857b38292fcc2f0d8b190a6d83">contrasena</a> = generate_password_hash(password)</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+</div>
+<div class="foldopen" id="foldopen00054" data-start="" data-end="">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classapp_1_1models_1_1usuario_1_1_usuario.html#ae5c33e058d0630869cbc6c523a7736b6">   54</a></span>    <span class="keyword">def </span><a class="code hl_function" href="classapp_1_1models_1_1usuario_1_1_usuario.html#ae5c33e058d0630869cbc6c523a7736b6">check_password</a>(self, password):</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="stringliteral">&quot;&quot;&quot;Verifica si la contraseña proporcionada coincide con el hash almacenado.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordflow">return</span> check_password_hash(self.<a class="code hl_variable" href="classapp_1_1models_1_1usuario_1_1_usuario.html#a2fc6b0857b38292fcc2f0d8b190a6d83">contrasena</a>, password)</div>
+</div>
+</div>
+<div class="ttc" id="aclassapp_1_1models_1_1usuario_1_1_usuario_html"><div class="ttname"><a href="classapp_1_1models_1_1usuario_1_1_usuario.html">app.models.usuario.Usuario</a></div><div class="ttdef"><b>Definition</b> <a href="#l00008">usuario.py:8</a></div></div>
+<div class="ttc" id="aclassapp_1_1models_1_1usuario_1_1_usuario_html_a1910e8061fbff0dcf2acb3847db7da98"><div class="ttname"><a href="classapp_1_1models_1_1usuario_1_1_usuario.html#a1910e8061fbff0dcf2acb3847db7da98">app.models.usuario.Usuario.usuario_id</a></div><div class="ttdeci">usuario_id</div><div class="ttdef"><b>Definition</b> <a href="#l00011">usuario.py:11</a></div></div>
+<div class="ttc" id="aclassapp_1_1models_1_1usuario_1_1_usuario_html_a2fc6b0857b38292fcc2f0d8b190a6d83"><div class="ttname"><a href="classapp_1_1models_1_1usuario_1_1_usuario.html#a2fc6b0857b38292fcc2f0d8b190a6d83">app.models.usuario.Usuario.contrasena</a></div><div class="ttdeci">contrasena</div><div class="ttdef"><b>Definition</b> <a href="#l00012">usuario.py:12</a></div></div>
+<div class="ttc" id="aclassapp_1_1models_1_1usuario_1_1_usuario_html_a6a36f68ec6058c0494538030f3c7caa5"><div class="ttname"><a href="classapp_1_1models_1_1usuario_1_1_usuario.html#a6a36f68ec6058c0494538030f3c7caa5">app.models.usuario.Usuario.is_active</a></div><div class="ttdeci">is_active(self)</div><div class="ttdef"><b>Definition</b> <a href="#l00040">usuario.py:40</a></div></div>
+<div class="ttc" id="aclassapp_1_1models_1_1usuario_1_1_usuario_html_aa0e33cd11d89a7690b2a17f63bb186f4"><div class="ttname"><a href="classapp_1_1models_1_1usuario_1_1_usuario.html#aa0e33cd11d89a7690b2a17f63bb186f4">app.models.usuario.Usuario.__repr__</a></div><div class="ttdeci">__repr__(self)</div><div class="ttdef"><b>Definition</b> <a href="#l00047">usuario.py:47</a></div></div>
+<div class="ttc" id="aclassapp_1_1models_1_1usuario_1_1_usuario_html_aab2de7756e1213ae14831e33bc8e5b52"><div class="ttname"><a href="classapp_1_1models_1_1usuario_1_1_usuario.html#aab2de7756e1213ae14831e33bc8e5b52">app.models.usuario.Usuario.get_id</a></div><div class="ttdeci">get_id(self)</div><div class="ttdef"><b>Definition</b> <a href="#l00043">usuario.py:43</a></div></div>
+<div class="ttc" id="aclassapp_1_1models_1_1usuario_1_1_usuario_html_ac7f03ee2f97d2d6eda011230a8fd3ded"><div class="ttname"><a href="classapp_1_1models_1_1usuario_1_1_usuario.html#ac7f03ee2f97d2d6eda011230a8fd3ded">app.models.usuario.Usuario.set_password</a></div><div class="ttdeci">set_password(self, password)</div><div class="ttdef"><b>Definition</b> <a href="#l00050">usuario.py:50</a></div></div>
+<div class="ttc" id="aclassapp_1_1models_1_1usuario_1_1_usuario_html_ae5c33e058d0630869cbc6c523a7736b6"><div class="ttname"><a href="classapp_1_1models_1_1usuario_1_1_usuario.html#ae5c33e058d0630869cbc6c523a7736b6">app.models.usuario.Usuario.check_password</a></div><div class="ttdeci">check_password(self, password)</div><div class="ttdef"><b>Definition</b> <a href="#l00054">usuario.py:54</a></div></div>
+<div class="ttc" id="anamespaceapp_1_1extensions_html"><div class="ttname"><a href="namespaceapp_1_1extensions.html">app.extensions</a></div><div class="ttdef"><b>Definition</b> <a href="extensions_8py_source.html#l00001">extensions.py:1</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_d422163b96683743ed3963d4aac17747.html">app</a></li><li class="navelem"><a href="dir_0048b65860793d8b9d46754596da5c16.html">models</a></li><li class="navelem"><a href="usuario_8py.html">usuario.py</a></li>
+    <li class="footer">Generado por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0 </li>
+  </ul>
+</div>
+</body>
+</html>
