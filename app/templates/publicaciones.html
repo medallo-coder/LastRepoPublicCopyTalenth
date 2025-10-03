@@ -329,9 +329,18 @@ body.no-scroll {
     
   }
   .modal-content {
-    width: 90% !important;       /* más pequeño */
+    width: 96% !important;       /* más pequeño */
     min-width: 0 !important;     /* elimina el límite de 470px */
-    max-width: 80% !important;   /* que no se pase */
+    max-width: 100% !important;   /* que no se pase */
+    max-height: 90vh !important; /* más alto en móviles */
+  }
+}
+
+@media (max-width: 414px){
+  .modal-content {
+    width: 95% !important;       /* más pequeño */
+    min-width: 0 !important;     /* elimina el límite de 470px */
+    max-width: 100% !important;   /* que no se pase */
     max-height: 75vh !important; /* más alto en móviles */
   }
 }
@@ -364,21 +373,21 @@ body.no-scroll {
 @media (max-width: 360px) {
   #cuadroServicio {
     width: 138%;
-    max-width: 140%; /* evita que se agrande demasiado */
+    max-width: 140%; 
     
   }
 
   #Tarjetas {
     width: 103%;
-    max-width: 140%; /* evita que se agrande demasiado */
+    max-width: 140%; 
     
   }
 
   .modal-content {
-    width: 80% !important;       /* más pequeño */
-    min-width: 0 !important;     /* elimina el límite de 470px */
-    max-width: 80% !important;   /* que no se pase */
-    max-height: 75vh !important; /* más alto en móviles */
+    width: 97% !important;      
+    min-width: 0 !important;     
+    max-width: 100% !important;  
+    max-height: 95vh !important; 
   }
 }
 

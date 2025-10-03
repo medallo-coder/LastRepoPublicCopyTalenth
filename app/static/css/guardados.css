@@ -1,9 +1,17 @@
-/* Establece el comportamiento del box model para todos los elementos */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  max-width: 100%;
+ 
+}
+
 * {
-    box-sizing: border-box; /* Hace que el ancho y alto incluyan padding y border */
-    margin: 0; /* Elimina el margen por defecto */
-    padding: 0; /* Elimina el padding por defecto */
-  }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
   
   /* Estilos generales para el body */
   .guardar {
@@ -336,126 +344,6 @@
     justify-content: center;
 }
 
-
-/* Media query para tablets: se aplican estilos cuando el ancho máximo de la pantalla es 768px */
-@media (max-width: 768px) {
-
-  /* Contenedor principal de cada servicio */
-  .categoria {
-    width: 95%;         /* Ancho del contenedor ajustado para ocupar la mayor parte del ancho disponible */
-    gap: 16px;          /* Espacio entre elementos hijos dentro del contenedor */
-  }
-
-  /* Imagen dentro del contenedor */
-  .image {
-    width: 160px;       /* Ancho fijo para la imagen en tablets */
-    height: 160px;      /* Alto fijo para la imagen, para mantener proporción */
-  }
-
-  /* Contenedor de la información (texto) al lado de la imagen */
-  .info {
-    margin-left: 2%;    /* Margen izquierdo pequeño para separar texto de la imagen */
-  }
-
-  /* Nombre del servicio o producto */
-  .name {
-    font-size: 24px;    /* Tamaño de fuente para que el texto se vea bien en tablets */
-  }
-
-  /* Precio del servicio o producto */
-  .precio {
-    font-size: 15px;    /* Tamaño de fuente un poco más pequeño que el nombre */
-  }
-
-  /* Descripción corta del servicio */
-  .descripcion1 {
-    font-size: 13px;    /* Tamaño de fuente pequeño para no ocupar demasiado espacio */
-    max-width: 90%;     /* Limita el ancho máximo para que no ocupe todo el contenedor */
-  }
-
-  /* Categoría, subcategoría y botón de contacto */
-  .cate, .subcate, .contact-but {
-    font-size: 12px;    /* Tamaño pequeño para texto menos relevante */
-    padding: 5px 14px;  /* Espaciado interno para dar espacio entre texto y borde */
-  }
-
-  /* Menú o elemento extra alineado a la izquierda */
-  .menu1 {
-    margin-left: 20%;   /* Margen izquierdo para empujar el menú más hacia la derecha */
-  }
-
-  /* Pseudo-elemento decorativo después de .categoria */
-  .categoria::after {
-    left: 5%;           /* Posición desde la izquierda para la línea decorativa */
-    width: 90%;         /* Ancho que abarca la mayor parte del contenedor */
-  }
-}
-
-
-/* Media query para celulares: estilos para pantallas de ancho máximo 480px */
-@media (max-width: 480px) {
-
-  /* Contenedor principal de servicio para pantallas pequeñas */
-  .categoria {
-    width: 90%;         /* Ancho reducido para pantallas más pequeñas */
-    padding: 15px 0;    /* Padding vertical para dar espacio arriba y abajo */
-    gap: 12px;          /* Menor espacio entre elementos hijos */
-  }
-
-  /* Imagen más pequeña para móviles */
-  .image {
-    width: 120px;       /* Ancho fijo más pequeño para la imagen */
-    height: 120px;      /* Alto fijo correspondiente */
-  }
-
-  /* Nombre con fuente más pequeña para pantallas pequeñas */
-  .name {
-    font-size: 20px;
-  }
-
-  /* Precio con fuente reducida para móviles */
-  .precio {
-    font-size: 14px;
-  }
-
-  /* Descripción ajustada para pantallas pequeñas */
-  .descripcion1 {
-    font-size: 12px;
-    max-width: 95%;     /* Casi todo el ancho disponible para mejor lectura */
-  }
-
-  /* Categoría, subcategoría y botón contacto con fuente y padding más pequeños */
-  .cate, .subcate, .contact-but {
-    font-size: 11px;
-    padding: 4px 12px;  /* Menor padding para que no ocupe mucho espacio */
-  }
-
-  /* Menú con margen izquierdo reducido */
-  .menu1 {
-    margin-left: 10%;
-  }
-
-  /* Línea decorativa bajo .categoria igual que en tablets */
-  .categoria::after {
-    left: 5%;
-    width: 90%;
-  }
-
-  /* Contenedor general de categorías */
-  .categorias {
-    flex-direction: column;     /* Cambia la dirección de fila a columna para apilar verticalmente */
-    align-items: flex-start;    /* Alinea al inicio del contenedor */
-    gap: 6px;                   /* Espacio pequeño entre las categorías */
-  }
-  
-  /* Contenedor para el botón de contacto debajo de la descripción */
-  .boton-contact {
-    display: flex;              /* Usa flexbox para facilitar alineación */
-    justify-content: center;    /* Centra el botón horizontalmente */
-    margin: 12px auto 0 auto;   /* Margen superior de 12px y centrado horizontal (auto) */
-  }
-}
-
 /* Fondo y overlay (igual que modalCerrarSesion) */
 #confirmModal {
   position: fixed;
@@ -610,127 +498,7 @@
 }
 
 
-/*-----------------------------------------------
-  Estilos para pantallas pequeñas (móviles) carrusel
------------------------------------------------*/
-@media (max-width: 768px) {
-
-    /* Padding vertical del body para dar espacio arriba y abajo */
-    body {
-        padding: 1rem 0;
-    }
-
-    /* Contenedor principal (cuadro) ajustado para ocupar casi todo el ancho disponible */
-    .cuadro {
-        width: 95%;
-        margin-bottom: 1rem; /* Margen inferior para separar cuadros */
-    }
-
-    /* Elemento redondo, probablemente un avatar o icono, con altura fija */
-    .redondo {
-        height: 3.5rem;
-    }
-
-    /* Contenedor de pestañas (tabs) con separación horizontal y padding lateral */
-    .tabs {
-        gap: 1rem;          /* Espacio entre pestañas */
-        padding: 0 0.5rem;  /* Padding izquierdo y derecho */
-    }
-
-    /* Contenedor general para el carrusel o contenido */
-    .contenedor {
-        width: 95%;         /* Ancho casi completo */
-        height: auto;       /* Altura ajustable según contenido */
-        padding: 15px;      /* Espaciado interno uniforme */
-    }
-
-    /* Título de interés con tamaño de fuente mediano y margen inferior */
-    .titulo-interes {
-        font-size: 1.3rem;
-        margin-bottom: 15px;
-    }
-
-    /* Contenedor para los elementos del slider, con espacio entre ellos y padding inferior */
-    .slider {
-        gap: 10px;          /* Separación entre elementos del slider */
-        padding-bottom: 15px; /* Espacio debajo del slider */
-    }
-
-    /* Cada tarjeta dentro del slider */
-    .card {
-        flex: 0 0 280px;    /* Tarjeta con ancho fijo de 280px dentro de un flexbox */
-        padding: 10px;      /* Espacio interno para que el contenido no toque bordes */
-        gap: 10px;          /* Espacio entre elementos hijos dentro de la tarjeta */
-    }
-
-    /* Nombre dentro de la tarjeta */
-    .nombre {
-        font-size: 16px;    /* Tamaño de fuente legible para móviles */
-    }
-
-    /* Profesión u otro texto descriptivo */
-    .profesion {
-        font-size: 12px;    /* Fuente más pequeña */
-        margin-top: 5px;    /* Espacio encima para separar del nombre */
-    }
-
-    /* Textos descriptivos, botones, precios dentro de las tarjetas */
-    .descripcion-titulo,
-    .descripcion-texto,
-    .ver-mas,
-    .price {
-        font-size: 0.8rem;  /* Tamaño pequeño para no saturar espacio */
-    }
-
-    /* Tamaño de la fuente para las estrellas (rating) dentro de las tarjetas */
-    .estrellasTarjetas {
-        font-size: 0.8rem;
-    }
-
-    /* Botón para el menú (hamburguesa u otro icono) */
-    .menu-button {
-        font-size: 1.5rem;  /* Tamaño para fácil pulsación */
-    }
-
-    /* Menú desplegable */
-    .dropdown-menu {
-        width: 100px;       /* Ancho fijo para el menú desplegable */
-        top: 25px;          /* Posición vertical respecto al elemento padre */
-        padding: 5px;       /* Espaciado interno */
-        border-radius: 6px; /* Bordes redondeados */
-    }
-
-    /* Botones y textos dentro del menú desplegable */
-    .dropdown-menu button,
-    .dropdown-menu button span,
-    .dropdown-menu i {
-        font-size: 12px;    /* Tamaño pequeño para botones e iconos */
-    }
-
-    /* Contenedor de flechas para navegación */
-    .arrows {
-        gap: 30px;          /* Espacio entre las flechas */
-    }
-
-    /* Botones de flechas con SVG */
-    .arrow-btn svg {
-        width: 30px;        /* Ancho fijo para iconos SVG */
-        height: 30px;       /* Alto fijo para iconos SVG */
-    }
-
-    /* Contenido del modal, ajustado para pantallas pequeñas */
-    .modal-content {
-        width: 80%;         /* Ancho relativo al 80% de la ventana */
-        max-width: 350px;   /* Ancho máximo para no crecer demasiado */
-    }
-
-    /* Botón para cerrar el modal */
-    .close-button {
-        top: 8px;           /* Distancia del borde superior */
-        right: 10px;        /* Distancia del borde derecho */
-        font-size: 18px;    /* Tamaño de fuente para el ícono de cierre */
-    }
-}
+/* Media query para tablets: se aplican estilos cuando el ancho máximo de la pantalla es 768px */
 
 
 /*-----------------------------------------------
@@ -860,3 +628,369 @@
   }
 
 }
+
+
+@media (max-width: 768px) {
+  /* Padding vertical del body para dar espacio arriba y abajo */
+    body {
+        padding: 1rem 0;
+    }
+
+    /* Contenedor principal (cuadro) ajustado para ocupar casi todo el ancho disponible */
+    .cuadro {
+        width: 95%;
+        margin-bottom: 1rem; /* Margen inferior para separar cuadros */
+    }
+
+    /* Elemento redondo, probablemente un avatar o icono, con altura fija */
+    .redondo {
+        height: 3.5rem;
+    }
+
+    /* Contenedor de pestañas (tabs) con separación horizontal y padding lateral */
+    .tabs {
+        gap: 1rem;          /* Espacio entre pestañas */
+        padding: 0 0.5rem;  /* Padding izquierdo y derecho */
+    }
+
+    /* Contenedor general para el carrusel o contenido */
+    .contenedor {
+        width: 95%;         /* Ancho casi completo */
+        height: auto;       /* Altura ajustable según contenido */
+        padding: 15px;      /* Espaciado interno uniforme */
+    }
+
+    /* Título de interés con tamaño de fuente mediano y margen inferior */
+    .titulo-interes {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+
+    /* Contenedor para los elementos del slider, con espacio entre ellos y padding inferior */
+    .slider {
+        gap: 10px;          /* Separación entre elementos del slider */
+        padding-bottom: 15px; /* Espacio debajo del slider */
+    }
+
+    /* Cada tarjeta dentro del slider */
+    .card {
+        flex: 0 0 280px;    /* Tarjeta con ancho fijo de 280px dentro de un flexbox */
+        padding: 10px;      /* Espacio interno para que el contenido no toque bordes */
+        gap: 10px;          /* Espacio entre elementos hijos dentro de la tarjeta */
+    }
+
+    /* Nombre dentro de la tarjeta */
+    .nombre {
+        font-size: 16px;    /* Tamaño de fuente legible para móviles */
+    }
+
+    /* Profesión u otro texto descriptivo */
+    .profesion {
+        font-size: 12px;    /* Fuente más pequeña */
+        margin-top: 5px;    /* Espacio encima para separar del nombre */
+    }
+
+    /* Textos descriptivos, botones, precios dentro de las tarjetas */
+    .descripcion-titulo,
+    .descripcion-texto,
+    .ver-mas,
+    .price {
+        font-size: 0.8rem;  /* Tamaño pequeño para no saturar espacio */
+    }
+
+    /* Tamaño de la fuente para las estrellas (rating) dentro de las tarjetas */
+    .estrellasTarjetas {
+        font-size: 0.8rem;
+    }
+
+    /* Botón para el menú (hamburguesa u otro icono) */
+    .menu-button {
+        font-size: 1.5rem;  /* Tamaño para fácil pulsación */
+    }
+
+    /* Menú desplegable */
+    .dropdown-menu {
+        width: 100px;       /* Ancho fijo para el menú desplegable */
+        top: 25px;          /* Posición vertical respecto al elemento padre */
+        padding: 5px;       /* Espaciado interno */
+        border-radius: 6px; /* Bordes redondeados */
+    }
+
+    /* Botones y textos dentro del menú desplegable */
+    .dropdown-menu button,
+    .dropdown-menu button span,
+    .dropdown-menu i {
+        font-size: 12px;    /* Tamaño pequeño para botones e iconos */
+    }
+
+    /* Contenedor de flechas para navegación */
+    .arrows {
+        gap: 30px;          /* Espacio entre las flechas */
+    }
+
+    /* Botones de flechas con SVG */
+    .arrow-btn svg {
+        width: 30px;        /* Ancho fijo para iconos SVG */
+        height: 30px;       /* Alto fijo para iconos SVG */
+    }
+
+    /* Contenido del modal, ajustado para pantallas pequeñas */
+    .modal-content {
+        width: 80%;         /* Ancho relativo al 80% de la ventana */
+        max-width: 350px;   /* Ancho máximo para no crecer demasiado */
+    }
+
+    /* Botón para cerrar el modal */
+    .close-button {
+        top: 8px;           /* Distancia del borde superior */
+        right: 10px;        /* Distancia del borde derecho */
+        font-size: 18px;    /* Tamaño de fuente para el ícono de cierre */
+    }
+
+  /* Contenedor principal de cada servicio */
+  .categoria {
+    width: 95%;         /* Ancho del contenedor ajustado para ocupar la mayor parte del ancho disponible */
+    gap: 16px;          /* Espacio entre elementos hijos dentro del contenedor */
+  }
+
+  /* Imagen dentro del contenedor */
+  .image {
+    width: 160px;       /* Ancho fijo para la imagen en tablets */
+    height: 160px;      /* Alto fijo para la imagen, para mantener proporción */
+  }
+
+  /* Contenedor de la información (texto) al lado de la imagen */
+  .info {
+    margin-left: 2%;    /* Margen izquierdo pequeño para separar texto de la imagen */
+  }
+
+  /* Nombre del servicio o producto */
+  .name {
+    font-size: 24px;    /* Tamaño de fuente para que el texto se vea bien en tablets */
+  }
+
+  /* Precio del servicio o producto */
+  .precio {
+    font-size: 15px;    /* Tamaño de fuente un poco más pequeño que el nombre */
+  }
+
+  /* Descripción corta del servicio */
+  .descripcion1 {
+    font-size: 13px;    /* Tamaño de fuente pequeño para no ocupar demasiado espacio */
+    max-width: 90%;     /* Limita el ancho máximo para que no ocupe todo el contenedor */
+  }
+
+  /* Categoría, subcategoría y botón de contacto */
+  .cate, .subcate, .contact-but {
+    font-size: 12px;    /* Tamaño pequeño para texto menos relevante */
+    padding: 5px 14px;  /* Espaciado interno para dar espacio entre texto y borde */
+  }
+
+  /* Menú o elemento extra alineado a la izquierda */
+  .menu1 {
+    margin-left: 20%;   /* Margen izquierdo para empujar el menú más hacia la derecha */
+  }
+
+  /* Pseudo-elemento decorativo después de .categoria */
+  .categoria::after {
+    left: 5%;           /* Posición desde la izquierda para la línea decorativa */
+    width: 90%;         /* Ancho que abarca la mayor parte del contenedor */
+  }
+}
+
+
+/* Media query para celulares: estilos para pantallas de ancho máximo 480px */
+@media (max-width: 480px) {
+  
+  .guardar {
+    padding-top: 80px; /* aún más arriba en móviles pequeños */
+  }
+
+  .no-guardados {
+    padding-top: 20px; 
+  }
+  .encabezado {
+    display: flex;
+    align-items: center;
+    gap: 40px; /* espacio entre el nombre y el bloque de iconos */
+  }
+
+  .encabezado::after {
+    display: none; /* quitar el empuje fantasma */
+  }
+
+  .encabezado h2 {
+    flex: 0 0 auto;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Bloque de iconos: forzamos que 3 puntos y basura se alineen juntos */
+  .menu1, .bi-trash {
+    display: inline-block; 
+    vertical-align: middle; /* 👈 se alinean en la misma línea */
+    margin-left: -10px; /* espacio entre nombre e iconos */
+  }
+
+  /* Espacio solo entre 3 puntos y basura */
+  .menu1  {
+    margin-left: 50px; 
+  }
+
+  .categoria::after {
+    left: 5%;
+    width: 99%;
+  
+  }
+
+  /* Contenedor principal de servicio para pantallas pequeñas */
+  .categoria {
+    width: 90%;         /* Ancho reducido para pantallas más pequeñas */
+    padding: 15px 0;    /* Padding vertical para dar espacio arriba y abajo */
+    gap: 12px;          /* Menor espacio entre elementos hijos */
+  }
+
+  /* Imagen más pequeña para móviles */
+  .image {
+    width: 120px;       /* Ancho fijo más pequeño para la imagen */
+    height: 120px;      /* Alto fijo correspondiente */
+  }
+
+  /* Nombre con fuente más pequeña para pantallas pequeñas */
+  .name {
+    font-size: 20px;
+  }
+
+  /* Precio con fuente reducida para móviles */
+  .precio {
+    font-size: 14px;
+  }
+
+  /* Descripción ajustada para pantallas pequeñas */
+  .descripcion1 {
+    font-size: 12px;
+    max-width: 95%;     /* Casi todo el ancho disponible para mejor lectura */
+  }
+
+  /* Categoría, subcategoría y botón contacto con fuente y padding más pequeños */
+  .cate, .subcate, .contact-but {
+    font-size: 11px;
+    padding: 4px 12px;  /* Menor padding para que no ocupe mucho espacio */
+  }
+
+  
+
+  
+  /* Contenedor general de categorías */
+  .categorias {
+    flex-direction: column;     /* Cambia la dirección de fila a columna para apilar verticalmente */
+    align-items: flex-start;    /* Alinea al inicio del contenedor */
+    gap: 6px;                   /* Espacio pequeño entre las categorías */
+  }
+  
+  /* Contenedor para el botón de contacto debajo de la descripción */
+  .boton-contact {
+    display: flex;              /* Usa flexbox para facilitar alineación */
+    justify-content: center;    /* Centra el botón horizontalmente */
+    margin: 12px auto 0 auto;   /* Margen superior de 12px y centrado horizontal (auto) */
+  }
+
+
+}
+
+
+
+
+@media (max-width: 375px) {
+  .guardar {
+    padding-top: 80px; /* aún más arriba en móviles pequeños */
+  }
+
+  .no-guardados {
+    padding-top: 20px; 
+  }
+  .encabezado {
+    display: flex;
+    align-items: center;
+    gap: 40px; /* espacio entre el nombre y el bloque de iconos */
+  }
+
+  .encabezado::after {
+    display: none; /* quitar el empuje fantasma */
+  }
+
+  .encabezado h2 {
+    flex: 0 0 auto;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Bloque de iconos: forzamos que 3 puntos y basura se alineen juntos */
+  .menu1, .bi-trash {
+    display: inline-block; 
+    vertical-align: middle; /* 👈 se alinean en la misma línea */
+    margin-left: -10px; /* espacio entre nombre e iconos */
+  }
+
+  /* Espacio solo entre 3 puntos y basura */
+  .menu1  {
+    margin-left: 30px; 
+  }
+
+  .categoria::after {
+    left: 5%;
+    width: 97%;
+  
+  }
+}
+
+
+@media (max-width: 360px) {
+  .guardar {
+    padding-top: 80px; /* aún más arriba en móviles pequeños */
+  }
+
+  .no-guardados {
+    padding-top: 20px; 
+  }
+  .encabezado {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* espacio entre el nombre y el bloque de iconos */
+  }
+
+  .encabezado::after {
+    display: none; /* quitar el empuje fantasma */
+  }
+
+  .encabezado h2 {
+    flex: 0 0 auto;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Bloque de iconos: forzamos que 3 puntos y basura se alineen juntos */
+  .menu1, .bi-trash {
+    display: inline-block; 
+    vertical-align: middle; /* 👈 se alinean en la misma línea */
+    margin-left: -10px; /* espacio entre nombre e iconos */
+  }
+
+  /* Espacio solo entre 3 puntos y basura */
+  .menu1  {
+    margin-left: 30px; 
+  }
+
+  .categoria::after {
+    left: 5%;
+    width: 97%;
+  
+  }
+}
+
