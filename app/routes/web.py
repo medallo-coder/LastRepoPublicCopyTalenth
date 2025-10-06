@@ -337,8 +337,26 @@ def perfil_cliente():
         flash(resultado.get("message"), "success" if resultado.get("success") else "error")
         return redirect(url_for('web.perfil_cliente'))
 
-    # GET
+    # --- GET ---
     datos = obtener_datos_usuario_service()
+    usuario_id = datos.get("usuario_id")
+
+    # 🔹 Importar aquí tus modelos
+    from app.models.calificaciones import Calificaciones
+    from app.models.usuario import Usuario
+    from app.models.perfiles import perfiles
+    from app.extensions import db
+
+    # 🔹 Calificaciones hechas por este usuario (como calificador)
+    calificaciones = (
+        db.session.query(Calificaciones, Usuario, perfiles)
+        .join(Usuario, Calificaciones.calificado_id == Usuario.usuario_id)
+        .join(perfiles, perfiles.id_usuario == Usuario.usuario_id)
+        .filter(Calificaciones.calificador_id == usuario_id)
+        .order_by(Calificaciones.fecha_calificacion.desc())
+        .all()
+    )
+
     return render_template(
         'perfil_cliente.html',
         primer_nombre=datos.get("primer_nombre", "").title(),
@@ -346,8 +364,10 @@ def perfil_cliente():
         primer_apellido=datos.get("primer_apellido", "").title(),
         segundo_apellido=(datos.get("segundo_apellido") or "").title(),
         direccion=(datos.get("direccion") or "").title(),
-        foto_perfil=datos.get("foto_perfil", "")
+        foto_perfil=datos.get("foto_perfil", ""),
+        calificaciones=calificaciones  # 👈 ahora enviamos la lista al HTML
     )
+
 from werkzeug.utils import secure_filename
 
 @web.route('/uploads/perfiles/<filename>')
@@ -450,6 +470,23 @@ def perfil_experto():
     idiomas = obtener_idiomas_perfil()
     aptitudes = obtener_aptitudes_perfil(id_perfil)  # ✅ AÑADIDO: obtener lista de aptitudes del perfil
 
+    # --- 🔹 Cargar calificaciones recibidas por el experto ---
+    from app.models.calificaciones import Calificaciones
+    from app.models.usuario import Usuario
+    from app.models.perfiles import perfiles
+    from app.extensions import db
+
+    usuario_id = resultado.get("usuario_id")
+
+    calificaciones_recibidas = (
+        db.session.query(Calificaciones, Usuario, perfiles)
+        .join(Usuario, Calificaciones.calificador_id == Usuario.usuario_id)
+        .join(perfiles, perfiles.id_usuario == Usuario.usuario_id)
+        .filter(Calificaciones.calificado_id == usuario_id)
+        .order_by(Calificaciones.fecha_calificacion.desc())
+        .all()
+    )
+
     return render_template(
         'perfil_experto.html',
         id_perfil=id_perfil,
@@ -471,7 +508,8 @@ def perfil_experto():
         foto_perfil=resultado.get("foto_perfil", ""),
         direccion=resultado.get("direccion", ""),
         idiomas=idiomas,
-        aptitudes=aptitudes  #  AÑADIDO: pasar la lista de aptitudes al HTML
+        aptitudes=aptitudes,  #  AÑADIDO: pasar la lista de aptitudes al HTML
+        calificaciones = calificaciones_recibidas
     )
         
 """# Ruta para visualizar el chat
@@ -872,3 +910,4 @@ def guardar_reporte():
         flash("Error al guardar el reporte: " + str(e), "error")
 
     return redirect(url_for("web.inicio"))
+
