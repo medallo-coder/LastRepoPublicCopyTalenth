@@ -8,6 +8,10 @@ let chatAbiertoPorSession = false;
 
 socket.emit('identify', { user_id: userId });
 
+/* =========================
+   FUNCIONES DE MENSAJERÍA
+========================= */
+
 function scrollToBottom() {
   const chatContainer = document.getElementById('chatContainer');
   chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -62,10 +66,22 @@ function refreshConversations() {
             </div>
           </div>
           <div class="right">
-            <button class="menu-btn"><i class="bi bi-three-dots"></i></button>
+            <!-- Botón menú -->
+            <div class="menu-button-container">
+             <button class="menu-btn"><i class="bi bi-three-dots"></i></button>
+              <div class="contact-menu oculto">
+                <span class="menu-close-btn">&times;</span>
+                <a href="javascript:void(0);" class="abrir-modal-calificacion">
+                  <i class="bi bi-star"></i><span>Calificar</span>
+                </a>
+                <a href="javascript:void(0);" class="btn-link abrir-modal-reporte">
+                 <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
+                </a>
+                <a href="#"><i class="bi bi-trash"></i><span>Eliminar</span></a>
+              </div>
+            </div>
             <span class="time">${u.hora}</span>
             <div class="badge" style="${u.pendientes > 0 ? '' : 'display: none;'}">${u.pendientes}</div>
-            <div class="contact-menu oculto"></div>
           </div>
         `;
 
@@ -81,7 +97,7 @@ function refreshConversations() {
         div.querySelector('.left').addEventListener('click', handleClick);
         panel.appendChild(div);
 
-        // Solo abrir si venimos con session y aún no lo hicimos
+        // Si viene con sesión abierta
         if (chatPartnerInicial && u.usuario_id === chatPartnerInicial && !chatAbiertoPorSession) {
           chatAbiertoPorSession = true;
           handleClick();
@@ -91,6 +107,10 @@ function refreshConversations() {
 }
 
 refreshConversations();
+
+/* =========================
+   SOCKET.IO EVENTOS
+========================= */
 
 socket.on('chat_history', msgs => {
   const c = document.getElementById('chatContainer');
@@ -175,3 +195,125 @@ socket.on('message_read', data => {
 socket.on('update_conversations', () => {
   refreshConversations();
 });
+
+/* =========================
+   MENÚ CONTEXTUAL (3 puntos)
+   Compatible con .menu-btn + .contact-menu
+========================= */
+document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('click', function (e) {
+    // 1️⃣ Si hace clic en el botón de los tres puntos
+    const menuBtn = e.target.closest('.menu-btn');
+    if (menuBtn) {
+      const rightCol = menuBtn.closest('.right');
+      const menu = rightCol?.querySelector('.contact-menu');
+      if (!menu) return;
+
+      // Cerrar otros menús
+      document.querySelectorAll('.contact-menu').forEach(m => {
+        if (m !== menu) m.classList.add('oculto');
+      });
+
+      // Mostrar/ocultar este
+      menu.classList.toggle('oculto');
+      e.stopPropagation();
+      return;
+    }
+
+    // 2️⃣ Si hace clic dentro del menú en uno de sus botones
+    const menuActionBtn = e.target.closest('.contact-menu button');
+    if (menuActionBtn) {
+      const action = menuActionBtn.textContent.trim();
+      console.log('Acción del menú:', action);
+      menuActionBtn.closest('.contact-menu').classList.add('oculto');
+      return;
+    }
+
+    // 3️⃣ Clic fuera → cerrar todos los menús
+    document.querySelectorAll('.contact-menu').forEach(m => m.classList.add('oculto'));
+  });
+
+  // === DELEGACIÓN para abrir y cerrar el modal de calificación ===
+document.addEventListener("click", (e) => {
+  // Abrir modal (cuando se haga clic en un enlace con la clase .abrir-modal-calificacion)
+  if (e.target.closest(".abrir-modal-calificacion")) {
+    const modal = document.getElementById("modalCalificacion");
+    modal.style.display = "flex";
+  }
+
+  // Cerrar modal (botón cancelar)
+  if (e.target.id === "cancelarModalCalificacion") {
+    const modal = document.getElementById("modalCalificacion");
+    modal.style.display = "none";
+  }
+
+  // Cerrar modal si se hace clic fuera del contenido
+  const modal = document.getElementById("modalCalificacion");
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+// === DELEGACIÓN para abrir y cerrar el modal de eliminar ===
+document.addEventListener("click", (e) => {
+  // Abrir modal al hacer clic en “Eliminar”
+  if (e.target.closest(".contact-menu a") && e.target.closest("a").textContent.includes("Eliminar")) {
+    const modal = document.getElementById("confirmModal");
+    modal.style.display = "flex";
+  }
+
+  // Cerrar modal al hacer clic en “Cancelar”
+  if (e.target.id === "cancelDelete") {
+    const modal = document.getElementById("confirmModal");
+    modal.style.display = "none";
+  }
+
+  // Cerrar modal si se hace clic fuera del contenido
+  const modal = document.getElementById("confirmModal");
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+
+  // El botón “Aceptar” no hace nada (aún)
+  if (e.target.id === "confirmDelete") {
+    console.log("🗑️ Confirmar eliminar — función aún no implementada");
+    modal.style.display = "none";
+  }
+});
+
+ const estrellas = document.querySelectorAll("#estrellasCalificacion i");
+  let calificacion = 0;
+
+  estrellas.forEach((estrella) => {
+    estrella.addEventListener("mouseenter", () => {
+      const valor = parseInt(estrella.dataset.valor);
+      pintarEstrellas(valor);
+    });
+
+    estrella.addEventListener("mouseleave", () => {
+      pintarEstrellas(calificacion);
+    });
+
+    estrella.addEventListener("click", () => {
+      calificacion = parseInt(estrella.dataset.valor);
+      console.log("⭐ Calificación seleccionada:", calificacion);
+    });
+  });
+
+  function pintarEstrellas(valor) {
+    estrellas.forEach((estrella) => {
+      if (parseInt(estrella.dataset.valor) <= valor) {
+        estrella.classList.add("activa");
+        estrella.classList.remove("bi-star"); 
+        estrella.classList.add("bi-star-fill"); // llena la estrella
+      } else {
+        estrella.classList.remove("activa");
+        estrella.classList.remove("bi-star-fill");
+        estrella.classList.add("bi-star"); // vacía la estrella
+      }
+    });
+  }
+  
+});
+
+

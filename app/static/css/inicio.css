@@ -498,11 +498,12 @@
     font-weight: 500; /* Oswald Medium */
     color: black; /* Color de la letra en negro */
   }
+
   .menu-close-btn {
   position: absolute;
   top: 4px;
   right: 6px;
-  font-size: 19px;
+  font-size: 22px;
   
   font-weight: 700; /* texto en negrita */
 
@@ -516,6 +517,7 @@
 .menu-close-btn:hover {
   color: #3EAEB1;
 }
+
   .menu-completo a {
     display: flex;
     align-items: center;

@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/nav_roles.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/mensajeria.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/modal_reportar.css') }}">
+
 
   <!-- Google Fonts y Bootstrap Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -17,6 +19,7 @@
 <body>
 
   {% include 'nav.html' %}
+  {% include "modal_reportar.html"%}
 
   <section class="chat-section">
     <div class="chat-app">
@@ -40,11 +43,15 @@
               <div class="badge" style="display:none;">1</div>
               <!-- Menú contextual -->
               <div class="contact-menu oculto">
-                <button>Calificar</button>
-                <button>Guardar</button>
-                <button>Eliminar</button>
-                <button>Reportar</button>
-              </div>
+              <span class="menu-close-btn">x</span>
+              <a href="javascript:void(0);" class="btn-link abrir-modal-calificacion">
+                <i class="bi bi-star"></i><span>Calificar</span>
+              </a>
+              <a href="javascript:void(0);" class="btn-link abrir-modal-reporte">
+                 <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
+              </a>
+              <a href="#"><i class="bi bi-trash"></i><span>Eliminar</span></a>
+            </div>
             </div>
           </div>
         </div>
@@ -78,24 +85,56 @@
     </div>
   </section>
 
+  
+  <input type="hidden" id="chatPartnerInicial" value="{{ session.pop('abrir_chat_con', '') }}">
+
+  <!-- Modal Calificación -->
+  <div id="modalCalificacion" class="overlay-calificacion" style="display: none;">
+    <div class="contenido-calificacion">
+      <h2>Calificar usuario</h2>
+
+      <!-- Estrellas -->
+      <div class="estrellas-calificacion" id="estrellasCalificacion">
+        <i class="bi bi-star" data-valor="1"></i>
+        <i class="bi bi-star" data-valor="2"></i>
+        <i class="bi bi-star" data-valor="3"></i>
+        <i class="bi bi-star" data-valor="4"></i>
+        <i class="bi bi-star" data-valor="5"></i>
+      </div>
+
+      <!-- Reseña -->
+      <div class="campo-calificacion">
+        <textarea id="reseñaCalificacion" placeholder="Escribe una reseña"></textarea>
+      </div>
+
+      <!-- Botones -->
+      <div class="botones-calificacion">
+        <button type="submit" class="btn-calificacion-guardar">Guardar</button>
+        <button type="button" class="btn-calificacion-cancelar" id="cancelarModalCalificacion">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmación para eliminar -->
+<div id="confirmModal" class="modal-overlay" style="display: none;">
+  <div class="modal-content-delete">
+    <p>¿Deseas eliminar esta conversación?</p>
+    <div class="modal-buttons">
+      <button id="confirmDelete" class="btn-aceptar">Aceptar</button>
+      <button id="cancelDelete" class="btn-cancelar">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+
+  
   <!-- Socket.IO -->
   <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
   <!-- JS personalizado -->
   <script src="{{ url_for('static', filename='js/mensajeria.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/modal_reportar.js') }}"></script>
 
-  <script>
-    document.addEventListener('click', function(e) {
-      if (e.target.closest('.menu-btn')) {
-        const menu = e.target.closest('.right').querySelector('.contact-menu');
-        document.querySelectorAll('.contact-menu').forEach(m => m.classList.add('oculto'));
-        menu.classList.toggle('oculto');
-        e.stopPropagation();
-      } else {
-        document.querySelectorAll('.contact-menu').forEach(m => m.classList.add('oculto'));
-      }
-    });
-  </script>
-  <input type="hidden" id="chatPartnerInicial" value="{{ session.pop('abrir_chat_con', '') }}">
+ 
 
 
 </body>
