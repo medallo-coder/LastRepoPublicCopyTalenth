@@ -31,7 +31,12 @@ function renderMessage(m) {
   meta.className = 'timestamp';
 
   const hora = document.createElement('span');
-  hora.textContent = new Date(m.fecha).toLocaleTimeString();
+  hora.textContent = new Date(m.fecha).toLocaleTimeString('es-CO', {
+  hour: 'numeric',
+  minute: '2-digit',
+  hour12: true
+  });
+
   meta.appendChild(hora);
 
   if (m.emisor === userId) {
@@ -84,9 +89,13 @@ function refreshConversations() {
             <div class="badge" style="${u.pendientes > 0 ? '' : 'display: none;'}">${u.pendientes}</div>
           </div>
         `;
-
+        
         const handleClick = () => {
           chatPartner = u.usuario_id;
+          // Ocultar mensaje de "Selecciona un contacto" y mostrar el chat real
+          document.getElementById('chatPlaceholder').classList.add('oculto');
+          document.getElementById('chatContent').classList.remove('oculto');
+
           document.getElementById('chatUserName').textContent = u.nombre;
           document.getElementById('chatProfilePhoto').src = `/static/uploads/${u.foto}`;
           document.getElementById('chatContainer').innerHTML = '';
@@ -202,43 +211,83 @@ socket.on('update_conversations', () => {
 ========================= */
 document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', function (e) {
-    // 1️⃣ Si hace clic en el botón de los tres puntos
-    const menuBtn = e.target.closest('.menu-btn');
-    if (menuBtn) {
-      const rightCol = menuBtn.closest('.right');
-      const menu = rightCol?.querySelector('.contact-menu');
+  const menuBtn = e.target.closest('.menu-btn');
+  if (menuBtn) {
+    let menu = menuBtn.__menuRef; // ← recuperar si ya existe
+
+    // Si no existe, buscarlo una vez y guardarlo
+    if (!menu) {
+      menu = menuBtn.parentElement.querySelector('.contact-menu');
       if (!menu) return;
+      menuBtn.__menuRef = menu; // guardar referencia
+    }
 
-      // Cerrar otros menús
-      document.querySelectorAll('.contact-menu').forEach(m => {
-        if (m !== menu) m.classList.add('oculto');
+    // Mover el menú al body una sola vez
+    if (!menu.__movedToBody) {
+      document.body.appendChild(menu);
+      menu.__movedToBody = true;
+    }
+
+    // Cerrar otros menús
+    document.querySelectorAll('.contact-menu').forEach(m => {
+      if (m !== menu) m.classList.add('oculto');
+    });
+
+    // Alternar visibilidad
+    const isHidden = menu.classList.contains('oculto');
+    if (isHidden) {
+      menu.classList.remove('oculto');
+      const rect = menuBtn.getBoundingClientRect();
+      const menuWidth = 140;
+      const menuHeight = menu.offsetHeight || 100;
+      let top = rect.bottom + 6;
+      let left = rect.right - menuWidth;
+
+      // Asegura que no se salga de la pantalla
+      if (top + menuHeight > window.innerHeight) top = rect.top - menuHeight - 6;
+      if (left < 0) left = 8;
+
+      Object.assign(menu.style, {
+        position: 'fixed',
+        top: `${top}px`,
+        left: `${left}px`,
+        display: 'flex',
+        zIndex: 999999
       });
-
-      // Mostrar/ocultar este
-      menu.classList.toggle('oculto');
-      e.stopPropagation();
-      return;
+    } else {
+      menu.classList.add('oculto');
     }
 
-    // 2️⃣ Si hace clic dentro del menú en uno de sus botones
-    const menuActionBtn = e.target.closest('.contact-menu button');
-    if (menuActionBtn) {
-      const action = menuActionBtn.textContent.trim();
-      console.log('Acción del menú:', action);
-      menuActionBtn.closest('.contact-menu').classList.add('oculto');
-      return;
-    }
+    e.stopPropagation();
+    return;
+  }
 
-    // 3️⃣ Clic fuera → cerrar todos los menús
+  // Clic fuera → cerrar todos los menús
+  if (!e.target.closest('.contact-menu')) {
     document.querySelectorAll('.contact-menu').forEach(m => m.classList.add('oculto'));
-  });
+  }
 
-  // === DELEGACIÓN para abrir y cerrar el modal de calificación ===
+  // === Ajustar altura dinámica del textarea ===
+const textarea = document.getElementById('messageInput');
+if (textarea) {
+  textarea.addEventListener('input', () => {
+    textarea.style.height = 'auto';
+    textarea.style.height = Math.min(textarea.scrollHeight, 60) + 'px'; // crece hasta 120px
+  });
+}
+
+});
+
+
+// === DELEGACIÓN para abrir y cerrar el modal de calificación ===
 document.addEventListener("click", (e) => {
   // Abrir modal (cuando se haga clic en un enlace con la clase .abrir-modal-calificacion)
   if (e.target.closest(".abrir-modal-calificacion")) {
     const modal = document.getElementById("modalCalificacion");
     modal.style.display = "flex";
+
+    // 🔹 Cerrar cualquier menú contextual abierto
+    document.querySelectorAll(".contact-menu").forEach(m => m.classList.add("oculto"));
   }
 
   // Cerrar modal (botón cancelar)
@@ -260,6 +309,9 @@ document.addEventListener("click", (e) => {
   if (e.target.closest(".contact-menu a") && e.target.closest("a").textContent.includes("Eliminar")) {
     const modal = document.getElementById("confirmModal");
     modal.style.display = "flex";
+
+    // 🔹 Cerrar cualquier menú contextual abierto
+    document.querySelectorAll(".contact-menu").forEach(m => m.classList.add("oculto"));
   }
 
   // Cerrar modal al hacer clic en “Cancelar”
@@ -281,6 +333,7 @@ document.addEventListener("click", (e) => {
   }
 });
 
+
  const estrellas = document.querySelectorAll("#estrellasCalificacion i");
   let calificacion = 0;
 
@@ -297,6 +350,10 @@ document.addEventListener("click", (e) => {
     estrella.addEventListener("click", () => {
       calificacion = parseInt(estrella.dataset.valor);
       console.log("⭐ Calificación seleccionada:", calificacion);
+      // ✅ NUEVO: actualizar campo oculto del formulario
+    const inputValor = document.getElementById("valorCalificacion");
+    if (inputValor) inputValor.value = calificacion;
+      
     });
   });
 
@@ -315,5 +372,34 @@ document.addEventListener("click", (e) => {
   }
   
 });
+
+// 🔹 Cuando el usuario selecciona una conversación
+function abrirChat(otroUsuarioId) {
+  const chatPanel = document.getElementById("chatPanel");
+  chatPanel.dataset.partnerId = otroUsuarioId;
+  console.log("💬 Chat abierto con usuario:", otroUsuarioId);
+}
+
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".abrir-modal-calificacion");
+  if (!btn) return;
+
+  // buscar la conversación donde se hizo clic
+  const conversation = btn.closest(".conversation");
+  const usuarioId = conversation?.dataset.userId;
+  const input = document.getElementById("calificadoId");
+
+  if (usuarioId && input) {
+    input.value = usuarioId;
+    console.log("✅ Calificado ID asignado desde conversación:", usuarioId);
+  } else {
+    console.warn("⚠️ No se pudo asignar calificado_id");
+  }
+
+  // mostrar modal
+  const modal = document.getElementById("modalCalificacion");
+  if (modal) modal.style.display = "flex";
+});
+
 
 

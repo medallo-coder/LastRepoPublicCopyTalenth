@@ -198,7 +198,7 @@ html, body {
 }
 
 /* Botón de contacto con estilo similar a categorías */
-.contact-but {
+.contact-button {
   background-color: white;     /* Fondo blanco */
   border: 3px solid #3EAEB1;   /* Borde azul claro */
   color: black;                /* Texto negro */
@@ -210,7 +210,7 @@ html, body {
 }
 
 /* Efecto hover para botón de contacto: cambia fondo y texto */
-.contact-but:hover {
+.contact-button:hover {
   background-color: #3EAEB1;   /* Fondo azul claro */
   color: white;                /* Texto blanco */
 }

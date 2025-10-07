@@ -255,15 +255,6 @@
   color: #606060;
 }
   
-/* Estilo para las estrellas (calificación) */
-.estrellasTarjetas {
-  display: flex; /* Flexbox para alinear las estrellas */
-  justify-content: left; /* Centrado horizontal */
-  font-size: 1rem; /* Tamaño de fuente para las estrellas */
-  color: #3EAEB1; /* Color azul */
-  gap: 0.1rem; /* Espacio entre las estrellas */
-  margin-top: -8px; 
-} 
 
 .nombre {
   font-family: 'Oswald', sans-serif;
@@ -280,7 +271,7 @@
   font-family: 'Oswald', sans-serif;
   font-weight: 400; /* Regular */
   font-size: 16px;
-  color: black;
+  color: rgb(24, 23, 23);
   margin-top: 5px; /* Antes: 10px */
   margin-bottom: 4px; /* Añadir también si no hay */  
 }

@@ -36,6 +36,10 @@ class Usuario(db.Model, UserMixin):  #Hereda de UserMixin (mensajeria)
     reportes_hechos = db.relationship('Reportes', foreign_keys='Reportes.reportador_id', back_populates='reportador')
     reportes_asignados = db.relationship('Reportes', foreign_keys='Reportes.reportado_id', back_populates='asignado')
 
+    calificaciones_hechas = db.relationship('Calificaciones', foreign_keys='Calificaciones.calificador_id', back_populates='calificador')
+    calificaciones_asignadas = db.relationship('Calificaciones', foreign_keys='Calificaciones.calificado_id', back_populates='calificado')
+
+
     #se añadio la funcion is_active y get_id (mensajeria)
     def is_active(self):
         return True  # Usuario siempre activo

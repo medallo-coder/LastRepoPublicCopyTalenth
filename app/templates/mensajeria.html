@@ -59,40 +59,47 @@
 
       <!-- Panel derecho -->
       <section class="chat-panel" id="chatPanel">
-        <div class="top">
-          <div class="profile">
-            <img id="chatProfilePhoto" src="/static/uploads/default.jpg" alt="Avatar" />
-            <span id="chatUserName" class="placeholder-user">Selecciona un contacto</span>
-          </div>
-          <button id="viewProfileBtn">Ver perfil</button>
+        <div id="chatPlaceholder" class="chat-placeholder">
+          <i class="bi bi-chat-dots"></i>
+          <p>Selecciona un contacto para comenzar a chatear</p>
         </div>
 
-        <div id="chatContainer">
-          <!-- Mensajes dinámicos -->
-        </div>
+        <div class="chat-content oculto" id="chatContent">
+          <div class="top">
+            <div class="profile">
+              <img id="chatProfilePhoto" src="/static/uploads/default.jpg" alt="Avatar" />
+              <span id="chatUserName"></span>
+            </div>
+            <button id="viewProfileBtn">Ver perfil</button>
+          </div>
 
-        <div id="messageBar">
-          <div class="input-container">
-            <input type="hidden" id="currentUserId" value="{{ current_user.usuario_id }}" />
-            {% if session.get('abrir_chat_con') %}
-              <input type="hidden" id="abrirChatCon" value="{{ session.pop('abrir_chat_con') }}">
-            {% endif %}
-            <input type="text" id="messageInput" placeholder="Escribe un mensaje…" autocomplete="off" />
-            <button id="sendBtn"><i class="bi bi-send-fill"></i></button>
+          <div id="chatContainer"></div>
+
+          <div id="messageBar">
+            <div class="input-container">
+              <input type="hidden" id="currentUserId" value="{{ current_user.usuario_id }}" />
+              {% if session.get('abrir_chat_con') %}
+                <input type="hidden" id="abrirChatCon" value="{{ session.pop('abrir_chat_con') }}">
+              {% endif %}
+              <textarea id="messageInput" placeholder="Escribe un mensaje…" autocomplete="off" rows="1"></textarea>
+              <button id="sendBtn"><i class="bi bi-send-fill"></i></button>
+            </div>
           </div>
         </div>
+
       </section>
-    </div>
-  </section>
 
   
   <input type="hidden" id="chatPartnerInicial" value="{{ session.pop('abrir_chat_con', '') }}">
 
   <!-- Modal Calificación -->
-  <div id="modalCalificacion" class="overlay-calificacion" style="display: none;">
-    <div class="contenido-calificacion">
-      <h2>Calificar usuario</h2>
+<div id="modalCalificacion" class="overlay-calificacion" style="display: none;">
+  <div class="contenido-calificacion">
+    <h2>Calificar usuario</h2>
 
+    <!-- ✅ FORM agregado -->
+    <form id="formCalificacion" method="POST" action="{{  url_for('mensajeria.guardar_calificacion') }}">
+      
       <!-- Estrellas -->
       <div class="estrellas-calificacion" id="estrellasCalificacion">
         <i class="bi bi-star" data-valor="1"></i>
@@ -102,9 +109,14 @@
         <i class="bi bi-star" data-valor="5"></i>
       </div>
 
+      <!-- Campo oculto para valor de estrellas -->
+      <input type="hidden" id="valorCalificacion" name="valor_calificacion" value="0">
+      <input type="hidden" name="calificador_id" value="{{ calificador_id }}">  
+      <input type="hidden" name="calificado_id" id="calificadoId" value="{{ calificado_id }}">
+
       <!-- Reseña -->
       <div class="campo-calificacion">
-        <textarea id="reseñaCalificacion" placeholder="Escribe una reseña"></textarea>
+        <textarea id="reseñaCalificacion" name="reseña" placeholder="Escribe una reseña"></textarea>
       </div>
 
       <!-- Botones -->
@@ -112,8 +124,12 @@
         <button type="submit" class="btn-calificacion-guardar">Guardar</button>
         <button type="button" class="btn-calificacion-cancelar" id="cancelarModalCalificacion">Cancelar</button>
       </div>
-    </div>
+
+    </form>
+    <!-- ✅ Fin del FORM -->
   </div>
+</div>
+
 
   <!-- Modal de Confirmación para eliminar -->
 <div id="confirmModal" class="modal-overlay" style="display: none;">

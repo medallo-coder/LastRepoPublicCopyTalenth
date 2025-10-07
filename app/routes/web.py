@@ -14,6 +14,7 @@ from app.services.jwt_service import verificar_token
 from flask import send_from_directory
 from app.models import Usuario  # Importa el modelo de Usuario
 from app.models import Categorias  # Importa el modelo de Categorias
+from app.models.calificaciones import Calificaciones
 from werkzeug.security import check_password_hash
 from werkzeug.utils import secure_filename
 
@@ -337,8 +338,26 @@ def perfil_cliente():
         flash(resultado.get("message"), "success" if resultado.get("success") else "error")
         return redirect(url_for('web.perfil_cliente'))
 
-    # GET
+    # --- GET ---
     datos = obtener_datos_usuario_service()
+    usuario_id = datos.get("usuario_id")
+
+    # 🔹 Importar aquí tus modelos
+    from app.models.calificaciones import Calificaciones
+    from app.models.usuario import Usuario
+    from app.models.perfiles import perfiles
+    from app.extensions import db
+
+    # 🔹 Calificaciones hechas por este usuario (como calificador)
+    calificaciones = (
+        db.session.query(Calificaciones, Usuario, perfiles)
+        .join(Usuario, Calificaciones.calificado_id == Usuario.usuario_id)
+        .join(perfiles, perfiles.id_usuario == Usuario.usuario_id)
+        .filter(Calificaciones.calificador_id == usuario_id)
+        .order_by(Calificaciones.fecha_calificacion.desc())
+        .all()
+    )
+
     return render_template(
         'perfil_cliente.html',
         primer_nombre=datos.get("primer_nombre", "").title(),
@@ -346,8 +365,10 @@ def perfil_cliente():
         primer_apellido=datos.get("primer_apellido", "").title(),
         segundo_apellido=(datos.get("segundo_apellido") or "").title(),
         direccion=(datos.get("direccion") or "").title(),
-        foto_perfil=datos.get("foto_perfil", "")
+        foto_perfil=datos.get("foto_perfil", ""),
+        calificaciones=calificaciones  # 👈 ahora enviamos la lista al HTML
     )
+
 from werkzeug.utils import secure_filename
 
 @web.route('/uploads/perfiles/<filename>')
@@ -450,6 +471,23 @@ def perfil_experto():
     idiomas = obtener_idiomas_perfil()
     aptitudes = obtener_aptitudes_perfil(id_perfil)  # ✅ AÑADIDO: obtener lista de aptitudes del perfil
 
+    # --- 🔹 Cargar calificaciones recibidas por el experto ---
+    from app.models.calificaciones import Calificaciones
+    from app.models.usuario import Usuario
+    from app.models.perfiles import perfiles
+    from app.extensions import db
+
+
+    usuario_id = resultado.get("usuario_id")
+
+    calificaciones_recibidas = (
+        db.session.query(Calificaciones, Usuario, perfiles)
+        .join(Usuario, Calificaciones.calificador_id == Usuario.usuario_id)
+        .join(perfiles, perfiles.id_usuario == Usuario.usuario_id)
+        .filter(Calificaciones.calificado_id == usuario_id)
+        .order_by(Calificaciones.fecha_calificacion.desc())
+        .all()
+    )
     return render_template(
         'perfil_experto.html',
         id_perfil=id_perfil,
@@ -471,7 +509,8 @@ def perfil_experto():
         foto_perfil=resultado.get("foto_perfil", ""),
         direccion=resultado.get("direccion", ""),
         idiomas=idiomas,
-        aptitudes=aptitudes  #  AÑADIDO: pasar la lista de aptitudes al HTML
+        aptitudes=aptitudes,  #  AÑADIDO: pasar la lista de aptitudes al HTML
+        calificaciones = calificaciones_recibidas
     )
         
 """# Ruta para visualizar el chat
@@ -575,12 +614,26 @@ def perfil_experto_publico(usuario_id):
 
     perfil = obtener_perfil_publico_service(usuario_id)
 
+       # --- 🔹 Cargar calificaciones recibidas por el experto ---
+    
+
+    
+    calificaciones_recibidas = (
+        db.session.query(Calificaciones, Usuario, perfiles)
+        .join(Usuario, Calificaciones.calificador_id == Usuario.usuario_id)
+        .join(perfiles, perfiles.id_usuario == Usuario.usuario_id)
+        .filter(Calificaciones.calificado_id == usuario_id)
+        .order_by(Calificaciones.fecha_calificacion.desc())
+        .all()
+    )
+
     # Si tu modelo Usuario no tiene las relaciones directas y las maneja el modelo 'perfiles', puedes acceder desde perfil
     experiencias = perfil.experiencias if perfil else []
     idiomas = perfil.idioma if perfil else []
     aptitudes = perfil.aptitudes if perfil else []
     descripcion_perfil = perfil.descripcion_perfil if perfil else []
     estudios = perfil.estudios if perfil else []
+  
 
     return render_template(
         'perfil_experto_publico.html',
@@ -591,6 +644,7 @@ def perfil_experto_publico(usuario_id):
         aptitudes=aptitudes,
         descripcion_perfil=descripcion_perfil,
         estudios=estudios,
+        calificaciones = calificaciones_recibidas
     )
 
 
@@ -872,3 +926,4 @@ def guardar_reporte():
         flash("Error al guardar el reporte: " + str(e), "error")
 
     return redirect(url_for("web.inicio"))
+
