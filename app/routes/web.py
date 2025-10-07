@@ -14,6 +14,7 @@ from app.services.jwt_service import verificar_token
 from flask import send_from_directory
 from app.models import Usuario  # Importa el modelo de Usuario
 from app.models import Categorias  # Importa el modelo de Categorias
+from app.models.calificaciones import Calificaciones
 from werkzeug.security import check_password_hash
 from werkzeug.utils import secure_filename
 
@@ -476,6 +477,7 @@ def perfil_experto():
     from app.models.perfiles import perfiles
     from app.extensions import db
 
+
     usuario_id = resultado.get("usuario_id")
 
     calificaciones_recibidas = (
@@ -486,7 +488,6 @@ def perfil_experto():
         .order_by(Calificaciones.fecha_calificacion.desc())
         .all()
     )
-
     return render_template(
         'perfil_experto.html',
         id_perfil=id_perfil,
@@ -613,12 +614,26 @@ def perfil_experto_publico(usuario_id):
 
     perfil = obtener_perfil_publico_service(usuario_id)
 
+       # --- 🔹 Cargar calificaciones recibidas por el experto ---
+    
+
+    
+    calificaciones_recibidas = (
+        db.session.query(Calificaciones, Usuario, perfiles)
+        .join(Usuario, Calificaciones.calificador_id == Usuario.usuario_id)
+        .join(perfiles, perfiles.id_usuario == Usuario.usuario_id)
+        .filter(Calificaciones.calificado_id == usuario_id)
+        .order_by(Calificaciones.fecha_calificacion.desc())
+        .all()
+    )
+
     # Si tu modelo Usuario no tiene las relaciones directas y las maneja el modelo 'perfiles', puedes acceder desde perfil
     experiencias = perfil.experiencias if perfil else []
     idiomas = perfil.idioma if perfil else []
     aptitudes = perfil.aptitudes if perfil else []
     descripcion_perfil = perfil.descripcion_perfil if perfil else []
     estudios = perfil.estudios if perfil else []
+  
 
     return render_template(
         'perfil_experto_publico.html',
@@ -629,6 +644,7 @@ def perfil_experto_publico(usuario_id):
         aptitudes=aptitudes,
         descripcion_perfil=descripcion_perfil,
         estudios=estudios,
+        calificaciones = calificaciones_recibidas
     )
 
 

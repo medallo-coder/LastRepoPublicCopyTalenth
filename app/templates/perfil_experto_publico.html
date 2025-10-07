@@ -211,98 +211,42 @@
     <div class="slider-container">
       <div class="slider" id="slider">
 
-        <!-- Tarjeta 1 -->
-        <div class="card">
-          <div>
-            <img src="" alt="" />
-          </div>
-            <div class="card-content">
-              <h3 >Claudia Henao</h3>
-              <div class="estrellasTarjetas">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </div>
-              <p class="descripcion">Excelente trabajador, cumplió con todas sus responsabilidades, muy puntual.</p>
+        {% if calificaciones %}
+        {% for c, u, p in calificaciones %}
+          <div class="card">
+            <div>
+              {% if p.foto_perfil %}
+            <img src="{{ url_for('web.perfil_foto', filename=p.foto_perfil) }}" alt="Perfil" />
+          {% else %}
+            <img src="{{ url_for('static', filename='uploads/perfiles/defecto.png') }}" alt="Perfil por defecto" />
+          {% endif %}
             </div>
-        </div>
-        
-        <!-- Tarjeta 2 -->
-        <div class="card">
-          <div>
-            <img src="" alt="" />
-          </div>
-            <div class="card-content">
-              <h3 >Claudia Henao</h3>
-              <div class="estrellasTarjetas">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </div>
-              <p class="descripcion">Excelente trabajador, cumplió con todas sus responsabilidades, muy puntual.</p>
-            </div>
-        </div>
 
-        <!-- Tarjeta 3 -->
-        <div class="card">
-          <div>
-            <img src="" alt="" />
-          </div>
             <div class="card-content">
-              <h3 >Claudia Henao</h3>
-              <div class="estrellasTarjetas">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </div>
-              <p class="descripcion">Excelente trabajador, cumplió con todas sus responsabilidades, muy puntual.</p>
-            </div>
-        </div>
+              <h3>{{ p.primer_nombre }} {{ p.primer_apellido }}</h3>
 
-        <!-- Tarjeta 4 -->
-        <div class="card">
-          <div>
-            <img src="" alt="" />
-          </div>
-            <div class="card-content">
-              <h3 >Claudia Henao</h3>
               <div class="estrellasTarjetas">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
+                {% for i in range(1, 6) %}
+                  {% if i <= c.puntaje %}
+                    <i class="bi bi-star-fill"></i>
+                  {% else %}
+                    <i class="bi bi-star"></i>
+                  {% endif %}
+                {% endfor %}
               </div>
-              <p class="descripcion">Excelente trabajador, cumplió con todas sus responsabilidades, muy puntual.</p>
-            </div>
-        </div>
 
-        <!-- Tarjeta 5 -->
-        <div class="card">
-          <div>
-            <img src="" alt="" />
-          </div>
-            <div class="card-content">
-              <h3 >Claudia Henao</h3>
-              <div class="estrellasTarjetas">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </div>
-              <p class="descripcion">Excelente trabajador, cumplió con todas sus responsabilidades, muy puntual.</p>
+              <p class="descripcion">{{ c.reseña }}</p>
+              <small>{{ c.fecha_calificacion.strftime('%d/%m/%Y') }}</small>
             </div>
-        </div>
-        
-  
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="sin-calificaciones">Aún no has recibido ninguna calificación.</p>
+      {% endif %}
+
       </div>
+    </div>
+</div>
 
       <!-- Flechas -->
       <div class="arrows">
