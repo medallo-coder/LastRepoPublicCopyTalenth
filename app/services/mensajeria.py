@@ -12,6 +12,11 @@ from app.models.mensajeria import Mensajeria
 from app.models.usuario import Usuario
 from app.models.perfiles import perfiles
 
+from datetime import datetime, date
+from flask import flash
+from app.models.calificaciones import Calificaciones
+
+
 mensajeria_bp = Blueprint('mensajeria', __name__, url_prefix='/mensajeria')
 
 user_sid_map = {}  # Guarda: user_id → socket.id
@@ -21,7 +26,16 @@ user_sid_map = {}  # Guarda: user_id → socket.id
 @mensajeria_bp.route('/')
 @login_required
 def mensajeria():
-    return render_template('mensajeria.html', rol_usuario=current_user.id_rol)
+
+    calificador_id = current_user.usuario_id
+    calificado_id = session.get('abrir_chat_con')  # puede ser None si no hay chat abierto
+
+    return render_template(
+        'mensajeria.html',
+        calificador_id=calificador_id,
+        calificado_id=calificado_id,
+        rol_usuario=current_user.id_rol
+    )
 
 def _room_name(a, b):
     return f"chat_{min(a, b)}_{max(a, b)}"
@@ -301,4 +315,41 @@ def iniciar_chat_con_experto(experto_id):
 
     session['abrir_chat_con'] = experto_id  # 🔥 marca para abrir al renderizar mensajeria.html
     return redirect(url_for('mensajeria.mensajeria'))
+
+
+@mensajeria_bp.route('/guardar_calificacion', methods=['POST'])
+@login_required
+def guardar_calificacion():
+    try:
+        calificador_id = request.form.get('calificador_id')
+        calificado_id = request.form.get('calificado_id')
+        reseña = request.form.get('reseña')
+        puntaje = request.form.get('valor_calificacion')
+
+        print(f"💾 DATOS RECIBIDOS: {calificador_id}, {calificado_id}, {reseña}, {puntaje}")
+
+        # Validar datos
+        if not calificador_id or not calificado_id or not reseña or not puntaje:
+            flash("Faltan datos en la calificación", "error")
+            return redirect(url_for('mensajeria.mensajeria'))
+
+        # Guardar en la base de datos
+        nueva_calificacion = Calificaciones(
+            reseña=reseña,
+            puntaje=puntaje,
+            fecha_calificacion=date.today(),
+            calificador_id=calificador_id,
+            calificado_id=calificado_id
+        )
+        db.session.add(nueva_calificacion)
+        db.session.commit()
+
+        flash("✅ Calificación enviada correctamente", "success")
+        return redirect(url_for('mensajeria.mensajeria'))
+
+    except Exception as e:
+        db.session.rollback()
+        print("❌ Error al guardar calificación:", e)
+        flash("Error al guardar calificación: " + str(e), "error")
+        return redirect(url_for('mensajeria.mensajeria'))
 

@@ -350,6 +350,10 @@ document.addEventListener("click", (e) => {
     estrella.addEventListener("click", () => {
       calificacion = parseInt(estrella.dataset.valor);
       console.log("⭐ Calificación seleccionada:", calificacion);
+      // ✅ NUEVO: actualizar campo oculto del formulario
+    const inputValor = document.getElementById("valorCalificacion");
+    if (inputValor) inputValor.value = calificacion;
+      
     });
   });
 
@@ -368,5 +372,34 @@ document.addEventListener("click", (e) => {
   }
   
 });
+
+// 🔹 Cuando el usuario selecciona una conversación
+function abrirChat(otroUsuarioId) {
+  const chatPanel = document.getElementById("chatPanel");
+  chatPanel.dataset.partnerId = otroUsuarioId;
+  console.log("💬 Chat abierto con usuario:", otroUsuarioId);
+}
+
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".abrir-modal-calificacion");
+  if (!btn) return;
+
+  // buscar la conversación donde se hizo clic
+  const conversation = btn.closest(".conversation");
+  const usuarioId = conversation?.dataset.userId;
+  const input = document.getElementById("calificadoId");
+
+  if (usuarioId && input) {
+    input.value = usuarioId;
+    console.log("✅ Calificado ID asignado desde conversación:", usuarioId);
+  } else {
+    console.warn("⚠️ No se pudo asignar calificado_id");
+  }
+
+  // mostrar modal
+  const modal = document.getElementById("modalCalificacion");
+  if (modal) modal.style.display = "flex";
+});
+
 
 
