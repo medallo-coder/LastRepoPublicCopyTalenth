@@ -299,6 +299,10 @@
   border-radius: 1rem; /* Bordes redondeados */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
   margin-bottom: 1.5rem; /* Margen debajo */
+   height: auto ;
+    min-height: auto;
+     max-height: none;
+
 
 }
 
@@ -1167,240 +1171,29 @@
 /*-----------------------------------------------
   Media Queries para Responsive Design
 -----------------------------------------------*/
-/* Para pantallas más pequeñas (móviles) */
-@media (max-width: 768px) {
-  body {
-    padding: 1rem 0; /* Reduce el padding vertical */
-  }
-  .contenedor {
-    width: 95%;
-  }
+@media (max-width: 1280px){
+  .columna-izquierda{
+    padding-bottom: 40px;
+    height: auto ;
+    min-height: auto;
+     max-height: none;
 
-  .cuadro {
-    width: 95%; /* Ocupa casi todo el ancho */
-    margin-bottom: 1rem; /* Reduce el margen inferior */
   }
-
-  .redondo {
-    height: 3rem; /* Reduce la altura */
-    border-radius: 1.5rem; /* Reduce el radio del borde */
-  }
-
-  .tabs {
-    gap: 1rem; /* Reduce el espacio entre las pestañas */
-    justify-content: space-around; /* Distribuye las pestañas equitativamente */
-  }
-
-  .tab {
-    font-size: 1rem; /* Reduce el tamaño de la fuente de las pestañas */
-  }
-
-  .grande {
-    width: 95%; /* Ocupa casi todo el ancho */
-    height: auto; /* Altura automática */
-    padding: 1rem; /* Reduce el padding interno */
-    flex-direction: column; /* Apila los elementos verticalmente */
-    align-items: center; /* Centra los elementos */
-  }
-
-  .titulo-principal {
-    font-size: 1.5rem; /* Reduce el tamaño del título */
-    margin-bottom: 0.5rem; /* Reduce el margen inferior */
-  }
-
-  .contenedor-circulo {
-    margin-top: 0.3rem; /* Reduce el margen superior */
-  }
-
-  .circulo-icono {
-    width: 5rem; /* Reduce el ancho del círculo */
-    height: 5rem; /* Reduce la altura del círculo */
-  }
-
-  .circulo-icono i {
-    font-size: 3rem; /* Reduce el tamaño del icono */
-  }
-
-  .estrellas {
-    font-size: 1rem; /* Reduce el tamaño de las estrellas */
-    margin-top: 0.2rem; /* Reduce el margen superior */
-    gap: 0.1rem; /* Reduce el espacio entre las estrellas */
-  }
-
-  .contacto {
-    gap: 0.5rem; /* Reduce el espacio entre los íconos de contacto */
-    margin-top: 0.3rem; /* Reduce el margen superior */
-  }
-
-  .contacto .email,
-  .contacto .telefono {
-    font-size: 0.8rem; /* Reduce el tamaño de la fuente del contacto */
-  }
-
-  .contacto i {
-    font-size: 1rem; /* Reduce el tamaño de los íconos de contacto */
-    margin-right: 2px; /* Reduce el margen derecho del icono de contacto */
-  }
-
-  .icono-lapiz {
-    top: 0.3rem; /* Reduce la distancia desde la parte superior */
-    right: 0.3rem; /* Reduce la distancia desde la derecha */
-    font-size: 1.2rem; /* Reduce el tamaño del icono de lápiz */
-  }
-
-  .contenedor-columnas {
-    width: 95%; /* Ocupa casi todo el ancho */
-    flex-direction: column; /* Apila las columnas */
-    gap: 1rem; /* Reduce el espacio entre las columnas */
-  }
-
-  .columna-izquierda,
-  .columna-derecha,
-  .cuadro-pequeno {
-    width: 100%; /* Ocupan todo el ancho disponible */
-    margin-bottom: 1rem; /* Reduce el margen inferior */
-    /* height: auto; Elimina esta línea */
-  }
-
-  .titulo-izquierda,
-  .titulo-idiomas,
-  .titulo-habilidades,
-  .titulo-experiencia,
-  .titulo-estudios {
-    font-size: 1.2rem; /* Reduce el tamaño del título */
-    margin: 1rem 0 0.5rem; /* Reduce los márgenes */
-    padding: 0 1rem; /* Reduce el padding */
-  }
-
-  .descripcion-resumen {
-    font-size: 0.9rem; /* Reduce el tamaño de la descripción */
-    margin-top: -0.3rem; /* Reduce el margen superior */
-    margin-bottom: 1rem; /* Reduce el margen inferior */
-    padding: 0 1rem; /* Reduce el padding */
-  }
-
-  .rol,
-  .empresa,
-  .fechas,
-  .titulo,
-  .lugar,
-  .fecha,
-  .idioma-nombre,
-  .idioma-nivel {
-    font-size: 1rem; /* Reduce el tamaño de la fuente */
-    padding-left: 1rem; /* Reduce el padding izquierdo */
-    padding-right: 1rem; /* Reduce el padding derecho si es necesario */
-  }
-
-  .empresa,
-  .lugar,
-  .fecha {
-    padding-left: 1.5rem; /* Ajusta el padding para la indentación */
-  }
-
-  .experienciaicon,
-  .estudiosicon,
-  .idiomas {
-    padding: 0 1rem; /* Reduce el padding horizontal */
-  }
-
-  .iconos {
-    transform: translateX(10px); /* Ajusta el desplazamiento de los íconos */
-  }
-
-  #lapizexperiencia,
-  .bi-trash,
-  #lapizestudios,
-  #agregaridiomas,
-  #agregarhabilidad {
-    font-size: 1.3rem; /* Reduce el tamaño de los íconos de edición/borrar */
-  }
-
-  .añadir-experiencia,
-  .añadir-estudios,
-  .idioma-item {
-    padding-left: 1rem; /* Reduce el padding izquierdo */
-  }
-
-  .icono-borrar,
-  .icono-idioma {
-    font-size: 1.3rem; /* Reduce el tamaño de los íconos de idioma */
-    padding-right: 1rem; /* Reduce el padding derecho */
-  }
-
-  .lista-habilidades {
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Ajusta el ancho mínimo de las habilidades */
-    gap: 0.3rem; /* Reduce el espacio entre habilidades */
-  }
-
-  .habilidad-item {
-    font-size: 0.9rem; /* Reduce el tamaño de la fuente de las habilidades */
-    padding: 0.3rem 0.6rem; /* Reduce el padding de las habilidades */
-  }
-
-  /* Estilos para los formularios emergentes en pantallas pequeñas */
-  .formulario-editar,
-  .formulario-editar-descripcion,
-  .formulario-experiencia,
-  .formulario-editar-experiencia,
-  .formulario-estudios,
-  .formulario-editar-estudios,
-  .formulario-idioma,
-  .formulario-habilidad {
-    padding: 1rem; /* Reduce el padding del contenedor del formulario */
-  }
-
-  .formulario-contenido,
-  .formulario-contenido-descripcion,
-  .formulario-experiencia-contenido,
-  .formulario-editar-experiencia-contenido,
-  .formulario-estudios-contenido,
-  .formulario-editar-estudios-contenido,
-  .formulario-idioma-contenido, /* Asegúrate de que este exista si es necesario */
-  .formulario-habilidad-contenido {
-    width: 90%; /* Ocupa más ancho en pantallas pequeñas */
-    padding: 1.5rem; /* Reduce el padding interno del formulario */
-    border-radius: 15px; /* Reduce el radio del borde del formulario */
-  }
-
-  .formulario-contenido h2,
-  .formulario-contenido-descripcion h2,
-  .formulario-experiencia-contenido h2,
-  .formulario-editar-experiencia-contenido h2,
-  .formulario-estudios-contenido h2,
-  .formulario-editar-estudios-contenido h2,
-  .formulario-idioma-contenido h2,
-  .formulario-habilidad-contenido h2 {
-    font-size: 1.8rem; /* Reduce el tamaño del título del formulario */
-    margin-bottom: 1.5rem; /* Reduce el margen inferior del título del formulario */
-  }
-
-  .campo {
-    margin-bottom: 1rem; /* Reduce el margen inferior de los campos del formulario */
-  }
-
-  .campo input,
-  .campo textarea,
-  .campo select {
-    padding: 0.6rem; /* Reduce el padding de los inputs/textareas/selects */
-    font-size: 0.9rem; /* Reduce el tamaño de la fuente de los inputs/textareas/selects */
-    border-radius: 8px; /* Reduce el radio del borde de los inputs/textareas/selects */
-  }
-
-  .botones {
-    margin-top: 1.5rem; /* Reduce el margen superior de los botones del formulario */
-    gap: 0.5rem; /* Reduce el espacio entre los botones del formulario */
-  }
-
-  .botones button {
-    padding: 0.3rem 1.5rem; /* Reduce el padding de los botones del formulario */
-    font-size: 0.9rem; /* Reduce el tamaño de la fuente de los botones del formulario */
-    border-radius: 20px; /* Reduce el radio del borde de los botones del formulario */
-  }
+  
+   
+.descripcionicon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+   flex-wrap: wrap;       /* 🔹 Permite que los elementos hagan salto de línea */
+  word-break: break-word;
+ 
+}
 }
 
 /* Para tablets y pantallas medianas */
-@media (min-width: 769px) and (max-width: 1200px) {
+@media (max-width: 1200px) {
   .cuadro {
     width: 85%; /* Ocupa un poco más de ancho que en escritorio */
   }
@@ -1480,60 +1273,329 @@
   /* Los formularios emergentes pueden mantener un ancho similar al de escritorio en tablets */
 }
 
-/* Para pantallas de escritorio grandes (si es necesario ajustes específicos) */
-@media (min-width: 1201px) {
-  .cuadro {
-    width: 70%; /* Mantiene el ancho original */
+
+@media (max-width: 1024px){
+  .contenedor {
+    width: 85%;             /* más ancho en pantallas pequeñas */
+    height: auto;           /* altura automática según el contenido */
+    padding: 15px;          /* menos padding para que no se vea apretado */
+    margin: 0 auto;         /* centrado horizontal */
+    border-radius: 0.8rem;  /* bordes más suaves */
+  }
+  .columna-izquierda{
+    padding-bottom: 40px;
+    height: auto ;
+    min-height: auto;
+     max-height: none;
+
+  }
+  
+   
+.descripcionicon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+   flex-wrap: wrap;       /* 🔹 Permite que los elementos hagan salto de línea */
+  word-break: break-word;
+ 
+}
+}
+@media (max-width: 820px){
+  .contenedor {
+    width: 85%;             /* más ancho en pantallas pequeñas */
+    height: auto;           /* altura automática según el contenido */
+    padding: 15px;          /* menos padding para que no se vea apretado */
+    margin: 0 auto;         /* centrado horizontal */
+    border-radius: 0.8rem;  /* bordes más suaves */
+  }
+  .columna-izquierda{
+    padding-bottom: 40px;
+    height: auto ;
+    min-height: auto;
+     max-height: none;
+
+  }
+  
+   
+.descripcionicon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+   flex-wrap: wrap;       /* 🔹 Permite que los elementos hagan salto de línea */
+  word-break: break-word;
+ 
+}
+}
+
+/* Para pantallas más pequeñas (móviles) */
+@media (max-width: 768px) {
+  
+  .columna-izquierda{
+    padding-bottom: 40px;
+    height: auto ;
+    min-height: auto;
+     max-height: none;
+
+  }
+  
+   
+.descripcionicon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+   flex-wrap: wrap;       /* 🔹 Permite que los elementos hagan salto de línea */
+  word-break: break-word;
+ 
+}
+  
+   .contenedor {
+    width: 85%;             /* más ancho en pantallas pequeñas */
+    height: auto;           /* altura automática según el contenido */
+    padding: 15px;          /* menos padding para que no se vea apretado */
+    margin: 0 auto;         /* centrado horizontal */
+    border-radius: 0.8rem;  /* bordes más suaves */
+  }
+}
+
+@media (max-width: 540px){
+   .columna-izquierda {
+    min-height: 650px; /* 🔹 Aumenta el alto del cuadro */
+  }
+}
+
+
+
+
+@media (max-width: 480px) {
+
+  .columna-izquierda{
+    padding-bottom: 40px;
+    height: auto ;
+    min-height: auto;
+     max-height: none;
+
+  }
+  
+   
+.descripcionicon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+   flex-wrap: wrap;       /* 🔹 Permite que los elementos hagan salto de línea */
+  word-break: break-word;
+ 
+}
+  .experto {
+    padding-top: 90px;
   }
 
-  .grande {
-    width: 76; /* Mantiene el ancho original */
+  .cuadro, .grande, .contenedor-columnas {
+    width: 95%;
+  }
+
+  .tabs {
+    gap: 1rem;
+  }
+
+  .tab {
+    font-size: 1.1rem;
+  }
+
+  .titulo-principal {
+    font-size: 1.4rem;
+  }
+
+  .image {
+    width: 6rem;
+    height: 6rem;
   }
 
   .contenedor-columnas {
-    width: 70%; /* Mantiene el ancho original */
-    flex-direction: row; /* Asegura la disposición horizontal */
+    flex-direction: column;
+    align-items: center;
   }
 
-  .columna-izquierda {
-    flex: 2; /* Mantiene la proporción */
+  .columna-izquierda, .columna-derecha {
+    width: 100%;
   }
 
-  .columna-derecha {
-    flex: 1; /* Mantiene la proporción */
+  .contacto {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
   }
 
-  .cuadro-pequeno {
-    width: 100%; /* Ocupa todo el ancho de la columna derecha */
+  
+  .botones button {
+    padding: 0.5rem 2rem;
   }
 
-  /* Aquí podrías añadir ajustes para fuentes más grandes o espaciados si lo deseas en escritorios muy grandes */
+  .titulo-izquierda,
+  .titulo-idiomas {
+    font-size: 1.2rem;
+  }
+
+
+  .idioma-item {
+    padding-left: 10px;
+  }
+
+  .titulo-experiencia , .titulo-estudios{
+    padding: 0 -1px;
+
+  }
+
+  .empresa, 
+  .lugar,
+  .fechas,
+  .fecha {
+    padding: 0 50px;
+  }
+  
+
 }
 
+@media (max-width: 414px){
 
-/*modal de ver la imagen mas*/
-.modal-overlay {
-  position: fixed;
+  .columna-izquierda{
+    padding-bottom: 40px;
+    height: auto ;
+    min-height: auto;
+     max-height: none;
+
+  }
+  
+   
+.descripcionicon {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0,0,0,0.8);
-  z-index: 999;
+  padding: 0 50px;
+   flex-wrap: wrap;       /* 🔹 Permite que los elementos hagan salto de línea */
+  word-break: break-word;
+ 
+}
+  .titulo-experiencia , .titulo-estudios{
+    padding: 0 0;
+
+  }
+
+  .empresa, 
+  .lugar,
+  .fechas,
+  .fecha {
+    padding: 0 50px;
+  }
+
+   .contenedor {
+    width: 95%;             /* más ancho en pantallas pequeñas */
+    height: auto;           /* altura automática según el contenido */
+    padding: 15px;          /* menos padding para que no se vea apretado */
+    margin: 0 auto;         /* centrado horizontal */
+    border-radius: 0.8rem;  /* bordes más suaves */
+  }
+  
 }
 
-.modal-content {
-  max-width: 80%;
-  max-height: 80%;
-  border-radius: 8px;
+@media (max-width: 375px) {
+
+  .columna-izquierda{
+    padding-bottom: 40px;
+    height: auto ;
+    min-height: auto;
+     max-height: none;
+
+  }
+  .experto {
+    padding-top: 90px;
+  }
+
+  .cuadro, .grande, .contenedor-columnas {
+    width: 95%;
+  }
+
+  .tabs {
+    gap: 1rem;
+  }
+
+  .tab {
+    font-size: 1.1rem;
+  }
+
+  .titulo-principal {
+    font-size: 1.4rem;
+  }
+
+  .image {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .contenedor-columnas {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .columna-izquierda, .columna-derecha {
+    width: 100%;
+  }
+
+  .contacto {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  
+  .botones button {
+    padding: 0.5rem 2rem;
+  }
+
+  .titulo-izquierda,
+  .titulo-idiomas {
+    font-size: 1.2rem;
+  }
+
+
+  .idioma-item {
+    padding-left: 10px;
+  }
+
+  .titulo-experiencia , .titulo-estudios{
+    padding: 0 -1px;
+
+  }
+
+  .empresa, 
+  .lugar,
+  .fechas,
+  .fecha {
+    padding: 0 50px;
+  }
+  
+.descripcionicon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+   flex-wrap: wrap;       /* 🔹 Permite que los elementos hagan salto de línea */
+  word-break: break-word;
+ 
 }
 
-.close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  color: white;
-  font-size: 40px;
-  cursor: pointer;
+}
+
+@media (max-width: 344px){
+  .contenedor {
+    width: 95%;             /* más ancho en pantallas pequeñas */
+    height: auto;           /* altura automática según el contenido */
+    padding: 15px;          /* menos padding para que no se vea apretado */
+    margin: 0 auto;         /* centrado horizontal */
+    border-radius: 0.8rem;  /* bordes más suaves */
+  }
+  
 }

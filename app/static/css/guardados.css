@@ -334,14 +334,18 @@ html, body {
     background-color: #ccc;
      margin-top: 40px; /* <-- para bajarla */
 }
-
+/* Ícono cuando no hay imagen de perfil */
 .placeholder-icon {
-    font-size: 4rem; 
-    color: #3EAEB1; 
-    background-color: #e3e3e3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 180px;            /* igual que la imagen */
+  height: 180px;
+  border-radius: 50%;      /* círculo */
+  background-color: #e3e3e3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;         /* tamaño del ícono dentro del círculo */
+  color: #3EAEB1;
+  margin-top: 40px;
 }
 
 /* Fondo y overlay (igual que modalCerrarSesion) */
@@ -678,12 +682,12 @@ html, body {
   /* Categoría, subcategoría y botón de contacto */
   .cate, .subcate, .contact-but {
     font-size: 12px;    /* Tamaño pequeño para texto menos relevante */
-    padding: 5px 14px;  /* Espaciado interno para dar espacio entre texto y borde */
+    padding: 5px 3px;  /* Espaciado interno para dar espacio entre texto y borde */
   }
 
   /* Menú o elemento extra alineado a la izquierda */
   .menu1 {
-    margin-left: 45%;   /* Margen izquierdo para empujar el menú más hacia la derecha */
+    margin-left: 40%;   /* Margen izquierdo para empujar el menú más hacia la derecha */
   }
 
   /* Pseudo-elemento decorativo después de .categoria */
@@ -845,13 +849,13 @@ html, body {
   /* Descripción corta del servicio */
   .descripcion1 {
     font-size: 13px;    /* Tamaño de fuente pequeño para no ocupar demasiado espacio */
-    max-width: 90%;     /* Limita el ancho máximo para que no ocupe todo el contenedor */
+    max-width: 70%;     /* Limita el ancho máximo para que no ocupe todo el contenedor */
   }
 
   /* Categoría, subcategoría y botón de contacto */
-  .cate, .subcate, .contact-but {
+  .cate, .subcate {
     font-size: 12px;    /* Tamaño pequeño para texto menos relevante */
-    padding: 5px 14px;  /* Espaciado interno para dar espacio entre texto y borde */
+    padding: 5px 3px;  /* Espaciado interno para dar espacio entre texto y borde */
   }
 
   /* Menú o elemento extra alineado a la izquierda */
@@ -862,7 +866,7 @@ html, body {
   /* Pseudo-elemento decorativo después de .categoria */
   .categoria::after {
     left: 5%;           /* Posición desde la izquierda para la línea decorativa */
-    width: 90%;         /* Ancho que abarca la mayor parte del contenedor */
+    width: 80%;         /* Ancho que abarca la mayor parte del contenedor */
   }
 }
 
@@ -1010,13 +1014,13 @@ html, body {
   /* Descripción corta del servicio */
   .descripcion1 {
     font-size: 13px;    /* Tamaño de fuente pequeño para no ocupar demasiado espacio */
-    max-width: 90%;     /* Limita el ancho máximo para que no ocupe todo el contenedor */
+    max-width: 75%;     /* Limita el ancho máximo para que no ocupe todo el contenedor */
   }
 
   /* Categoría, subcategoría y botón de contacto */
-  .cate, .subcate, .contact-but {
+  .cate, .subcate{
     font-size: 12px;    /* Tamaño pequeño para texto menos relevante */
-    padding: 5px 14px;  /* Espaciado interno para dar espacio entre texto y borde */
+    padding: 5px 3px;  /* Espaciado interno para dar espacio entre texto y borde */
   }
 
   /* Menú o elemento extra alineado a la izquierda */
@@ -1032,7 +1036,6 @@ html, body {
 }
 
 @media (max-width: 540px) {
-
 
   .cuadro {
       width: 90%;
@@ -1151,7 +1154,8 @@ html, body {
   }
 
   /* Imagen dentro del contenedor */
-  .image {
+  .perfil-img,
+  .placeholder-icon {
     width: 130px;       /* Ancho fijo para la imagen en tablets */
     height: 130px;      /* Alto fijo para la imagen, para mantener proporción */
   }
@@ -1178,9 +1182,9 @@ html, body {
   }
 
   /* Categoría, subcategoría y botón de contacto */
-  .cate, .subcate, .contact-but {
+  .cate, .subcate {
     font-size: 12px;    /* Tamaño pequeño para texto menos relevante */
-    padding: 5px 14px;  /* Espaciado interno para dar espacio entre texto y borde */
+    padding: 5px 3px;  /* Espaciado interno para dar espacio entre texto y borde */
   }
 
   /* Menú o elemento extra alineado a la izquierda */
@@ -1281,9 +1285,9 @@ html, body {
   }
 
   /* Categoría, subcategoría y botón contacto con fuente y padding más pequeños */
-  .cate, .subcate, .contact-but {
+  .cate, .subcate {
     font-size: 11px;
-    padding: 4px 12px;  /* Menor padding para que no ocupe mucho espacio */
+    padding: 4px 3px;  /* Menor padding para que no ocupe mucho espacio */
   }
 
   
@@ -1301,6 +1305,14 @@ html, body {
     display: flex;              /* Usa flexbox para facilitar alineación */
     justify-content: center;    /* Centra el botón horizontalmente */
     margin: 12px auto 0 auto;   /* Margen superior de 12px y centrado horizontal (auto) */
+  }
+
+   /* Imagen dentro del contenedor */
+  .perfil-img,
+  .placeholder-icon {
+    width: 130px;       /* Ancho fijo para la imagen en tablets */
+     margin-top: 60px;
+    height: 130px;      /* Alto fijo para la imagen, para mantener proporción */
   }
 
 
@@ -1358,6 +1370,19 @@ html, body {
     width: 97%;
   
   }
+
+  /* Categoría, subcategoría y botón de contacto */
+  .cate, .subcate {
+    font-size: 12px;    /* Tamaño pequeño para texto menos relevante */
+    padding: 0 3px;  /* Espaciado interno para dar espacio entre texto y borde */
+  }
+  /* Imagen dentro del contenedor */
+  .perfil-img,
+  .placeholder-icon {
+    width: 120px;       /* Ancho fijo para la imagen en tablets */
+     margin-top: 60px;
+    height: 120px;      /* Alto fijo para la imagen, para mantener proporción */
+  }
 }
 
 
@@ -1403,6 +1428,13 @@ html, body {
     left: 5%;
     width: 97%;
   
+  }
+
+  .perfil-img,
+  .placeholder-icon {
+    width: 120px;       /* Ancho fijo para la imagen en tablets */
+     margin-top: 60px;
+    height: 120px;      /* Alto fijo para la imagen, para mantener proporción */
   }
 }
 
