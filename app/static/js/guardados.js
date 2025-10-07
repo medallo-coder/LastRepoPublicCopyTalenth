@@ -48,30 +48,30 @@ document.addEventListener('DOMContentLoaded', () => {
   // });
 
   // ELIMINAR GUARDADO CON MODAL
-  const trashIcons = document.querySelectorAll('.eliminar-guardado');
-  const modal = document.getElementById('confirmModal');
-  const confirmBtn = document.getElementById('confirmDelete');
-  const cancelBtn = document.getElementById('cancelDelete');
-  let selectedPubId = null;
-  let selectedElement = null;
+const trashIcons = document.querySelectorAll('.eliminar-guardado');
+const modal = document.getElementById('confirmModal');
+const confirmBtn = document.getElementById('confirmDelete');
+const cancelBtn = document.getElementById('cancelDelete');
+let selectedPubId = null;
+let selectedElement = null;
 
-  trashIcons.forEach(icon => {
-    icon.addEventListener('click', () => {
-      selectedPubId = icon.dataset.id;
-      selectedElement = icon.closest('.categoria');
-      modal.style.display = 'flex'; // Mostrar modal
-    });
+trashIcons.forEach(icon => {
+  icon.addEventListener('click', () => {
+    selectedPubId = icon.dataset.id;
+    selectedElement = icon.closest('.categoria');
+    modal.style.display = 'flex'; // Mostrar modal
   });
+});
 
-    confirmBtn.addEventListener('click', () => {
-    if (!selectedPubId) return;
+confirmBtn.addEventListener('click', () => {
+  if (!selectedPubId) return;
 
-    fetch(`/mis-guardados/eliminar/${selectedPubId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+  fetch(`/mis-guardados/eliminar/${selectedPubId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
     .then(res => res.json())
     .then(data => {
       mostrarMensaje(data.message, data.success ? 'success' : 'danger');
@@ -80,10 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Eliminar la publicación del DOM
         selectedElement.remove();
 
-        // 👇 Verificar si ya no quedan publicaciones
+        // Verificar si ya no quedan publicaciones
         const publicacionesRestantes = document.querySelectorAll('.categoria');
         if (publicacionesRestantes.length === 0) {
-          // Mostrar contenedor "No hay guardados"
           const noGuardados = document.querySelector('.no-guardados');
           if (noGuardados) {
             noGuardados.style.display = 'flex';
@@ -96,39 +95,28 @@ document.addEventListener('DOMContentLoaded', () => {
       mostrarMensaje("Error al eliminar el guardado", "danger");
     })
     .finally(() => {
+      // Siempre cerrar modal y limpiar variables
       modal.style.display = 'none';
       selectedPubId = null;
       selectedElement = null;
     });
-  });
+});
 
-  // Dentro de tu fetch al eliminar publicación
-if (data.success && selectedElement) {
-  selectedElement.remove();
+// Cancelar cierra el modal
+cancelBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+  selectedPubId = null;
+  selectedElement = null;
+});
 
-  const publicacionesRestantes = document.querySelectorAll('.categoria');
-  if (publicacionesRestantes.length === 0) {
-    const noGuardados = document.querySelector('.no-guardados');
-    if (noGuardados) {
-      noGuardados.style.display = 'flex';
-    }
-  }
-}
-
-
-  cancelBtn.addEventListener('click', () => {
+// Clic fuera del modal también lo cierra
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) {
     modal.style.display = 'none';
     selectedPubId = null;
     selectedElement = null;
-  });
-
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      modal.style.display = 'none';
-      selectedPubId = null;
-      selectedElement = null;
-    }
-  });
+  }
+});
 });
 
 // Función para inyectar mensaje al contenedor dinámico

@@ -59,31 +59,35 @@
 
       <!-- Panel derecho -->
       <section class="chat-panel" id="chatPanel">
-        <div class="top">
-          <div class="profile">
-            <img id="chatProfilePhoto" src="/static/uploads/default.jpg" alt="Avatar" />
-            <span id="chatUserName" class="placeholder-user">Selecciona un contacto</span>
-          </div>
-          <button id="viewProfileBtn">Ver perfil</button>
+        <div id="chatPlaceholder" class="chat-placeholder">
+          <i class="bi bi-chat-dots"></i>
+          <p>Selecciona un contacto para comenzar a chatear</p>
         </div>
 
-        <div id="chatContainer">
-          <!-- Mensajes dinámicos -->
-        </div>
+        <div class="chat-content oculto" id="chatContent">
+          <div class="top">
+            <div class="profile">
+              <img id="chatProfilePhoto" src="/static/uploads/default.jpg" alt="Avatar" />
+              <span id="chatUserName"></span>
+            </div>
+            <button id="viewProfileBtn">Ver perfil</button>
+          </div>
 
-        <div id="messageBar">
-          <div class="input-container">
-            <input type="hidden" id="currentUserId" value="{{ current_user.usuario_id }}" />
-            {% if session.get('abrir_chat_con') %}
-              <input type="hidden" id="abrirChatCon" value="{{ session.pop('abrir_chat_con') }}">
-            {% endif %}
-            <input type="text" id="messageInput" placeholder="Escribe un mensaje…" autocomplete="off" />
-            <button id="sendBtn"><i class="bi bi-send-fill"></i></button>
+          <div id="chatContainer"></div>
+
+          <div id="messageBar">
+            <div class="input-container">
+              <input type="hidden" id="currentUserId" value="{{ current_user.usuario_id }}" />
+              {% if session.get('abrir_chat_con') %}
+                <input type="hidden" id="abrirChatCon" value="{{ session.pop('abrir_chat_con') }}">
+              {% endif %}
+              <textarea id="messageInput" placeholder="Escribe un mensaje…" autocomplete="off" rows="1"></textarea>
+              <button id="sendBtn"><i class="bi bi-send-fill"></i></button>
+            </div>
           </div>
         </div>
+
       </section>
-    </div>
-  </section>
 
   
   <input type="hidden" id="chatPartnerInicial" value="{{ session.pop('abrir_chat_con', '') }}">

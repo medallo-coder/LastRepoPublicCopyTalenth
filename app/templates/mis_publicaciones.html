@@ -163,11 +163,6 @@
             <div class="publicacion-info">
               <h3 class="nombre">{{ pub.usuario.perfiles.primer_nombre }} {{ pub.usuario.perfiles.primer_apellido }}</h3>
 
-              <div class="estrellasTarjetas">
-                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-              </div>
 
               <h4 class="titulo">{{ pub.titulo }}</h4>
               <p class="descripcion"><strong>Categoría:</strong> {{ pub.categoria.tipo_categoria if pub.categoria else 'Sin categoría' }}</p>

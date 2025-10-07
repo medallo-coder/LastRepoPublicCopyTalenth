@@ -676,14 +676,15 @@ button:hover,
 
 /* Botones */
 #modalEliminar .modal-buttons button {
-  padding: 0.4rem 3rem;
-  font-size: 1rem;
+  padding: 0.4rem 3rem;   /* igual que modalCerrarSesion */
+  border-radius: 25px;
   font-family: 'Oswald', sans-serif;
   font-weight: 500;
-  border-radius: 25px;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: opacity 0.3s;
   border: none;
+  max-width: 140px;       /* opcional, evita que se estiren demasiado */
 }
 
 /* Botón cancelar */

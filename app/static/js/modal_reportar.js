@@ -31,14 +31,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 🔹 Función reutilizable para abrir el modal
   function abrirModal(e, boton, modal) {
-    e.preventDefault();
-    console.log("[Modal Reporte] botón clickeado");
+  e.preventDefault();
+  console.log("[Modal Reporte] botón clickeado");
 
-    const reportadoId = boton.getAttribute("data-usuario-reportado");
-    const inputReportado = document.getElementById("reportado-id-input");
+  const reportadoId = boton.getAttribute("data-usuario-reportado");
+  const inputReportado = document.getElementById("reportado-id-input");
 
-    if (inputReportado) inputReportado.value = reportadoId;
+  if (inputReportado) inputReportado.value = reportadoId;
 
-    modal.style.display = "flex";
-  }
+  // 🔸 ➕ Agrega esta línea:
+  document.querySelectorAll('.contact-menu').forEach(m => m.classList.add('oculto'));
+
+  modal.style.display = "flex";
+}
+
 });

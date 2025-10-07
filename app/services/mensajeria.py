@@ -26,13 +26,15 @@ user_sid_map = {}  # Guarda: user_id → socket.id
 @mensajeria_bp.route('/')
 @login_required
 def mensajeria():
+
     calificador_id = current_user.usuario_id
     calificado_id = session.get('abrir_chat_con')  # puede ser None si no hay chat abierto
 
     return render_template(
         'mensajeria.html',
         calificador_id=calificador_id,
-        calificado_id=calificado_id
+        calificado_id=calificado_id,
+        rol_usuario=current_user.id_rol
     )
 
 def _room_name(a, b):
