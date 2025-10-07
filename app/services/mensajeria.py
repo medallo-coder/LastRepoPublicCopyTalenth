@@ -21,7 +21,7 @@ user_sid_map = {}  # Guarda: user_id → socket.id
 @mensajeria_bp.route('/')
 @login_required
 def mensajeria():
-    return render_template('mensajeria.html')
+    return render_template('mensajeria.html', rol_usuario=current_user.id_rol)
 
 def _room_name(a, b):
     return f"chat_{min(a, b)}_{max(a, b)}"

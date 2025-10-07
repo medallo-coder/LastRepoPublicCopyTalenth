@@ -1,48 +1,67 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&display=swap');
 
-/* Reset y base */
+/* === RESET Y BASE === */
 * {
   box-sizing: border-box;
   font-family: 'Oswald', sans-serif;
   font-weight: 500;
 }
 
-body, html {
+html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #f3f4f6;
+  overflow: hidden;
+  background-color: #f8f8f8 !important;
 }
 
-/* Layout general */
+/* === LAYOUT GENERAL === */
 .chat-section {
-  height: calc(100vh - 90px); /* alto total menos nav */
-  margin-top: 90px; /* empuja debajo del nav */
+  height: calc(100vh - 90px);
+  margin-top: 90px;
 }
 
 .chat-app {
+  width: 90%;
+  margin: 0 auto;
   display: flex;
+  justify-content: center;
+  align-items: stretch;
   height: 100%;
-  min-height: 0; /* clave para que los hijos flex crezcan */
+  gap: 1.5rem;
+  padding: 1rem;
+  background-color: #f8f8f8;
 }
 
-/* Panel izquierdo */
+/* === PANEL IZQUIERDO === */
 .chat-sidebar {
-  overflow: visible !important;
+  width: 30%;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
+  padding-bottom: 1rem;
+  position: relative;
+  z-index: 1;
 }
+
 #conversationsPanel {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
   overflow: visible !important;
 }
 
-
+/* Conversaciones */
 .conversation {
   display: flex;
   justify-content: space-between;
-  align-items: stretch;
+  align-items: flex-start;
   padding: 1rem;
   cursor: pointer;
-  position: relative;
   transition: background-color 0.2s ease;
+  position: relative;
 }
 
 .conversation:hover {
@@ -60,8 +79,8 @@ body, html {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background-color: #d1d5db;
   object-fit: cover;
+  background-color: #d1d5db;
 }
 
 .conversation h2 {
@@ -76,46 +95,51 @@ body, html {
   font-size: 0.875rem;
 }
 
-/* Columna derecha */
 .conversation .right {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  min-width: 50px;
-  height: 100%;
-  padding: 4px 0;
-  box-sizing: border-box;
-}
-
-.menu-btn {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-  color: #666;
+  align-items: flex-end;
+  gap: 3px;
+  min-width: 45px;
+  padding-top: 2px;
+  transform: translateY(-10px);
+  position: relative;
+  justify-content: flex-start;
 }
 
 .time {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: #666;
+  margin-top: -2px; /* sube la hora un poquito */
+}
+
+
+/* Botón de menú y badge */
+.menu-btn {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: #666;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
 }
 
 .badge {
+  position: absolute;
+  bottom: -23px;
+  right: 0;
   background-color: #3eaeb1;
   color: white;
   font-size: 0.75rem;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.badge:empty::after {
-  content: " ";
-  visibility: hidden;
+  z-index: 1;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .badge:empty {
@@ -123,41 +147,29 @@ body, html {
   border: 1px solid transparent;
 }
 
-.menu-btn{
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-/* Menú desplegable */
-/* ==== Estilo mejorado del menú contextual (.contact-menu) ==== */
+/* === MENÚ CONTEXTUAL === */
 .contact-menu {
   position: absolute;
   top: 30px;
   right: 0;
-  background-color: #F8F8F8;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  width: 125px;
+  background: #ffffff; /* blanco sólido */
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  width: 140px;
   padding: 8px;
   display: flex;
   flex-direction: column;
-  z-index: 9999;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500; 
-  color: black;
+  z-index: 99999;
 }
 
-/* Botón de cierre */
 .menu-close-btn {
   position: absolute;
   top: 4px;
   right: 6px;
   font-size: 20px;
-  font-weight: 700; /* texto en negrita */
-  font-family: Arial, Helvetica, sans-serif !important; /* FORZA que no use Oswald */
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif !important;
   color: #333;
   cursor: pointer;
   transition: color 0.2s ease;
@@ -168,30 +180,27 @@ body, html {
   color: #3EAEB1;
 }
 
-/* Enlaces internos */
 .contact-menu a {
   display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 6px 8px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    text-align: left;
-    font-size: 14px;
-    text-decoration: none;
-    color: black;
+  align-items: center;
+  width: 100%;
+  padding: 6px 8px;
+  background: none;
+  border: none;
+  text-align: left;
+  text-decoration: none;
+  font-size: 14px;
+  color: black;
+  cursor: pointer;
 }
 
- .contact-menu a span {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 500; /* Medium */
-    font-size: 14px;
-    text-decoration: none;
-  }
+.contact-menu a span {
+  font-weight: 500;
+  font-size: 14px;
+}
 
-  .contact-menu a:hover i,
-  .contact-menu a:hover span {
+.contact-menu a:hover i,
+.contact-menu a:hover span {
   color: #3EAEB1;
 }
 
@@ -200,28 +209,36 @@ body, html {
   font-size: 16px;
 }
 
-/* Oculto por defecto */
-.oculto {
-  display: none !important;
-}
-
-
-
-/* Panel derecho */
+/* === PANEL DERECHO === */
 .chat-panel {
   flex: 1;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 0; /* clave para que #chatContainer crezca */
+  min-height: 0;
+  overflow: hidden;
 }
 
+.chat-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  overflow-y: auto;
+}
+
+/* Cabecera */
 .chat-panel .top {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid black;
   padding-bottom: 0.75rem;
+  width: 95%;
+  margin: 0 auto;
+  flex-shrink: 0;
 }
 
 .chat-panel .top .profile {
@@ -250,7 +267,7 @@ body, html {
   padding: 0.4rem 2rem;
   border-radius: 25px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: 0.3s ease;
 }
 
 .chat-panel .top button:hover {
@@ -258,54 +275,73 @@ body, html {
   color: white;
 }
 
-/* Contenedor mensajes */
+/* === CONTENEDOR DE MENSAJES === */
 #chatContainer {
   flex: 1;
-  min-height: 0;
   overflow-y: auto;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;
 }
 
-/* Mensajes enviados y recibidos */
+/* Mensajes */
 .message {
   max-width: 70%;
   padding: 0.5rem 0.75rem;
   border-radius: 12px;
   font-size: 0.95rem;
   line-height: 1.4;
+  word-break: break-word;
+  white-space: pre-wrap;
 }
 
 .message.sent {
-  background-color: #d1fae5;
+  background-color: rgba(62, 174, 177, 0.7);
   align-self: flex-end;
+  color: #222;
 }
 
 .message.received {
-  background-color: #f3f4f6;
+  background-color: #D9D9D9;
   align-self: flex-start;
+  color: #222;
 }
 
-/* Barra de entrada */
+/* === BARRA DE ESCRIBIR === */
 #messageBar {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0;
+  background: #fff;
+  border-top: none;
   flex-shrink: 0;
 }
 
 #messageBar .input-container {
-  width: 66.66%;
-  background-color: #f3f4f6;
+  width: 100%;
+  max-width: 600px;
+  background-color: #d9d9d9;
   padding: 0.5rem 1rem;
   border-radius: 9999px;
   display: flex;
   align-items: center;
 }
 
-#messageBar input[type="text"] {
+#messageBar textarea {
   flex-grow: 1;
   border: none;
   background: transparent;
   padding: 0.5rem;
   font-size: 1rem;
   outline: none;
+  resize: none;
+  overflow-y: auto;
+  max-height: 60px; /* altura máxima antes de mostrar scroll */
+  line-height: 1.4;
 }
+
 
 #messageBar button {
   margin-left: 0.75rem;
@@ -321,193 +357,58 @@ body, html {
 
 #messageBar button i {
   font-size: 23px;
-  line-height: 1;
   color: #3eaeb1;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .chat-app {
-    flex-direction: column;
-    height: 100vh;
-  }
-  .chat-sidebar {
-    width: 100%;
-    height: 40vh;
-  }
-  .chat-panel {
-    height: 60vh;
-    padding: 0.5rem;
-  }
-}
-
-.timestamp {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.75rem;
-  margin-top: 4px;
-  color: gray;
-}
-
-.visto {
-  font-weight: bold;
-}
-
-.sent {
-  background-color: #d1fae5;
-  align-self: flex-end;
-}
-
-.received {
-  background-color: #f3f4f6;
-  align-self: flex-start;
-}
-
-.sent .visto {
-  color: #aaa;
-}
-
-.sent.read .visto {
-  color: #4fc3f7;
-}
-
-#conversationsPanel {
+/* === PLACEHOLDER DE CHAT === */
+.chat-placeholder {
   flex: 1;
-  overflow-y: auto;
-  min-height: 0;
-}
-
-.container {
-  width: 70%;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #3eaeb1;
+  font-size: 1.2rem;
   gap: 1rem;
-  height: calc(100vh - 90px); /* igual que .chat-section */
-  margin-top: 90px;
 }
 
-
-/* Asegurar altura completa en toda la cadena de padres */
-html, body {
-  height: 100%;
+.chat-placeholder i {
+  font-size: 4rem;
+  color: #3eaeb1;
 }
 
-.chat-section {
-  height: calc(100vh - 90px); /* 90px = alto real de tu nav */
-  margin-top: 90px;
-}
-
-.chat-app {
-  display: flex;
-  height: 100%;
-  min-height: 0; /* clave en flex para que los hijos crezcan */
-}
-
-.chat-sidebar {
-  height: 100%;
-  overflow-y: auto;
-}
-
-.chat-panel {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 0;
-}
-
-/* Cabecera fija arriba */
-.chat-panel .top {
-  flex-shrink: 0;
-}
-
-/* Área de mensajes: ocupa todo el espacio entre la cabecera y el input */
-#chatContainer {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  padding: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 6px; /* separa burbujas */
-}
-
-/* Barra de escribir fija abajo */
-/* Centrar el message bar */
-#messageBar {
-  display: flex;
-  justify-content: center; /* centra horizontalmente */
-  padding: 0.5rem 0;
-  background: #fff;
-  border-top: 1px solid #ddd;
-}
-
-#messageBar .input-container {
-  width: 100%;
-  max-width: 600px; /* ancho máximo para que no se vea gigante */
-  background-color: #f3f4f6;
-  padding: 0.5rem 1rem;
-  border-radius: 9999px;
-  display: flex;
-  align-items: center;
-}
-
-/* Burbujas de mensaje */
-.message {
-  max-width: 70%;
-  padding: 0.5rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  word-break: break-word;
-  white-space: pre-wrap;
-}
-
-.message.sent {
-  background-color: #d1fae5;
-  align-self: flex-end;
-}
-
-.message.received {
-  background-color: #f3f4f6;
-  align-self: flex-start;
-}
-
-/* === Modal de Calificación === */
-.overlay-calificacion {
+/* === MODALES === */
+.overlay-calificacion,
+#confirmModal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0,0,0,0.5);
   display: none;
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
 
+/* Modal Calificación */
 .contenido-calificacion {
   background-color: white;
   padding: 2rem;
   border-radius: 20px;
   width: 400px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  position: relative;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 .contenido-calificacion h2 {
-  font-family: 'Oswald', sans-serif;
   font-weight: 700;
   font-size: 2rem;
   text-align: center;
   color: #3eaeb1;
   margin-bottom: 1rem;
-
 }
 
-/* Estrellas */
 .estrellas-calificacion {
   display: flex;
   justify-content: center;
@@ -524,32 +425,22 @@ html, body {
 
 .estrellas-calificacion i:hover,
 .estrellas-calificacion i.activa {
-  color: #3eaeb1;
   transform: scale(1.2);
 }
 
-/* Reseña */
 #reseñaCalificacion {
   width: 100%;
-  height: 120px; 
+  height: 120px;
   padding: 0.8rem;
   font-size: 1.2rem;
-  font-family: 'Oswald', sans-serif;
   font-weight: 700;
   border: 1px solid #d1d5db;
   border-radius: 10px;
   background-color: #d9d9d9;
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(0,0,0,0.7);
   resize: none;
 }
 
-.campo-calificacion textarea::placeholder {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700;
-  color: rgba(0, 0, 0, 0.7);
-}
-
-/* Botones */
 .botones-calificacion {
   display: flex;
   justify-content: center;
@@ -561,11 +452,10 @@ html, body {
 .btn-calificacion-cancelar {
   padding: 0.4rem 3rem;
   font-size: 1rem;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500;
   border-radius: 25px;
   cursor: pointer;
   transition: background-color 0.3s;
+  font-weight: 500;
 }
 
 .btn-calificacion-guardar {
@@ -574,36 +464,13 @@ html, body {
   border: none;
 }
 
-
 .btn-calificacion-cancelar {
- background-color: #f8f8f8;
+  background-color: #f8f8f8;
   color: black;
   border: 1px solid #E5E5E5;
 }
 
-.botones-calificacion button:hover {
-  opacity: 0.8;
-}
-
-
-/* === Modal eliminar conversación === */
-#confirmModal {
-  position: fixed;
-  z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#confirmModal.hidden {
-  display: none;
-}
-
+/* Modal Eliminar */
 #confirmModal .modal-content-delete {
   background-color: #fff;
   padding: 25px;
@@ -611,8 +478,6 @@ html, body {
   text-align: center;
   width: 100%;
   max-width: 400px;
-  position: relative;
-  font-family: 'Oswald', sans-serif;
 }
 
 #confirmModal p {
@@ -627,18 +492,6 @@ html, body {
   gap: 15px;
 }
 
-#confirmModal .modal-buttons button {
-  padding: 0.4rem 3rem;
-  font-size: 1rem;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 500;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  text-decoration: none;
-}
-
-/* Botones */
 #cancelDelete {
   background-color: #f8f8f8;
   color: black;
@@ -649,4 +502,51 @@ html, body {
   background-color: #3eaeb1;
   color: white;
   border: none;
+}
+
+/* === UTILIDADES === */
+.oculto {
+  display: none !important;
+}
+
+
+/* === Hora y visto en los mensajes === */
+.message .timestamp {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem; /* más pequeño */
+  color: #666;
+  margin-top: 4px;
+}
+
+.message .visto {
+  font-size: 0.7rem; /* más pequeño */
+  color: #3eaeb1; /* color del visto */
+}
+
+/* === Scroll personalizado solo para el textarea === */
+#messageInput::-webkit-scrollbar {
+  width: 6px; /* ancho de la barra */
+}
+
+#messageInput::-webkit-scrollbar-track {
+  background: transparent; /* elimina el fondo blanco */
+}
+
+#messageInput::-webkit-scrollbar-thumb {
+  background-color: #888; /* gris más visible */
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+#messageInput::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* más oscuro al pasar el mouse */
+}
+
+/* Para Firefox */
+#messageInput {
+  scrollbar-width: thin; /* más delgada */
+  scrollbar-color: #888 transparent;
 }
