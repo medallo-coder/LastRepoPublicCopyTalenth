@@ -4,7 +4,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   background-color: #f8f8f8;
   font-family: 'Oswald', sans-serif;
@@ -550,41 +549,6 @@ button:hover,
 }
 
 
-
-/* ---------------- RESPONSIVE ---------------- */
-@media (max-width: 768px) {
-
-  .tab {
-    font-size: 1rem;          /* Tamaño más pequeño en móvil/tablet */    /* Menos altura visual */
-  }
-
-  .publicacion-card {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-
-  .tab {
-    font-size: 1.1rem;
-    letter-spacing: 0.06rem;
-    padding: 0.3rem 0.5rem;
-  }
-
-  .tabs {
-    gap: 1rem;
-  }
-
-  .cuadro {
-    padding: 1rem;
-  }
-
-  .redondo {
-    height: auto;
-    padding: 1rem;
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
 /* ---------------- FORMULARIO OCULTO ---------------- */
 .form-card {
   display: none; /* solo oculta los formularios que quieras */
@@ -706,4 +670,43 @@ button:hover,
 
 #confirmEliminar:hover {
   opacity: 0.8;
+}
+
+
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 768px) {
+
+  .tab {
+    font-size: 1rem;          /* Tamaño más pequeño en móvil/tablet */    /* Menos altura visual */
+  }
+
+  .publicacion-card {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .tab {
+    font-size: 1.1rem;
+    letter-spacing: 0.06rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .tabs {
+    gap: 1rem;
+  }
+
+  .cuadro {
+     width: 88%;                 
+    max-width: 400px;           
+    background-color: white;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 auto 1.5rem auto; /* centrado */
+    padding: 0;
+    box-sizing: border-box;
+    height: auto;
+  }
+
+ 
 }

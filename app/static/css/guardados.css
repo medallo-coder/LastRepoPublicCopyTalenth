@@ -310,7 +310,20 @@ html, body {
 .dropdown-menu i:hover {
   color: #3EAEB1; /* Cambia color a azul */
 }
+.menu-close-btn {
+  position: absolute;
+  top: 1px;
+  right: 4px;
+  font-size: 18px;
+  
+  font-weight: 700; /* texto en negrita */
 
+  font-family: Arial, Helvetica, sans-serif !important; /* FORZA que no use Oswald */
+  color: #333;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  line-height: 1;
+}
 /* Iconos dentro del menú */
 .dropdown-menu i {
   margin-right: 8px; /* Espacio a la derecha del icono */

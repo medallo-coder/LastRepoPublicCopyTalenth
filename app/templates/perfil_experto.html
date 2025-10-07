@@ -257,7 +257,7 @@
                 <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
                 <input type="hidden" name="idioma_id" value="{{ idioma.id }}"> <!-- 👈 ID individual del idioma -->
                 
-                <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar este idioma?" title="Eliminar idioma">
+                <button type="button" class="boton-icono btn-eliminar" id="btn-eliminar" data-texto="¿Seguro que deseas eliminar este idioma?" title="Eliminar idioma">
                     <i class="bi bi-trash"></i>
                   </button>
               </form>
@@ -282,7 +282,7 @@
           <div class="idiomas">
             <h2 class="titulo-idiomas">Aptitudes</h2>
             {% if aptitudes|length < 3 %}
-            <i id="agregaraptitudes" class="bi bi-plus-circle-fill"></i>
+            <i id="agregaraptitudes"class="bi bi-plus-circle-fill"></i>
             {% endif %}
           </div>
 
@@ -295,8 +295,8 @@
                 <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;" class="form-eliminar">
                   <input type="hidden" name="form_tipo4" value="eliminar_aptitud">
                   <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-                  <input type="hidden" name="tipo_aptitud" value="{{ aptitud.tipo_aptitud }}">
-                  <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar esta aptitud?" title="Eliminar aptitud">
+                  <input type="hidden"  name="tipo_aptitud" value="{{ aptitud.tipo_aptitud }}">
+                  <button type="button" class="boton-icono btn-eliminar" id="btn-eliminar" data-texto="¿Seguro que deseas eliminar esta aptitud?" title="Eliminar aptitud">
                     <i class="bi bi-trash"></i>
                   </button>
                 </form>
@@ -627,8 +627,7 @@
 
           <div class="campo">
             <label for="nuevaAptitud"></label>
-            <input type="text" id="nuevaAptitud" name="tipo_aptitud"
-              placeholder="Escribe una aptitud (ej: Liderazgo)" />
+            <input type="text" id="nuevaAptitud" name="tipo_aptitud" required maxlength="20" placeholder="Escribe una aptitud (ej: Liderazgo)" />
           </div>
 
           <div class="botones">
