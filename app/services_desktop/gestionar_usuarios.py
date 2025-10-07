@@ -3,6 +3,7 @@ from app.models.perfiles import perfiles
 from app.models.roles import Roles
 from app.models.publicaciones import Publicaciones
 from app.models.categorias import Categorias
+from app.models.calificaciones import Calificaciones
 from flask import request, session
 from app.services.jwt_service import generar_token, verificar_token
 from app.extensions import db
@@ -209,10 +210,34 @@ def datos_clientes_service(data):
 
     perfil = usuario.perfiles
 
+     # 🔹 Calificaciones hechas por este usuario (como calificador)
+    calificaciones = (
+        db.session.query(Calificaciones, Usuario, perfiles)
+        .join(Usuario, Calificaciones.calificado_id == Usuario.usuario_id)
+        .join(perfiles, perfiles.id_usuario == Usuario.usuario_id)
+        .filter(Calificaciones.calificador_id == usuario_id)
+        .order_by(Calificaciones.fecha_calificacion.desc())
+        .all()
+    )
+
+     # 🔹 Convertir las calificaciones a formato JSON serializable
+    calificaciones_serializadas = []
+    for c, u, p in calificaciones:
+        calificaciones_serializadas.append({
+            "reseña": c.reseña,
+            "puntaje": c.puntaje,
+            "calificado_nombre": f"{p.primer_nombre} {p.primer_apellido}"
+        })
+
+
+    
+
     datos_clientes={
         "primer_nombre": perfil.primer_nombre,
         "primer_apellido": perfil.primer_apellido,
-        "direccion":perfil.direccion
+        "direccion":perfil.direccion,
+        "calificaciones":calificaciones_serializadas
+
     }
 
     return{"success": True, "clientes":datos_clientes}
