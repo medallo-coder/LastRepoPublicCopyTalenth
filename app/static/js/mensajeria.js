@@ -402,8 +402,12 @@ function refreshConversations() {
                 <a href="javascript:void(0);" class="abrir-modal-calificacion">
                   <i class="bi bi-star"></i><span>Calificar</span>
                 </a>
-                <a href="javascript:void(0);" class="btn-link abrir-modal-reporte">
-                 <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
+                <a href="javascript:void(0);"
+                  class="btn-link abrir-modal-reporte"
+                  data-usuario-reportado="${u.usuario_id}"
+                  data-usuario-reportador="${userId}">
+                  <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
+                
                 </a>
                 <a href="#"><i class="bi bi-trash"></i><span>Eliminar</span></a>
               </div>
