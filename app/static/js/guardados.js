@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
   // SLIDER (si existe)
   const slider = document.getElementById("slider");
@@ -40,86 +41,77 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 👇 SE QUITÓ EL bloque que prevenía la navegación en TODOS los enlaces
-  // links.forEach(link => {
-  //   link.addEventListener('click', (e) => {
-  //     e.preventDefault();
-  //   });
-  // });
-
   // ELIMINAR GUARDADO CON MODAL
-const trashIcons = document.querySelectorAll('.eliminar-guardado');
-const modal = document.getElementById('confirmModal');
-const confirmBtn = document.getElementById('confirmDelete');
-const cancelBtn = document.getElementById('cancelDelete');
-let selectedPubId = null;
-let selectedElement = null;
+  const trashIcons = document.querySelectorAll('.eliminar-guardado');
+  const modal = document.getElementById('confirmModal');
+  const confirmBtn = document.getElementById('confirmDelete');
+  const cancelBtn = document.getElementById('cancelDelete');
+  let selectedPubId = null;
+  let selectedElement = null;
 
-trashIcons.forEach(icon => {
-  icon.addEventListener('click', () => {
-    selectedPubId = icon.dataset.id;
-    selectedElement = icon.closest('.categoria');
-    modal.style.display = 'flex'; // Mostrar modal
+  trashIcons.forEach(icon => {
+    icon.addEventListener('click', () => {
+      selectedPubId = icon.dataset.id;
+      selectedElement = icon.closest('.categoria');
+      modal.style.display = 'flex'; // Mostrar modal
+    });
   });
-});
 
-confirmBtn.addEventListener('click', () => {
-  if (!selectedPubId) return;
+  confirmBtn.addEventListener('click', () => {
+    if (!selectedPubId) return;
 
-  fetch(`/mis-guardados/eliminar/${selectedPubId}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then(res => res.json())
-    .then(data => {
-      mostrarMensaje(data.message, data.success ? 'success' : 'danger');
+    fetch(`/mis-guardados/eliminar/${selectedPubId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(res => res.json())
+      .then(data => {
+        mostrarMensaje(data.message, data.success ? 'success' : 'danger');
 
-      if (data.success && selectedElement) {
-        // Eliminar la publicación del DOM
-        selectedElement.remove();
-
-        // Verificar si ya no quedan publicaciones
-        const publicacionesRestantes = document.querySelectorAll('.categoria');
-        if (publicacionesRestantes.length === 0) {
-          const noGuardados = document.querySelector('.no-guardados');
-          if (noGuardados) {
-            noGuardados.style.display = 'flex';
+        if (data.success && selectedElement) {
+          selectedElement.remove();
+          const publicacionesRestantes = document.querySelectorAll('.categoria');
+          if (publicacionesRestantes.length === 0) {
+            const noGuardados = document.querySelector('.no-guardados');
+            if (noGuardados) noGuardados.style.display = 'flex';
           }
         }
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      mostrarMensaje("Error al eliminar el guardado", "danger");
-    })
-    .finally(() => {
-      // Siempre cerrar modal y limpiar variables
-      modal.style.display = 'none';
-      selectedPubId = null;
-      selectedElement = null;
-    });
-});
+      })
+      .catch(err => {
+        console.error(err);
+        mostrarMensaje("Error al eliminar el guardado", "danger");
+      })
+      .finally(() => {
+        modal.style.display = 'none';
+        selectedPubId = null;
+        selectedElement = null;
+      });
+  });
 
-// Cancelar cierra el modal
-cancelBtn.addEventListener('click', () => {
-  modal.style.display = 'none';
-  selectedPubId = null;
-  selectedElement = null;
-});
-
-// Clic fuera del modal también lo cierra
-modal.addEventListener('click', (e) => {
-  if (e.target === modal) {
+  cancelBtn.addEventListener('click', () => {
     modal.style.display = 'none';
     selectedPubId = null;
     selectedElement = null;
-  }
-});
+  });
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+      selectedPubId = null;
+      selectedElement = null;
+    }
+  });
 });
 
-// Función para inyectar mensaje al contenedor dinámico
+// Función para cerrar el menú al presionar la "x"
+function cerrarMenu(elemento) {
+  const menu = elemento.closest('.dropdown-menu');
+  if (menu) {
+    menu.style.display = 'none';
+  }
+}
+
+// Función para mostrar mensajes
 function mostrarMensaje(mensaje, categoria) {
   const container = document.querySelector('.messages-container');
   if (!container) return;
@@ -129,14 +121,10 @@ function mostrarMensaje(mensaje, categoria) {
   alertDiv.textContent = mensaje;
 
   container.appendChild(alertDiv);
-
-  // Que desaparezca luego de unos segundos
-  setTimeout(() => {
-    alertDiv.remove();
-  }, 4000);
+  setTimeout(() => alertDiv.remove(), 4000);
 }
 
-// js de fot para ver de mas grande
+// js de foto para ver en grande
 document.addEventListener('DOMContentLoaded', () => {
   const imagenes = document.querySelectorAll('.image');
   const modal = document.getElementById('imagenModal');
@@ -154,3 +142,4 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.style.display = 'none';
   });
 });
+
