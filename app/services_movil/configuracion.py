@@ -14,16 +14,25 @@ import re
 
 # Servicio para obtener el nombre, rol y fecha de registro del usuario autenticado
 def obtener_datos_usuario_service(token):
+    print("🔑 Token recibido en obtener_datos_usuario_service:", token)
+
     if not token:
+        print("⚠️ No llegó token")
         return {
             "primer_nombre": "Invitado", "segundo_nombre": "Invitado", "primer_apellido": "Invitado", "segundo_apellido": "Invitado", "direccion": "Invitado", "": "Invitado", "rol": "Invitado", "fecha_registro": "N/A", "correo": "Invitado",  "nombre_idioma": "N/A"  } 
 
     resultado = verificar_token(token)
+    print("📦 Resultado verificar_token:", resultado)
     if not resultado.get("valid"):
+        print("⚠️ Token inválido")
         return {"primer_nombre": "Invitado", "segundo_nombre": "Invitado", "primer_apellido": "Invitado", "segundo_apellido": "Invitado", "direccion": "Invitado", "": "Invitado", "rol": "Invitado", "fecha_registro": "N/A", "correo": "Invitado", "nombre_idioma": "N/A"  }
 
     payload = resultado.get("payload")
+    print("📦 Payload decodificado:", payload)
+
     usuario_id = payload.get('usuario_id')
+    print("👤 Usuario ID extraído:", usuario_id)
+
     usuario = Usuario.query.get(usuario_id)
 
     if not usuario:
@@ -42,7 +51,16 @@ def obtener_datos_usuario_service(token):
     experiencias=Experiencias.query.filter_by(id_perfil=perfil.id_perfil).first()
 
     nombre_idioma = ", ".join([idioma.nombre_idioma for idioma in perfil.idioma]) if perfil.idioma else ""
- 
+    resultado_final = {
+        "usuario_id": usuario.usuario_id,
+        "id_perfil": perfil.id_perfil if perfil else None,
+        "primer_nombre": perfil.primer_nombre if perfil else "",
+        "rol_usuario": usuario.id_rol,
+        "rol": usuario.rol.tipo_rol
+    }
+
+    print("📤 Datos que devuelve obtener_datos_usuario_service:", resultado_final)
+
     return {
         "usuario_id": usuario.usuario_id,
         "id_perfil": perfil.id_perfil,
@@ -53,6 +71,7 @@ def obtener_datos_usuario_service(token):
         "direccion": perfil.direccion,
         "correo": usuario.correo,
         "descripcion_perfil": perfil.descripcion_perfil,
+        "rol_usuario": usuario.id_rol,
         "rol": usuario.rol.tipo_rol,
         "nombre_idioma": nombre_idioma,
         "tipo_aptitud": aptitudes.tipo_aptitud if aptitudes else None,

@@ -17,8 +17,8 @@ class Mensajeria(db.Model):
     def to_dict(self):
         return {
             'mensaje_id': self.mensaje_id,
-            'emisor':     self.emisor.usuario_id,
-            'receptor':   self.receptor.usuario_id,
+            'emisor':     self.id_emisor,
+            'receptor':   self.id_receptor,
             'texto':      self.texto,
             'fecha': self.fecha if isinstance(self.fecha, str) else self.fecha.isoformat(),
             'leido':      self.leido

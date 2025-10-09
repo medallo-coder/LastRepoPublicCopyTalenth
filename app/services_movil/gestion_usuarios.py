@@ -157,14 +157,14 @@ def datos_usuario_service():
     rol = usuario.rol
     perfil= usuario.perfiles
 
-   
-
-    datos_usuario={
+    datos_usuario = {
+        "usuario_id": usuario.usuario_id,
         "nombre": perfil.primer_nombre.title(),
         "apellido": perfil.primer_apellido.title(),
         "nombre_completo": f"{perfil.primer_nombre.title()} {perfil.primer_apellido.title()}",
         "fecha_registro": fecha_formateada,
-        "rol": rol.tipo_rol.title()
+        "rol_usuario": usuario.id_rol,          # 👈 clave consistente con inicio_service
+        "rol": rol.tipo_rol.title()             # 👈 opcional, si quieres el nombre del rol
     }
-    
-    return{"success": True, "usuario":datos_usuario}
+
+    return {"success": True, "usuario": datos_usuario}

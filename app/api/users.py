@@ -16,12 +16,15 @@ from app.services_movil.publicaciones import guardar_publicacion_usuario_service
 from app.services_movil.configuracion import enviar_link_recuperacion_service, restablecer_contraseña_service
 from flask import Blueprint, request
 
-
+#--------------------IMPORTACIONES PARA MENSAJERIA MOVIL---------------------#
+from app.extensions import db
+from app.models.mensajeria import Mensajeria
+from flask import Blueprint, request, jsonify
+from app.services_movil.mensajeria import obtener_mensajes_service, enviar_mensaje_service
+from app.services_movil.autenticacion import verificar_autenticacion_service
 
 # Define the Blueprint for the API
 users_api = Blueprint('users_api', __name__)
-
-
 
 #--------------------RUTAS DE DESKTOP---------------------#
 # Ruta para registrarse como admin
@@ -260,5 +263,90 @@ def restablecer_contraseña_datos():
     return jsonify(resultado), (200 if resultado["success"] else 400)
  
 
+# -------------------------------
+# RUTA: Obtener mensajes con un contacto
+# -------------------------------
+@users_api.route("/mensajes/<int:receptor_id>", methods=["GET"])
+def obtener_mensajes(receptor_id):
+    token = request.headers.get("Authorization", "").replace("Bearer ", "")
+    auth = verificar_autenticacion_service(token)
+    if not auth.get("authenticated"):
+        return jsonify({"success": False, "message": "No autorizado"}), 401
 
+    yo_id = auth.get("usuario_id")
+    mensajes = obtener_mensajes_service(yo_id, receptor_id)
+    return jsonify({"success": True, "mensajes": mensajes})
+
+# -------------------------------
+# RUTA: Enviar un mensaje
+# -------------------------------
+@users_api.route("/mensajes", methods=["POST"])
+def enviar_mensaje():
+    token = request.headers.get("Authorization", "").replace("Bearer ", "")
+    auth = verificar_autenticacion_service(token)
+    if not auth.get("authenticated"):
+        return jsonify({"success": False, "message": "No autorizado"}), 401
+
+    yo_id = auth.get("usuario_id")   # este es el emisor
+    data = request.get_json()
+
+    receptor_id = data.get("receptor_id")   # 👈 viene del body
+    texto = data.get("texto")
+
+    if not receptor_id or not texto:
+        return jsonify({"success": False, "message": "Faltan datos"}), 400
+
+    nuevo = Mensajeria(
+        id_emisor=yo_id,
+        id_receptor=receptor_id,   # 👈 ahora sí correcto
+        texto=texto
+    )
+    db.session.add(nuevo)
+    db.session.commit()
+
+    return jsonify({"success": True, "mensaje": nuevo.to_dict()})
+
+# -------------------------------
+# RUTA: Listar contactos con los que tengo chats
+# -------------------------------
+@users_api.route("/chats", methods=["GET"])
+def obtener_chats():
+    token = request.headers.get("Authorization", "").replace("Bearer ", "")
+    auth = verificar_autenticacion_service(token)
+    if not auth.get("authenticated"):
+        return jsonify({"success": False, "message": "No autorizado"}), 401
+
+    usuario_id = auth.get("usuario_id")
+
+    from app.models.usuario import Usuario
+    from app.models.mensajeria import Mensajeria
+
+    contactos = (
+        db.session.query(Usuario)
+        .join(
+            Mensajeria,
+            (Mensajeria.id_emisor == Usuario.usuario_id) |
+            (Mensajeria.id_receptor == Usuario.usuario_id)
+        )
+        .filter(
+            (Mensajeria.id_emisor == usuario_id) |
+            (Mensajeria.id_receptor == usuario_id)
+        )
+        .distinct()
+        .all()
+    )
+
+    return jsonify({
+        "success": True,
+        "chats": [
+            {
+                "usuario_id": u.usuario_id,
+                "nombre": u.correo,
+                "ultimo": "",   # aquí luego puedes traer el último mensaje real
+                "foto": None,
+                "hora": None
+            }
+            for u in contactos if u.usuario_id != usuario_id
+        ]
+    })
 

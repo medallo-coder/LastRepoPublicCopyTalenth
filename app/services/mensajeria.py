@@ -259,9 +259,6 @@ def handle_seen(data):
         if sid_emisor:
             emit('update_conversations', {}, to=sid_emisor)
 
-
-
-
 @socketio.on('typing')
 def handle_typing(data):
     user_id  = data.get('user_id')
@@ -352,4 +349,19 @@ def guardar_calificacion():
         print("❌ Error al guardar calificación:", e)
         flash("Error al guardar calificación: " + str(e), "error")
         return redirect(url_for('mensajeria.mensajeria'))
+    
+@socketio.on("leer_mensajes")
+def marcar_como_leido(data):
+    user_id = data["user_id"]
+    other_user_id = data["other_user_id"]
+
+    # ✅ Marca los mensajes en la base de datos como leídos
+    mensajes = Mensajeria.query.filter_by(
+    id_emisor=other_user_id,
+    id_receptor=user_id,
+    leido=False
+    ).all()
+
+    # ✅ Notifica al otro usuario (opcional, para que actualice las palomitas)
+    emit("mensaje_leido", {"de": other_user_id, "para": user_id}, room=other_user_id)
 

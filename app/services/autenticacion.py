@@ -133,9 +133,16 @@ def iniciar_sesion_service(data):
     db.session.commit()
 
     token = generar_token(usuario.usuario_id)
+    # ✅ Guardar siempre el token en la sesión
+    session['jwt'] = token
 
-    if request.is_json:
-        return {"success": True, "message": "Inicio de sesión exitoso", "token": token}
+    return {
+        "success": True,
+        "message": "Inicio de sesión exitoso",
+        "token": token,
+        "usuario_id": usuario.usuario_id,
+        "rol_usuario": usuario.id_rol
+    }
 
     session['jwt'] = token
     return {"success": True, "message": "Inicio de sesión exitoso."}
