@@ -56,6 +56,26 @@ function refreshConversations() {
     .then(users => {
       const panel = document.getElementById('conversationsPanel');
       panel.innerHTML = '';
+      const sidebar = document.querySelector('.chat-sidebar');
+      const placeholder = document.getElementById('chatPlaceholder');
+      const chatContent = document.getElementById('chatContent');
+
+      // Si no hay conversaciones
+      if (users.length === 0) {
+        sidebar.style.display = 'none';
+        placeholder.innerHTML = `
+          <p>Aún no tienes conversaciones.</p>
+          <p>¡Contacta a un experto para comenzar!</p>
+          <a href="/publicaciones" class="btn-explorar">Explorar expertos</a>
+        `;
+        placeholder.classList.remove('oculto');
+        chatContent.classList.add('oculto');
+      } else {
+        sidebar.style.display = 'block';
+      }
+
+
+
 
       users.forEach(u => {
         const div = document.createElement('div');

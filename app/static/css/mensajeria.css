@@ -612,6 +612,23 @@ html, body {
   scrollbar-color: #888 transparent;
 }
 
+
+.btn-explorar {
+  display: inline-block;
+  background-color: #3EAEB1; 
+  color: white;
+  padding: 8px 20px; /* Más pequeño */
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.btn-explorar:hover {
+  opacity: 0.8;
+}
+
 /* === RESPONSIVE === */
 
 /* ===== MÓVILES (≤768px) ===== */
