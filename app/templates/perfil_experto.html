@@ -251,7 +251,7 @@
                   <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
                   <input type="hidden" name="idioma_id" value="{{ idioma.id }}"> <!-- 👈 ID individual del idioma -->
                   
-                  <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar este idioma?" title="Eliminar idioma">
+                  <button type="button" class="boton-icono btn-eliminar" id="btn-eliminar" data-texto="¿Seguro que deseas eliminar este idioma?" title="Eliminar idioma">
                       <i class="bi bi-trash"></i>
                     </button>
                 </form>
@@ -290,7 +290,7 @@
                     <input type="hidden" name="form_tipo4" value="eliminar_aptitud">
                     <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
                     <input type="hidden" name="tipo_aptitud" value="{{ aptitud.tipo_aptitud }}">
-                    <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar esta aptitud?" title="Eliminar aptitud">
+                    <button type="button" class="boton-icono btn-eliminar" id="btn-eliminar" data-texto="¿Seguro que deseas eliminar esta aptitud?" title="Eliminar aptitud">
                       <i class="bi bi-trash"></i>
                     </button>
                   </form>

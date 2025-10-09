@@ -654,7 +654,6 @@ html, body {
     height: 50px;
     font-size: 50px;
   }
-
   #chatContainer {
     padding: 0.5rem;
   }
@@ -675,6 +674,17 @@ html, body {
   #confirmModal .modal-content-delete {
     width: 90%;
   }
+
+  .btn-calificacion-guardar,
+.btn-calificacion-cancelar {
+  padding: 0.25rem 0.2rem; /* 🔹 menos espacio interno */
+  font-size: 0.85rem;     /* 🔹 texto más pequeño */
+  border-radius: 18px;    /* 🔹 bordes un poco más compactos */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: 500;
+}
+
 }
 
 /* ===== TABLETS (769px a 1024px) ===== */
