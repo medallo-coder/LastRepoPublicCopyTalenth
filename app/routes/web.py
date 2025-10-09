@@ -352,9 +352,9 @@ def perfil_cliente():
     # 🔹 Calificaciones hechas por este usuario (como calificador)
     calificaciones = (
         db.session.query(Calificaciones, Usuario, perfiles)
-        .join(Usuario, Calificaciones.calificado_id == Usuario.usuario_id)
+        .join(Usuario, Calificaciones.calificador_id == Usuario.usuario_id)
         .join(perfiles, perfiles.id_usuario == Usuario.usuario_id)
-        .filter(Calificaciones.calificador_id == usuario_id)
+        .filter(Calificaciones.calificado_id == usuario_id)
         .order_by(Calificaciones.fecha_calificacion.desc())
         .all()
     )

@@ -20,7 +20,7 @@ from flask import Blueprint, request
 from app.extensions import db
 from app.models.mensajeria import Mensajeria
 from flask import Blueprint, request, jsonify
-from app.services_movil.mensajeria import obtener_mensajes_service, enviar_mensaje_service
+from app.services_movil.mensajeria import obtener_mensajes_service, enviar_mensaje_service, guardar_calificacion_service
 from app.services_movil.autenticacion import verificar_autenticacion_service
 
 # Define the Blueprint for the API
@@ -350,3 +350,9 @@ def obtener_chats():
         ]
     })
 
+#GUARDAR CALIFICACION MOVIL
+@users_api.route('/guardar_calificacion', methods=['POST'])
+def guardar_calificacion():
+    data= request.get_json() if request.is_json else request.form.to_dict()
+    resultado = guardar_calificacion_service(data)
+    return jsonify(resultado), (200 if resultado["success"] else 400)

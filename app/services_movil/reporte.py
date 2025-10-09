@@ -31,10 +31,9 @@ def guardar_reporte_service(data):
 
     reportador_id = usuario_id
     reportado_id = data.get('reportado_id')
-    motivo = data.get('motivo')
     descripcion = data.get('descripcion')
 
-    print(f"DATOS: {reportado_id}, {reportador_id}, {motivo}, {descripcion}")
+    print(f"DATOS: {reportado_id}, {reportador_id}, {descripcion}")
 
     if not reportado_id  or not descripcion:
             return {"success": False, "message":"Faltan datos en el reporte"}
