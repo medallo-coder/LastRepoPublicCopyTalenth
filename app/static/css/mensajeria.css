@@ -611,3 +611,121 @@ html, body {
   scrollbar-width: thin; /* más delgada */
   scrollbar-color: #888 transparent;
 }
+
+/* === RESPONSIVE === */
+
+/* ===== MÓVILES (≤768px) ===== */
+@media (max-width: 768px) {
+  .chat-app {
+    flex-direction: column; /* apilar sidebar y chat */
+    width: 100%;
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .chat-sidebar {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    overflow-y: auto;
+    padding-bottom: 0.5rem;
+  }
+
+  .chat-panel {
+    width: 100%;
+    height: calc(100vh - 200px - 90px); /* ajusta según sidebar */
+  }
+
+  .conversation h2 {
+    font-size: 1rem;
+  }
+
+  .conversation small {
+    font-size: 0.75rem;
+  }
+
+  .chat-panel .top .profile span {
+    font-size: 1.2rem;
+  }
+
+  .chat-panel .top .profile .perfil-img,
+  .chat-panel .top .profile .placeholder-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+  }
+
+  #chatContainer {
+    padding: 0.5rem;
+  }
+
+  #messageBar .input-container {
+    padding: 0.4rem 0.8rem;
+  }
+
+  #messageBar button i {
+    font-size: 20px;
+  }
+
+  .contenido-calificacion {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  #confirmModal .modal-content-delete {
+    width: 90%;
+  }
+}
+
+/* ===== TABLETS (769px a 1024px) ===== */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .chat-app {
+    flex-direction: row;
+    width: 95%;
+    gap: 1rem;
+  }
+
+  .chat-sidebar {
+    width: 35%;
+  }
+
+  .chat-panel {
+    width: 65%;
+  }
+
+  .conversation h2 {
+    font-size: 1.125rem;
+  }
+
+  .conversation small {
+    font-size: 0.8rem;
+  }
+
+  .chat-panel .top .profile span {
+    font-size: 1.3rem;
+  }
+
+  .chat-panel .top .profile .perfil-img,
+  .chat-panel .top .profile .placeholder-icon {
+    width: 55px;
+    height: 55px;
+    font-size: 55px;
+  }
+}
+
+/* ===== ESCRITORIO GRANDE (>1024px) ===== */
+@media (min-width: 1025px) {
+  .chat-app {
+    flex-direction: row;
+    width: 90%;
+    gap: 1.5rem;
+  }
+
+  .chat-sidebar {
+    width: 30%;
+  }
+
+  .chat-panel {
+    width: 70%;
+  }
+}
