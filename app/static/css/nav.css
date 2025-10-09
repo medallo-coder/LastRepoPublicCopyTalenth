@@ -56,15 +56,22 @@
 -----------------------------------------------*/
 .close-btn {
     position: absolute;
-    top:-15px;/* Ajusta más arriba o más abajo */
-    right: 5px; /* Ajusta separación de la derecha */
+    top: -5px;         /* ajusta si la quieres más arriba o abajo */
+    left: 10px;        /* la mueve al lado izquierdo */
     background: none;
     border: none;
-    font-size: 40px;
-    
+    font-size: 60px;   /* más grande (antes era 40px) */
     color: #333;
     cursor: pointer;
+    z-index: 1002;     /* para que quede por encima del contenido */
+    transition: transform 0.2s ease, color 0.2s ease;
 }
+
+.close-btn:hover {
+    color: #3EAEB1;     /* efecto hover a juego con la paleta */
+    transform: scale(1.1);
+}
+
 .menu {
     height: 50px;
     width: 50px;
