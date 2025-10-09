@@ -899,13 +899,23 @@ from app.models.reportes import Reportes
 
 @web.route('/guardar_reporte', methods=['POST'])
 def guardar_reporte():
+    from app.services.configuracion import obtener_datos_usuario_service
     try:
+        # ID del usuario reportado (viene del formulario)
         reportado_id = request.form.get('reportado_id')
-        reportador_id = request.form.get('reportador_id')
         motivo = request.form.get('motivo')
         descripcion = request.form.get('descripcion')
 
-        print(f"DATOS: {reportado_id}, {reportador_id}, {motivo}, {descripcion}")
+        # ✅ Obtener automáticamente el ID del usuario logueado (reportador)
+        auth_result = verificar_autenticacion_service()
+        if not auth_result.get("authenticated"):
+            flash("Debes iniciar sesión para realizar un reporte", "error")
+            return redirect(url_for("web.iniciar_sesion"))
+
+        datos_usuario = obtener_datos_usuario_service()
+        reportador_id = datos_usuario.get("usuario_id")
+
+        print(f"DATOS: Reportado={reportado_id}, Reportador={reportador_id}, Motivo={motivo}, Descripción={descripcion}")
 
         if not reportado_id or not reportador_id or not motivo:
             flash("Faltan datos en el reporte", "error")
@@ -927,3 +937,15 @@ def guardar_reporte():
 
     return redirect(url_for("web.inicio"))
 
+
+@web.route('/mensajeria')
+@login_required
+def mensajeria():
+    auth_result = verificar_autenticacion_service()
+    id_usuario_logueado = None
+
+    if auth_result.get("authenticated"):
+        datos_usuario = obtener_datos_usuario_service()
+        id_usuario_logueado = datos_usuario.get("usuario_id")
+
+    return render_template('mensajeria.html', id_usuario_logueado=id_usuario_logueado)

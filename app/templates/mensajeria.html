@@ -11,7 +11,6 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/mensajeria.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/modal_reportar.css') }}">
 
-
   <!-- Google Fonts y Bootstrap Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
@@ -19,13 +18,18 @@
 <body>
 
   {% include 'nav.html' %}
-  {% include "modal_reportar.html"%}
+  {% include 'errors.html' %}
+
+  {# ← Aseguramos que el include del modal encuentre la variable requerida #}
+  {% set id_usuario_logueado = reportador_id if reportador_id is defined else (id_usuario_logueado if id_usuario_logueado is defined else current_user.usuario_id) %}
+  {% include "modal_reportar.html" %}
 
   <section class="chat-section">
     <div class="chat-app">
       <!-- Panel izquierdo -->
       <aside class="chat-sidebar">
         <div id="conversationsPanel">
+          <!-- Sample estático (solo visual) con los data-attrs correctos -->
           <div class="conversation">
             <div class="left">
               <img src="/static/uploads/default.jpg" alt="Perfil" />
@@ -43,15 +47,21 @@
               <div class="badge" style="display:none;">1</div>
               <!-- Menú contextual -->
               <div class="contact-menu oculto">
-              <span class="menu-close-btn">x</span>
-              <a href="javascript:void(0);" class="btn-link abrir-modal-calificacion">
-                <i class="bi bi-star"></i><span>Calificar</span>
-              </a>
-              <a href="javascript:void(0);" class="btn-link abrir-modal-reporte">
-                 <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
-              </a>
-              <a href="#"><i class="bi bi-trash"></i><span>Eliminar</span></a>
-            </div>
+                <span class="menu-close-btn">x</span>
+                <a href="javascript:void(0);" class="btn-link abrir-modal-calificacion">
+                  <i class="bi bi-star"></i><span>Calificar</span>
+                </a>
+
+                <!-- Aquí: usamos el nombre de atributo que espera modal_reportar.js -->
+                <a href="javascript:void(0);" 
+                   class="btn-link abrir-modal-reporte"
+                   data-usuario-reportado="{{ reportado_id or '' }}"
+                   data-usuario-reportador="{{ id_usuario_logueado }}">
+                  <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
+                </a>
+
+                <a href="#"><i class="bi bi-trash"></i><span>Eliminar</span></a>
+              </div>
             </div>
           </div>
         </div>
@@ -89,69 +99,56 @@
 
       </section>
 
-  
+    </div>
+  </section>
+
   <input type="hidden" id="chatPartnerInicial" value="{{ session.pop('abrir_chat_con', '') }}">
 
-  <!-- Modal Calificación -->
-<div id="modalCalificacion" class="overlay-calificacion" style="display: none;">
-  <div class="contenido-calificacion">
-    <h2>Calificar usuario</h2>
+  <!-- Modal Calificación (sin cambios) -->
+  <div id="modalCalificacion" class="overlay-calificacion" style="display: none;">
+    <div class="contenido-calificacion">
+      <h2>Calificar usuario</h2>
+      <form id="formCalificacion" method="POST" action="{{  url_for('mensajeria.guardar_calificacion') }}">
+        <div class="estrellas-calificacion" id="estrellasCalificacion">
+          <i class="bi bi-star" data-valor="1"></i>
+          <i class="bi bi-star" data-valor="2"></i>
+          <i class="bi bi-star" data-valor="3"></i>
+          <i class="bi bi-star" data-valor="4"></i>
+          <i class="bi bi-star" data-valor="5"></i>
+        </div>
 
-    <!-- ✅ FORM agregado -->
-    <form id="formCalificacion" method="POST" action="{{  url_for('mensajeria.guardar_calificacion') }}">
-      
-      <!-- Estrellas -->
-      <div class="estrellas-calificacion" id="estrellasCalificacion">
-        <i class="bi bi-star" data-valor="1"></i>
-        <i class="bi bi-star" data-valor="2"></i>
-        <i class="bi bi-star" data-valor="3"></i>
-        <i class="bi bi-star" data-valor="4"></i>
-        <i class="bi bi-star" data-valor="5"></i>
-      </div>
+        <input type="hidden" id="valorCalificacion" name="valor_calificacion" value="0">
+        <input type="hidden" name="calificador_id" value="{{ calificador_id }}">
+        <input type="hidden" name="calificado_id" id="calificadoId" value="{{ calificado_id }}">
 
-      <!-- Campo oculto para valor de estrellas -->
-      <input type="hidden" id="valorCalificacion" name="valor_calificacion" value="0">
-      <input type="hidden" name="calificador_id" value="{{ calificador_id }}">  
-      <input type="hidden" name="calificado_id" id="calificadoId" value="{{ calificado_id }}">
+        <div class="campo-calificacion">
+          <textarea id="reseñaCalificacion" name="reseña" placeholder="Escribe una reseña"></textarea>
+        </div>
 
-      <!-- Reseña -->
-      <div class="campo-calificacion">
-        <textarea id="reseñaCalificacion" name="reseña" placeholder="Escribe una reseña"></textarea>
-      </div>
-
-      <!-- Botones -->
-      <div class="botones-calificacion">
-        <button type="submit" class="btn-calificacion-guardar">Guardar</button>
-        <button type="button" class="btn-calificacion-cancelar" id="cancelarModalCalificacion">Cancelar</button>
-      </div>
-
-    </form>
-    <!-- ✅ Fin del FORM -->
-  </div>
-</div>
-
-
-  <!-- Modal de Confirmación para eliminar -->
-<div id="confirmModal" class="modal-overlay" style="display: none;">
-  <div class="modal-content-delete">
-    <p>¿Deseas eliminar esta conversación?</p>
-    <div class="modal-buttons">
-      <button id="confirmDelete" class="btn-aceptar">Aceptar</button>
-      <button id="cancelDelete" class="btn-cancelar">Cancelar</button>
+        <div class="botones-calificacion">
+          <button type="submit" class="btn-calificacion-guardar">Guardar</button>
+          <button type="button" class="btn-calificacion-cancelar" id="cancelarModalCalificacion">Cancelar</button>
+        </div>
+      </form>
     </div>
   </div>
-</div>
 
+  <!-- Modal de Confirmación para eliminar -->
+  <div id="confirmModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content-delete">
+      <p>¿Deseas eliminar esta conversación?</p>
+      <div class="modal-buttons">
+        <button id="confirmDelete" class="btn-aceptar">Aceptar</button>
+        <button id="cancelDelete" class="btn-cancelar">Cancelar</button>
+      </div>
+    </div>
+  </div>
 
-  
   <!-- Socket.IO -->
   <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
   <!-- JS personalizado -->
   <script src="{{ url_for('static', filename='js/mensajeria.js') }}"></script>
   <script src="{{ url_for('static', filename='js/modal_reportar.js') }}"></script>
-
- 
-
 
 </body>
 </html>

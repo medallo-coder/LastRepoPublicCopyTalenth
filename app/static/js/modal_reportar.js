@@ -1,3 +1,4 @@
+// modal_reportar.js
 document.addEventListener("DOMContentLoaded", () => {
   console.log("[modal_reportar.js] cargado ✅");
 
@@ -9,40 +10,47 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // 🔹 1. Escucha botones existentes (inicio)
   document.querySelectorAll(".abrir-modal-reporte").forEach((boton) => {
     boton.addEventListener("click", (e) => abrirModal(e, boton, modal));
   });
 
-  // 🔹 2. Delegación para botones agregados después (mensajería)
   document.addEventListener("click", (e) => {
     const boton = e.target.closest(".abrir-modal-reporte");
     if (boton) abrirModal(e, boton, modal);
-
     if (e.target === modal) modal.style.display = "none";
   });
 
-  // 🔹 3. Cerrar con botón cancelar
   if (btnCancelar) {
     btnCancelar.addEventListener("click", () => {
       modal.style.display = "none";
     });
   }
 
-  // 🔹 Función reutilizable para abrir el modal
   function abrirModal(e, boton, modal) {
-  e.preventDefault();
-  console.log("[Modal Reporte] botón clickeado");
+    e.preventDefault();
+    console.log("[Modal Reporte] botón clickeado");
 
-  const reportadoId = boton.getAttribute("data-usuario-reportado");
-  const inputReportado = document.getElementById("reportado-id-input");
+    // --- Reportado (ya te funcionaba) ---
+    const reportadoId = boton.getAttribute("data-usuario-reportado");
+    const inputReportado = document.getElementById("reportado-id-input");
+    if (inputReportado) inputReportado.value = reportadoId || "";
 
-  if (inputReportado) inputReportado.value = reportadoId;
+    // --- Reportador (lo que faltaba) ---
+    const inputReportador = document.getElementById("reportador-id-input");
+    if (inputReportador && !inputReportador.value) {
+      const currentUserInput = document.getElementById("currentUserId");
+      const reportadorId =
+        (currentUserInput && currentUserInput.value) ||
+        boton.getAttribute("data-usuario") ||
+        boton.getAttribute("data-reportador-id") ||
+        ""; // último recurso
 
-  // 🔸 ➕ Agrega esta línea:
-  document.querySelectorAll('.contact-menu').forEach(m => m.classList.add('oculto'));
+      inputReportador.value = reportadorId;
+    }
 
-  modal.style.display = "flex";
-}
+    // Ocultar menús contextuales
+    document.querySelectorAll(".contact-menu").forEach((m) => m.classList.add("oculto"));
 
+    modal.style.display = "flex";
+  }
 });

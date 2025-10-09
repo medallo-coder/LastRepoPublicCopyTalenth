@@ -26,16 +26,32 @@ user_sid_map = {}  # Guarda: user_id → socket.id
 @mensajeria_bp.route('/')
 @login_required
 def mensajeria():
+    usuario_logueado = current_user.usuario_id
+    usuario_chat = session.get('abrir_chat_con')
 
-    calificador_id = current_user.usuario_id
-    calificado_id = session.get('abrir_chat_con')  # puede ser None si no hay chat abierto
+    if not usuario_chat:
+        ultimo_mensaje = Mensajeria.query.filter(
+            (Mensajeria.id_emisor == usuario_logueado) | (Mensajeria.id_receptor == usuario_logueado)
+        ).order_by(Mensajeria.fecha.desc()).first()
+        if ultimo_mensaje:
+            usuario_chat = (
+                ultimo_mensaje.id_receptor
+                if ultimo_mensaje.id_emisor == usuario_logueado
+                else ultimo_mensaje.id_emisor
+            )
 
     return render_template(
         'mensajeria.html',
-        calificador_id=calificador_id,
-        calificado_id=calificado_id,
-        rol_usuario=current_user.id_rol
+        # ✅ lo que ya enviabas:
+        reportador_id=usuario_logueado,
+        reportado_id=usuario_chat,
+        calificador_id=usuario_logueado,
+        calificado_id=usuario_chat,
+        rol_usuario=current_user.id_rol,
+        # ✅ clave: el modal espera este nombre
+        id_usuario_logueado=usuario_logueado
     )
+
 
 def _room_name(a, b):
     return f"chat_{min(a, b)}_{max(a, b)}"

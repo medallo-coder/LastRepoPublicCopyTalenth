@@ -7,7 +7,6 @@
     box-sizing: border-box;
     font-family: 'Oswald Variable';
 }
-
 /*-----------------------------------------------
     Fuente Oswald Variable (peso de 200 a 700)
   -----------------------------------------------*/
@@ -548,7 +547,7 @@ input::placeholder {
 
     .bt-recuperar-pasword {
         font-size: 15px;
-        margin-left: 82px;
+        margin-left: -20px;
     }
 }
 
@@ -584,6 +583,6 @@ input::placeholder {
 
     .bt-recuperar-pasword {
         font-size: 14px;
-        margin-left: 61px;
+        margin-left: -20px;
     }
 }
