@@ -68,20 +68,42 @@ html, body {
   background-color: #e5e7eb;
 }
 
+/* ===============================
+   🔹 PERFIL EN PANEL IZQUIERDO
+================================= */
 .conversation .left {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  flex: 1;
+  gap: 0.8rem;
 }
 
-.conversation img {
+.conversation .perfil-img {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #e0e0e0;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icono por defecto cuando no hay imagen */
+.conversation .placeholder-icon {
+  font-size: 48px;
+  color: #3EAEB1;
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  object-fit: cover;
-  background-color: #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f2f2;
 }
+
 
 .conversation h2 {
   margin: 0;
@@ -93,6 +115,13 @@ html, body {
 .conversation small {
   color: #666;
   font-size: 0.875rem;
+
+  display: -webkit-box;       /* necesaria para line-clamp */
+  -webkit-line-clamp: 1;      /* número de líneas a mostrar */
+  -webkit-box-orient: vertical;
+  overflow: hidden;           /* oculta el resto del texto */
+  text-overflow: ellipsis;    /* agrega "..." al final */
+  white-space: normal;        /* permite el wrap interno */
 }
 
 .conversation .right {
@@ -241,23 +270,55 @@ html, body {
   flex-shrink: 0;
 }
 
+/* ===============================
+   🔹 PERFIL EN CHAT SUPERIOR (derecha)
+================================= */
 .chat-panel .top .profile {
   display: flex;
   align-items: center;
   gap: 1rem;
+  padding-top: 1rem;
 }
 
-.chat-panel .top .profile img {
-  width: 64px;
-  height: 64px;
+.chat-panel .top .profile .perfil-img {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
+  background-color: #e0e0e0;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Icono por defecto (cuando no hay foto en el chat actual) */
+.chat-panel .top .profile .placeholder-icon {
+  font-size: 58px;
+  color: #3EAEB1;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===============================
+   🔹 TEXTO DEL PERFIL ACTIVO
+================================= */
 .chat-panel .top .profile span {
   color: #3eaeb1;
   font-size: 1.5rem;
   font-weight: 700;
+}
+
+/* ===============================
+   🔹 UTILITARIOS
+================================= */
+.oculto {
+  display: none !important;
 }
 
 .chat-panel .top button {

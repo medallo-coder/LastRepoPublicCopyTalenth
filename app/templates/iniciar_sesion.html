@@ -19,6 +19,8 @@
         </a>
     </div>
 
+    {% include 'errors.html' %}
+
 
     <!-- Formulario de inicio de sesión -->
     <div class="register-form">
@@ -36,15 +38,6 @@
                 <input type="password" name="contrasena" placeholder="Contraseña" id="pass1" required>
                <i class="bi bi-eye-fill toggle-pass eye-icon"></i>
             </div>
-
-             <!-- 🔹 Aquí aparecen los errores específicos del login -->
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="login-error">{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
             
             <!-- Botón centrado -->
             <button type="submit" class="bt-login">Iniciar Sesión</button>

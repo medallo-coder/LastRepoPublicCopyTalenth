@@ -27,6 +27,10 @@ def registrar_usuario_service(data):
 
     if not primer_nombre or not primer_apellido  or not correo or not contrasena or not confirmar_contrasena:
         return {"success": False, "message": "Todos los campos son obligatorios. Por favor, completa cada uno."}
+    
+     # ✅ Validar que el correo termine en .com
+    if not re.match(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$", correo):
+        return {"success": False, "message": "El correo debe ser válido y terminar en .com"}
 
     if len(contrasena) < 6:
         return {"success": False, "message": "La contraseña debe tener al menos 6 caracteres. Intenta con una más larga."}

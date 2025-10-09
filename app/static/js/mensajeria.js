@@ -61,34 +61,52 @@ function refreshConversations() {
         const div = document.createElement('div');
         div.className = 'conversation';
         div.dataset.userId = u.usuario_id;
+        
+
+        let fotoHTML = '';
+          if (u.foto && u.foto !== 'default.jpg') {
+            // Si la ruta ya viene completa (por ejemplo /uploads/perfiles/archivo.jpg)
+            // úsala directamente; si solo viene el nombre, la completamos
+            const fotoSrc = u.foto.startsWith('/uploads/')
+              ? u.foto
+              : `/uploads/perfiles/${u.foto.replace(/^\/+/, '')}`;
+            fotoHTML = `<img src="${fotoSrc}" alt="Foto de perfil" class="perfil-img">`;
+          } else {
+            fotoHTML = `<i class="bi bi-person-circle perfil-img placeholder-icon"></i>`;
+          }
+
+
 
         div.innerHTML = `
           <div class="left">
-            <img src="/static/uploads/${u.foto}" alt="Perfil" />
+            ${fotoHTML}
             <div>
               <h2>${u.nombre}</h2>
-              <small>${u.ultimo_texto}</small>
+              <small>${u.ultimo_texto || ''}</small>
             </div>
           </div>
           <div class="right">
-            <!-- Botón menú -->
             <div class="menu-button-container">
-             <button class="menu-btn"><i class="bi bi-three-dots"></i></button>
+              <button class="menu-btn"><i class="bi bi-three-dots"></i></button>
               <div class="contact-menu oculto">
                 <span class="menu-close-btn">&times;</span>
                 <a href="javascript:void(0);" class="abrir-modal-calificacion">
                   <i class="bi bi-star"></i><span>Calificar</span>
                 </a>
-                <a href="javascript:void(0);" class="btn-link abrir-modal-reporte">
-                 <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
+                <a href="javascript:void(0);"
+                  class="btn-link abrir-modal-reporte"
+                  data-usuario-reportado="${u.usuario_id}"
+                  data-usuario-reportador="${userId}">
+                  <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
                 </a>
                 <a href="#"><i class="bi bi-trash"></i><span>Eliminar</span></a>
               </div>
             </div>
-            <span class="time">${u.hora}</span>
-            <div class="badge" style="${u.pendientes > 0 ? '' : 'display: none;'}">${u.pendientes}</div>
+            <span class="time">${u.hora || ''}</span>
+            <div class="badge" style="${u.pendientes > 0 ? '' : 'display:none;'}">${u.pendientes || ''}</div>
           </div>
         `;
+
         
         const handleClick = () => {
           chatPartner = u.usuario_id;
@@ -96,8 +114,25 @@ function refreshConversations() {
           document.getElementById('chatPlaceholder').classList.add('oculto');
           document.getElementById('chatContent').classList.remove('oculto');
 
-          document.getElementById('chatUserName').textContent = u.nombre;
-          document.getElementById('chatProfilePhoto').src = `/static/uploads/${u.foto}`;
+         document.getElementById('chatUserName').textContent = u.nombre;
+
+          const chatPhoto = document.getElementById('chatProfilePhoto');
+          const chatIcon = document.querySelector('.profile .placeholder-icon');
+
+          if (u.foto && u.foto !== 'default.jpg') {
+            const fotoSrc = u.foto.startsWith('/uploads/')
+              ? u.foto
+              : `/uploads/perfiles/${u.foto.replace(/^\/+/, '')}`;
+            chatPhoto.src = fotoSrc;
+            chatPhoto.classList.remove('oculto');
+            chatIcon.classList.add('oculto');
+          } else {
+            chatPhoto.classList.add('oculto');
+            chatIcon.classList.remove('oculto');
+          }
+
+
+
           document.getElementById('chatContainer').innerHTML = '';
           socket.emit('join_chat', { user_id: userId, other_user_id: chatPartner });
           refreshConversations();
@@ -116,6 +151,18 @@ function refreshConversations() {
 }
 
 refreshConversations();
+
+// --- BOTÓN "VER PERFIL" ---
+document.getElementById("viewProfileBtn").addEventListener("click", () => {
+  if (!chatPartner) {
+    alert("Selecciona primero un chat para ver el perfil del usuario.");
+    return;
+  }
+
+  // Redirige al endpoint que decide si es experto o cliente
+  window.location.href = `/mensajeria/ver_perfil/${chatPartner}`;
+});
+
 
 /* =========================
    SOCKET.IO EVENTOS
@@ -303,6 +350,56 @@ document.addEventListener("click", (e) => {
   }
 });
 
+// --- ENVÍO DE CALIFICACIÓN POR AJAX ---
+const formCalificacion = document.getElementById("formCalificacion");
+
+if (formCalificacion) {
+  formCalificacion.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(formCalificacion);
+
+    try {
+      const res = await fetch(formCalificacion.action, {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await res.json();
+
+      // Mostrar mensaje dinámico
+      mostrarMensaje(data.message, data.success ? "success" : "danger");
+
+      if (data.success) {
+        // Cerrar modal y limpiar formulario
+        const modal = document.getElementById("modalCalificacion");
+        if (modal) modal.style.display = "none";
+        formCalificacion.reset();
+        const inputValor = document.getElementById("valorCalificacion");
+        if (inputValor) inputValor.value = 0;
+
+        // Opcional: refrescar lista de conversaciones o perfil
+        refreshConversations();
+      }
+
+    } catch (err) {
+      console.error(err);
+      mostrarMensaje("Error al enviar la calificación", "danger");
+    }
+  });
+}
+
+// Función para mostrar alertas temporales
+function mostrarMensaje(msg, tipo) {
+  const container = document.querySelector(".messages-container") || document.body;
+  const div = document.createElement("div");
+  div.className = `alert ${tipo}`;
+  div.textContent = msg;
+  container.prepend(div);
+  setTimeout(() => div.remove(), 4000);
+}
+
+
 // === DELEGACIÓN para abrir y cerrar el modal de eliminar ===
 document.addEventListener("click", (e) => {
   // Abrir modal al hacer clic en “Eliminar”
@@ -373,103 +470,33 @@ document.addEventListener("click", (e) => {
   
 });
 
-function refreshConversations() {
-  fetch(`/mensajeria/conversaciones/${userId}`)
-    .then(res => res.json())
-    .then(users => {
-      const panel = document.getElementById('conversationsPanel');
-      panel.innerHTML = '';
-
-      users.forEach(u => {
-        const div = document.createElement('div');
-        div.className = 'conversation';
-        div.dataset.userId = u.usuario_id;
-
-        div.innerHTML = `
-          <div class="left">
-            <img src="/static/uploads/${u.foto}" alt="Perfil" />
-            <div>
-              <h2>${u.nombre}</h2>
-              <small>${u.ultimo_texto}</small>
-            </div>
-          </div>
-          <div class="right">
-            <!-- Botón menú -->
-            <div class="menu-button-container">
-              <button class="menu-btn"><i class="bi bi-three-dots"></i></button>
-              <div class="contact-menu oculto">
-                <span class="menu-close-btn">&times;</span>
-                <a href="javascript:void(0);" class="abrir-modal-calificacion">
-                  <i class="bi bi-star"></i><span>Calificar</span>
-                </a>
-                <a href="javascript:void(0);"
-                  class="btn-link abrir-modal-reporte"
-                  data-usuario-reportado="${u.usuario_id}"
-                  data-usuario-reportador="${userId}">
-                  <i class="bi bi-exclamation-circle"></i><span>Reportar</span>
-                
-                </a>
-                <a href="#"><i class="bi bi-trash"></i><span>Eliminar</span></a>
-              </div>
-            </div>
-            <span class="time">${u.hora}</span>
-            <div class="badge" style="${u.pendientes > 0 ? '' : 'display: none;'}">${u.pendientes}</div>
-          </div>
-        `;
-
-        // 🟦 Cuando se hace clic en una conversación, abrir chat
-        const handleClick = () => {
-          chatPartner = u.usuario_id;
-
-          // Ocultar placeholder y mostrar chat
-          document.getElementById('chatPlaceholder').classList.add('oculto');
-          document.getElementById('chatContent').classList.remove('oculto');
-
-          // Mostrar datos del usuario seleccionado
-          document.getElementById('chatUserName').textContent = u.nombre;
-          document.getElementById('chatProfilePhoto').src = `/static/uploads/${u.foto}`;
-
-          // Limpiar mensajes previos
-          document.getElementById('chatContainer').innerHTML = '';
-
-          // Unirse a la sala y recargar conversaciones
-          socket.emit('join_chat', { user_id: userId, other_user_id: chatPartner });
-          refreshConversations();
-        };
-
-        div.querySelector('.left').addEventListener('click', handleClick);
-
-        // 🟢 NUEVO BLOQUE: abrir modal y asignar ID correcto al calificar
-        const btnCalificar = div.querySelector(".abrir-modal-calificacion");
-        if (btnCalificar) {
-          btnCalificar.addEventListener("click", (e) => {
-            e.stopPropagation(); // evitar que se abra el chat
-
-            const input = document.getElementById("calificadoId");
-            if (input) {
-              input.value = u.usuario_id;
-              console.log("✅ Calificado ID asignado desde conversación:", u.usuario_id);
-            }
-
-            // Mostrar modal
-            const modal = document.getElementById("modalCalificacion");
-            if (modal) modal.style.display = "flex";
-
-            // Cerrar cualquier menú abierto
-            document.querySelectorAll(".contact-menu").forEach(m => m.classList.add("oculto"));
-          });
-        }
-
-        // Agregar conversación al panel
-        panel.appendChild(div);
-
-        // Si hay un chat guardado en sesión, abrirlo automáticamente
-        if (chatPartnerInicial && u.usuario_id === chatPartnerInicial && !chatAbiertoPorSession) {
-          chatAbiertoPorSession = true;
-          handleClick();
-        }
-      });
-    })
-    .catch(err => console.error("❌ Error cargando conversaciones:", err));
+// 🔹 Cuando el usuario selecciona una conversación
+function abrirChat(otroUsuarioId) {
+  const chatPanel = document.getElementById("chatPanel");
+  chatPanel.dataset.partnerId = otroUsuarioId;
+  console.log("💬 Chat abierto con usuario:", otroUsuarioId);
 }
+
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".abrir-modal-calificacion");
+  if (!btn) return;
+
+  // buscar la conversación donde se hizo clic
+  const conversation = btn.closest(".conversation");
+  const usuarioId = conversation?.dataset.userId;
+  const input = document.getElementById("calificadoId");
+
+  if (usuarioId && input) {
+    input.value = usuarioId;
+    console.log("✅ Calificado ID asignado desde conversación:", usuarioId);
+  } else {
+    console.warn("⚠️ No se pudo asignar calificado_id");
+  }
+
+  // mostrar modal
+  const modal = document.getElementById("modalCalificacion");
+  if (modal) modal.style.display = "flex";
+});
+
+
 

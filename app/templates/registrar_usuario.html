@@ -41,9 +41,24 @@
 
             <div class="input-group">
                 <span class="input-icon"><i class="bi bi-at"></i></span>
-                <input type="email" name="correo" placeholder="Correo Electrónico" 
-                required>
+                <input type="text" name="correo" placeholder="Correo Electrónico" 
+                    value="{{ request.form.get('correo', '') }}"
+                    required>
             </div>
+
+            <!-- Mostrar errores -->
+            <div class="messages-container">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+
+
 
             <div class="input-group password-group">
                 <span class="input-icon"><i class="bi-lock-fill"></i></span>
@@ -65,7 +80,7 @@
                 <input type="password" name="confirmar_contrasena" placeholder="Repetir Contraseña" id="pass2" required>
                 <i class="bi bi-eye-fill toggle-pass eye-icon"></i>
             </div>
-            <div id="password-error" style="display: none;"></div>
+            
             <div id="password-match"></div>
 
 

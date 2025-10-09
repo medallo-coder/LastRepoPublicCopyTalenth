@@ -100,13 +100,15 @@
         <h2 id="titulo-favoritos">Calificaciones</h2>
         <div class="slider-container">
           <div class="slider" id="slider">
-  {% if calificaciones %}
-    {% for c, u, p in calificaciones %}
-      <div class="card">
+        {% if calificaciones %}
+          {% for c, u, p in calificaciones %}
+        <div class="card">
+
          {% if p.foto_perfil %}
-            <img src="{{ url_for('web.perfil_foto', filename=p.foto_perfil) }}" alt="Perfil" />
+            <img src="{{ url_for('web.perfil_foto', filename=p.foto_perfil) }}" alt="Foto de perfil" />
           {% else %}
-            <img src="{{ url_for('static', filename='uploads/perfiles/defecto.png') }}" alt="Perfil por defecto" />
+            <!-- Icono de Bootstrap como reemplazo -->
+            <i class="bi bi-person-circle perfil-img placeholder-icon"></i>
           {% endif %}
         <div class="card-content">
           <h3>{{ p.primer_nombre }} {{ p.primer_apellido }}</h3>
@@ -122,12 +124,12 @@
           <p class="descripcion">{{ c.reseña }}</p>
           <small>{{ c.fecha_calificacion.strftime('%d/%m/%Y') }}</small>
         </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="sin-calificaciones">Aún no has hecho ninguna calificación.</p>
+      {% endif %}
       </div>
-    {% endfor %}
-  {% else %}
-    <p class="sin-calificaciones">Aún no has hecho ninguna calificación.</p>
-  {% endif %}
-</div>
 
           
 
@@ -151,6 +153,7 @@
               </svg>
             </button>
           </div>
+          
         </div>
       </div>
 

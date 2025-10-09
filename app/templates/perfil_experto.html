@@ -225,142 +225,132 @@
           + Añadir estudios
         </div>
         {% endif %}
-        
-
       </div>
 
-    
-
-
-      
-    <!-- Columna derecha -->
-    <div class="columna-derecha">
-      <div class="cuadro-pequeno">
-
-        <!-- Idiomas -->
-        <div class="idiomas">
-          <h2 class="titulo-idiomas">Idiomas</h2>
-          {% if idiomas|length < 3 %}
-            <i id="agregaridiomas" class="bi bi-plus-circle-fill"></i>
-          {% endif %}
-        </div>
-
-
-        {% if idiomas %}
-          {% for idioma in idiomas %}
-            <div class="idioma-item">
-              <i class="bi bi-check2-circle icono-idioma"></i>
-              <span class="idioma-nombre">{{ idioma.nombre }}</span>
-
-              <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;" class="form-eliminar" >
-                <input type="hidden" name="form_tipo3" value="eliminar_idioma">
-                <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-                <input type="hidden" name="idioma_id" value="{{ idioma.id }}"> <!-- 👈 ID individual del idioma -->
-                
-                <button type="button" class="boton-icono btn-eliminar" id="btn-eliminar" data-texto="¿Seguro que deseas eliminar este idioma?" title="Eliminar idioma">
-                    <i class="bi bi-trash"></i>
-                  </button>
-              </form>
-            </div>
-          {% endfor %}
-
-
-        {% endif %}
-
-          
-            <div class="idioma-item">
-              <!--<i class="bi bi-check2-circle icono-idioma"></i> -->
-              <span class="idioma-nombre"></span>
-            <!-- <i class="bi bi-trash icono-borrar"></i> -->
-            </div>
-          </div>
-          
-          
-        
+      <!-- Columna derecha -->
+      <div class="columna-derecha">
         <div class="cuadro-pequeno">
-          <!-- Aptitudes -->
+
+          <!-- Idiomas -->
           <div class="idiomas">
-            <h2 class="titulo-idiomas">Aptitudes</h2>
-            {% if aptitudes|length < 3 %}
-            <i id="agregaraptitudes"class="bi bi-plus-circle-fill"></i>
+            <h2 class="titulo-idiomas">Idiomas</h2>
+            {% if idiomas|length < 3 %}
+              <i id="agregaridiomas" class="bi bi-plus-circle-fill"></i>
             {% endif %}
           </div>
 
-          {% if aptitudes %}
-            {% for aptitud in aptitudes %}
+
+            {% if idiomas %}
+              {% for idioma in idiomas %}
               <div class="idioma-item">
                 <i class="bi bi-check2-circle icono-idioma"></i>
-                <span class="idioma-nombre">{{ aptitud.tipo_aptitud }}</span>
-                
-                <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;" class="form-eliminar">
-                  <input type="hidden" name="form_tipo4" value="eliminar_aptitud">
+                <span class="idioma-nombre">{{ idioma.nombre }}</span>
+
+                <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;" class="form-eliminar" >
+                  <input type="hidden" name="form_tipo3" value="eliminar_idioma">
                   <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-                  <input type="hidden"  name="tipo_aptitud" value="{{ aptitud.tipo_aptitud }}">
-                  <button type="button" class="boton-icono btn-eliminar" id="btn-eliminar" data-texto="¿Seguro que deseas eliminar esta aptitud?" title="Eliminar aptitud">
-                    <i class="bi bi-trash"></i>
-                  </button>
+                  <input type="hidden" name="idioma_id" value="{{ idioma.id }}"> <!-- 👈 ID individual del idioma -->
+                  
+                  <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar este idioma?" title="Eliminar idioma">
+                      <i class="bi bi-trash"></i>
+                    </button>
                 </form>
               </div>
             {% endfor %}
-          {% else %}
-            <div class="idioma-item">
+
+
+          {% endif %}
+
+            
+              <div class="idioma-item">
                 <!--<i class="bi bi-check2-circle icono-idioma"></i> -->
                 <span class="idioma-nombre"></span>
-                <span class="idioma-nivel"></span>
               <!-- <i class="bi bi-trash icono-borrar"></i> -->
-            </div>
-          {% endif %}
+              </div>
         </div>
+            
+            
+          
+          <div class="cuadro-pequeno">
+            <!-- Aptitudes -->
+            <div class="idiomas">
+              <h2 class="titulo-idiomas">Aptitudes</h2>
+              {% if aptitudes|length < 3 %}
+              <i id="agregaraptitudes" class="bi bi-plus-circle-fill"></i>
+              {% endif %}
+            </div>
+
+            {% if aptitudes %}
+              {% for aptitud in aptitudes %}
+                <div class="idioma-item">
+                  <i class="bi bi-check2-circle icono-idioma"></i>
+                  <span class="idioma-nombre">{{ aptitud.tipo_aptitud }}</span>
+                  
+                  <form method="POST" action="{{ url_for('web.perfil_experto') }}" style="display: inline;" class="form-eliminar">
+                    <input type="hidden" name="form_tipo4" value="eliminar_aptitud">
+                    <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
+                    <input type="hidden" name="tipo_aptitud" value="{{ aptitud.tipo_aptitud }}">
+                    <button type="button" class="boton-icono btn-eliminar" data-texto="¿Seguro que deseas eliminar esta aptitud?" title="Eliminar aptitud">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </form>
+                </div>
+              {% endfor %}
+            {% else %}
+              <div class="idioma-item">
+                  <!--<i class="bi bi-check2-circle icono-idioma"></i> -->
+                  <span class="idioma-nombre"></span>
+                  <span class="idioma-nivel"></span>
+                <!-- <i class="bi bi-trash icono-borrar"></i> -->
+              </div>
+            {% endif %}
+          </div>
       </div>
     </div>
 
     <div class="contenedor">
-  <h2 id="titulo-favoritos">Calificaciones recibidas</h2>
+      <h2 id="titulo-favoritos">Calificaciones</h2>
 
-  <div class="slider-container">
-    <div class="slider" id="slider">
+      <div class="slider-container">
+        <div class="slider" id="slider">
 
-      {% if calificaciones %}
-        {% for c, u, p in calificaciones %}
-          <div class="card">
-            <div>
-              {% if p.foto_perfil %}
-            <img src="{{ url_for('web.perfil_foto', filename=p.foto_perfil) }}" alt="Perfil" />
-          {% else %}
-            <img src="{{ url_for('static', filename='uploads/perfiles/defecto.png') }}" alt="Perfil por defecto" />
-          {% endif %}
-            </div>
-
-            <div class="card-content">
-              <h3>{{ p.primer_nombre }} {{ p.primer_apellido }}</h3>
-
-              <div class="estrellasTarjetas">
-                {% for i in range(1, 6) %}
-                  {% if i <= c.puntaje %}
-                    <i class="bi bi-star-fill"></i>
+          {% if calificaciones %}
+            {% for c, u, p in calificaciones %}
+              <div class="card">
+                <div>
+                  {% if p.foto_perfil %}
+                    <img src="{{ url_for('web.perfil_foto', filename=p.foto_perfil) }}" alt="Perfil" />
                   {% else %}
-                    <i class="bi bi-star"></i>
+                    <img src="{{ url_for('static', filename='uploads/perfiles/defecto.png') }}" alt="Perfil por defecto" />
                   {% endif %}
-                {% endfor %}
+                </div>
+
+                <div class="card-content">
+                  <h3>{{ p.primer_nombre }} {{ p.primer_apellido }}</h3>
+
+                  <div class="estrellasTarjetas">
+                    {% for i in range(1, 6) %}
+                      {% if i <= c.puntaje %}
+                        <i class="bi bi-star-fill"></i>
+                      {% else %}
+                        <i class="bi bi-star"></i>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+
+                  <p class="descripcion">{{ c.reseña }}</p>
+                  <small>{{ c.fecha_calificacion.strftime('%d/%m/%Y') }}</small>
+                </div>
               </div>
+                {% endfor %}
+              {% else %}
+            <p class="sin-calificaciones">Aún no has recibido ninguna calificación.</p>
+          {% endif %}
 
-              <p class="descripcion">{{ c.reseña }}</p>
-              <small>{{ c.fecha_calificacion.strftime('%d/%m/%Y') }}</small>
-            </div>
-          </div>
-        {% endfor %}
-      {% else %}
-        <p class="sin-calificaciones">Aún no has recibido ninguna calificación.</p>
-      {% endif %}
+        </div>
+      </div>
 
-    </div>
-  </div>
-</div>
-
-
-    
-
-          <!-- Flechas -->
+            <!-- Flechas -->
           <div class="arrows">
             <button class="arrow-btn">
               <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" fill="none" stroke="#3EAEB1"
@@ -380,8 +370,9 @@
               </svg>
             </button>
           </div>
-        </div>
-      </div>
+    </div>
+  </div>
+
 
 
       <!-- Formulario de edición de contacto, inicialmente oculto -->
@@ -433,20 +424,20 @@
       </div>
 
 
-<script>
-  // Script para actualizar el contador en EDITAR
-  const textareaEditar = document.getElementById('descripcionEditar');
-  const contadorEditar = document.getElementById('contadorEditar');
-  const maxEditar = textareaEditar.getAttribute('maxlength');
+      <script>
+        // Script para actualizar el contador en EDITAR
+        const textareaEditar = document.getElementById('descripcionEditar');
+        const contadorEditar = document.getElementById('contadorEditar');
+        const maxEditar = textareaEditar.getAttribute('maxlength');
 
-  // Inicializar el contador con el valor que tenga cargado
-  contadorEditar.textContent = `${textareaEditar.value.length} / ${maxEditar}`;
+        // Inicializar el contador con el valor que tenga cargado
+        contadorEditar.textContent = `${textareaEditar.value.length} / ${maxEditar}`;
 
-  textareaEditar.addEventListener('input', () => {
-    const longitud = textareaEditar.value.length;
-    contadorEditar.textContent = `${longitud} / ${maxEditar}`;
-  });
-</script>
+        textareaEditar.addEventListener('input', () => {
+          const longitud = textareaEditar.value.length;
+          contadorEditar.textContent = `${longitud} / ${maxEditar}`;
+        });
+      </script>
 
       <!-- Formulario para editar descripción -->
       <div id="formulario-editar-descripcion" style="display:none;">
@@ -589,34 +580,65 @@
         </div>
       </div>
 
-  
-    <!-- Formulario superpuesto para Añadir Idioma -->
-<div class="formulario-idioma" id="formularioIdioma" style="display: none;">
-  <div class="formulario-contenido">
-    <h2>Añadir idioma</h2>
-    <form method="POST" action="{{ url_for('web.perfil_experto') }}">
-      <input type="hidden" name="form_tipo3" value="idioma">
+          <!-- Formulario emergente para editar estudios -->
+    <div class="formulario-editar-estudios" id="formulario-editar-estudios" style="display: none;">
+      <div class="formulario-estudios-contenido">
+        <h2>Editar estudios</h2>
+        <form method="POST" action="{{ url_for('web.perfil_experto') }}">
+          <input type="hidden" name="form_tipo5" value="editar_estudios">
+          <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
 
-      <div class="campo">
-        <label for="idiomaSelect"></label>
-        <select id="idiomaSelect" name="nombre_idioma">
-          <option value="" disabled selected>Selecciona el idioma</option>
-          {% set todos_idiomas = ['Español', 'Inglés', 'Francés', 'Alemán', 'Portugués'] %}
-          {% for idioma in todos_idiomas %}
-            {% if idioma not in idiomas|map(attribute='nombre') %}
-              <option value="{{ idioma }}">{{ idioma }}</option>
-            {% endif %}
-          {% endfor %}
-        </select>
-      </div>
+          <div class="campo">
+            <input type="text" id="editar-titulo" name="titulo_obtenido" value="{{ titulo_obtenido }}" placeholder="Título" required maxlength="100">
+          </div>
 
-      <div class="botones">
-        <button type="submit">Guardar</button>
-        <button type="button" onclick="cerrarFormularioIdiomas()">Cancelar</button>
+          <div class="campo">
+            <input type="text" id="editar-lugar" name="institucion" value="{{ institucion }}" placeholder="Institución" required maxlength="100">
+          </div>
+
+          <div class="campo">
+            <input type="date" id="editar-fecha-desde" name="fecha_inicio" value="{{ fecha_inicio }}" required>
+          </div>
+
+          <div class="campo">
+            <input type="date" id="editar-fecha-hasta" name="fecha_fin" value="{{ fecha_fin }}" required>
+          </div>
+
+          <div class="botones">
+            <button type="submit">Guardar</button>
+            <button type="button" onclick="cerrarFormularioEditarEstudios()">Cancelar</button>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
-</div>
+    </div>
+      
+        <!-- Formulario superpuesto para Añadir Idioma -->
+    <div class="formulario-idioma" id="formularioIdioma" style="display: none;">
+      <div class="formulario-contenido">
+        <h2>Añadir idioma</h2>
+        <form method="POST" action="{{ url_for('web.perfil_experto') }}">
+          <input type="hidden" name="form_tipo3" value="idioma">
+
+          <div class="campo">
+            <label for="idiomaSelect"></label>
+            <select id="idiomaSelect" name="nombre_idioma">
+              <option value="" disabled selected>Selecciona el idioma</option>
+              {% set todos_idiomas = ['Español', 'Inglés', 'Francés', 'Alemán', 'Portugués'] %}
+              {% for idioma in todos_idiomas %}
+                {% if idioma not in idiomas|map(attribute='nombre') %}
+                  <option value="{{ idioma }}">{{ idioma }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="botones">
+            <button type="submit">Guardar</button>
+            <button type="button" onclick="cerrarFormularioIdiomas()">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <!-- Formulario superpuesto para Añadir Aptitudes -->
     <div class="formulario-aptitudes" id="formularioAptitudes" style="display: none;">
@@ -638,20 +660,19 @@
       </div>
     </div>
 
-    <!-- Modal eliminar -->
-<div id="modalEliminar" class="modal-overlay hidden">
-  <div class="modal-content-delete">
-    <p id="textoEliminar">¿Seguro que deseas eliminar este elemento?</p>
-    <div class="modal-buttons">
-      <button id="confirmEliminar" class="btn-aceptar">Aceptar</button>
-      <button id="cancelEliminar" class="btn-cancelar">Cancelar</button>
+        <!-- Modal eliminar -->
+    <div id="modalEliminar" class="modal-overlay hidden">
+      <div class="modal-content-delete">
+        <p id="textoEliminar">¿Seguro que deseas eliminar este elemento?</p>
+        <div class="modal-buttons">
+          <button id="confirmEliminar" class="btn-aceptar">Aceptar</button>
+          <button id="cancelEliminar" class="btn-cancelar">Cancelar</button>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
 
     <script src="{{ url_for('static', filename='js/perfil.experto.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/tabs.js') }}"></script>
 
 
     {% include 'footer.html' %}

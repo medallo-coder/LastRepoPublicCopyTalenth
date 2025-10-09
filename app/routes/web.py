@@ -8,6 +8,7 @@ from app.services.perfil_experto import actualizar_perfil_experto_service5,elimi
 from app.services.rol_service import verificar_rol, cambiar_rol_a_experto_service, cambiar_rol_a_cliente_service
 from app.services.mis_publicaciones import obtener_mis_publicaciones_service, obtener_categorias_service, obtener_subcategorias_service, obtener_publicacion_por_id_service, guardar_mi_publicacion_service, eliminar_publicacion_service, contar_publicaciones_usuario, obtener_subcategorias_por_categoria_service
 from app.services.perfil_publico import obtener_perfil_publico_service
+from app.services.perfil_cliente_publico import obtener_perfil_clientepublico_service
 from app.services.guardados import obtener_guardados_service, guardar_publicacion_service, eliminar_guardado_service
 from app.services.publicaciones_generales import obtener_publicaciones_generales_service, obtener_publicaciones_filtradas_service
 from app.services.jwt_service import verificar_token
@@ -604,7 +605,7 @@ def perfil_general():
         return redirect(url_for('web.inicio'))
 
 
-#perfil general
+# --- PERFIL EXPERTO PÚBLICO ---
 @web.route('/perfil-experto/<int:usuario_id>')
 def perfil_experto_publico(usuario_id):
     experto = Usuario.query.get(usuario_id)
@@ -614,10 +615,7 @@ def perfil_experto_publico(usuario_id):
 
     perfil = obtener_perfil_publico_service(usuario_id)
 
-       # --- 🔹 Cargar calificaciones recibidas por el experto ---
-    
-
-    
+    # 🔹 Calificaciones recibidas por el experto
     calificaciones_recibidas = (
         db.session.query(Calificaciones, Usuario, perfiles)
         .join(Usuario, Calificaciones.calificador_id == Usuario.usuario_id)
@@ -627,13 +625,12 @@ def perfil_experto_publico(usuario_id):
         .all()
     )
 
-    # Si tu modelo Usuario no tiene las relaciones directas y las maneja el modelo 'perfiles', puedes acceder desde perfil
+    # 🔹 Datos del perfil del experto (si existen)
     experiencias = perfil.experiencias if perfil else []
     idiomas = perfil.idioma if perfil else []
     aptitudes = perfil.aptitudes if perfil else []
-    descripcion_perfil = perfil.descripcion_perfil if perfil else []
+    descripcion_perfil = perfil.descripcion_perfil if perfil else ""
     estudios = perfil.estudios if perfil else []
-  
 
     return render_template(
         'perfil_experto_publico.html',
@@ -644,14 +641,52 @@ def perfil_experto_publico(usuario_id):
         aptitudes=aptitudes,
         descripcion_perfil=descripcion_perfil,
         estudios=estudios,
-        calificaciones = calificaciones_recibidas
+        calificaciones=calificaciones_recibidas
     )
 
 
 
 
+#perfil cliente publico 
 
+@web.route('/perfil-cliente/<int:usuario_id>')
+def perfil_cliente_publico(usuario_id):
+    cliente = Usuario.query.get(usuario_id)
+    if not cliente:
+        flash("No se encontró el usuario.", "error")
+        return redirect(url_for('web.inicio'))
 
+    perfil = obtener_perfil_clientepublico_service(usuario_id)
+
+    # 🔹 Cargar calificaciones recibidas por el cliente
+    calificaciones_recibidas = (
+        db.session.query(Calificaciones, Usuario, perfiles)
+        .join(Usuario, Calificaciones.calificador_id == Usuario.usuario_id)
+        .join(perfiles, perfiles.id_usuario == Usuario.usuario_id)
+        .filter(Calificaciones.calificado_id == usuario_id)
+        .order_by(Calificaciones.fecha_calificacion.desc())
+        .all()
+    )
+
+    direccion = perfil.direccion if perfil else None
+    foto_perfil = perfil.foto_perfil if perfil else None
+    primer_nombre = perfil.primer_nombre if perfil else ""
+    segundo_nombre = perfil.segundo_nombre if perfil else ""
+    primer_apellido = perfil.primer_apellido if perfil else ""
+    segundo_apellido = perfil.segundo_apellido if perfil else ""
+
+    return render_template(
+        'perfil_cliente_publico.html',  # HTML que te pasé anteriormente
+        cliente=cliente,
+        perfil=perfil,
+        primer_nombre=primer_nombre,
+        segundo_nombre=segundo_nombre,
+        primer_apellido=primer_apellido,
+        segundo_apellido=segundo_apellido,
+        foto_perfil=foto_perfil,
+        direccion=direccion,
+        calificaciones=calificaciones_recibidas
+    )
 
 
 from app.models import Categorias  # Adjust path if needed

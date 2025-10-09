@@ -175,7 +175,7 @@ nav span {
     width: 170px;
     height: 60px;
     font-size: 20px;
-    margin-top: 70px;
+    margin-top: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -268,19 +268,6 @@ button {
 .bt-recuperar-pasword:hover {
     color: #3eaeb1;
     text-decoration: none;
-}
-
-/*-----------------------------------------------
-    Mensaje de error de login
-  -----------------------------------------------*/
-.login-error {
-    color: red;
-    font-size: 15px;
-    margin-top: -12px;
-    margin-bottom: -50px;
-    margin-left: 5px;
-    max-width: 350px;
-    text-align: left;
 }
 
 /*-----------------------------------------------

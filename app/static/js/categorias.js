@@ -86,107 +86,120 @@ function cerrarPanel() {
 }
 
 
-    // TARJETAS - DESCRIPCIÓN Y VER MÁS
-document.addEventListener('DOMContentLoaded', () => {
-  const tarjetas = document.querySelectorAll('.tarjeta');
+document.addEventListener("DOMContentLoaded", function () {
+  const modalTarjeta = document.getElementById("modalTarjeta");
+  const contenidoModal = document.getElementById("contenidoTarjeta");
+  const cerrarTarjetaBtn = document.getElementById("cerrarTarjeta");
 
-  // Función que devuelve el límite de caracteres según el tamaño de pantalla
-   function getDescripcionLimit() {
-    if (window.innerWidth <= 480) return 25;       // Celulares
-    if (window.innerWidth <= 768) return 35;       // Tablets vertical
-    if (window.innerWidth <= 1024) return 55;      // Tablets horizontal
-    if (window.innerWidth <= 1366) return 35;   
-    if (window.innerWidth <= 1600) return 78;     // Laptops grandes
-    return 125;                                    // Pantallas muy grandes
+  const modalLogin = document.getElementById("modalLoginContacto");
+  const cerrarLoginModal = document.getElementById("cerrarLoginContacto");
+
+  // Función para determinar límite de caracteres según pantalla
+  function getDescripcionLimit() {
+    if (window.innerWidth <= 480) return 25;
+    if (window.innerWidth <= 768) return 30;
+    if (window.innerWidth <= 1024) return 35;
+    if (window.innerWidth <= 1366) return 40;
+    if (window.innerWidth <= 1600) return 120;
+    return 100;
   }
 
-
-  // Función para aplicar el recorte dinámico a TODAS las tarjetas
+  // Aplicar recorte dinámico a todas las tarjetas
   function aplicarDescripcionResponsive() {
     const limite = getDescripcionLimit();
 
-    tarjetas.forEach(tarjeta => {
-      const descripcionElem = tarjeta.querySelector('.descripcion');
-      const verMasBtn = tarjeta.querySelector('.ver-mas');
+    document.querySelectorAll(".tarjeta").forEach((tarjeta) => {
+      const descripcionElem = tarjeta.querySelector(".descripcion");
+      const verMasBtn = tarjeta.querySelector(".ver-mas");
+      if (!descripcionElem || !verMasBtn) return;
 
-      // Guardar la descripción completa si aún no existe en data
+      // Guardar texto completo si no existe aún
       if (!descripcionElem.dataset.completa) {
         descripcionElem.dataset.completa = descripcionElem.textContent.trim();
       }
 
-      const descripcionCompleta = descripcionElem.dataset.completa;
+      const textoOriginal = descripcionElem.dataset.completa;
 
-      if (descripcionCompleta.length > limite) {
-        descripcionElem.textContent = descripcionCompleta.substring(0, limite) + '...';
-        verMasBtn.classList.add('visible');
+      // Recorte según límite
+      if (textoOriginal.length > limite) {
+        descripcionElem.textContent = textoOriginal.substring(0, limite) + "...";
+        verMasBtn.classList.add("visible");
       } else {
-        descripcionElem.textContent = descripcionCompleta;
-        verMasBtn.classList.remove('visible');
+        descripcionElem.textContent = textoOriginal;
+        verMasBtn.classList.remove("visible");
       }
 
-      // Evento para abrir el modal con la descripción completa
+      // Evento del botón "Ver más"
       verMasBtn.onclick = () => {
-  const tarjetaClonada = tarjeta.cloneNode(true);
+        const tarjetaClonada = tarjeta.cloneNode(true);
 
-  // ✅ Forzar el layout en el modal
-  tarjetaClonada.classList.remove("flex-col", "text-center", "items-center", "lg:items-start");
-  tarjetaClonada.classList.add("flex-row", "items-center", "gap-4", "text-left");
+        // Poner descripción completa en el modal
+        const descClonada = tarjetaClonada.querySelector(".descripcion");
+        if (descClonada) {
+          descClonada.textContent = textoOriginal;
+          descClonada.classList.add("descripcion-modal");
+        }
 
-  // Mostrar el texto completo en el modal
-  const descripcionModal = tarjetaClonada.querySelector('.descripcion');
-  descripcionModal.textContent = descripcionCompleta;
-  descripcionModal.classList.add('descripcion-modal');
+        // Eliminar "Ver más" dentro del modal
+        const verMasClon = tarjetaClonada.querySelector(".ver-mas");
+        if (verMasClon) verMasClon.remove();
 
-  // Eliminar el botón "Ver más" en el modal
-  const btnModal = tarjetaClonada.querySelector('.ver-mas');
-  if (btnModal) btnModal.remove();
+        // Eliminar menú dentro del modal
+        const menuClon = tarjetaClonada.querySelector(".menu-button-container");
+        if (menuClon) menuClon.remove();
 
-  // Eliminar menú de 3 puntos en el modal
-  const menuContainer = tarjetaClonada.querySelector('.menu-button-container');
-  if (menuContainer) menuContainer.remove();
+        // Botón de contacto dentro del modal
+        const contactBtn = tarjetaClonada.querySelector(".contact-button");
+        if (contactBtn) {
+          contactBtn.addEventListener("click", function (e) {
+            const estaLogueado = document.body.getAttribute("data-logged-in") === "true";
+            if (!estaLogueado) {
+              e.preventDefault();
+              modalLogin.classList.remove("hidden");
+            } else {
+              console.log("Usuario logueado: abrir modal de contacto real si aplica.");
+            }
+          });
+        }
 
-  // Agregar el contenido al modal
-  const contenedorModal = document.getElementById('contenidoTarjeta');
-  contenedorModal.innerHTML = '';
-  contenedorModal.appendChild(tarjetaClonada);
-
-  // Mostrar modal
-  document.getElementById('modalTarjeta').classList.remove('hidden');
-
-  // Forzar que la imagen del modal sea más grande
-const img = tarjetaClonada.querySelector("img, i.bi-person-circle");
-if (img && img.tagName === "IMG") {
-  img.style.width = "125px";
-  img.style.height = "120px";
-  img.style.borderRadius = "50%"; // O "50%" si quieres círculo
-}
-
-};
-
+        // Mostrar modal
+        contenidoModal.innerHTML = "";
+        contenidoModal.appendChild(tarjetaClonada);
+        modalTarjeta.classList.remove("hidden");
+        document.body.classList.add("no-scroll");
+      };
     });
   }
 
-  // Ejecutar al cargar la página
+  // Inicializar al cargar
   aplicarDescripcionResponsive();
+  window.addEventListener("resize", aplicarDescripcionResponsive);
 
-  // Reaplicar cuando cambia el tamaño de la ventana
-  window.addEventListener('resize', aplicarDescripcionResponsive);
-
-  // Cerrar el modal al hacer clic en la "X"
-  const cerrarModal = document.getElementById('cerrarTarjeta');
-  cerrarModal.addEventListener('click', () => {
-    document.getElementById('modalTarjeta').classList.add('hidden');
+  // Cerrar modal de tarjeta
+  cerrarTarjetaBtn.addEventListener("click", () => {
+    modalTarjeta.classList.add("hidden");
+    contenidoModal.innerHTML = "";
+    document.body.classList.remove("no-scroll");
   });
 
-  // --- Cerrar modal al hacer clic fuera del contenido ---
-const modalTarjeta = document.getElementById('modalTarjeta');
-modalTarjeta.addEventListener('click', (e) => {
-  if (e.target === modalTarjeta) {  
-    modalTarjeta.classList.add('hidden');
-  }
+  // Cerrar modal login
+  cerrarLoginModal.addEventListener("click", () => {
+    modalLogin.classList.add("hidden");
+  });
+
+  // Cerrar modal al hacer clic fuera
+  window.addEventListener("click", function (e) {
+    if (e.target === modalTarjeta) {
+      modalTarjeta.classList.add("hidden");
+      contenidoModal.innerHTML = "";
+      document.body.classList.remove("no-scroll");
+    }
+    if (e.target === modalLogin) {
+      modalLogin.classList.add("hidden");
+    }
+  });
 });
 
-});
 
 
 

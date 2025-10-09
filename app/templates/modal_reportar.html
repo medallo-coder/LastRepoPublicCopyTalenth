@@ -17,18 +17,8 @@
                 <!-- ID del usuario que reporta -->
                 <input type="hidden" name="reportador_id" id="reportador-id-input" value="{{ id_usuario_logueado }}">
 
-                <!-- Motivo -->
-                <div class="campo-reporte">
-                    <select id="motivo-reporte" name="motivo" required>
-                        <option value="">Seleccione un motivo</option>
-                        <option value="contenido-inapropiado">Contenido inapropiado u ofensivo</option>
-                        <option value="informacion-falsa">Información falsa o engañosa</option>
-                        <option value="publicidad-no-autorizada">Publicidad o spam no autorizado</option>
-                        <option value="actividad-sospechosa">Actividad sospechosa o estafa</option>
-                        <option value="incumple-normas">Incumple las normas de la comunidad</option>
-                        <option value="otro">Otro</option>
-                    </select>
-                </div>
+                <input type="hidden" name="motivo" value="No especificado">
+
 
                 <!-- Descripción -->
                 <div class="campo-reporte">

@@ -281,7 +281,7 @@
 
 /* Estilo para el contenedor de columnas */
 .contenedor-columnas {
-  width: 65%; /* Ancho del contenedor */
+  width: 70%;/* Ancho del contenedor */
   display: flex; /* Flexbox para distribuir las columnas */
   gap: 1.5rem; /* Espacio entre las columnas */
 }
@@ -1086,6 +1086,31 @@
   flex-shrink: 0;
 }
 
+
+  /* Estilo compartido para la foto y el icono de reemplazo */
+.perfil-img {
+    width: 80px; /* Ancho del círculo */
+    height: 80px; /* Altura del círculo */
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+/* Solo para el icono cuando no hay imagen */
+.placeholder-icon {
+    font-size: 80px; /* Ajusta tamaño del icono dentro del mismo contenedor */
+    color: #3EAEB1; /* Color del icono */
+    background-color: #f8f8f8; /* Misma base que la imagen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .card-content {
   flex: 1;
 }
@@ -1143,29 +1168,6 @@
 }
 
 
-  /* Estilo compartido para la foto y el icono de reemplazo */
-.perfil-img {
-    width: 8rem; /* Ancho del círculo */
-    height: 8rem; /* Altura del círculo */
-    border-radius: 50%;
-    object-fit: cover;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #ccc;
-    cursor: pointer;
-}
-
-/* Solo para el icono cuando no hay imagen */
-.placeholder-icon {
-    font-size: 8rem; /* Ajusta tamaño del icono dentro del mismo contenedor */
-    color: #3EAEB1; /* Color del icono */
-    background-color: #f8f8f8; /* Misma base que la imagen */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
 
 /*-----------------------------------------------

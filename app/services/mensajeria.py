@@ -157,7 +157,7 @@ def obtener_usuarios():
             if perfil and perfil.primer_nombre
             else u.correo.split('@')[0]
         )
-        foto = perfil.foto_perfil if perfil and perfil.foto_perfil else 'default.jpg'
+        foto = perfil.foto_perfil if perfil and perfil.foto_perfil else None
         resultados.append({
             'usuario_id': u.usuario_id,
             'correo':     u.correo,
@@ -357,14 +357,36 @@ def guardar_calificacion():
         db.session.add(nueva_calificacion)
         db.session.commit()
 
-        flash("✅ Calificación enviada correctamente", "success")
-        return redirect(url_for('mensajeria.mensajeria'))
+        return jsonify({"success": True, "message": "Calificación enviada correctamente"}), 200
 
     except Exception as e:
         db.session.rollback()
         print("❌ Error al guardar calificación:", e)
         flash("Error al guardar calificación: " + str(e), "error")
+        return jsonify({"success": False, "message": f"Error: {str(e)}"}), 500
+
+
+@mensajeria_bp.route('/ver_perfil/<int:usuario_id>')
+@login_required
+def ver_perfil(usuario_id):
+    """
+    Redirige al perfil público correspondiente según el rol del usuario:
+    - Rol 1: experto
+    - Rol 2: cliente
+    """
+    usuario = Usuario.query.get(usuario_id)
+    if not usuario:
+        flash("Usuario no encontrado", "error")
         return redirect(url_for('mensajeria.mensajeria'))
+
+    if usuario.id_rol == 1:  # Experto
+        return redirect(url_for('web.perfil_experto_publico', usuario_id=usuario.usuario_id))
+    elif usuario.id_rol == 2:  # Cliente
+        return redirect(url_for('web.perfil_cliente_publico', usuario_id=usuario.usuario_id))
+    else:
+        flash("Rol no reconocido", "error")
+        return redirect(url_for('mensajeria.mensajeria'))
+
     
 @socketio.on("leer_mensajes")
 def marcar_como_leido(data):

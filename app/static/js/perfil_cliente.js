@@ -54,22 +54,52 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('editar-empresa').value = empresa;
     document.getElementById('formulario-editar-empresa').style.display = 'flex';
   });
+// === Calificaciones ===
+const slider = document.getElementById("slider");
+const arrowButtons = document.querySelectorAll(".arrow-btn");
 
-  // Calificaciones
-  const slider = document.getElementById("slider");
-  const arrowButtons = document.querySelectorAll(".arrow-btn");
+function getScrollAmount() {
+  return window.innerWidth <= 480 ? 365 : 600;
+}
 
-  function getScrollAmount() {
-    return window.innerWidth <= 480 ? 365 : 600;
+arrowButtons[0]?.addEventListener("click", () => {
+  slider.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
+});
+
+arrowButtons[1]?.addEventListener("click", () => {
+  slider.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
+});
+
+// === Mostrar/ocultar flechas según cantidad de tarjetas y tamaño de pantalla ===
+function actualizarFlechas() {
+  const arrows = document.querySelector(".arrows");
+  const cards = slider?.querySelectorAll(".card") || [];
+
+  if (!slider || !arrows) return;
+
+  // Si no hay calificaciones, ocultar flechas
+  if (cards.length === 0) {
+    arrows.style.display = "none";
+    return;
   }
 
-  arrowButtons[0]?.addEventListener("click", () => {
-    slider.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
-  });
+  // Medir el ancho total del contenido y el área visible
+  const totalWidth = slider.scrollWidth;
+  const visibleWidth = slider.clientWidth;
 
-  arrowButtons[1]?.addEventListener("click", () => {
-    slider.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
-  });
+  // Mostrar u ocultar flechas según sea necesario
+  if (totalWidth > visibleWidth) {
+    arrows.style.display = "flex";
+  } else {
+    arrows.style.display = "none";
+  }
+}
+
+// Ejecutar al cargar la página
+actualizarFlechas();
+
+// Volver a ejecutar si cambia el tamaño de la pantalla
+window.addEventListener("resize", actualizarFlechas);
 
   // Menús
   const menuButtons = document.querySelectorAll('.menu-button');

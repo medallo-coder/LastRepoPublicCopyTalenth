@@ -1189,6 +1189,30 @@
     color: #3EAEB1;
   }
 
+    /* Estilo compartido para la foto y el icono de reemplazo */
+.perfil-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ccc;
+}
+
+/* Solo para el icono cuando no hay imagen */
+.placeholder-icon {
+    font-size: 6rem; /* Ajusta tamaño del icono dentro del mismo contenedor */
+    color: #3EAEB1; /* Color del icono */
+    background-color: #f8f8f8; /* Misma base que la imagen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
   /* Estilo para las estrellas (calificación) */
   .estrellas {
     display: flex; /* Flexbox para alinear las estrellas */
@@ -2090,6 +2114,7 @@
   .arrow-btn:hover svg {
     transform: scale(1.1);
   }
+  
 
   .bi-trash {
     box-shadow: none !important;

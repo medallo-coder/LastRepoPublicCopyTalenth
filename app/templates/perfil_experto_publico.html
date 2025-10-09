@@ -13,9 +13,7 @@
 
    {% include 'nav.html' %}
    {% include 'errors.html' %} 
-<style>
 
-</style>
   <!-- Primer cuadro navegación --> 
 <div class= "experto"> 
   <div class="cuadro redondo">
@@ -206,253 +204,67 @@
 
   <!-- Carrucel-->
 
-  <div class="contenedor">
-    <h2 id="titulo-favoritos">Calificaciones</h2>
-    <div class="slider-container">
-      <div class="slider" id="slider">
-
-        {% if calificaciones %}
-        {% for c, u, p in calificaciones %}
-          <div class="card">
-            <div>
-              {% if p.foto_perfil %}
-            <img src="{{ url_for('web.perfil_foto', filename=p.foto_perfil) }}" alt="Perfil" />
-          {% else %}
-            <img src="{{ url_for('static', filename='uploads/perfiles/defecto.png') }}" alt="Perfil por defecto" />
-          {% endif %}
-            </div>
-
-            <div class="card-content">
-              <h3>{{ p.primer_nombre }} {{ p.primer_apellido }}</h3>
-
-              <div class="estrellasTarjetas">
-                {% for i in range(1, 6) %}
-                  {% if i <= c.puntaje %}
-                    <i class="bi bi-star-fill"></i>
-                  {% else %}
-                    <i class="bi bi-star"></i>
-                  {% endif %}
-                {% endfor %}
+  <!-- Columna derecha: Calificaciones -->
+      <div class="contenedor">
+        <h2 id="titulo-favoritos">Calificaciones</h2>
+        <div class="slider-container">
+          <div class="slider" id="slider">
+            {% if calificaciones %}
+              {% for c, u, p in calificaciones %}
+              <div class="card">
+                {% if p.foto_perfil %}
+                <img src="{{ url_for('web.perfil_foto', filename=p.foto_perfil) }}" alt="Foto de perfil" />
+                {% else %}
+                <i class="bi bi-person-circle perfil-img placeholder-icon"></i>
+                {% endif %}
+                <div class="card-content">
+                  <h3>{{ p.primer_nombre }} {{ p.primer_apellido }}</h3>
+                  <div class="estrellasTarjetas">
+                    {% for i in range(1, 6) %}
+                      {% if i <= c.puntaje %}
+                        <i class="bi bi-star-fill"></i>
+                      {% else %}
+                        <i class="bi bi-star"></i>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                  <p class="descripcion">{{ c.reseña }}</p>
+                  <small>{{ c.fecha_calificacion.strftime('%d/%m/%Y') }}</small>
+                </div>
               </div>
-
-              <p class="descripcion">{{ c.reseña }}</p>
-              <small>{{ c.fecha_calificacion.strftime('%d/%m/%Y') }}</small>
-            </div>
+              {% endfor %}
+            {% else %}
+              <p class="sin-calificaciones">Aún no tiene calificaciones.</p>
+            {% endif %}
           </div>
-        {% endfor %}
-      {% else %}
-        <p class="sin-calificaciones">Aún no has recibido ninguna calificación.</p>
-      {% endif %}
 
-      </div>
-    </div>
-</div>
+          <!-- Flechas solo visuales, si quieres -->
+          <div class="arrows">
+            <button class="arrow-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" fill="none" stroke="#3EAEB1" stroke-width="2.5" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 8 8 12 12 16" />
+                <line x1="16" y1="12" x2="8" y2="12" />
+              </svg>
+            </button>
 
-      <!-- Flechas -->
-      <div class="arrows">
-        <button class="arrow-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" fill="none" stroke="#3EAEB1" stroke-width="2.5" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" />
-            <polyline points="12 8 8 12 12 16" />
-            <line x1="16" y1="12" x2="8" y2="12" />
-          </svg>
-        </button>
-        
-        <button class="arrow-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" fill="none" stroke="#3EAEB1" stroke-width="2.5" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" />
-            <polyline points="12 8 16 12 12 16" />
-            <line x1="8" y1="12" x2="16" y2="12" />
-          </svg>
-        </button>
+            <button class="arrow-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" fill="none" stroke="#3EAEB1" stroke-width="2.5" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 8 16 12 12 16" />
+                <line x1="8" y1="12" x2="16" y2="12" />
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
   </div>
 
 
- <!-- Formulario de edición de contacto, inicialmente oculto -->
-<div class="formulario-editar" id="formulario-editar">
-  <div class="formulario-contenido">
-    <h2>Editar contacto</h2>
-    <form method="POST" action="{{ url_for('web.perfil_experto') }}">
-      <input type="hidden" name="form_tipo2" value="perfil_principal2">
-      <div class="campo">
-        <input type="text" id="primer_nombre" name="primer_nombre" value="{{ primer_nombre }}" placeholder="Primer nombre" required>
-      </div>
-      <div class="campo">
-        <input type="text" id="segundo_nombre" name="segundo_nombre" value="{{ segundo_nombre }}" placeholder="Segundo nombre(opcional)" >
-      </div>
-      <div class="campo">
-        <input type="text" id="primer_apellido" name="primer_apellido" value="{{ primer_apellido }}" placeholder="Primer apellido" required>
-      </div>
-      <div class="campo">
-        <input type="text" id="segundo_apellido" name="segundo_apellido" value="{{ segundo_apellido }}" placeholder="Segundo apellido(opcional)" >
-      </div>
-      <div class="botones">
-        <button type="submit">Guardar</button>
-        <button type="button" onclick="cerrarFormulario()">Cancelar</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Formulario para añadir descripción -->
-<div id="formulario-añadir-descripcion" style="display:none;">
-  <div class="formulario-contenido-descripcion">
-    <h2>Añadir Descripción</h2>
-    <form  method="POST" action="{{ url_for('web.perfil_experto') }}">
-      <input type="hidden" name="form_tipo2" value="perfil_principal3">  
-      <div class="campo">
-        <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-        <input type="text" maxlength="255" id="descripcionAñadir" name="descripcion_perfil" placeholder="Escribe la descripción">
-      </div>
-      <div class="botones">
-        <button type="submit">Guardar</button>
-        <button type="button" onclick="cerrarFormularioDescripcion()">Cancelar</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Formulario para editar descripción -->
-<div id="formulario-editar-descripcion" style="display:none;">
-  <div class="formulario-contenido-descripcion">
-    <h2>Editar Descripción</h2>
-    <form method="POST" action="{{ url_for('web.perfil_experto') }}">
-      <input type="hidden" name="form_tipo2" value="editar_descripcion">
-      <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-      <div class="campo">
-        <input type="text" id="descripcionEditar" name="descripcion_perfil" placeholder="Editar tu descripción">
-      </div>
-      <div class="botones">
-        <button type="submit">Guardar</button>
-        <button type="button" onclick="cerrarFormularioeditarDescripcion()">Cancelar</button>
-      </div>
-    </form>
-  </div>
-</div>
+  <script src="{{ url_for('static', filename='js/perfil.experto.js') }}"></script>
 
 
-<!-- Formulario emergente para añadir experiencia -->
-<div class="formulario-experiencia" id="formulario-experiencia">
-  <div class="formulario-experiencia-contenido">
-    <h2>Añadir experiencia</h2>
-    <form method="POST" action="{{ url_for('web.perfil_experto') }}">
-      <input type="hidden" name="form_tipo6" value="experiencia">
-      <div class="campo">
-        <input type="text" id="cargo" name="nombre" placeholder="Cargo" required maxlength="100">
-      </div>
-      <div class="campo">
-        <input type="text" id="empresa" name="descripcion" placeholder="Empresa" required maxlength="100">
-      </div>
-      <div class="campo">
-        <input type="date" id="desde" name="fecha_inicio_experiencia" placeholder="Desde (ej: enero 2023)" required maxlength="50">
-      </div>
-      <div class="campo">
-        <input type="date" id="hasta" name="fecha_fin_experiencia" placeholder="Hasta (ej: septiembre 2024)" required maxlength="50">
-      </div>
-      <div class="botones">
-        <button type="submit">Guardar</button>
-        <button type="button" onclick="cerrarFormularioExperiencia()">Cancelar</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Formulario emergente para editar experiencia -->
-<div class="formulario-editar-experiencia" id="formulario-editar-experiencia" >
-  <div class="formulario-editar-experiencia-contenido">
-    <h2>Editar experiencia</h2>
-    <form method="POST" action="{{ url_for('web.perfil_experto') }}">
-      <div class="campo">
-        <input type="hidden" name="form_tipo6" value="editar_experiencia">
-        <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-      </div>
-      <div class="campo">
-        <input type="text" id="editar-cargo" name="nombre" value="{{nombre_experiencia}}" required maxlength="100">
-      </div>
-      <div class="campo">
-        <input type="text" id="editar-empresa" name="descripcion" value="{{descripcion_experiencia}}" required maxlength="100">
-      </div>
-      <div class="campo">
-        <input type="date" id="editar-desde" name="fecha_inicio_experiencia" value="{{fecha_inicio_experiencia}}" required maxlength="50">
-      </div>
-      <div class="campo">
-        <input type="date" id="editar-hasta" name="fecha_fin_experiencia" value="{{fecha_fin_experiencia}}" required maxlength="50">
-      </div>
-      <div class="botones">
-        <button type="submit">Guardar</button>
-        <button type="button" onclick="cerrarFormularioEditarExperiencia()">Cancelar</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Formulario emergente para añadir estudios -->
-<div class="formulario-estudios" id="formulario-estudios">
-  <div class="formulario-estudios-contenido">
-    <h2>Añadir estudios</h2>
-    <form method="POST" action="{{ url_for('web.perfil_experto') }}">
-      <input type="hidden" name="form_tipo5" value="estudios">
-      <div class="campo">
-        <input type="text" id="titulo" name="titulo_obtenido" placeholder="Titulo"  required maxlength="100">
-      </div>
-      <div class="campo">
-        <input type="text" id="lugar" name="institucion" placeholder="Institucion"  required maxlength="100">
-      </div>
-      <div class="campo">
-        <input type="date" id="fechaDesde" name="fecha_inicio"   required >
-      </div>
-      <div class="campo">
-        <input type="date" id="fechaHasta" name="fecha_fin"   required >
-      </div>
-      <div class="botones">
-        <button type="submit">Guardar</button>
-        <button type="button" onclick="cerrarFormularioEstudios()">Cancelar</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Formulario emergente para editar estudios -->
-<div class="formulario-editar-estudios" id="formulario-editar-estudios">
-  <div class="formulario-editar-estudios-contenido">
-    <h2>Editar estudios</h2>
-    <form method="POST" action="{{ url_for('web.perfil_experto') }}">
-      <div class="campo">
-        <input type="hidden" name="form_tipo5" value="editar_estudios">
-        <input type="hidden" name="id_perfil" value="{{ id_perfil }}">
-      
-        
-      <div class="campo"></div>
-        <input type="text" id="editar-titulo" name="titulo_obtenido" value="{{titulo_obtenido}}" required maxlength="100">
-      </div>
-      <div class="campo">
-        <input type="text" id="editar-lugar" name="institucion" value="{{institucion}}" required maxlength="100">
-      </div>
-      <div class="campo">
-        <input type="date" id="editar-fechaDesde" name="fecha_inicio" value="{{fecha_inicio}}" required maxlength="50">
-      </div>
-      <div class="campo">
-        <input type="date" id="editar-fechaHasta" name="fecha_fin" value="{{fecha_fin}}" required maxlength="50">
-      </div>
-      <div class="botones">
-        <button type="submit">Guardar</button>
-        <button type="button" onclick="cerrarFormularioEditarEstudios()">Cancelar</button>
-      </div>
-    </form>
-    </div>
-  </div>
-</div>
-
- <!-- Modal para ver imagen en grande -->
-<div id="imagenModal" class="modal-overlay" style="display: none;">
-  <span id="cerrarModal" class="close">&times;</span>
-  <img class="modal-content" id="imagenAmpliada" />
-</div>
-
-<script src="{{ url_for('static', filename='js/perfil.experto.js') }}"></script>
-<script src="{{ url_for('static', filename='js/perfil_publico.js') }}"></script>
 {% include 'footer.html' %}
+
 </body>
 </html>

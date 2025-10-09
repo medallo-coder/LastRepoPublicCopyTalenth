@@ -269,6 +269,43 @@ body.no-scroll {
   height: 100vh;
 }
 
+
+/* --- FIX: el botón ya no se queda fijo en el modal --- */
+#modalTarjeta .boton-container {
+  position: relative !important;
+  bottom: auto !important;
+  left: auto !important;
+  right: auto !important;
+  margin-top: 15px !important;   /* deja espacio entre texto y botón */
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Asegura que el contenedor de la tarjeta crezca según contenido */
+#modalTarjeta .card-tarjeta {
+  height: auto !important;
+  align-items: flex-start !important;
+}
+
+/* El contenedor del modal se expande según el texto */
+#modalTarjeta .modal-content {
+  height: auto !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+}
+/* 🔧 Da más espacio arriba del botón para evitar que tape la descripción */
+.tarjeta .contact-button {
+  margin-top: 25px !important; /* antes era 15px o 3 (según tailwind) */
+}
+
+/* 🔧 Asegura que la descripción tenga margen inferior también */
+.tarjeta .descripcion {
+  margin-bottom: 10px !important;
+}
+
+
 @media (max-width: 1024px) {
   #panelFiltros {
     top: 65px; /* igual a la separación que diste al body */
@@ -393,7 +430,6 @@ body.no-scroll {
 
 
 
-
 </style>
 </head>
 
@@ -491,7 +527,7 @@ body.no-scroll {
       <div id="Tarjetas" class="w-full col-span-12 lg:col-span-8">
         <div class="relative w-full min-h-[800px] grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
           {% for pub in publicaciones_generales %}
-          <div class="tarjeta bg-white p-4 rounded-lg shadow-md border border-gray-300 flex flex-row gap-3 lg:gap-4 items-start text-left relative font-[Oswald] h-full">
+          <div class="tarjeta bg-white p-4 rounded-lg shadow-md border border-gray-300 flex flex-row gap-3 lg:gap-4 items-center text-left relative font-[Oswald] h-full">
             <!-- Menú -->
             <div class="absolute top-2 right-4 menu-button-container">
               <button class="menu-button"><i class="bi bi-three-dots text-xl sm:text-2xl"></i></button>
