@@ -2206,7 +2206,16 @@
 
   .tabs {
     flex-direction: column;  /* pone “Mi” arriba y “Perfil” abajo */
-    text-align: center;     
+    text-align: center;  
+     padding: 0;   
+  }
+  
+  .tabs__main {
+    display: flex;
+    flex-direction: row; /* las mantiene una al lado de la otra */
+    justify-content: center; /* las centra horizontalmente */
+    align-items: center;
+    gap: 0.5rem; /* espacio entre pestañas */
   }
 
   .tab {
@@ -2433,9 +2442,11 @@
     border-radius: 20px; /* Reduce el radio del borde de los botones del formulario */
   }
 
-  #modalEliminar .modal-content-delete {
-    width: 98%;
-    max-width: 380px;
+  #modalCerrarSesion .modal-content {
+    width: 98% !important;
+    max-width: 400px !important;
+    padding: 20px;
+    border-radius: 20px;
   }
   }
 
@@ -2467,6 +2478,7 @@
   }
 
   .tabs {
+    
     gap: 4rem; /* Ajusta el espacio entre pestañas */
   }
 
