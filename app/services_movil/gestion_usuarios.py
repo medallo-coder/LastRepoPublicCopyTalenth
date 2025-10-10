@@ -3,6 +3,11 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flask import session, request
 from app.services_movil.jwt_service import verificar_token
 from app.extensions import db
+import locale
+locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')  # En Linux/Mac
+# En Windows suele funcionar así:
+# locale.setlocale(locale.LC_TIME, 'Spanish_Spain')
+
 
 
 # Servicio para cambiar la contraseña
@@ -152,7 +157,9 @@ def datos_usuario_service():
     
     # Obtener la fecha de registro y formatearla
     fecha_registro = usuario.fecha_registro
-    fecha_formateada = fecha_registro.strftime("%B de %Y")  # Ejemplo: Noviembre de 2020
+    fecha_formateada = fecha_registro.strftime("%B de %Y").capitalize()  # Ejemplo: Noviembre de 2020
+    
+
 
     rol = usuario.rol
     perfil= usuario.perfiles

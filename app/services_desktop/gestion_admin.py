@@ -147,7 +147,7 @@ def datos_admin_service():
     
     # Obtener la fecha de registro y formatearla
     fecha_registro = usuario.fecha_registro
-    fecha_formateada = fecha_registro.strftime("%B de %Y")  # Ejemplo: Noviembre de 2020
+    fecha_formateada = fecha_registro.strftime("%B de %Y").capitalize()  # Ejemplo: Noviembre de 2020
 
     rol = usuario.rol
     perfil= usuario.perfiles
