@@ -95,7 +95,7 @@
   /* Estilo para un cuadro grande con contenido centrado */
   .grande {
     width: 70%; /* Ancho de la caja */
-    height: 20rem; /* Altura ajustada */
+    height: 30rem; /* Altura ajustada */
     background-color: white; /* Fondo blanco */
     border: 1px solid #6b7280; /* Borde gris oscuro */
     border-radius: 1rem; /* Bordes redondeados */
@@ -116,6 +116,7 @@
   
   /* Contenedor de contenido centrado */
   .contenido-grande {
+   height: auto;
     display: flex; /* Flexbox para centrar el contenido */
     flex-direction: column; /* Organiza los elementos de manera vertical */
     align-items: center; /* Centra los elementos horizontalmente */
@@ -198,6 +199,7 @@
     width: 70%; /* Ancho del contenedor */
     display: flex; /* Flexbox para distribuir las columnas */
     gap: 1.5rem; /* Espacio entre las columnas */
+    
   }
   
   /*-----------------------------------------------
@@ -294,7 +296,7 @@
   /* Estilo para la columna izquierda */
   .columna-izquierda {
     flex: 2; /* Ocupa el doble de espacio que la columna derecha */
-    height: 22rem; /* Altura ajustada */
+    height: 24rem; /* Altura ajustada */
     background-color: white; /* Fondo blanco */
     border: 1px solid #6b7280; /* Borde gris oscuro */
     border-radius: 1rem; /* Bordes redondeados */
@@ -463,7 +465,7 @@
   /* Estilo para el contenedor con el título y las tarjetas */
   .contenedor {
     width: 70%; /* Ancho del contenedor */
-    height: 22rem; /* Altura ajustada */
+    height: 24rem; /* Altura ajustada */
     background-color: white; /* Fondo blanco */
     border: 1px solid #6b7280; /* Borde gris oscuro */
     border-radius: 1rem; /* Bordes redondeados */
@@ -845,20 +847,23 @@
   -----------------------------------------------*/
 
 @media (max-width: 768px) {
-    body {
-        padding: 1rem 0;
-    }
+    
 
     .cuadro{
-      max-width: 70%;
+      
+     width: 97%;
+      max-width: 600px;
     }
-    .grande,
-    .contenedor,
-    .contenedor-columnas {
-        width: 95%;
-        margin-bottom: 1rem;
-    }
-
+    
+    
+    /* Estilo para el contenedor de información principal */
+  .contenedor-columnas {
+    width: 97%; /* Ancho del contenedor */
+    max-width: 600px;
+    display: flex; /* Flexbox para distribuir las columnas */
+    gap: 1.5rem; /* Espacio entre las columnas */
+  }
+   
     .redondo {
         height: 3.5rem;
     }
@@ -873,7 +878,8 @@
     }
 
     .grande {
-        height: auto;
+      
+        height: 15rem;
         padding: 0.5rem;
         flex-direction: column;
         align-items: center;
@@ -993,7 +999,7 @@
         padding: 1rem;
         border-radius: 10px;
         width: 90%;
-        max-width: 300px;
+        max-width: 400px;
     }
 
     .formulario-ubicacion-contenido h2,
@@ -1015,12 +1021,7 @@
         border-radius: 8px;
     }
 
-    .botones {
-        gap: 0.5rem;
-        margin-top: 1.5rem;
-        flex-direction: column; /* Apila los botones en pantallas pequeñas */
-        align-items: stretch; /* Estira los botones para ocupar el ancho */
-    }
+  
 
     .botones button {
         padding: 0.4rem 1rem;
@@ -1029,9 +1030,9 @@
     }
 
     .contenedor {
-        width: 95%;
+        width: 100%;
         height: auto;
-        padding: 15px;
+        
     }
 
     .titulo-interes {
@@ -1111,7 +1112,24 @@
         right: 10px;
         font-size: 18px;
     }
+
+    
+/* Contenido del modal */
+#modalEliminarBarrio .modal-content-delete {
+       
+  
+  width: 95%;
+  max-width: 400px;         
+ 
 }
+#modalCerrarSesion .modal-content {
+    width: 95% !important;
+    max-width: 400px !important;
+    padding: 20px;
+    border-radius: 20px;
+  }
+}
+
 
 .bi-trash {
   box-shadow: none !important;
@@ -1124,9 +1142,7 @@
 /* Estilos para tablets */
 @media (min-width: 769px) and (max-width: 1024px) {
     .cuadro,
-    .grande,
-    .contenedor,
-    .contenedor-columnas {
+    .grande {
         width: 85%;
     }
 
@@ -1179,13 +1195,17 @@
         font-size: 1.7rem;
     }
 
-    .contenedor-columnas {
-        flex-direction: row;
-        gap: 1rem;
-    }
+    /* 🔹 Ajuste global para eliminar espacio debajo de las tarjetas */
+.contenedor-columnas {
+  height: auto !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
 
     .columna-izquierda {
-        padding: 1rem;
+       min-height: 15rem; /* Altura mínima (cuando hay poco contenido) */
+       height: 25rem;  
+       
     }
 
     .titulo-ubicacion {
@@ -1193,6 +1213,11 @@
         margin: 1rem 0 0.5rem;
     }
 
+    
+  .iconos {
+    gap: 3px;
+    transform: translateX(20px);
+  }
     .cali,
     .barrio,
     .añadir-ubicacion,
@@ -1271,8 +1296,9 @@
     }
 
     .contenedor {
-        width: 85%;
-        height: auto;
+        width: 70%;
+        min-height: 15rem; /* Altura mínima (cuando hay poco contenido) */
+        height: 25rem;       /* Se expande automáticamente si hay más */
         padding: 20px;
     }
 
@@ -1347,36 +1373,9 @@
         top: 10px;
         right: 12px;
         font-size: 20px;
-    }
+      }
+
+      
 }
 
 
-/* Para pantallas de escritorio grandes (si es necesario ajustes específicos) */
-@media (min-width: 1201px) {
-  .cuadro {
-    width: 70%; /* Mantiene el ancho original */
-  }
-
-  .grande {
-    width: 76; /* Mantiene el ancho original */
-  }
-
-  .contenedor-columnas {
-    width: 70%; /* Mantiene el ancho original */
-    flex-direction: row; /* Asegura la disposición horizontal */
-  }
-
-  .columna-izquierda {
-    flex: 2; /* Mantiene la proporción */
-  }
-
-  .columna-derecha {
-    flex: 1; /* Mantiene la proporción */
-  }
-
-  .cuadro-pequeno {
-    width: 100%; /* Ocupa todo el ancho de la columna derecha */
-  }
-
-  /* Aquí podrías añadir ajustes para fuentes más grandes o espaciados si lo deseas en escritorios muy grandes */
-}
