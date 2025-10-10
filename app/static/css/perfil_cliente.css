@@ -848,13 +848,11 @@
 
 @media (max-width: 768px) {
     
-
     .cuadro{
       
      width: 97%;
       max-width: 600px;
     }
-    
     
     /* Estilo para el contenedor de información principal */
   .contenedor-columnas {

@@ -58,6 +58,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  function cerrarMenu(elemento) {
+  const menu = elemento.closest('.menu-completo');
+  if (menu) {
+    menu.style.display = 'none';
+  }
+}
+window.cerrarMenu = cerrarMenu; // 🔥 Para usarlo desde el HTML
+
   // ---------------------------
   // Mostrar formulario nueva publicación
   // ---------------------------

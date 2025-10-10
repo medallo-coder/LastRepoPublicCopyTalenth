@@ -2215,10 +2215,11 @@
   
   .contenedor {
     width: 95%;
+    max-width: 650px;
   }
-
   .cuadro {
     width: 95%; /* Ocupa casi todo el ancho */
+    max-width: 650px;
     margin-bottom: 1rem; /* Reduce el margen inferior */
   }
 
@@ -2226,7 +2227,7 @@
     height: 70%;
     border-radius: 1.5rem; /* Reduce el radio del borde */
   }
-
+  
   .tabs {
     flex-direction: column;  /* pone “Mi” arriba y “Perfil” abajo */
     text-align: center;  
@@ -2247,11 +2248,14 @@
 
   .grande {
     width: 95%; /* Ocupa casi todo el ancho */
+   
     height: auto; /* Altura automática */
+     min-height: 15rem; /* Altura ajustada */
     padding: 1rem; /* Reduce el padding interno */
     flex-direction: column; /* Apila los elementos verticalmente */
     align-items: center; /* Centra los elementos */
   }
+
 
   .titulo-principal {
     font-size: 1.5rem; /* Reduce el tamaño del título */
@@ -2296,6 +2300,7 @@
 
   .contenedor-columnas {
     width: 95%; /* Ocupa casi todo el ancho */
+    max-width: 650px;
     flex-direction: column; /* Apila las columnas */
     gap: 1rem; /* Reduce el espacio entre las columnas */
   }
@@ -2323,7 +2328,8 @@
     font-size: 0.9rem; /* Reduce el tamaño de la descripción */
     margin-top: -0.3rem; /* Reduce el margen superior */
     margin-bottom: 1rem; /* Reduce el margen inferior */
-     max-width: 220px;
+    width: 70%;
+     max-width: 400px;
     
   }
 
@@ -2418,6 +2424,8 @@
   }
 
   .formulario-contenido,
+  .formulario-editar-ubicacion-contenido, 
+  .formulario-ubicacion-contenido,
   .formulario-contenido-descripcion,
   .formulario-experiencia-contenido,
   .formulario-editar-experiencia-contenido,
@@ -2425,7 +2433,8 @@
   .formulario-editar-estudios-contenido,
   .formulario-idioma-contenido, /* Asegúrate de que este exista si es necesario */
   .formulario-habilidad-contenido {
-    width: 70%; /* Ocupa más ancho en pantallas pequeñas */
+    width: 95%; /* Ocupa más ancho en pantallas pequeñas */
+    max-width: 400px;
     padding: 1.5rem; /* Reduce el padding interno del formulario */
     border-radius: 15px; /* Reduce el radio del borde del formulario */
   }
@@ -2470,6 +2479,14 @@
     max-width: 400px !important;
     padding: 20px;
     border-radius: 20px;
+  }
+  
+  /* Contenido del modal */
+  #modalEliminar .modal-content-delete {
+    
+    width: 95%;
+    max-width: 400px;           /* igual que modalCerrarSesion */
+   
   }
   }
 
