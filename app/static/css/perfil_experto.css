@@ -2212,9 +2212,7 @@
 -----------------------------------------------*/
 /* Para pantallas más pequeñas (móviles) */
 @media (max-width: 768px) {
-  body {
-    padding: 1rem 0; /* Reduce el padding vertical */
-  }
+  
   .contenedor {
     width: 95%;
   }

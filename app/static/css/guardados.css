@@ -1046,6 +1046,22 @@ html, body {
     left: 5%;           /* Posición desde la izquierda para la línea decorativa */
     width: 90%;         /* Ancho que abarca la mayor parte del contenedor */
   }
+  #modalCerrarSesion .modal-content {
+    width: 95% !important;
+    max-width: 400px !important;
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  
+/* Contenido del modal */
+#confirmModal .modal-content-delete {
+  
+  width: 95%;
+  max-width: 400px;            /* igual que modalCerrarSesion */
+  
+}
+
 }
 
 @media (max-width: 540px) {
