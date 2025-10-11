@@ -523,6 +523,14 @@ input, select {
     padding: 20px;
     border-radius: 20px;
   }
+
+  
+#modalEliminarCuenta .modal-eliminar-content {
+ 
+  width: 93%;
+  max-width: 400px;
+  
+}
 }
 
 /* Celulares */
