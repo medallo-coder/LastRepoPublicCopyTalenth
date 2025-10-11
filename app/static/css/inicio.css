@@ -216,7 +216,7 @@
 }
 
 /*-----------------------------------------------
-  Estilos para contenedor de destacados para ti
+  Estilos para contenedor de te podria interesar
 -----------------------------------------------*/
 
 /* Estilo para el contenedor con el título y las tarjetas */
@@ -232,8 +232,6 @@
     position: relative; /* Posición relativa para iconos u otros elementos */
     overflow: hidden; /* Ocultar el desbordamiento */
     padding: 15px; /* Espaciado interno */
-    box-sizing: border-box;
-
     
   }
   
@@ -692,16 +690,10 @@
     flex-direction: column; /* Colocar el contenido en una columna (título + slider) */
     position: relative; /* Posición relativa para iconos u otros elementos */
     overflow: hidden; /* Ocultar el desbordamiento */
-    padding: 15px; /* Espaciado interno */
+    padding: 20px; /* Espaciado interno */
     margin-bottom: 20px;
-    max-width: 100%;
-    margin: 0 auto;
-    border: none; /* 🚫 sin borde */
-    box-sizing: border-box;
- 
+    
   }
-
- 
 
  .contenedor-frases {
   width: 100%;
@@ -913,44 +905,103 @@
 
 /* Tablets grandes y laptops pequeñas (hasta 1200px) */
 
-@media (min-width: 769px) and (max-width: 1200px) {
+
+@media (max-width: 1200px) {
   .main-container {
     width: 85%;
   }
+  .contenedor {
+    height: auto; /* Ajusta la altura automática */
+  }
+  .contenedor-destacados {
+    height: auto; /* Ajusta la altura automática */
+  }
+
+  .titulo-categorias,
+  .titulo-interes,
+  .titulo-frases {
+    font-size: 1.8rem;
+  }
+
+  .card-tarjeta {
+    flex: none; /* Más compacto */
+    height: 260px;
+    width: 400px;
+    gap: 20px;
+  }
+  .card-content {
+    padding-bottom: 40px; /* espacio para el botón */
+  }
 }
 
-/* Tablets y pantallas medianas (hasta 992px) */
-@media (max-width: 768px) {
-  /* Contenedor principal */
+@media (max-width: 1024px) {
   .main-container {
     width: 95% !important;
     margin: 0 auto;
     box-sizing: border-box;
     padding-top: 120px;
     gap: 15px;
+    width: 85%;
   }
+  .contenedor {
+    height: auto; /* Ajusta la altura automática */
 
-  .contenedor,
+  }
   .contenedor-destacados {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 auto !important;
-    padding: 10px !important;
+    height: auto; /* Ajusta la altura automática */
   }
 
-  /* Slider de tarjetas */
-  .slider {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory; /* Snap horizontal */
-    -webkit-overflow-scrolling: touch; /* Smooth scroll en iOS */
-    gap: 15px; /* Espacio entre tarjetas */
-    padding-bottom: 10px;
+  .titulo-categorias,
+  .titulo-interes,
+  .titulo-frases {
+    font-size: 1.8rem;
   }
 
-  .slider::-webkit-scrollbar {
-    display: none;
+  .card-tarjeta {
+    flex: none; /* Más compacto */
+    height: auto;
+    width: 400px;
+    gap: 20px;
   }
+  
+  .card-content button {
+  margin-top: 2px !important; /* separa el botón de Ver más */
+}
+}
+
+
+
+/* Tablets y pantallas medianas (hasta 992px) */
+@media (max-width: 992px) {
+  .main-container {
+    width: 80%;
+    gap: 25px;
+  }
+  .contenedor {
+    height: 465px; /* Ajusta la altura */
+  }
+  .login-title,
+  .no-login-title {
+    font-size: 3rem;
+  }
+
+  .frase {
+    font-size: 1.6rem;
+  }
+
+  .categoria {
+    width: 90px;
+  }
+
+  .categoria img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .nombre-categoria {
+    font-size: 1rem;
+  }
+
 
   .card-tarjeta {
     flex: none; /* Más compacto */
@@ -1008,6 +1059,24 @@
   }
 
 }
+.btn-experto {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  background-color: #3EAEB1; /* ✅ color del botón */
+  color: #fff;              /* texto en blanco */
+  border: none;
+  padding: 6px 20px;
+  border-radius: 20px;       /* mismo estilo redondeado */
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  text-decoration: none;     /* evita subrayado si es <a> */
+  display: inline-block;
+}
+
+.btn-experto:hover {
+  background-color: #2e9092; /* tono más oscuro al pasar el mouse */
+}
 
 
 @media (max-width: 423px) {
@@ -1050,10 +1119,20 @@
     margin-right: 10px; /* Para que se vea un poco la siguiente tarjeta */
   }
 
+}
+@media (max-width: 768px){
+  .nombre {
+    text-align: left;  
+    width: 100%;       
+     margin-left: -13px; 
+     
+
+  }
+
   
   #modalTarjeta .modal-content {
     width: 90% !important;
-    max-width: 90% !important;
+    max-width: 450px !important;
     min-width: auto !important;
     border-radius: 10px;
   }
@@ -1081,6 +1160,211 @@
     font-size: 13.5px;
     line-height: 1.4;
   }
+    #modalTarjeta .card-content .nombre {
+  margin-left: -15px;
+}
+  
+}
+@media (max-width: 576px) {
+  .titulo-interes {
+  margin-top: 15px;   /* 🔽 baja un poco el título */
+  
+}
+  .contenedor {
+    width: 95vw !important;              
+    margin-left: calc(-48vw + 50%);
+    padding: 0 10px;                      
+    height: auto;                         
+  }
+  .nombre {
+    text-align: left;  
+    width: 100%;       
+     margin-left: -13px; 
+  }
+  #card-destacados {
+    width: 100% !important;  
+    height: auto;
+    
+  }
+  #flechas {
+  margin-top: 2px;   
+  margin-bottom: 10px;
+  }
+
+  .contenedor-destacados {
+    width: 100% !important;     
+    margin: 0 auto;             
+    padding: 0;                 
+    background: none;           
+    border-radius: 0;           
+    box-shadow: none;   
+  }
+ 
+  #card2 {
+    width: 100% !important;  
+    height: auto;
+     
+  }
+   .arrows{
+    margin-top: 2px;   
+  margin-bottom: 10px;
+  }
   
   
+  
+
+}
+
+@media (max-width: 540px) {
+  .titulo-interes {
+  margin-top: 15px;   /* 🔽 baja un poco el título */
+  
+}
+  .contenedor {
+    width: 95vw !important;              
+    margin-left: calc(-48vw + 50%);
+    padding: 0 10px;                      
+    height: auto;                         
+  }
+  .nombre {
+    text-align: left;  
+    width: 100%;       
+     margin-left: -13px; 
+  }
+  #card-destacados {
+    width: 80% !important;  
+    height: auto;
+    
+  }
+
+  .contenedor-destacados {
+    width: 100% !important;     
+    margin: 0 auto;             
+    padding: 0;                 
+    background: none;           
+    border-radius: 0;           
+    box-shadow: none;   
+  }
+ 
+  #card2 {
+    width: 100% !important;  
+    height: auto;
+     
+  }
+  
+  #flechas {
+  margin-top: 2px;   
+  margin-bottom: 10px;
+  }
+  
+  .arrows{
+    margin-top: 2px;   
+  margin-bottom: 10px;
+  }
+
+}
+
+@media (max-width: 576px) {
+  .titulo-interes {
+  margin-top: 15px;   /* 🔽 baja un poco el título */
+  
+}
+  .contenedor {
+    width: 95vw !important;              
+    margin-left: calc(-48vw + 50%);
+    padding: 0 10px;                      
+    height: auto;                         
+  }
+  .nombre {
+    text-align: left;  
+    width: 100%;       
+     margin-left: -13px; 
+  }
+  #card-destacados {
+    width: 100% !important;  
+    height: auto;
+    
+  }
+  #flechas {
+  margin-top: 2px;   
+  margin-bottom: 10px;
+  }
+
+  .contenedor-destacados {
+    width: 100% !important;     
+    margin: 0 auto;             
+    padding: 0;                 
+    background: none;           
+    border-radius: 0;           
+    box-shadow: none;   
+  }
+ 
+  #card2 {
+    width: 100% !important;  
+    height: auto;
+     
+  }
+   .arrows{
+    margin-top: 2px;   
+  margin-bottom: 10px;
+  }
+
+  .modal-content {
+    width: 95% !important;   /* ocupa casi todo el ancho */
+    min-width: auto !important; /* 🔑 evita que se fuerce 420px */
+    max-width: 95% !important;
+    padding: 15px !important; /* un poco más de respiro */ 
+  }
+    
+  
+
+}
+
+@media (max-width: 344px) {
+  .titulo-interes {
+  margin-top: 15px;   /* 🔽 baja un poco el título */
+  
+}
+  .contenedor {
+    width: 95vw !important;              
+    margin-left: calc(-48vw + 50%);
+    padding: 0 10px;                      
+    height: auto;                         
+  }
+  .nombre {
+    text-align: left;  
+    width: 100%;       
+     margin-left: -13px; 
+  }
+  #card-destacados {
+    width: 95% !important;  
+    height: auto;
+    
+  }
+
+  .contenedor-destacados {
+    width: 100% !important;     
+    margin: 0 auto;             
+    padding: 0;                 
+    background: none;           
+    border-radius: 0;           
+    box-shadow: none;   
+  }
+ 
+  #card2 {
+    width: 100% !important;  
+    height: auto;
+     
+  }
+  
+  #flechas {
+  margin-top: 2px;   
+  margin-bottom: 10px;
+  }
+  
+  .arrows{
+    margin-top: 2px;   
+  margin-bottom: 10px;
+  }
+
 }

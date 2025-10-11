@@ -578,6 +578,14 @@
 -----------------------------------------------*/
 
 @media (max-width: 768px) {
+
+    /* Contenido del modal */
+#modalCerrarSesion .modal-content {
+  
+  width: 95%;
+  max-width: 400px; /* igual que modal roles */
+  
+}
     .ulregistro-mobile {
         display: flex;
         flex-direction: column;

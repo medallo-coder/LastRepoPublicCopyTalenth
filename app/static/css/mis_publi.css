@@ -674,6 +674,7 @@ button:hover,
 #cancelEliminar:hover {
   opacity: 0.8;
 }
+
 #modalCerrarSesion .modal-content {
   all: unset;
   background-color: #fff;
@@ -706,7 +707,13 @@ button:hover,
 
 /* ---------------- RESPONSIVE MUY PEQUEÑO ---------------- */
 @media (max-width: 360px) {
-
+#modalCerrarSesion .modal-content {
+    width: 80% !important;
+    max-width: 400px !important;
+    padding: 20px !important;
+    border-radius: 20px !important;
+  }
+  
    /* Contenedor de tabs */
   .tabs__main {
     display: flex;
@@ -728,7 +735,7 @@ button:hover,
 }
 
 @media (max-width: 768px) {
-
+  
   .cuadro {
     width: 95% !important;  /* ocupa casi todo el ancho */
     max-width: none;        /* quitar límite máximo */
@@ -793,9 +800,11 @@ button:hover,
 
   /* Si también quieres el modal de sesión cerrado igual */
   #modalCerrarSesion .modal-content {
-    width: 95% !important;
-    max-width: none !important;
+    width: 80% !important;
+    max-width: 400px !important;
+   
   }
+  
 
    /* Inputs y textarea */
   input[type="text"],

@@ -770,10 +770,9 @@ html, body {
   #confirmModal .modal-content-delete {
     width: 90%;
   }
-
   .btn-calificacion-guardar,
   .btn-calificacion-cancelar {
-    padding: 0.25rem 2rem; /* menos espacio interno */
+    padding: 0.4rem 3rem; /* menos espacio interno */
     font-size: 0.85rem;     /* texto más pequeño */
     border-radius: 18px;    /* bordes compactos */
     cursor: pointer;
