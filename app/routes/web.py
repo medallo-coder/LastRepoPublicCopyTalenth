@@ -954,7 +954,8 @@ def guardar_reporte():
 
         if not reportado_id or not reportador_id or not motivo:
             flash("Faltan datos en el reporte", "error")
-            return redirect(url_for("web.inicio"))
+            next_url = request.form.get('next') or request.referrer or url_for("web.inicio")
+            return redirect(next_url)
 
         nuevo_reporte = Reportes(
             descripcion_reporte=descripcion,
@@ -970,7 +971,9 @@ def guardar_reporte():
         db.session.rollback()
         flash("Error al guardar el reporte: " + str(e), "error")
 
-    return redirect(url_for("web.inicio"))
+    # Redirigir a la misma sección desde donde se envió el reporte
+    next_url = request.form.get('next') or request.referrer or url_for("web.inicio")
+    return redirect(next_url)
 
 
 @web.route('/mensajeria')
