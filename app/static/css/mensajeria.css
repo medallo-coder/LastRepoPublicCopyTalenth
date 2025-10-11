@@ -629,28 +629,48 @@ html, body {
   opacity: 0.8;
 }
 
+/* Icono de regresar junto a la foto */
+#backIcon {
+  font-size: 40px;           /* tamaño de la flecha */
+  color: #4fc3f7;            /* color principal */
+  cursor: pointer;           /* indicador de que es clicable */
+    display: inline-block;  /* espacio entre la flecha y la foto */
+  transition: color 0.2s, transform 0.2s;
+}
+
+
+
+
+
 /* === RESPONSIVE === */
 
 /* ===== MÓVILES (≤768px) ===== */
 @media (max-width: 768px) {
+
+  /* Contenedor principal: sidebar + chat */
   .chat-app {
     flex-direction: column; /* apilar sidebar y chat */
     width: 100%;
-    padding: 0.5rem;
-    gap: 0.5rem;
+    height: 100vh; /* ocupar toda la pantalla */
+    padding: 0;
+    gap: 0;
+    margin: 0;
+    overflow: hidden; /* evitar scroll doble */
+    
   }
 
+  /* Sidebar: lista de conversaciones ocupa toda la pantalla */
   .chat-sidebar {
     width: 100%;
-    height: auto;
-    max-height: 200px;
+    height: 100vh; /* altura completa */
     overflow-y: auto;
-    padding-bottom: 0.5rem;
-  }
-
-  .chat-panel {
-    width: 100%;
-    height: calc(100vh - 200px - 90px); /* ajusta según sidebar */
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    background: #fff ;
+    position: relative;
+    z-index: 1;
   }
 
   .conversation h2 {
@@ -659,6 +679,42 @@ html, body {
 
   .conversation small {
     font-size: 0.75rem;
+  }
+
+  /* Panel de chat individual ocupa toda la pantalla */
+  #chatPanel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* altura completa */
+    background: #fff ;
+    display: none; /* oculto por defecto */
+    flex-direction: column;
+    z-index: 9999;
+    overflow: hidden; /* evitar doble scroll */
+  }
+
+  #chatPanel.active {
+    display: flex !important;
+  }
+
+  /* Botón regresar */
+  .back-button {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    margin: 10px;
+    color: #333;
+    cursor: pointer;
+  }
+
+  /* Cabecera del chat individual */
+  .chat-content .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .chat-panel .top .profile span {
@@ -671,12 +727,35 @@ html, body {
     height: 50px;
     font-size: 50px;
   }
-  #chatContainer {
+
+  /* Contenedor de mensajes ocupa todo el espacio disponible */
+  .chat-content {
+    flex: 1; /* ocupa todo el espacio vertical */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* scroll si hay muchos mensajes */
     padding: 0.5rem;
+    box-sizing: border-box;
   }
 
-  #messageBar .input-container {
+  #chatContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    overflow-y: auto;
+    padding-bottom: 0.5rem;
+  }
+
+  /* Barra de mensajes */
+  #messageBar {
+    flex-shrink: 0; /* siempre visible */
     padding: 0.4rem 0.8rem;
+    border-top: 1px solid #ddd;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   #messageBar button i {
@@ -693,19 +772,37 @@ html, body {
   }
 
   .btn-calificacion-guardar,
-.btn-calificacion-cancelar {
-  padding: 0.25rem 0.2rem; /* 🔹 menos espacio interno */
-  font-size: 0.85rem;     /* 🔹 texto más pequeño */
-  border-radius: 18px;    /* 🔹 bordes un poco más compactos */
-  cursor: pointer;
-  transition: background-color 0.3s;
-  font-weight: 500;
+  .btn-calificacion-cancelar {
+    padding: 0.25rem 2rem; /* menos espacio interno */
+    font-size: 0.85rem;     /* texto más pequeño */
+    border-radius: 18px;    /* bordes compactos */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: 500;
+  }
+
+  /* Placeholder oculto cuando hay chat activo */
+  #chatPlaceholder {
+    display: none !important;
+  }
+
+  
+  .chat-panel .top button {
+    position: absolute;
+    right: 10px; /* distancia desde la derecha */
+    padding: 0.3rem 1rem;
+    top: 40px;
+    
+  }
 }
 
-}
 
 /* ===== TABLETS (769px a 1024px) ===== */
 @media (min-width: 769px) and (max-width: 1024px) {
+    /* Para móviles o ajustes, si quieres ocultarlo por defecto */
+#backIcon {
+  display: none;
+}
   .chat-app {
     flex-direction: row;
     width: 95%;

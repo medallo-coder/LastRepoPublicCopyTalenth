@@ -68,15 +68,18 @@
 
       <!-- Panel derecho -->
       <section class="chat-panel" id="chatPanel">
-        <div id="chatPlaceholder" class="chat-placeholder">
-          <i class="bi bi-chat-dots"></i>
-          <p>Selecciona un contacto para comenzar a chatear</p>
-        </div>
+        
+
+          <div id="chatPlaceholder" class="chat-placeholder">
+            <i class="bi bi-chat-dots"></i>
+            <p>Selecciona un contacto para comenzar a chatear</p>
+          </div>
 
         <div class="chat-content oculto" id="chatContent">
           <div class="top">
             <div class="profile">
               <!-- Imagen real del usuario -->
+                 <span id="backIcon">&lt;</span>
               <img id="chatProfilePhoto" src="/static/uploads/default.jpg" alt="Avatar" class="perfil-img oculto">
 
               <!-- Ícono por defecto -->
@@ -144,7 +147,6 @@
     <!-- ✅ Fin del FORM -->
   </div>
 </div>
-
 
   <!-- Modal de Confirmación para eliminar -->
 <div id="confirmModal" class="modal-overlay" style="display: none;">

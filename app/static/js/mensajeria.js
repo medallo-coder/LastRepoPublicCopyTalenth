@@ -130,11 +130,9 @@ function refreshConversations() {
         
         const handleClick = () => {
           chatPartner = u.usuario_id;
-          // Ocultar mensaje de "Selecciona un contacto" y mostrar el chat real
           document.getElementById('chatPlaceholder').classList.add('oculto');
           document.getElementById('chatContent').classList.remove('oculto');
-
-         document.getElementById('chatUserName').textContent = u.nombre;
+          document.getElementById('chatUserName').textContent = u.nombre;
 
           const chatPhoto = document.getElementById('chatProfilePhoto');
           const chatIcon = document.querySelector('.profile .placeholder-icon');
@@ -151,17 +149,24 @@ function refreshConversations() {
             chatIcon.classList.remove('oculto');
           }
 
-
-
           document.getElementById('chatContainer').innerHTML = '';
           socket.emit('join_chat', { user_id: userId, other_user_id: chatPartner });
           refreshConversations();
+
+          // ✅ Responsive móvil
+          const chatPanel = document.getElementById('chatPanel');
+          const backBtn = document.getElementById('backButton');
+          if (window.innerWidth <= 768) {
+            chatPanel.classList.add('active');
+            document.querySelector('.chat-sidebar').style.display = 'none';
+            backBtn.classList.remove('oculto');
+          }
         };
 
         div.querySelector('.left').addEventListener('click', handleClick);
         panel.appendChild(div);
 
-        // Si viene con sesión abierta
+        // Abrir si viene por sesión
         if (chatPartnerInicial && u.usuario_id === chatPartnerInicial && !chatAbiertoPorSession) {
           chatAbiertoPorSession = true;
           handleClick();
@@ -171,7 +176,6 @@ function refreshConversations() {
 }
 
 refreshConversations();
-
 // --- BOTÓN "VER PERFIL" ---
 document.getElementById("viewProfileBtn").addEventListener("click", () => {
   if (!chatPartner) {
@@ -520,3 +524,40 @@ document.addEventListener("click", (e) => {
 
 
 
+// Cerrar menú al hacer clic en la "X"
+document.addEventListener('click', (e) => {
+  const closeBtn = e.target.closest('.menu-close-btn');
+  if (closeBtn) {
+    const menu = closeBtn.closest('.contact-menu');
+    if (menu) {
+      menu.classList.add('oculto');
+    }
+  }
+});
+// ICONO < ATRÁS (junto a la foto)
+const backIcon = document.getElementById('backIcon');
+if (backIcon) {
+  backIcon.addEventListener('click', () => {
+    // Ocultar panel de chat (mobile)
+    const chatPanel = document.getElementById('chatPanel');
+    chatPanel.classList.remove('active');
+
+    // Mostrar sidebar de conversaciones
+    const sidebar = document.querySelector('.chat-sidebar');
+    if (sidebar) sidebar.style.display = 'block';
+
+    // Ocultar el icono de regreso si quieres (opcional)
+    // backIcon.classList.add('oculto');
+
+    // Ocultar contenido del chat
+    const chatContent = document.getElementById('chatContent');
+    if (chatContent) chatContent.classList.add('oculto');
+
+    // Mostrar placeholder
+    const chatPlaceholder = document.getElementById('chatPlaceholder');
+    if (chatPlaceholder) chatPlaceholder.classList.remove('oculto');
+
+    // Limpiar chat seleccionado
+    chatPartner = null;
+  });
+}
