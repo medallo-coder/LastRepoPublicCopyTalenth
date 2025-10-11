@@ -478,14 +478,18 @@ input, select {
 /*----------------------------
      RESPONSIVE
 -----------------------------*/
-@media (max-width: 1024px){
+@media (min-width: 1201px){
   .container {
-    width: 97%;
-   max-width: 800px;
+  width: 70%,
   }
   
 }
 
+@media (min-width: 769px) and (max-width: 1200px) {
+  .container{
+    width: 85%; /* Ocupa un poco más de ancho que en escritorio */
+  }
+}
 
 /* Pantallas pequeñas (tablets) */
 @media (max-width: 768px) {
@@ -535,11 +539,6 @@ input, select {
 
 /* Celulares */
 @media (max-width: 480px) {
-  
-  .container {
-    width: 95%;
-   max-width: 650px;
-  }
 
   .titulo-principal {
     font-size: 1.2rem;

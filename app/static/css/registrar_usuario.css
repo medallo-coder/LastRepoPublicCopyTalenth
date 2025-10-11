@@ -27,7 +27,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 /*-----------------------------------------------
@@ -271,10 +271,12 @@ nav span {
   -----------------------------------------------*/
 .register-form {
     background: rgba(255, 255, 255, 0.4);
+    height: auto; /* Permite que crezca según contenido */
+  min-height: 580px; /* Altura mínima para mantener estructura */
+  padding-bottom: 30px;
     padding: 20px;
-    height: 680px;
     border-radius: 50px;
-    margin-top: 65px;
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -504,10 +506,28 @@ input::placeholder {
 }
 
 
+@media (max-width: 850px) {
+    .register-form {
+    height: auto;
+    min-height: 580px;
+    margin-top: 100px;
+    margin-bottom: 50px;
+  }
+}
+
+
 /*-----------------------------------------------
     Media queries para móviles (hasta 480px)
   -----------------------------------------------*/
 @media (max-width: 480px) {
+
+    .register-form {
+    width: 92%;
+    height: auto;
+    min-height: 580px;
+    margin-top: 100px;
+    margin-bottom: 50px;
+  }
     .contenedor {
         font-size: 18px;
     }
@@ -520,10 +540,16 @@ input::placeholder {
     }
 
     .register-form {
-        width: 370px;
-        height: 615px;
-        margin-top: 70px;
-    }
+    width: 90%;
+    padding: 20px 10px 40px;
+  }
+
+  .bt-recuperar-pasword {
+    font-size: 15px;
+    text-align: center;
+    margin: 15px auto 0;
+    display: block;
+  }
 
     .inp-correo input,
     .inp-contraseña input {
@@ -544,11 +570,6 @@ input::placeholder {
         display: block;
         height: 40px;
     }
-
-    .bt-recuperar-pasword {
-        font-size: 15px;
-        margin-left: -20px;
-    }
 }
 
 /*-----------------------------------------------
@@ -556,12 +577,19 @@ input::placeholder {
   -----------------------------------------------*/
 @media (max-width: 391px) {
     .register-form {
-        width: 336px;
-        height: 610px;
-        margin-top: 130px;
-        margin-bottom: 50px;
-    }
+    width: 92%;
+    height: auto;
+    min-height: 580px;
+    margin-top: 100px;
+    margin-bottom: 50px;
+  }
 
+  .bt-recuperar-pasword {
+    font-size: 14px;
+    text-align: center;
+    margin: 15px auto 0;
+    display: block;
+  }
     .input-group {
         width: 280px;
     }
@@ -581,8 +609,5 @@ input::placeholder {
         margin-bottom: -15px;
     }
 
-    .bt-recuperar-pasword {
-        font-size: 14px;
-        margin-left: -20px;
-    }
+    
 }

@@ -26,21 +26,21 @@
     </div>
   </div>
 
-{% if cantidad_actual == 0 %}
-  <!-- Caso: no tiene ninguna publicación aún → gratis -->
-  <p id="mostrarFormulario" class="mostrar-form-link">+ Nueva publicación</p>
+    {% if cantidad_actual == 0 %}
+      <!-- Caso: no tiene ninguna publicación aún → gratis -->
+      <p id="mostrarFormulario" class="mostrar-form-link">+ Nueva publicación</p>
 
-{% elif cantidad_destacadas == 0 and cantidad_actual == 1 %}
-  <!-- Caso: ya tiene 1 normal, pero ninguna destacada → ofrecer destacada -->
-  <p class="mostrar-form-link" onclick="mostrarModal()">+ Nueva publicación destacada</p>
+    {% elif cantidad_destacadas == 0 and cantidad_actual == 1 %}
+      <!-- Caso: ya tiene 1 normal, pero ninguna destacada → ofrecer destacada -->
+      <p class="mostrar-form-link" onclick="mostrarModal()">+ Nueva publicación destacada</p>
 
-{% elif cantidad_actual < limite_maximo or slots_vacios > 0 %}
-  <!-- Caso: ya tiene destacada pero queda espacio extra -->
-  <p id="mostrarFormulario" class="mostrar-form-link"
-     {% if publicacion is defined and publicacion %}style="display:none;"{% endif %}>
-     + Nueva publicación
-  </p>
-{% endif %}
+    {% elif cantidad_actual < limite_maximo or slots_vacios > 0 %}
+      <!-- Caso: ya tiene destacada pero queda espacio extra -->
+      <p id="mostrarFormulario" class="mostrar-form-link"
+        {% if publicacion is defined and publicacion %}style="display:none;"{% endif %}>
+        + Nueva publicación
+      </p>
+    {% endif %}
 
 
 
@@ -84,24 +84,24 @@
           {% endif %}
 
           <div class="form-group">
-  <label>Categoría</label>
-  <select name="categoria_id" id="categoriaSelect">
-    <option value="">Seleccione</option>
-    {% for cat in categorias %}
-      <option value="{{ cat.categoria_id }}" {% if publicacion and publicacion.categoria_id == cat.categoria_id %}selected{% endif %}>{{ cat.tipo_categoria }}</option>
-    {% endfor %}
-  </select>
-</div>
+            <label>Categoría</label>
+            <select name="categoria_id" id="categoriaSelect">
+              <option value="">Seleccione</option>
+              {% for cat in categorias %}
+                <option value="{{ cat.categoria_id }}" {% if publicacion and publicacion.categoria_id == cat.categoria_id %}selected{% endif %}>{{ cat.tipo_categoria }}</option>
+              {% endfor %}
+            </select>
+          </div>
 
-<div class="form-group">
-  <label>Subcategoría</label>
-  <select name="subcategoria_id" id="subcategoriaSelect">
-    <option value="">Seleccione</option>
-    {% for sub in subcategorias %}
-      <option value="{{ sub.subcategoria_id }}" {% if publicacion is defined and publicacion and publicacion.subcategoria_id == sub.subcategoria_id %}selected{% endif %}>{{ sub.nombre_subcategoria }}</option>
-    {% endfor %}
-  </select>
-</div>
+          <div class="form-group">
+            <label>Subcategoría</label>
+            <select name="subcategoria_id" id="subcategoriaSelect">
+              <option value="">Seleccione</option>
+              {% for sub in subcategorias %}
+                <option value="{{ sub.subcategoria_id }}" {% if publicacion is defined and publicacion and publicacion.subcategoria_id == sub.subcategoria_id %}selected{% endif %}>{{ sub.nombre_subcategoria }}</option>
+              {% endfor %}
+            </select>
+          </div>
 
 
           <div class="form-group">
@@ -121,43 +121,40 @@
     <!-- Lista de publicaciones -->
     <div class="publicaciones-grid">
       {% for pub in publicaciones %}
-        {% if pub.titulo and pub.descripcion_publicacion %}
-          <div class="publicacion-card">
-  <div class="acciones-menu">
-  <i class="bi bi-three-dots menu-trigger" onclick="toggleMenu(this)"></i>
-  <div class="menu-completo"> <!-- Usamos la misma clase del otro -->
-    <span class="menu-close-btn" onclick="cerrarMenu(this)">x</span>
-    
-    <a href="{{ url_for('web.editar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">
-      <i class="bi bi-pencil-square"></i><span>Editar</span>
-    </a>
-    
-    <a href="#" class="btn-eliminar-modal" data-url="{{ url_for('web.eliminar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">
-      <i class="bi bi-trash"></i><span>Eliminar</span>
-    </a>
-    {% if pub.destacada == "no" and cantidad_destacadas == 0 %}
-  <a href="{{ url_for('web.promocionar_publicacion', publicacion_id=pub.publicacion_id) }}">
-    <i class="bi bi-megaphone"></i><span>Promocionar</span>
-  </a>
-{% endif %}
-
-
-
-  </div>
-</div>
+      {% if pub.titulo and pub.descripcion_publicacion %}
+        <div class="publicacion-card">
+          <div class="acciones-menu">
+            <i class="bi bi-three-dots menu-trigger" onclick="toggleMenu(this)"></i>
+            <div class="menu-completo"> <!-- Usamos la misma clase del otro -->
+              <span class="menu-close-btn" onclick="cerrarMenu(this)">x</span>
+              
+                <a href="{{ url_for('web.editar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">
+                  <i class="bi bi-pencil-square"></i><span>Editar</span>
+                </a>
+              
+                <a href="#" class="btn-eliminar-modal" data-url="{{ url_for('web.eliminar_mi_publicacion', publicacion_id=pub.publicacion_id) }}">
+                  <i class="bi bi-trash"></i><span>Eliminar</span>
+                </a>
+              {% if pub.destacada == "no" and cantidad_destacadas == 0 %}
+              <a href="{{ url_for('web.promocionar_publicacion', publicacion_id=pub.publicacion_id) }}">
+                <i class="bi bi-megaphone"></i><span>Promocionar</span>
+              </a>
+              {% endif %}
+            </div>
+          </div>
 
 
             <div class="publicacion-img">
-             {% if pub.usuario.perfiles.foto_perfil %}
-              <img src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" 
-                  alt="Foto de perfil" class="perfil-img"/>
-            {% else %}
-              <i class="bi bi-person-circle perfil-img placeholder-icon"></i>
-            {% endif %}
-             <p class="precio"><strong>Precio:</strong> ${{ "{:,.0f}".format(pub.precio|float) }}</p>
-              {% if pub.destacada == 'si' %}
-              <p class="destacada">Promocionada</p>
+              {% if pub.usuario.perfiles.foto_perfil %}
+                <img src="{{ url_for('web.perfil_foto', filename=pub.usuario.perfiles.foto_perfil) }}" 
+                    alt="Foto de perfil" class="perfil-img"/>
+              {% else %}
+                <i class="bi bi-person-circle perfil-img placeholder-icon"></i>
               {% endif %}
+              <p class="precio"><strong>Precio:</strong> ${{ "{:,.0f}".format(pub.precio|float) }}</p>
+                {% if pub.destacada == 'si' %}
+                <p class="destacada">Promocionada</p>
+                {% endif %}
             </div>
 
             <div class="publicacion-info">
@@ -175,9 +172,9 @@
                 {% endif %}
               </p>
             </div>
-          </div>
+        </div>
         {% endif %}
-      {% endfor %}
+        {% endfor %}
 
       {% if not tiene_publicaciones %}
         <p class="sin-publicaciones">No tienes publicaciones aún.</p>
@@ -189,56 +186,56 @@
 
 
 
-<!-- Modal Promoción -->
-<div id="modalPromocion" class="modal-overlay">
-  <div class="modal-contenido">
-<h2>🚀 Publica más y destaca tu contenido</h2>
-<p>
-  Has alcanzado el límite gratuito de publicaciones. <strong>Adquiere una publicación adicional</strong> y obtén <strong>visibilidad destacada</strong>.
-</p>
+  <!-- Modal Promoción -->
+  <div id="modalPromocion" class="modal-overlay">
+    <div class="modal-contenido">
+  <h2>🚀 Publica más y destaca tu contenido</h2>
+  <p>
+    Has alcanzado el límite gratuito de publicaciones. <strong>Adquiere una publicación adicional</strong> y obtén <strong>visibilidad destacada</strong>.
+  </p>
 
-    <div class="modal-botones">
-      <a href="{{ url_for('web.obtener_promocion') }}">
-    <button class="btn-obtener">Obtener promoción</button>
-</a>
-  <button class="btn-cancelar" onclick="cerrarModal()">Más tarde</button>
+      <div class="modal-botones">
+        <a href="{{ url_for('web.obtener_promocion') }}">
+      <button class="btn-obtener">Obtener promoción</button>
+  </a>
+    <button class="btn-cancelar" onclick="cerrarModal()">Más tarde</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- Modal para promocionar publicación ya existente -->
-<div class="modal-promocionar" id="modalPromocionarPublicacion" style="display: none;">
-  <div class="modal-contenido-promocionar">
-    <h2>🚀 Promociona tu publicación</h2>
-    <p>Haz que más personas vean tu publicación destacándola por un valor adicional.</p>
-    <div class="modal-botones">
-      <a href="{{ url_for('web.obtener_promocion') }}">
-        <button class="btn-obtener">Obtener promoción</button>
-      </a>
-      <button class="btn-cancelar" onclick="cerrarModalPromocionar()">Más tarde</button>
+  <!-- Modal para promocionar publicación ya existente -->
+  <div class="modal-promocionar" id="modalPromocionarPublicacion" style="display: none;">
+    <div class="modal-contenido-promocionar">
+      <h2>🚀 Promociona tu publicación</h2>
+      <p>Haz que más personas vean tu publicación destacándola por un valor adicional.</p>
+      <div class="modal-botones">
+        <a href="{{ url_for('web.obtener_promocion') }}">
+          <button class="btn-obtener">Obtener promoción</button>
+        </a>
+        <button class="btn-cancelar" onclick="cerrarModalPromocionar()">Más tarde</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- Modal eliminar -->
-<div id="modalEliminar" class="hidden">
-  <div class="modal-content-delete">
-    <p id="textoEliminar">¿Seguro que deseas eliminar esta publicación?</p>
-    <div class="modal-buttons">
-      <button id="confirmEliminar">Aceptar</button>
-      <button id="cancelEliminar">Cancelar</button>
+  <!-- Modal eliminar -->
+  <div id="modalEliminar" class="hidden">
+    <div class="modal-content-delete">
+      <p id="textoEliminar">¿Seguro que deseas eliminar esta publicación?</p>
+      <div class="modal-buttons">
+        <button id="confirmEliminar">Aceptar</button>
+        <button id="cancelEliminar">Cancelar</button>
+      </div>
     </div>
   </div>
-</div>
 
 
 
 
-<script>
-function obtenerPromocion() {
-  window.location.href = "/generar-promocion";
-}
-</script>
+  <script>
+  function obtenerPromocion() {
+    window.location.href = "/generar-promocion";
+  }
+  </script>
 
 
 

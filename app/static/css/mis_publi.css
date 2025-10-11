@@ -703,33 +703,52 @@ button:hover,
 
 
 /* ---------------- RESPONSIVE ---------------- */
+
+/* ---------------- RESPONSIVE MUY PEQUEÑO ---------------- */
+@media (max-width: 360px) {
+
+   /* Contenedor de tabs */
+  .tabs__main {
+    display: flex;
+    flex-direction: row;       /* horizontal por defecto */
+    justify-content: center;   /* centrado */
+    align-items: center;
+    gap: 15px;                 /* espacio entre tabs */
+    flex-wrap: wrap;           /* permite que bajen si no caben */
+  }
+
+  /* Cada tab */
+  .tabs__tab {
+    text-align: center;
+    padding: 10px 20px;
+    min-width: 130px;          /* controla cuando bajan a otra línea */
+    cursor: pointer;
+  }
+
+}
+
 @media (max-width: 768px) {
 
- 
   .cuadro {
-    width: 95%; /* Ocupa casi todo el ancho */
-    max-width: 650px;
-    margin-bottom: 1rem; /* Reduce el margen inferior */
+    width: 95% !important;  /* ocupa casi todo el ancho */
+    max-width: none;        /* quitar límite máximo */
+    padding: 0.5rem;        /* opcional, menos padding */
+    margin: 0 auto 1rem auto;
+    text-align: center;
   }
-   .redondo {
+  
+  .redondo {
     height: 70%;
     border-radius: 1.5rem; /* Reduce el radio del borde */
   }
-  
-  .publicacion-card {
-    width: 100%;
-    
-     display: flex;
-  align-items: center;  /* 👈 en lugar de flex-start */
-  }
 
- 
   .tabs {
-   flex-direction: column;  /* pone “Mi” arriba y “Perfil” abajo */
+    flex-direction: column;  /* pone “Mi” arriba y “Perfil” abajo */
     text-align: center;  
      padding: 0;   
   }
-.tabs__main {
+  
+  .tabs__main {
     display: flex;
     flex-direction: row; /* las mantiene una al lado de la otra */
     justify-content: center; /* las centra horizontalmente */
@@ -739,12 +758,12 @@ button:hover,
 
   .tab {
     font-size: 1rem; /* Reduce el tamaño de la fuente de las pestañas */
-  }  
-
-
-   #modalCerrarSesion .modal-content {
-    width: 80% !important;
-    max-width: 400px !important;
+  }
+  
+  /* Modal eliminar */
+  #modalEliminar .modal-content-delete {
+    width: 95% !important;       /* ancho exacto */
+    max-width: none;
     padding: 20px;
     border-radius: 20px;
   }
@@ -756,20 +775,53 @@ button:hover,
    
   }
 
-}
+  /* Contenedor de botones del modal eliminar */
+  #modalEliminar .modal-buttons {
+    flex-direction: row !important;  /* horizontal por defecto */
+    justify-content: center !important; /* centrados */
+    gap: 15px !important;              /* espacio entre ellos */
+    flex-wrap: wrap;                   /* que bajen si no caben */
+  }
 
-@media (max-width: 820px){
-  .cuadro {
-    width: 95%;                 
-    max-width: 650px;           
-    background-color: white;
-    border: 1px solid #d1d5db;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 0 auto 1.5rem auto; /* centrado */
-    padding: 0;
-    box-sizing: border-box;
-    height: auto;
+  #modalEliminar .modal-buttons button {
     text-align: center;
+    width: auto !important;           /* que no se estiren */
+    min-width: 130px;                 /* ancho mínimo igual para ambos */
+    padding: 10px 15px !important;
+    font-size: 15px !important;
+  }
+
+  /* Si también quieres el modal de sesión cerrado igual */
+  #modalCerrarSesion .modal-content {
+    width: 95% !important;
+    max-width: none !important;
+  }
+
+   /* Inputs y textarea */
+  input[type="text"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* Botones del formulario centrados y uno al lado del otro */
+  .form-actions {
+    flex-direction: row !important;   /* horizontal */
+    justify-content: center !important; /* centrados */
+    gap: 15px !important;             /* espacio entre ellos */
+    flex-wrap: wrap;                  /* que se ajusten si falta espacio */
+  }
+
+  .form-actions .btn-primary,
+  .form-actions .btn-secondary {
+    text-align: center;
+    width: auto !important;           /* que no se estiren */
+    min-width: 130px;                 /* ancho mínimo igual para ambos */
+    padding: 10px 15px !important;
+    font-size: 15px !important;
   }
   .publicacion-card {
     width: 100%;
@@ -779,27 +831,17 @@ button:hover,
   }
 }
 
-@media (max-width: 540px){
-  /* ---------------- CONTENEDORES ---------------- */
-
-.form-actions {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.btn-primary{
-  padding: 8px 40px;
-}
-.btn-secondary{
-  padding: 8px 40px;
-}
-.publicacion-card {
-    width: 100%;
-    
-     display: flex;
-  align-items: center;  /* 👈 en lugar de flex-start */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .cuadro {
+    width: 85% !important;  /* ocupa casi todo el ancho */
+    max-width: none;        /* quitar límite máximo */
+    padding: 0.5rem;        /* opcional, menos padding */
+    margin: 0 auto 1rem auto;
+    text-align: center;
   }
-
+  
+  .redondo {
+    height: 70%;
+    border-radius: 1.5rem; /* Reduce el radio del borde */
+  }
 }

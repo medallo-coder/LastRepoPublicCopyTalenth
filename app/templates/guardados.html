@@ -61,14 +61,6 @@
           <i class="bi bi-trash eliminar-guardado" data-id="{{ pub.publicacion_id }}"></i>
         </div>
 
-        <div class="estrellasTarjetas">
-          <i class="bi bi-star-fill"></i>
-          <i class="bi bi-star-fill"></i>
-          <i class="bi bi-star-fill"></i>
-          <i class="bi bi-star-fill estrella-gris"></i>
-          <i class="bi bi-star-fill estrella-gris"></i>
-        </div>
-
         <div class="categorias">
           <span class="cate">{{ pub.titulo }}</span>
           <span class="subcate">{{ pub.categoria.tipo_categoria if pub.categoria else 'Sin categoría' }}</span>

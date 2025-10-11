@@ -2218,11 +2218,13 @@
     max-width: 650px;
   }
   .cuadro {
-    width: 95%; /* Ocupa casi todo el ancho */
-    max-width: 650px;
-    margin-bottom: 1rem; /* Reduce el margen inferior */
+    width: 95% !important;  /* ocupa casi todo el ancho */
+    max-width: none;        /* quitar límite máximo */
+    padding: 0.5rem;        /* opcional, menos padding */
+    margin: 0 auto 1rem auto;
+    text-align: center;
   }
-
+  
   .redondo {
     height: 70%;
     border-radius: 1.5rem; /* Reduce el radio del borde */

@@ -18,16 +18,14 @@
 
 
     .ver-mas {
-      display: inline-block;
-      min-height: 1rem;
-      /* o 24px para mantener el espacio */
-      visibility: hidden;
-    }
-
-    .ver-mas.visible {
-      visibility: visible;
-    }
-
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  color: #3EAEB1;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 6px; /* Antes: 10px */
+}
     
 
  .menu-close-btn {
@@ -48,17 +46,22 @@
 }
 
 
+
+/*-----------------------------------------------
+  Estilos para el modal oculto tarjeta
+-----------------------------------------------*/
+
 /* Modal general */
 .modal {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
   z-index: 9999;
 }
 
@@ -72,33 +75,23 @@
   display: none;
 }
 
+/* Contenedor del modal */
 .modal-content {
   position: relative;
   width: 80%;           
   max-width: 650px;     
-  min-width: 470px;     
+  min-width: 420px;     
   height: auto;
-  max-height: 60vh;     
+  max-height: 90vh;     
   border-radius: 12px;
   background-color: white;
   overflow-y: auto;     
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   padding: 5px 10px; /* 🔑 menos padding */
+
 }
 
-/* Scroll bonito */
-.modal-content::-webkit-scrollbar {
-  width: 8px;
-}
-.modal-content::-webkit-scrollbar-thumb {
-  background: #3EAEB1;
-  border-radius: 4px;
-}
-.modal-content::-webkit-scrollbar-track {
-  background: #f0f0f0;
-}
-
-/* Botón cerrar */
+/* Botón de cerrar */
 .close-button {
   position: absolute;
   top: 10px;
@@ -112,16 +105,25 @@
 }
 
 .close-button:hover {
-  color: #3EAEB1;
+  color: #3eaeb1;
 }
 
-/* Tarjeta dentro del modal */
+
+/* Quitar bordes de tarjeta en modal */
+#modalTarjeta .card-tarjeta,
+#modalTarjeta .contenedor {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent;
+}
+
+/* Tarjeta dentro del modal → mantiene diseño horizontal */
 #modalTarjeta .card-tarjeta {
   display: flex;
-  flex-direction: row !important;
-  align-items: center !important;   /* ✅ centra vertical */
+  flex-direction: row !important;   
+  align-items: center !important;
   text-align: left !important;
-  gap: 12px;
+  gap:12px;
 
   width: 100% !important;
   max-width: 650px;
@@ -130,17 +132,49 @@
   padding: 10px;
 }
 
-/* Imagen igual que en inicio */
+/* Imagen igual que en la tarjeta normal */
 #modalTarjeta .card-tarjeta img {
   flex-shrink: 0;
-  width: 125px;
+  width: 120px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
   align-self: center;
 }
 
-/* Contenido en columna */
+/* Títulos y párrafos */
+#modalTarjeta .card-content h2,
+#modalTarjeta .card-content h3,
+#modalTarjeta .card-content p {
+  margin: 1px 0;  
+  line-height: 1.3;
+}
+/* Texto fluido */
+#modalTarjeta .descripcion-texto {
+  max-height: none !important;
+  overflow: visible !important;
+  margin-bottom: 5px !important; 
+}
+
+/* Ajuste del botón dentro del modal */
+#modalTarjeta .contact-button {
+  margin-top: 0 !important; 
+}
+
+/* Contenedor del botón → lo saca del absolute y lo centra */
+#modalTarjeta .boton-container {
+  position: relative !important;  
+  bottom: auto !important;
+  left: auto !important;
+  right: auto !important;
+  margin-top: 10px !important;   
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Contenido en columna: texto arriba, botón abajo */
 #modalTarjeta .card-content {
   display: flex !important;
   flex-direction: column !important;
@@ -150,25 +184,9 @@
 }
 
 
-/* Fuerza que dentro del modal se vea completo */
-.descripcion-modal {
-  max-height: none !important;
-  height: auto !important;
-  overflow: visible !important;
-  white-space: normal !important;
-}
-
-#modalTarjeta .descripcion-modal {
-  height: auto !important;
-  max-height: none !important;
-  overflow: visible !important;
-  white-space: normal !important;
-  word-break: break-word;
-  line-height: 1.5;
-  font-size: 15px;
-  margin-bottom: 15px;
-}
-
+/*-----------------------------------------------
+  Estilos para el modal login
+-----------------------------------------------*/
 
 
 .modal-login-contacto {
@@ -270,163 +288,59 @@ body.no-scroll {
 }
 
 
-/* --- FIX: el botón ya no se queda fijo en el modal --- */
-#modalTarjeta .boton-container {
-  position: relative !important;
-  bottom: auto !important;
-  left: auto !important;
-  right: auto !important;
-  margin-top: 15px !important;   /* deja espacio entre texto y botón */
-  text-align: center;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
 
-/* Asegura que el contenedor de la tarjeta crezca según contenido */
-#modalTarjeta .card-tarjeta {
-  height: auto !important;
-  align-items: flex-start !important;
-}
+/*-----------------------------------------------
+  RESPONSIVE
+-----------------------------------------------*/
 
-/* El contenedor del modal se expande según el texto */
-#modalTarjeta .modal-content {
-  height: auto !important;
-  max-height: 90vh !important;
-  overflow-y: auto !important;
-}
-/* 🔧 Da más espacio arriba del botón para evitar que tape la descripción */
-.tarjeta .contact-button {
-  margin-top: 25px !important; /* antes era 15px o 3 (según tailwind) */
-}
-
-/* 🔧 Asegura que la descripción tenga margen inferior también */
-.tarjeta .descripcion {
-  margin-bottom: 10px !important;
-}
-
-
-@media (max-width: 1024px) {
-  #panelFiltros {
-    top: 65px; /* igual a la separación que diste al body */
-    bottom: 0;
-    height: auto;
-     max-height: 100vh;
-    overflow-y: auto;
-  }
-  
-}
-
-  
+/* Pantallas pequeñas <768px */
 @media (max-width: 768px) {
+  .contenedor-principal {
+    width: 95% !important;
+    max-width: 95% !important;
+  }
 
+  /* Para panel de filtros móviles */
   #panelFiltros {
-    top: 80px;
-    bottom: 0; /* para que ocupe hasta abajo */
-    height: auto; /* deja que crezca si hay scroll */
-    max-height: 100vh; /* asegura que nunca sea mayor que la pantalla */
-    overflow-y: auto; /* para que aparezca scroll si es necesario */
-  }
-  #cuadroServicio {
-    width: 149%;
-    max-width: 140%; /* evita que se agrande demasiado */
-    box-sizing: border-box;
-    text-align: center;
-    align-items: center;
-  }
-  #Tarjetas {
-    width: 101%;
-    max-width: 140%; /* evita que se agrande demasiado */
-    
+    padding-top: 90px; /* antes era p-4, esto agrega espacio desde el top */
+    padding-left: 16px;
+    padding-right: 16px;
+    width: 85vw !important;
+    max-width: 280px !important;
+    min-width: 250px !important;
   }
 
-  #Tarjetas {
-    width: 101%;
-    max-width: 140%; /* evita que se agrande demasiado */
-    
-  }
-
-  
-}
-
-@media (max-width: 820px){
-  #cuadroServicio {
-    width: 120%;
-    max-width: 140%; /* evita que se agrande demasiado */
-    box-sizing: border-box;
-    text-align: center;
-    align-items: center;
+  #modalTarjeta .modal-content {
+    width: 95% !important;
+    max-width: 95% !important;
+    min-width: auto !important;
+    border-radius: 10px;
   }
 }
 
-@media (max-width: 430px) {
-    #cuadroServicio {
-    width: 128%;
-    max-width: 140%; /* evita que se agrande demasiado */
-    
+/* Pantallas medianas 769px - 1200px */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .contenedor-principal {
+    width: 85% !important;
+    max-width: 85% !important;
   }
-  .modal-content {
-    width: 96% !important;       /* más pequeño */
-    min-width: 0 !important;     /* elimina el límite de 470px */
-    max-width: 100% !important;   /* que no se pase */
-    max-height: 90vh !important; /* más alto en móviles */
+
+  /* Para panel de filtros móviles */
+#panelFiltros {
+  padding-top: 90px; /* antes era p-4, esto agrega espacio desde el top */
+  padding-left: 16px;
+  padding-right: 16px;
+}
+}
+
+/* Pantallas grandes >1200px */
+@media (min-width: 1201px) {
+  .contenedor-principal {
+    width: 70vw; /* lo que tenías originalmente */
+    max-width: 1050px;
   }
 }
 
-@media (max-width: 414px){
-  .modal-content {
-    width: 95% !important;       /* más pequeño */
-    min-width: 0 !important;     /* elimina el límite de 470px */
-    max-width: 100% !important;   /* que no se pase */
-    max-height: 75vh !important; /* más alto en móviles */
-  }
-}
-
-@media (max-width: 375px) {
-  #cuadroServicio {
-    width: 133%;
-    max-width: 140%; /* evita que se agrande demasiado */
-    
-  }
-   .modal-content {
-    width: 95% !important;       
-    min-width: 0 !important;  
-    max-width: 95% !important;   
-    max-height: 90vh !important; 
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 70px;
-  }
-
-  .modal-content .contact-button {
-    margin-top: auto;         
-    align-self: center;   
-  }
-  
-  
-}
-
-@media (max-width: 360px) {
-  #cuadroServicio {
-    width: 138%;
-    max-width: 140%; /* evita que se agrande demasiado */
-    
-  }
-
-  #Tarjetas {
-    width: 103%;
-    max-width: 140%; /* evita que se agrande demasiado */
-    
-  }
-
-  .modal-content {
-    width: 97% !important;      
-    min-width: 0 !important;     
-    max-width: 100% !important;  
-    max-height: 95vh !important; /* más alto en móviles */
-  }
-}
 
 
 
@@ -437,7 +351,7 @@ body.no-scroll {
   {% include 'nav.html' %}
   {% include 'errors.html' %}
   
-  <div class="w-[85vw] sm:w-[85vw] lg:w-[85vw] max-w-[1050px] mx-auto flex flex-col mb-10 ">
+  <div class="contenedor-principal mx-auto flex flex-col mb-10">
 
     <!-- Botón de Filtros para pantallas pequeñas -->
     <div class="lg:hidden flex justify-start px-4 mb-4">
@@ -448,7 +362,7 @@ body.no-scroll {
     <div id="panelFiltros" class="fixed top-0 left-0  h-full bg-white z-50 p-4 shadow-lg hidden overflow-y-auto">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-black text-xl font-bold">Filtros</h2>
-        <button id="cerrarFiltros" class="text-black text-2xl">&times;</button>
+        <button id="cerrarFiltros" class="text-black text-4xl">&times;</button>
       </div>
       <div id="contenidoFiltrosMobile"></div>
     </div>
