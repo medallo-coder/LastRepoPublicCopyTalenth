@@ -924,9 +924,10 @@
   /* Contenedor principal */
   .main-container {
     width: 95% !important;
-    padding: 0 5px;
     margin: 0 auto;
     box-sizing: border-box;
+    padding-top: 120px;
+    gap: 15px;
   }
 
   .contenedor,
@@ -951,28 +952,6 @@
     display: none;
   }
 
-  .login-title,
-  .no-login-title {
-    font-size: 3rem;
-  }
-
-  .frase {
-    font-size: 1.6rem;
-  }
-
-  .categoria {
-    width: 90px;
-  }
-
-  .categoria img {
-    width: 80px;
-    height: 80px;
-  }
-
-  .nombre-categoria {
-    font-size: 1rem;
-  }
-
   .card-tarjeta {
     flex: none; /* Más compacto */
     gap: 10px;
@@ -980,17 +959,52 @@
     width: 370px;
   }
 
-  .card-tarjeta img {
-    width: 80px;
-    height: 80px;
+  .header-section,
+  .carousel-container,
+  .slider-categorias-contenedor {
+    width: 100% !important;
+    margin: 0 auto !important;
+    box-sizing: border-box;
   }
 
-  .nombre {
-    font-size: 16px;
+  /* Elimina el margen negativo que saca el slider */
+  .carousel-container {
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 40px 10px !important;
+    box-sizing: border-box;
+    margin-top: 0; 
   }
-  .profesion,
-  .descripcion-texto {
-    font-size: 14px;
+  
+
+  /* Corrige paddings/margins innecesarios para dispositivos pequeños */
+  .no-login-title {
+    font-size: 3rem;
+  }
+
+  .frase {
+    font-size: 1.4rem;
+  }
+
+  .slider-categorias-contenedor{
+    width: 100% !important;
+  }
+
+  .titulo-categorias {
+    font-size: 1.6rem;
+  }
+
+  .categoria {
+    width: 75px;
+  }
+
+  .categoria img {
+    width: 75px;
+    height: 75px;
+  }
+
+  .nombre-categoria {
+    font-size: 0.9rem;
   }
 
 }
@@ -1000,9 +1014,10 @@
   /* Contenedor principal */
   .main-container {
     width: 95% !important;
-    padding: 0 5px;
     margin: 0 auto;
     box-sizing: border-box;
+    padding-top: 120px;
+
   }
 
   .contenedor,
@@ -1034,4 +1049,38 @@
     scroll-snap-align: start; /* Se ajusta al inicio */
     margin-right: 10px; /* Para que se vea un poco la siguiente tarjeta */
   }
+
+  
+  #modalTarjeta .modal-content {
+    width: 90% !important;
+    max-width: 90% !important;
+    min-width: auto !important;
+    border-radius: 10px;
+  }
+
+   #modalTarjeta .card-tarjeta {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 1px 1px;
+  }
+
+  #modalTarjeta .card-tarjeta img {
+    width: 90px;
+    height: 90px;
+    margin-top: 5px;
+    margin-right: 5px;
+  }
+
+  #modalTarjeta .card-content {
+    padding-bottom: 5px;
+    
+  }
+
+  #modalTarjeta .descripcion-texto {
+    font-size: 13.5px;
+    line-height: 1.4;
+  }
+  
+  
 }

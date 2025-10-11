@@ -2252,7 +2252,7 @@
     width: 95%; /* Ocupa casi todo el ancho */
    
     height: auto; /* Altura automática */
-     min-height: 15rem; /* Altura ajustada */
+    min-height: 12rem; /* Altura ajustada */
     padding: 1rem; /* Reduce el padding interno */
     flex-direction: column; /* Apila los elementos verticalmente */
     align-items: center; /* Centra los elementos */

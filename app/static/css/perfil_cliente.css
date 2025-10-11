@@ -876,11 +876,12 @@
     }
 
     .grande {
-      
-        height: 15rem;
-        padding: 0.5rem;
-        flex-direction: column;
-        align-items: center;
+      width: 95%; /* Ocupa casi todo el ancho */
+      height: auto; /* Altura automática */
+      min-height: 12rem; /* Altura ajustada */
+      padding: 1rem; /* Reduce el padding interno */
+      flex-direction: column; /* Apila los elementos verticalmente */
+      align-items: center; /* Centra los elementos */
     }
 
     .titulo-principal {
@@ -939,20 +940,18 @@
         padding: 0.7rem;
     }
 
-    .titulo-ubicacion,
+  .titulo-ubicacion,
   .titulo-empresa { /* Aplicamos estilos a ambos títulos */
-    font-size: 1.1rem;
-    margin: 0.7rem 0 0.3rem;
-    padding-left: 20px; /* Añadimos un padding izquierdo consistente */
+    font-size: 1.2rem;
+    margin: 1rem 0 0.5rem; /* Reduce los márgenes */
+    padding: 0 1rem;  /* Añadimos un padding izquierdo consistente */
   }
 
   .cali,
-  .barrio,
   .añadir-ubicacion,
   .direccion,
   .añadir-empresa {
-    font-size: 0.9rem;
-    padding-left: 20px; /* Aumentamos el padding izquierdo para la información */
+    padding-left: 1rem;/* Aumentamos el padding izquierdo para la información */
   }
 
   .ubicacionicon,
@@ -962,15 +961,6 @@
     /* Alineamos verticalmente el icono con el texto */
     display: flex;
     align-items: center;
-  }
-  .empresa-registrada{
-    font-size: 1.1rem;
-    margin: 0.7rem 0 0.3rem;
-    margin-left: 10px; /* Añadimos un padding izquierdo consistente */
-  }
-  .nombre_empresa{
-    padding-left: 10px;
-    font-size: 0.9rem;
   }
 
   .cali,
@@ -986,7 +976,7 @@
   #lapizubicacion,
   .bi-trash,
   #lapizempresa {
-    font-size: 1.1rem;
+    font-size: 1.6rem;
   }
 
     .formulario-ubicacion-contenido,
@@ -994,23 +984,23 @@
     .formulario-empresa-contenido,
     .formulario-editar-empresa-contenido,
     .formulario-contenido {
-        padding: 1rem;
-        border-radius: 10px;
-        width: 90%;
-        max-width: 400px;
-    }
+         width: 90%; /* Ocupa más ancho en pantallas pequeñas */
+      max-width: 400px;
+      padding: 1.5rem; /* Reduce el padding interno del formulario */
+      border-radius: 15px; /* Reduce el radio del borde del formulario */
+  }
 
     .formulario-ubicacion-contenido h2,
     .formulario-editar-ubicacion-contenido h2,
     .formulario-empresa-contenido h2,
     .formulario-editar-empresa-contenido h2,
     .formulario-contenido h2 {
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
+        font-size: 1.8em;
+        margin-bottom: 1.5rem;
     }
 
     .campo {
-        margin-bottom: 0.8rem;
+        margin-bottom: 1rem;
     }
 
     .campo input {
@@ -1019,13 +1009,16 @@
         border-radius: 8px;
     }
 
-  
+  .botones {
+    margin-top: 1.5rem; /* Reduce el margen superior de los botones del formulario */
+    gap: 0.5rem; /* Reduce el espacio entre los botones del formulario */
+  }
 
-    .botones button {
-        padding: 0.4rem 1rem;
-        font-size: 0.9rem;
-        border-radius: 20px;
-    }
+  .botones button {
+    padding: 0.3rem 1.5rem; /* Reduce el padding de los botones del formulario */
+    font-size: 0.9rem; /* Reduce el tamaño de la fuente de los botones del formulario */
+    border-radius: 20px; /* Reduce el radio del borde de los botones del formulario */
+  }
 
     .contenedor {
         width: 100%;
