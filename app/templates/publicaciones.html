@@ -310,12 +310,46 @@ body.no-scroll {
     min-width: 250px !important;
   }
 
-  #modalTarjeta .modal-content {
-    width: 95% !important;
-    max-width: 95% !important;
-    min-width: auto !important;
+   #modalTarjeta .modal-content {
+    width: 90% !important;      /* un poco más ancho que antes */
+    max-width: 400px !important;
+    min-width: 300px !important;
+    padding: 10px !important;   /* reducir padding para más espacio de descripción */
     border-radius: 10px;
+    max-height: 80vh;           /* altura máxima más pequeña */
+    overflow-y: auto;           /* scroll solo si hace falta */
   }
+
+  /* Tarjeta dentro del modal */
+  #modalTarjeta .card-tarjeta {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 1px 1px;
+  }
+
+  /* Imagen */
+  #modalTarjeta .card-tarjeta img {
+    width: 90px;
+    height: 190px;
+    margin-right: 5px;         /* imagen a la izquierda */
+  }
+
+  /* Contenido textual */
+  #modalTarjeta .card-content {
+    padding-bottom: 5px;
+    
+  }
+
+
+
+  /* Cerrar modal (X) más compacto */
+  #modalTarjeta .close-button {
+    font-size: 2rem;
+    top: 5px;
+    right: 15px;
+  }
+  
 }
 
 /* Pantallas medianas 769px - 1200px */
