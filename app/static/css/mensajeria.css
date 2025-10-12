@@ -655,7 +655,7 @@ html, body {
     padding: 0;
     gap: 0;
     margin: 0;
-    overflow: hidden; /* evitar scroll doble */
+    overflow: visible; /* evitar scroll doble */
     
   }
 
@@ -730,6 +730,7 @@ html, body {
 
   /* Contenedor de mensajes ocupa todo el espacio disponible */
   .chat-content {
+    overflow-y:auto;
     flex: 1; /* ocupa todo el espacio vertical */
     display: flex;
     flex-direction: column;
