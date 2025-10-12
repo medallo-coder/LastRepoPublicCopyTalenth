@@ -95,7 +95,7 @@
   /* Estilo para un cuadro grande con contenido centrado */
   .grande {
     width: 70%; /* Ancho de la caja */
-    height: 30rem; /* Altura ajustada */
+    height: 20rem; /* Altura ajustada */
     background-color: white; /* Fondo blanco */
     border: 1px solid #6b7280; /* Borde gris oscuro */
     border-radius: 1rem; /* Bordes redondeados */

@@ -629,17 +629,15 @@ html, body {
   opacity: 0.8;
 }
 
-/* Icono de regresar junto a la foto */
+
+/* Por defecto: oculto */
 #backIcon {
-  font-size: 40px;           /* tamaño de la flecha */
-  color: #4fc3f7;            /* color principal */
-  cursor: pointer;           /* indicador de que es clicable */
-    display: inline-block;  /* espacio entre la flecha y la foto */
+  display: none;
+  font-size: 40px;
+  color: #3eaeb1;
+  cursor: pointer;
   transition: color 0.2s, transform 0.2s;
 }
-
-
-
 
 
 /* === RESPONSIVE === */
@@ -674,11 +672,11 @@ html, body {
   }
 
   .conversation h2 {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
   .conversation small {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
   }
 
   /* Panel de chat individual ocupa toda la pantalla */
@@ -699,17 +697,6 @@ html, body {
     display: flex !important;
   }
 
-  /* Botón regresar */
-  .back-button {
-    display: block;
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    margin: 10px;
-    color: #333;
-    cursor: pointer;
-  }
-
   /* Cabecera del chat individual */
   .chat-content .top {
     display: flex;
@@ -718,14 +705,14 @@ html, body {
   }
 
   .chat-panel .top .profile span {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 
   .chat-panel .top .profile .perfil-img,
   .chat-panel .top .profile .placeholder-icon {
-    width: 50px;
-    height: 50px;
-    font-size: 50px;
+    width: 55px;
+    height: 55px;
+    font-size: 55px;
   }
 
   /* Contenedor de mensajes ocupa todo el espacio disponible */
@@ -793,6 +780,11 @@ html, body {
     padding: 0.3rem 1rem;
     top: 40px;
     
+  }
+
+  #backIcon {
+    display: block;
+    margin-right: 0.5rem;
   }
 }
 

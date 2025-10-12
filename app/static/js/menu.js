@@ -7,25 +7,36 @@ document.addEventListener("DOMContentLoaded", function () {
     let lastScrollTop = 0; 
 
     // Abrir / cerrar el menú (hamburguesa)
-    menuid.addEventListener('click', (event) => {
-        event.stopPropagation(); 
-        menu.classList.toggle("active"); 
-        sidebar.classList.toggle("click"); 
-    });
+    // Abrir / cerrar el menú (hamburguesa)
+menuid.addEventListener('click', (event) => {
+    event.stopPropagation(); 
+    menu.classList.toggle("active"); 
+    sidebar.classList.toggle("click"); 
 
-    // Cerrar el menú con la X
-    closeBtn.addEventListener('click', () => {
-        sidebar.classList.remove("click"); // Cierra el sidebar
-        menu.classList.remove("active");   // Revertir la hamburguesa
-    });
+    // Bloquear scroll cuando el menú está abierto
+    if (sidebar.classList.contains("click")) {
+        document.body.classList.add("no-scroll");
+    } else {
+        document.body.classList.remove("no-scroll");
+    }
+});
 
-    // Cierra el menú si se hace clic fuera de él
-    document.addEventListener("click", function (event) {
-        if (!sidebar.contains(event.target) && !menu.contains(event.target)) {
-            sidebar.classList.remove("click"); 
-            menu.classList.remove("active"); 
-        }
-    });
+// Cerrar el menú con la X
+closeBtn.addEventListener('click', () => {
+    sidebar.classList.remove("click"); 
+    menu.classList.remove("active");   
+    document.body.classList.remove("no-scroll"); // quitar bloqueo scroll
+});
+
+// Cierra el menú si se hace clic fuera de él
+document.addEventListener("click", function (event) {
+    if (!sidebar.contains(event.target) && !menu.contains(event.target)) {
+        sidebar.classList.remove("click"); 
+        menu.classList.remove("active"); 
+        document.body.classList.remove("no-scroll"); // quitar bloqueo scroll
+    }
+});
+
 
     // Evitar que el clic en el sidebar lo cierre
     sidebar.addEventListener('click', (event) => {

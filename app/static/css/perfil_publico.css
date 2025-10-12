@@ -1360,8 +1360,116 @@
     margin: 0 auto;         /* centrado horizontal */
     border-radius: 0.8rem;  /* bordes más suaves */
   }
+
+   .cuadro {
+    width: 95% !important;  /* ocupa casi todo el ancho */
+    max-width: none;        /* quitar límite máximo */
+    padding: 0.5rem;        /* opcional, menos padding */
+    margin: 0 auto 1rem auto;
+    text-align: center;
+  }
+  
+  .redondo {
+        height: 3.5rem;
+    }
+  
+  .grande {
+    width: 95%; /* Ocupa casi todo el ancho */
+   
+    height: auto; /* Altura automática */
+    min-height: 12rem; /* Altura ajustada */
+    padding: 1rem; /* Reduce el padding interno */
+    flex-direction: column; /* Apila los elementos verticalmente */
+    align-items: center; /* Centra los elementos */
+  }
+
 }
 
+
+
+/* Para tablets y pantallas medianas */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .cuadro {
+    width: 85%; /* Ocupa un poco más de ancho que en escritorio */
+  }
+
+  .grande {
+    width: 85%; /* Ocupa un poco más de ancho que en escritorio */
+  }
+
+  .contenedor-columnas {
+    width: 85%; /* Ocupa un poco más de ancho que en escritorio */
+    flex-direction: row; /* Vuelve a la disposición horizontal */
+  }
+
+  .columna-izquierda,
+  .columna-derecha {
+    width: 48%; /* Ocupan casi la mitad del ancho */
+    height: auto;
+  }
+
+  .cuadro-pequeno {
+    width: 100%; /* Ocupa todo el ancho de la columna derecha */
+  }
+
+  .tabs {
+    
+    gap: 4rem; /* Ajusta el espacio entre pestañas */
+  }
+
+  .tab {
+    font-size: 1.3rem; /* Ajusta el tamaño de la fuente de las pestañas */
+  }
+
+  .titulo-principal {
+    font-size: 2rem; /* Ajusta el tamaño del título principal */
+  }
+
+  .contacto {
+    gap: 1rem; /* Ajusta el espacio entre los íconos de contacto */
+  }
+
+  .contacto .email,
+  .contacto .telefono {
+    font-size: 1rem; /* Ajusta el tamaño de la fuente del contacto */
+  }
+
+  .contacto i {
+    font-size: 1.2rem; /* Ajusta el tamaño de los íconos de contacto */
+  }
+
+  .titulo-izquierda,
+  .titulo-idiomas,
+  .titulo-habilidades,
+  .titulo-experiencia,
+  .titulo-estudios {
+    font-size: 1.4rem; /* Ajusta el tamaño de los títulos de las secciones */
+  }
+
+  .rol,
+  .empresa,
+  .fechas,
+  .titulo,
+  .lugar,
+  .fecha,
+  .idioma-nombre,
+  .idioma-nivel {
+    font-size: 1.1rem; /* Ajusta el tamaño de la fuente del texto */
+  }
+
+  .lista-habilidades {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Ajusta el ancho mínimo de las habilidades */
+    gap: 0.4rem; /* Ajusta el espacio entre habilidades */
+  }
+
+  .habilidad-item {
+    font-size: 1rem; /* Ajusta el tamaño de la fuente de las habilidades */
+    padding: 0.4rem 0.8rem; /* Ajusta el padding de las habilidades */
+  }
+  .contenedor{
+    width: 85%;
+  }
+}
 @media (max-width: 540px){
    .columna-izquierda {
     min-height: 650px; /* 🔹 Aumenta el alto del cuadro */
