@@ -120,6 +120,19 @@ def cerrar_sesion():
 def guia_usuario():
     return render_template('guia_usuario.html')
 
+#Ruta para acerca de calitrabaja, terminos y condiciones, politica de privacidad
+@web.route('/acerca_de_calitrabaja')
+def acerca_de_calitrabaja():
+    return render_template('acerca_de_calitrabaja.html')
+
+@web.route('/terminos_y_condiciones')
+def terminos_y_condiciones():
+    return render_template('terminos_y_condiciones.html')
+
+@web.route('/politica_de_privacidad')
+def politica_de_privacidad():
+    return render_template('politica_de_privacidad.html')
+
 # Ruta para la configuración del usuario
 @web.route('/configuracion', methods=['GET', 'POST'])
 def configuracion():

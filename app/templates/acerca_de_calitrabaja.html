@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Acerca de CaliTrabaja!</title>
+  <meta name="description" content="Conoce la historia, misión y visión de CaliTrabaja!, la plataforma que conecta el talento local con quienes lo necesitan.">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --muted: #555555;
+      --accent: #3eaeb1;
+      --container-width: 900px;
+      font-family: 'Oswald Variable';
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    
+
+    .wrap {
+      max-width: var(--container-width);
+      margin: 40px auto;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.06);
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    h2 {
+      font-size: 1.3rem;
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+    p {
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+    .highlight {
+      background: #f8f8f8;
+      padding: 12px;
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      margin: 16px 0;
+    }
+    footer {
+      margin-top: 30px;
+      font-size: 0.95rem;
+      color: var(--muted);
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      .wrap {
+        margin: 16px;
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <header>
+      <a href="/" class="link">
+          <img src="{{ url_for('static', filename='images/Vector.svg') }}" alt="logo" class="logo">
+      </a>
+      <h1>Acerca de CaliTrabaja!</h1>
+    </header>
+
+    <section>
+      <p>En Cali sabemos que el talento está en cada esquina: en el barrio, en el taller, en la casa, en la calle. <strong>CaliTrabaja!</strong> nace con la idea de darle visibilidad a ese talento y acercarlo a las personas que lo necesitan.</p>
+
+      <p>Somos una plataforma creada para que expertos locales puedan ofrecer sus servicios y clientes encuentren soluciones confiables sin intermediarios complicados. Aquí, un mensaje puede convertirse en una oportunidad de trabajo, y una publicación en la puerta a nuevos clientes.</p>
+
+      <p>Creemos en el poder de la comunidad. Por eso, hemos construido un espacio seguro, ágil y transparente, donde cada usuario puede crecer, conectar y construir relaciones laborales reales.</p>
+
+      <p>Ya sea que busques a alguien que te ayude o que quieras mostrar lo que sabes hacer, <strong>CaliTrabaja!</strong> está aquí para conectar personas, impulsar oportunidades y fortalecer el trabajo local.</p>
+    </section>
+
+    <section>
+      <h2> Nuestra misión</h2>
+      <p>Impulsar el talento local conectando a personas que ofrecen servicios con quienes los necesitan, a través de una plataforma confiable, accesible y enfocada en generar oportunidades reales en la ciudad de Cali.</p>
+    </section>
+
+    <section>
+      <h2> Nuestro público</h2>
+      <p><strong>CaliTrabaja!</strong> está dirigida a mayores de edad residentes en Cali que deseen ofrecer sus habilidades como expertos o contratar servicios de manera confiable y rápida.</p>
+    </section>
+
+    <section>
+      <h2> Nuestra visión</h2>
+      <p>Convertirnos en la plataforma de referencia para la contratación de servicios locales en Cali, fomentando una comunidad digital sólida, transparente y en constante crecimiento, donde cada talento tenga su espacio para brillar.</p>
+    </section>
+
+    <footer>
+      <p>© 2025 CaliTrabaja! – Todos los derechos reservados.</p>
+    </footer>
+  </div>
+</body>
+</html>
