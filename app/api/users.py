@@ -240,17 +240,6 @@ def recuperar_contraseña():
         resultado = enviar_link_recuperacion_service(data)
         return jsonify(resultado), (200 if resultado["success"] else 400)
 
-# Ruta para restablecer la contraseña
-# Esta ruta se activa al hacer clic en el enlace enviado al correo
-@users_api.route('/formulario_movil', methods=['GET', 'POST'])
-def formulario_movil():
-        token = request.args.get("token")  # lo saca de la URL
-        if not token:
-            return jsonify({"success": False, "message": "Token faltante"}), 400
-        
-        # Aquí puedes decidir:
-        # 1. Redirigir a la app móvil con el token
-        return redirect(f"http://127.0.0.1:8550/cambiar_contrasena?token={token}")
 
 
 

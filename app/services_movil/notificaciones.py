@@ -55,9 +55,15 @@ def enviar_notificacion_registro(correo_destino, nombre_usuario):
 # Enviar enlace de recuperación de contraseña
 def enviar_link_recuperacion_correo(correo_destino, nombre_usuario, link_recuperacion):
     try:
+
+        # 📍 Ir a la carpeta 'app'
+        base_dir = os.path.dirname(os.path.dirname(__file__))  # sube desde 'services' hasta 'app'
+        ruta_plantilla = os.path.join(base_dir, 'templates', 'link_recuperacion.html')
+
         # Leer la plantilla HTML
-        with open('app/templates/link_recuperacion.html', 'r', encoding='utf-8') as archivo:
-          cuerpo_html = archivo.read()
+        with open(ruta_plantilla, 'r', encoding='utf-8') as archivo:
+            cuerpo_html = archivo.read()
+
 
         # Reemplazar marcadores {nombre_usuario} y {link_recuperacion}
         cuerpo_html = cuerpo_html.replace('{nombre_usuario}', nombre_usuario)

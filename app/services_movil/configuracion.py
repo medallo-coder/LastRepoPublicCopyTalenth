@@ -88,13 +88,12 @@ def obtener_datos_usuario_service(token):
         "fecha_registro": f"Se unió en {fecha_formateada}"  # Formateamos la fecha
     }
 
-
 # Servicio para enviar enlace de recuperación
 def enviar_link_recuperacion_service(data):
 
     correo = data.get('correo')
 
-    
+
     # Verificar que el correo no esté vacío
     if not correo:
         return {"success": False, "message": "El correo es obligatorio."}
@@ -114,13 +113,13 @@ def enviar_link_recuperacion_service(data):
     db.session.commit()  # Guardamos los cambios en la base de datos
 
     # Construir el enlace
-    link = url_for('users_api.formulario_movil', token=token, _external=True)
+    link = url_for('web.restablecer_contraseña', token=token, _external=True)
 
-    
+
     perfil=usuario.perfiles
     if not perfil:
         return {"success": False, "message": "perfil no encontrado para el usuario."}
-    
+
 
 
     # Aquí es donde realmente se llama a la función de enviar correo
@@ -134,6 +133,7 @@ def enviar_link_recuperacion_service(data):
         return {"success": True, "message": "Se ha enviado un enlace de recuperación a tu correo."}
     else:
         return {"success": False, "message": f"Ocurrió un error al enviar el correo: {resultado_envio['message']}"}
+
 
 # Servicio para restablecer la contraseña usando un token
 def restablecer_contraseña_service(data):

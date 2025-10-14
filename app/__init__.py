@@ -13,10 +13,24 @@ def create_app():
 
     
     # 🔹 Habilitar CORS en toda la app
-    CORS(app, resources={r"/*": {
-        "origins": ["http://127.0.0.1:5000", "http://localhost:5000"], 
-        "supports_credentials": True # Esto es CLAVE para que Flask-Login funcione con AJAX
-    }})
+    CORS(app, resources={
+    r"/static/uploads/perfiles/*": {
+        "origins": [
+            "*",  # Puedes quitar esto si querés restringir
+            "https://lauren-extenuatory-joaquin.ngrok-free.dev"
+        ]
+    },
+    r"/*": {
+        "origins": [
+            "http://127.0.0.1:5000",
+            "http://localhost:5000",
+            "https://lauren-extenuatory-joaquin.ngrok-free.dev"
+        ],
+        "supports_credentials": True
+    }
+})
+
+
 
     # 2) Inicializa extensiones
     db.init_app(app)
