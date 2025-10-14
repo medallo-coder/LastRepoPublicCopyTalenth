@@ -45,6 +45,68 @@ def enviar_mensaje_service(id_emisor, id_receptor, texto):
     db.session.commit()
     return {"success": True, "mensaje": nuevo.to_dict()}
 
+def obtener_conversaciones_service(usuario_id):
+    """
+    Devuelve las conversaciones del usuario con:
+    - id del otro usuario
+    - nombre y foto del otro usuario
+    - último mensaje
+    - fecha del último mensaje
+    """
+    subconsulta = (
+        db.session.query(
+            db.func.max(Mensajeria.mensaje_id).label("ultimo_id")
+        )
+        .filter(
+            or_(
+                Mensajeria.id_emisor == usuario_id,
+                Mensajeria.id_receptor == usuario_id,
+            )
+        )
+        .group_by(
+            db.case(
+                (
+                    Mensajeria.id_emisor == usuario_id,
+                    Mensajeria.id_receptor,
+                ),
+                else_=Mensajeria.id_emisor,
+            )
+        )
+        .subquery()
+    )
+
+    ultimos_mensajes = (
+        db.session.query(Mensajeria)
+        .filter(Mensajeria.mensaje_id.in_(subconsulta))
+        .order_by(Mensajeria.fecha.desc())
+        .all()
+    )
+
+    conversaciones = []
+    for mensaje in ultimos_mensajes:
+        # Determinar quién es el otro usuario
+        if mensaje.id_emisor == usuario_id:
+            otro = Usuario.query.get(mensaje.id_receptor)
+        else:
+            otro = Usuario.query.get(mensaje.id_emisor)
+
+        conversaciones.append({
+    "usuario_id": otro.usuario_id if otro else None,
+    "nombre": (
+        f"{otro.perfiles.primer_nombre} {otro.perfiles.primer_apellido}"
+        if otro and otro.perfiles else "Usuario desconocido"
+    ),
+    "foto": (
+        otro.perfiles.foto_perfil
+        if otro and otro.perfiles and otro.perfiles.foto_perfil else None
+    ),
+    "ultimo_mensaje": mensaje.texto,
+    "fecha": mensaje.fecha.strftime("%Y-%m-%d %H:%M:%S"),
+    "visto": mensaje.leido
+    })
+
+    return conversaciones
+
 
 
 def guardar_calificacion_service(data):

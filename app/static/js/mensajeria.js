@@ -175,6 +175,55 @@ function refreshConversations() {
     });
 }
 
+function eliminarConversacion(otroUsuarioId) {
+    const confirmModal = document.getElementById("confirmModal");
+    
+    if (!otroUsuarioId) {
+        alert("Error: No hay chat seleccionado para eliminar.");
+        if (confirmModal) confirmModal.style.display = "none";
+        return;
+    }
+
+    console.log(`🗑️ Enviando solicitud DELETE para chat con usuario: ${otroUsuarioId}`);
+
+    // 🔥 Petición sin header 'Authorization' para usar Flask-Login/Cookie
+    fetch(`/mensajeria/eliminar_chat/${otroUsuarioId}`, {
+        method: "DELETE",
+
+        credentials: 'include'
+    })
+    .then(res => {
+        if (!res.ok) {
+            if (res.status === 401) {
+                 throw new Error("Sesión expirada. Por favor, inicia sesión de nuevo.");
+            }
+            // Intentamos leer el JSON de error del servidor
+            return res.json().then(err => {
+                throw new Error(err.mensaje || err.error || 'Error desconocido del servidor');
+            });
+        }
+        return res.json();
+    })
+    .then(data => {
+        alert(data.mensaje || "Conversación eliminada correctamente.");
+        if (confirmModal) confirmModal.style.display = "none";
+        
+        // Refrescar la interfaz para que la conversación desaparezca
+        refreshConversations();
+        
+        // Limpiar la vista del chat activo
+        document.getElementById("chatContainer").innerHTML = "";
+        document.getElementById("chatContent").classList.add("oculto");
+        document.getElementById("chatPlaceholder").classList.remove("oculto");
+        chatPartner = null; // Limpiar el chat seleccionado
+    })
+    .catch(error => {
+        console.error("Error al eliminar conversación:", error);
+        alert(`Error al eliminar: ${error.message}`);
+        if (confirmModal) confirmModal.style.display = "none";
+    });
+}
+
 refreshConversations();
 // --- BOTÓN "VER PERFIL" ---
 document.getElementById("viewProfileBtn").addEventListener("click", () => {
@@ -449,9 +498,18 @@ document.addEventListener("click", (e) => {
 
   // El botón “Aceptar” no hace nada (aún)
   if (e.target.id === "confirmDelete") {
-    console.log("🗑️ Confirmar eliminar — función aún no implementada");
-    modal.style.display = "none";
-  }
+    // Usamos la variable global 'chatPartner' (el ID del chat activo)
+    const partnerToDelete = chatPartner; 
+    
+    // Evitar el error "No hay chat seleccionado..." si ya lo estaba (el error de tu última captura)
+    if (partnerToDelete) {
+        eliminarConversacion(partnerToDelete); // 👈 ¡Llama a la función!
+    } else {
+        console.warn("No hay un chat seleccionado para eliminar.");
+        alert("Por favor, selecciona una conversación primero.");
+        modal.style.display = "none";
+    }
+  }
 });
 
 

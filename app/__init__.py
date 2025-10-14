@@ -13,7 +13,10 @@ def create_app():
 
     
     # 🔹 Habilitar CORS en toda la app
-    CORS(app, resources={r"/*": {"origins": "*"}})
+    CORS(app, resources={r"/*": {
+        "origins": ["http://127.0.0.1:5000", "http://localhost:5000"], 
+        "supports_credentials": True # Esto es CLAVE para que Flask-Login funcione con AJAX
+    }})
 
     # 2) Inicializa extensiones
     db.init_app(app)
@@ -37,6 +40,9 @@ def create_app():
     from app.services.mensajeria import mensajeria_bp
     app.register_blueprint(mensajeria_bp)
 
+    from app.services_movil.mensajeria_routes import mensajeria_movil_bp
+    app.register_blueprint(mensajeria_movil_bp)
+    
     from app.api.users import users_api
     app.register_blueprint(users_api, url_prefix="/api")
 

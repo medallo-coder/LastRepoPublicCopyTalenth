@@ -23,6 +23,41 @@ user_sid_map = {}  # Guarda: user_id → socket.id
 
 # ─── RUTAS HTTP ──────────────────────────────────────────────────────────────
 
+@mensajeria_bp.route('/eliminar_chat/<int:otro_usuario_id>', methods=['DELETE'])
+@login_required # <--- Protege la ruta con Flask-Login (tu método de autenticación)
+def eliminar_conversacion(otro_usuario_id):
+    """
+    Elimina todos los mensajes entre el usuario logueado (current_user)
+    y el otro_usuario_id.
+    """
+    usuario_logueado = current_user.usuario_id
+    
+    if usuario_logueado == otro_usuario_id:
+        return jsonify({"mensaje": "No puedes eliminar el chat contigo mismo."}), 400
+
+    try:
+        # 1. Encontrar y eliminar todos los mensajes entre ambos usuarios
+        mensajes_a_eliminar = Mensajeria.query.filter(
+            or_(
+                (Mensajeria.id_emisor == usuario_logueado) & (Mensajeria.id_receptor == otro_usuario_id),
+                (Mensajeria.id_emisor == otro_usuario_id) & (Mensajeria.id_receptor == usuario_logueado)
+            )
+        )
+        
+        # Usamos .delete() con synchronize_session='fetch' para eficiencia
+        filas_afectadas = mensajes_a_eliminar.delete(synchronize_session='fetch')
+        db.session.commit()
+        
+        print(f"🗑 {filas_afectadas} mensajes eliminados entre {usuario_logueado} y {otro_usuario_id}.")
+        
+        return jsonify({"mensaje": "Conversación eliminada correctamente.", "count": filas_afectadas}), 200
+
+    except Exception as e:
+        db.session.rollback()
+        print("❌ Error al eliminar conversación:", e)
+        return jsonify({"error": f"Error interno: {str(e)}"}), 500
+        
+
 @mensajeria_bp.route('/')
 @login_required
 def mensajeria():
@@ -90,58 +125,83 @@ from sqlalchemy import case
 @mensajeria_bp.route('/conversaciones/<int:usuario_id>', methods=['GET'])
 def obtener_conversaciones(usuario_id):
     try:
-        mensajes = Mensajeria.query.filter(
-            or_(
-                Mensajeria.id_emisor == usuario_id,
-                Mensajeria.id_receptor == usuario_id
-            )
-        ).order_by(Mensajeria.fecha.desc()).all()
+        # 1. Encontrar los IDs de los interlocutores (los "otros")
+        interlocutores_query = db.session.query(
+            case(
+                (Mensajeria.id_emisor == usuario_id, Mensajeria.id_receptor),
+                else_=Mensajeria.id_emisor
+            ).label('otro_id')
+        ).filter(
+            (Mensajeria.id_emisor == usuario_id) | (Mensajeria.id_receptor == usuario_id)
+        ).distinct()
 
-        conversaciones = {}
-
-        for m in mensajes:
-            otro_id = m.id_receptor if m.id_emisor == usuario_id else m.id_emisor
-            if otro_id not in conversaciones:
-                conversaciones[otro_id] = {
-                    'ultimo_texto': m.texto,
-                    'hora': m.fecha.strftime('%H:%M'),
-                    'pendientes': 0,
-                    'fecha': m.fecha
-                }
-            if m.id_receptor == usuario_id and not m.leido:
-                conversaciones[otro_id]['pendientes'] += 1
-
+        interlocutores_ids = [row.otro_id for row in interlocutores_query.all()]
+        
         resultado = []
-        for otro_id, datos in conversaciones.items():
+        
+        # 2. Iterar sobre cada interlocutor para obtener los datos más recientes
+        for otro_id in interlocutores_ids:
+            # Obtener el último mensaje de la conversación entre usuario_id y otro_id
+            ultimo_mensaje = Mensajeria.query.filter(
+                ((Mensajeria.id_emisor == usuario_id) & (Mensajeria.id_receptor == otro_id)) |
+                ((Mensajeria.id_emisor == otro_id) & (Mensajeria.id_receptor == usuario_id))
+            ).order_by(Mensajeria.fecha.desc()).first()
+
+            if not ultimo_mensaje:
+                continue
+
+            # Obtener el usuario y su perfil
             usuario = Usuario.query.get(otro_id)
             if not usuario:
                 continue
             perfil = perfiles.query.filter_by(id_usuario=usuario.usuario_id).first()
+            
+            # Formateo de nombre y foto (se mantiene)
             nombre = (
                 f"{perfil.primer_nombre or ''} {perfil.primer_apellido or ''}".strip()
                 if perfil and perfil.primer_nombre
-                else usuario.correo.split('@')[0]
+                else usuario.correo
             )
-            foto = perfil.foto_perfil if perfil and perfil.foto_perfil else 'default.jpg'
+            foto = perfil.foto_perfil if perfil and perfil.foto_perfil else None
+
+            # 3. Determinar el estado de lectura (SOLUCIÓN CLAVE)
+            es_mio = (ultimo_mensaje.id_emisor == usuario_id)
+            
+            if es_mio:
+                # Si el último mensaje es MÍO, el estado es 'leido' del mensaje (doble check)
+                leido_estado = getattr(ultimo_mensaje, 'leido', False) 
+            else:
+                # Si el último mensaje es del OTRO, nunca será visto (es el nuevo)
+                leido_estado = False 
+            
+            # 4. Contar mensajes pendientes
+            pendientes = Mensajeria.query.filter_by(
+                id_emisor=otro_id, 
+                id_receptor=usuario_id, 
+                leido=False
+            ).count()
 
             resultado.append({
                 'usuario_id': usuario.usuario_id,
                 'correo': usuario.correo,
                 'nombre': nombre,
                 'foto': foto,
-                'ultimo_texto': datos['ultimo_texto'],
-                'hora': datos['hora'],
-                'pendientes': datos['pendientes']
+                # 🔥 CLAVE DE RETORNO (para Flet)
+                'ultimo': ultimo_mensaje.texto,
+                'hora': ultimo_mensaje.fecha.strftime('%H:%M'),
+                'leido': leido_estado, # 🔥 ¡NUEVA CLAVE!
+                'pendientes': pendientes,
+                'fecha_orden': ultimo_mensaje.fecha.timestamp() # Para ordenar
             })
 
         # Ordenar por fecha del último mensaje
-        resultado.sort(key=lambda x: x['hora'], reverse=True)
+        resultado.sort(key=lambda x: x['fecha_orden'], reverse=True)
 
         return jsonify(resultado), 200
 
     except Exception as e:
         print("❌ Error en obtener_conversaciones:", e)
-        return jsonify({'error': 'Error interno en conversaciones'}), 500
+        return jsonify({'error': f'Error interno en conversaciones: {str(e)}'}), 500
 
 
 @mensajeria_bp.route('/usuarios', methods=['GET'])
