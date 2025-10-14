@@ -1137,12 +1137,12 @@
     border-radius: 10px;
   }
 
-   #modalTarjeta .card-tarjeta {
+  #modalTarjeta .card-tarjeta {
     flex-direction: row;
     align-items: flex-start;
     gap: 8px;
     padding: 1px 1px;
-  }
+  } 
 
   #modalTarjeta .card-tarjeta img {
     width: 90px;

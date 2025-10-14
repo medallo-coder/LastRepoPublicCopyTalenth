@@ -629,17 +629,15 @@ html, body {
   opacity: 0.8;
 }
 
-/* Icono de regresar junto a la foto */
+
+/* Por defecto: oculto */
 #backIcon {
-  font-size: 40px;           /* tamaño de la flecha */
-  color: #4fc3f7;            /* color principal */
-  cursor: pointer;           /* indicador de que es clicable */
-    display: inline-block;  /* espacio entre la flecha y la foto */
+  display: none;
+  font-size: 40px;
+  color: #3eaeb1;
+  cursor: pointer;
   transition: color 0.2s, transform 0.2s;
 }
-
-
-
 
 
 /* === RESPONSIVE === */
@@ -651,18 +649,18 @@ html, body {
   .chat-app {
     flex-direction: column; /* apilar sidebar y chat */
     width: 100%;
-    height: 100vh; /* ocupar toda la pantalla */
+    height: 100dvh; /* ocupar toda la pantalla */
     padding: 0;
     gap: 0;
     margin: 0;
-    overflow: hidden; /* evitar scroll doble */
+    overflow: visible; /* evitar scroll doble */
     
   }
 
   /* Sidebar: lista de conversaciones ocupa toda la pantalla */
   .chat-sidebar {
     width: 100%;
-    height: 100vh; /* altura completa */
+    height: 100dvh; /* altura completa */
     overflow-y: auto;
     padding: 0.5rem;
     display: flex;
@@ -674,11 +672,11 @@ html, body {
   }
 
   .conversation h2 {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
   .conversation small {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
   }
 
   /* Panel de chat individual ocupa toda la pantalla */
@@ -687,7 +685,7 @@ html, body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh; /* altura completa */
+    height: 100dvh; /* altura completa */
     background: #fff ;
     display: none; /* oculto por defecto */
     flex-direction: column;
@@ -699,17 +697,6 @@ html, body {
     display: flex !important;
   }
 
-  /* Botón regresar */
-  .back-button {
-    display: block;
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    margin: 10px;
-    color: #333;
-    cursor: pointer;
-  }
-
   /* Cabecera del chat individual */
   .chat-content .top {
     display: flex;
@@ -718,18 +705,19 @@ html, body {
   }
 
   .chat-panel .top .profile span {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
   }
 
   .chat-panel .top .profile .perfil-img,
   .chat-panel .top .profile .placeholder-icon {
-    width: 50px;
-    height: 50px;
-    font-size: 50px;
+    width: 55px;
+    height: 55px;
+    font-size: 55px;
   }
 
   /* Contenedor de mensajes ocupa todo el espacio disponible */
   .chat-content {
+    overflow-y:auto;
     flex: 1; /* ocupa todo el espacio vertical */
     display: flex;
     flex-direction: column;
@@ -748,15 +736,20 @@ html, body {
   }
 
   /* Barra de mensajes */
-  #messageBar {
-    flex-shrink: 0; /* siempre visible */
-    padding: 0.4rem 0.8rem;
-    border-top: 1px solid #ddd;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
+#messageBar {
+  flex-shrink: 0; /* mantiene su tamaño */
+  padding: 0.4rem 0.8rem;
+  border-top: 1px solid #ddd;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  position: sticky; /* ✅ se mantiene visible al hacer scroll */
+  bottom: 0;         /* ✅ anclado al fondo del contenedor */
+  z-index: 10;       /* ✅ por encima del contenido */
+}
+
 
   #messageBar button i {
     font-size: 20px;
@@ -792,6 +785,11 @@ html, body {
     padding: 0.3rem 1rem;
     top: 40px;
     
+  }
+
+  #backIcon {
+    display: block;
+    margin-right: 0.5rem;
   }
 }
 

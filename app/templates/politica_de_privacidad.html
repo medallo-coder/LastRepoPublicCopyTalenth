@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Política de Privacidad - CaliTrabaja!</title>
+  <meta name="description" content="Política de Privacidad de la plataforma CaliTrabaja!">
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#111111;
+      --muted:#555555;
+      --accent:#3eaeb1;
+      --container-width:900px;
+      font-family: 'Oswald Variable';
+    }
+    html,body{height:100%;margin:0;background:var(--bg);color:var(--text)}
+    .wrap{max-width:var(--container-width);margin:40px auto;padding:28px;border-radius:12px;box-shadow:0 6px 30px rgba(0,0,0,0.06)}
+    header{display:flex;align-items:center;gap:16px}
+    .logo{width:56px;height:56px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700}
+    h1{margin:0;font-size:1.6rem}
+    .muted{color:var(--muted)}
+    time{display:block;margin-top:6px;color:var(--muted)}
+    hr{border:none;border-top:1px solid #eee;margin:20px 0}
+    section{margin-bottom:16px}
+    h2{font-size:1.05rem;margin:12px 0}
+    p{line-height:1.6;margin:8px 0}
+    ul{margin:8px 0 8px 20px}
+    .contact{background:#f8f8f8;padding:12px;border-radius:8px}
+    footer{margin-top:20px;font-size:0.95rem;color:var(--muted)}
+    @media (max-width:600px){.wrap{margin:16px;padding:18px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">
+        <a href="/" class="link">
+          <img src="{{ url_for('static', filename='images/Vector.svg') }}" alt="logo" class="logo">
+      </a>
+      </div>
+      <div>
+        <h1>Política de Privacidad – CaliTrabaja!</h1>
+        <time>Última actualización: Octubre 2025</time>
+      </div>
+    </header>
+
+    <hr>
+
+    <section id="responsable">
+      <h2>1. Responsable del Tratamiento</h2>
+      <p><strong>CaliTrabaja!</strong> (en adelante “la Plataforma”) es responsable del tratamiento de los datos personales recolectados a través de su sitio web y aplicación.</p>
+      <div class="contact"><a href="mailto:soporte@calitrabaja.com">soporte@calitrabaja.com</a></div>
+    </section>
+
+    <section id="datos-recolectados">
+      <h2>2. Datos que Recolectamos</h2>
+      <ul>
+        <li>Datos personales básicos: nombre, apellidos, correo electrónico, barrio, foto de perfil.</li>
+        <li>Información de perfil profesional (para expertos).</li>
+        <li>Datos de uso: navegación, búsquedas, publicaciones creadas, interacciones, reseñas.</li>
+        <li>Información técnica: IP, navegador, dispositivo.</li>
+      </ul>
+    </section>
+
+    <section id="finalidades">
+      <h2>3. Finalidades del Tratamiento</h2>
+      <p>Los datos se utilizan para:</p>
+      <ul>
+        <li>Crear y administrar cuentas de usuario.</li>
+        <li>Permitir interacción entre clientes y expertos.</li>
+        <li>Enviar notificaciones, confirmaciones y mensajes internos.</li>
+        <li>Mantener la seguridad de la plataforma.</li>
+        <li>Mejorar la experiencia del usuario y realizar análisis internos.</li>
+      </ul>
+    </section>
+
+    <section id="financiera">
+      <h2>4. Tratamiento de Información Financiera</h2>
+      <p><strong>CaliTrabaja!</strong> no procesa pagos entre clientes y expertos.</p>
+      <p>Solo recolecta información relacionada con pagos de promociones de publicaciones, a través de pasarelas seguras de terceros.</p>
+    </section>
+
+    <section id="derechos">
+      <h2>5. Derechos de los Usuarios</h2>
+      <p>De acuerdo con la Ley 1581 de 2012, los usuarios tienen derecho a:</p>
+      <ul>
+        <li>Acceder a sus datos.</li>
+        <li>Actualizarlos, rectificarlos o eliminarlos.</li>
+        <li>Revocar la autorización de uso de datos.</li>
+      </ul>
+      <p>Para ejercerlos, pueden escribir a:</p>
+      <div class="contact"><a href="mailto:soporte@calitrabaja.com">soporte@calitrabaja.com</a></div>
+    </section>
+
+    <section id="conservacion">
+      <h2>6. Conservación de Datos</h2>
+      <p>Los datos se conservarán mientras el usuario tenga cuenta activa o sea necesario para cumplir obligaciones legales o de seguridad.</p>
+    </section>
+
+    <section id="seguridad">
+      <h2>7. Seguridad</h2>
+      <p>Implementamos medidas técnicas y organizativas para proteger la información contra accesos no autorizados, pérdida o uso indebido.</p>
+    </section>
+
+    <section id="transferencia">
+      <h2>8. Transferencia de Datos</h2>
+      <p>No compartimos datos personales con terceros, excepto cuando:</p>
+      <ul>
+        <li>Sea requerido por ley o autoridad competente.</li>
+        <li>Se trate de proveedores tecnológicos que actúan en nombre de la plataforma bajo acuerdos de confidencialidad.</li>
+      </ul>
+    </section>
+
+    <section id="cambios">
+      <h2>9. Cambios en esta Política</h2>
+      <p>Nos reservamos el derecho de modificar esta Política en cualquier momento. Los cambios se publicarán en la plataforma.</p>
+    </section>
+
+    <footer>
+      <p class="muted">Documento: Política de Privacidad – CaliTrabaja!. Última actualización: Octubre 2025.</p>
+    </footer>
+  </div>
+</body>
+</html>

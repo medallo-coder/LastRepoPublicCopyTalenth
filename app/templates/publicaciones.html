@@ -288,20 +288,6 @@ body.no-scroll {
 }
 
 
-#modalCerrarSesion .modal-content {
-  all: unset;
-  background-color: #fff;
-  padding: 25px;
-  border-radius: 25px;
-  text-align: center;
-  width: 100%;
-  max-width: 400px;
-  position: relative;
-  font-family: 'Oswald', sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 
 /*-----------------------------------------------
   RESPONSIVE
@@ -309,12 +295,6 @@ body.no-scroll {
 
 /* Pantallas pequeñas <768px */
 @media (max-width: 768px) {
-  #modalCerrarSesion .modal-content {
-    width: 85% !important;
-    max-width: 400px !important;
-    padding: 20px !important;
-    border-radius: 20px !important;
-  }
   .contenedor-principal {
     width: 95% !important;
     max-width: 95% !important;
@@ -330,12 +310,46 @@ body.no-scroll {
     min-width: 250px !important;
   }
 
-  #modalTarjeta .modal-content {
-    width: 95% !important;
-    max-width: 95% !important;
-    min-width: auto !important;
+   #modalTarjeta .modal-content {
+    width: 90% !important;      /* un poco más ancho que antes */
+    max-width: 400px !important;
+    min-width: 300px !important;
+    padding: 10px !important;   /* reducir padding para más espacio de descripción */
     border-radius: 10px;
+    max-height: 80vh;           /* altura máxima más pequeña */
+    overflow-y: auto;           /* scroll solo si hace falta */
   }
+
+  /* Tarjeta dentro del modal */
+  #modalTarjeta .card-tarjeta {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 1px 1px;
+  }
+
+  /* Imagen */
+  #modalTarjeta .card-tarjeta img {
+    width: 90px;
+    height: 190px;
+    margin-right: 5px;         /* imagen a la izquierda */
+  }
+
+  /* Contenido textual */
+  #modalTarjeta .card-content {
+    padding-bottom: 5px;
+    
+  }
+
+
+
+  /* Cerrar modal (X) más compacto */
+  #modalTarjeta .close-button {
+    font-size: 2rem;
+    top: 5px;
+    right: 15px;
+  }
+  
 }
 
 /* Pantallas medianas 769px - 1200px */
@@ -359,8 +373,6 @@ body.no-scroll {
     width: 70vw; /* lo que tenías originalmente */
     max-width: 1050px;
   }
-
-  
 }
 
 

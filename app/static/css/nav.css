@@ -211,17 +211,35 @@
     color: #3EAEB1;
 }
 
+body.no-scroll {
+    overflow: hidden; /* Bloquea scroll vertical y horizontal */
+    height: 100%;     /* Evita que se pueda hacer scroll con touch en móvil */
+}
+
+
 /*-----------------------------------------------
  Estilos para icono de favoritos (estrella/bookmark)
 -----------------------------------------------*/
 .ulfavorito {
-    margin-left: -20px;
-    margin-right: 10px;
+    display: flex;          /* Flex para centrar contenido */
+    align-items: center;    /* Centrado vertical */
+    justify-content: center;/* Centrado horizontal dentro de su contenedor */
+    margin: 0 10px;         /* Ajusta separación izquierda/derecha */
+    height: 80px;           /* Igual que la altura del header */
 }
+
+.lifavorito {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
 .estrella {
     font-size: 40px;
     color: black;
-    top: 55px; /* Parece posicionar el icono verticalmente */
+    position: relative;     /* Para poder ajustar top si se necesita */
+    top: 0;                 /* Centrado vertical exacto */
 }
 
 /*-----------------------------------------------
@@ -675,8 +693,8 @@
         flex-shrink: 0;
         display: flex;
         align-items: center;
-        gap: 5px;
-        margin-top: 11px;
+        
+        
     }
 
     .btreg, .btini {

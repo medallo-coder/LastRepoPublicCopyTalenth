@@ -48,6 +48,7 @@ html, body {
 
 /* Botones */
 .btn-primary {
+  width: 150px; 
     background-color: #3EAEB1;
     color: white;
     padding: 10px 20px;
@@ -59,7 +60,9 @@ html, body {
     outline: none; /* 🔹 Previene bordes que aparecen al hacer clic */
 }
 
+
 .btn-primary2 {
+   width: 150px; 
     background-color: #3EAEB1;
     color: white;
     padding: 10px 20px;
@@ -90,6 +93,7 @@ html, body {
 }
 
 .btn-secondary {
+  width: 150px; 
     background-color: #f8f8f8;
     color: gray;
     padding: 10px 20px;
@@ -510,7 +514,13 @@ input, select {
   .btn-primary , .btn-secondary{
       margin-left: 15px; 
     padding: 5px 25px;
-    
+  }
+
+  .btn-primary2 , .btn-secondary{
+    width: 135px;
+    padding: 10px 20px;
+
+  }
 }
 
 .input-contenedor .toggle-password {
@@ -535,7 +545,7 @@ input, select {
   max-width: 400px;
   
 }
-}
+
 
 /* Celulares */
 @media (max-width: 480px) {
@@ -552,4 +562,10 @@ input, select {
  
 }
 
+@media (max-width: 344px){
+  .btn-primary2 , .btn-secondary{
+    width: 120px;
+    padding: 10px 0;
 
+  }
+}
